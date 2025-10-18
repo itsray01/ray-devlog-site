@@ -95,7 +95,8 @@ html, body {
   backdrop-filter: blur(30px) saturate(180%);
   border-right: 1px solid var(--glass-border);
   padding: 2rem 1.5rem;
-  position: fixed;
+  position: sticky;
+  top: 0;
   height: 100vh;
   overflow-y: auto;
   z-index: 100;
