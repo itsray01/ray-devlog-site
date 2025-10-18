@@ -344,12 +344,13 @@ html, body {
   z-index: 1;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Changed from center to move content left */
+  padding-left: 4rem; /* Added left padding for spacing */
 }
 
 main {
   max-width: 1560px; /* Extended by 30% from 1200px */
-  margin: 0 auto;
+  margin: 0; /* Removed auto centering to align left */
 }
 
 /* --- Page Container --- */
