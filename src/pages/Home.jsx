@@ -211,7 +211,17 @@ const Home = () => {
           <div className="grid-2x3">
             {visualReferenceData.map((item, idx) => (
               <figure className="grid-tile" key={idx}>
-                <img src={item.image} alt={item.title} loading="lazy" />
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error('Image failed to load:', item.image);
+                    e.target.style.border = '2px solid red';
+                    e.target.style.backgroundColor = '#ff000020';
+                  }}
+                  onLoad={() => console.log('Image loaded:', item.image)}
+                />
                 <figcaption>
                   <strong>{item.title}</strong>
                   <br />
@@ -257,7 +267,16 @@ const Home = () => {
           <div className="grid-2x3">
             {moodboardData.map(item => (
               <figure className="grid-tile" key={item.id}>
-                <img src={item.src} alt={item.title} loading="lazy" />
+                <img 
+                  src={item.src} 
+                  alt={item.title} 
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error('Moodboard image failed:', item.src);
+                    e.target.style.border = '2px solid red';
+                  }}
+                  onLoad={() => console.log('Moodboard image loaded:', item.src)}
+                />
                 <figcaption>{item.title}</figcaption>
               </figure>
             ))}
@@ -284,7 +303,16 @@ const Home = () => {
           <div className="grid-2x3">
             {storyboardData.map(item => (
               <figure className="grid-tile" key={item.id}>
-                <img src={item.src} alt={item.title} loading="lazy" />
+                <img 
+                  src={item.src} 
+                  alt={item.title} 
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error('Storyboard image failed:', item.src);
+                    e.target.style.border = '2px solid red';
+                  }}
+                  onLoad={() => console.log('Storyboard image loaded:', item.src)}
+                />
                 <figcaption>{item.title}</figcaption>
               </figure>
             ))}
@@ -349,7 +377,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Technical Experiments Section */}
+      {/* Technical Experiments Section */} 
       <motion.section
         id="experiments"
         className="content-section"
