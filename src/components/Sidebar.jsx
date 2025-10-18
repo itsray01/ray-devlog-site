@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 /**
  * Sidebar component with nested navigation
@@ -9,21 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isHomeExpanded, setIsHomeExpanded] = useState(true);
-  const [activeSection, setActiveSection] = useState('');
-
-  // Define all sections that appear under Home
-  const homeSections = [
-    { id: 'overview', title: 'Overview' },
-    { id: 'inspiration', title: 'Inspiration' },
-    { id: 'moodboard', title: 'Moodboard' },
-    { id: 'storyboard', title: 'Storyboard' },
-    { id: 'branching', title: 'Branching Narrative' },
-    { id: 'experiments', title: 'Technical Experiments' },
-    { id: 'audience', title: 'Audience & Accessibility' },
-    { id: 'production', title: 'Production & Reflection' },
-    { id: 'references', title: 'References' }
-  ];
 
   // Other navigation pages
   const otherPages = [
@@ -34,62 +18,6 @@ const Sidebar = () => {
 
   // Check if we're on the home page
   const isHomePage = location.pathname === '/';
-
-  // Auto-expand Home when on home page
-  useEffect(() => {
-    if (isHomePage) {
-      setIsHomeExpanded(true);
-    }
-  }, [isHomePage]);
-
-  // Scroll spy to track active section
-  useEffect(() => {
-    if (!isHomePage) return;
-
-    const handleScroll = () => {
-      const sections = homeSections.map(s => document.getElementById(s.id));
-      const scrollPosition = window.scrollY + 200;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(homeSections[i].id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
-
-  // Handle section click
-  const handleSectionClick = (sectionId) => {
-    if (!isHomePage) {
-      // Navigate to home first, then scroll
-      navigate('/');
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    } else {
-      // Just scroll
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-    setActiveSection(sectionId);
-  };
-
-  // Toggle Home expansion
-  const toggleHome = () => {
-    setIsHomeExpanded(!isHomeExpanded);
-  };
 
   // Animation variants
   const sidebarVariants = {
@@ -103,38 +31,6 @@ const Sidebar = () => {
         damping: 20
       }
     }
-  };
-
-  const sectionVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: { 
-      opacity: 1, 
-      height: 'auto',
-      transition: { 
-        duration: 0.3,
-        ease: "easeInOut"
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      height: 0,
-      transition: { 
-        duration: 0.2,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: (i) => ({
-      x: 0,
-      opacity: 1,
-      transition: {
-        delay: i * 0.05,
-        duration: 0.2
-      }
-    })
   };
 
   return (
@@ -157,51 +53,20 @@ const Sidebar = () => {
 
         {/* Navigation */}
         <nav className="sidebar-nav">
-          {/* Home Section (expandable) */}
+          {/* Home Section (simple link) */}
           <div className="nav-section">
-            <motion.button
+            <Link
+              to="/"
               className={`nav-item nav-item-main ${isHomePage ? 'active' : ''}`}
-              onClick={toggleHome}
-              whileHover={{ x: 5 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <span className="nav-item-text">Home</span>
-              <motion.span 
-                className="nav-arrow"
-                animate={{ rotate: isHomeExpanded ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
+              <motion.div
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ width: '100%' }}
               >
-                ▶
-              </motion.span>
-            </motion.button>
-
-            {/* Home subsections */}
-            <AnimatePresence>
-              {isHomeExpanded && (
-                <motion.div
-                  className="nav-subsections"
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={sectionVariants}
-                >
-                  {homeSections.map((section, index) => (
-                    <motion.button
-                      key={section.id}
-                      className={`nav-item nav-item-sub ${activeSection === section.id && isHomePage ? 'active' : ''}`}
-                      onClick={() => handleSectionClick(section.id)}
-                      custom={index}
-                      variants={itemVariants}
-                      whileHover={{ x: 8 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <span className="nav-bullet">•</span>
-                      <span className="nav-item-text">{section.title}</span>
-                    </motion.button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                <span className="nav-item-text">Home</span>
+              </motion.div>
+            </Link>
           </div>
 
           {/* Divider */}
