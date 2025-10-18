@@ -1052,6 +1052,9 @@ html {
   border-radius: 12px;
   background: #1a1f29;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  /* Debug: Add visible border to see if images are there */
+  border: 2px solid rgba(138, 43, 226, 0.5);
+  min-height: 100px;
 }
 
 .grid-tile figcaption {
