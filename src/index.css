@@ -237,6 +237,18 @@ html, body {
   visibility: hidden;
 }
 
+/* Invisible bridge to keep dropdown open */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  left: -20%;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background: transparent;
+  pointer-events: auto;
+}
+
 .nav-item-container:hover .nav-dropdown {
   opacity: 1;
   transform: translateX(0) scale(1);
