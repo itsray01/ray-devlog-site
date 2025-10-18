@@ -1,20 +1,55 @@
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * Sidebar component with simplified navigation
- * Shows page links without complex functionality
+ * Sidebar component with hover dropdown navigation
+ * Shows page links with hover dropdown for Home sections
  */
 const Sidebar = () => {
   const location = useLocation();
 
-  // Navigation pages
-  const pages = [
-    { path: '/', title: 'Home' },
+  // Home sections for dropdown
+  const homeSections = [
+    { id: 'overview', title: 'Overview' },
+    { id: 'inspiration', title: 'Inspiration' },
+    { id: 'moodboard', title: 'Moodboard' },
+    { id: 'storyboard', title: 'Storyboard' },
+    { id: 'branching', title: 'Branching Narrative' },
+    { id: 'experiments', title: 'Technical Experiments' },
+    { id: 'audience', title: 'Audience & Accessibility' },
+    { id: 'production', title: 'Production & Reflection' },
+    { id: 'references', title: 'References' }
+  ];
+
+  // Other navigation pages
+  const otherPages = [
     { path: '/assets', title: 'Assets' },
     { path: '/about', title: 'About' },
     { path: '/extras', title: 'Extras' }
   ];
+
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/';
+
+  // Handle section click
+  const handleSectionClick = (sectionId) => {
+    if (!isHomePage) {
+      // Navigate to home first, then scroll
+      window.location.href = '/';
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      // Just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
 
   // Animation variants
   const sidebarVariants = {
@@ -26,6 +61,32 @@ const Sidebar = () => {
         type: "spring",
         stiffness: 100,
         damping: 20
+      }
+    }
+  };
+
+  const dropdownVariants = {
+    hidden: { 
+      x: -20, 
+      opacity: 0,
+      scale: 0.95
+    },
+    visible: { 
+      x: 0, 
+      opacity: 1,
+      scale: 1,
+      transition: { 
+        duration: 0.2,
+        ease: "easeOut"
+      }
+    },
+    exit: { 
+      x: -20, 
+      opacity: 0,
+      scale: 0.95,
+      transition: { 
+        duration: 0.15,
+        ease: "easeIn"
       }
     }
   };
@@ -51,7 +112,50 @@ const Sidebar = () => {
         {/* Navigation */}
         <nav className="sidebar-nav">
           <div className="nav-section">
-            {pages.map((page) => (
+            {/* Home with hover dropdown */}
+            <div className="nav-item-container">
+              <Link
+                to="/"
+                className={`nav-item nav-item-main ${isHomePage ? 'active' : ''}`}
+              >
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ width: '100%' }}
+                >
+                  <span className="nav-item-text">Home</span>
+                </motion.div>
+              </Link>
+              
+              {/* Hover dropdown */}
+              <motion.div 
+                className="nav-dropdown"
+                initial="hidden"
+                whileHover="visible"
+                variants={dropdownVariants}
+              >
+                <div className="dropdown-content">
+                  {homeSections.map((section, index) => (
+                    <motion.button
+                      key={section.id}
+                      className="dropdown-item"
+                      onClick={() => handleSectionClick(section.id)}
+                      whileHover={{ x: 5, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <span className="dropdown-bullet">•</span>
+                      <span className="dropdown-text">{section.title}</span>
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Other Pages */}
+            {otherPages.map((page) => (
               <Link
                 key={page.path}
                 to={page.path}

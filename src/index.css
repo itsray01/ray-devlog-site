@@ -220,6 +220,68 @@ html, body {
   padding-left: 2rem;
 }
 
+/* Navigation item container for dropdown */
+.nav-item-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Hover dropdown */
+.nav-dropdown {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.nav-item-container:hover .nav-dropdown {
+  pointer-events: auto;
+}
+
+.dropdown-content {
+  background: var(--panel-glass);
+  backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.5rem;
+  min-width: 200px;
+  box-shadow: 8px 8px 32px rgba(0, 0, 0, 0.4);
+  margin-left: 8px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(138, 43, 226, 0.1);
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+.dropdown-bullet {
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+.dropdown-text {
+  flex: 1;
+}
+
 .nav-subsections {
   display: flex;
   flex-direction: column;
