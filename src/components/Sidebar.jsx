@@ -128,12 +128,7 @@ const Sidebar = () => {
               </Link>
               
               {/* Hover dropdown */}
-              <motion.div 
-                className="nav-dropdown"
-                initial="hidden"
-                whileHover="visible"
-                variants={dropdownVariants}
-              >
+              <div className="nav-dropdown">
                 <div className="dropdown-content">
                   {homeSections.map((section, index) => (
                     <motion.button
@@ -151,7 +146,7 @@ const Sidebar = () => {
                     </motion.button>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Other Pages */}
