@@ -345,7 +345,7 @@ html, body {
   min-height: 100vh;
   display: flex;
   justify-content: flex-start; /* Changed from center to move content left */
-  padding-left: 4rem; /* Added left padding for spacing */
+  padding-left: 1rem; /* Reduced left padding to extend content left */
 }
 
 main {
