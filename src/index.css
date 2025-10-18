@@ -165,8 +165,8 @@ html, body {
   text-decoration: none;
   font-family: 'Rajdhani', sans-serif;
   font-weight: 500;
-  padding: 0.875rem 0;
-  margin: 0 1.5rem;
+  padding: 0.875rem 1.125rem;
+  margin: 0;
   border-radius: 12px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid transparent;
@@ -175,10 +175,11 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: calc(100% - 3rem);
+  width: 100%;
   text-align: left;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .nav-item::before {
@@ -233,9 +234,9 @@ html, body {
 
 /* Ensure Home item aligns with others */
 .nav-item-container .nav-item {
-  margin: 0 1.5rem;
-  padding: 0.875rem 0;
-  width: calc(100% - 3rem);
+  margin: 0;
+  padding: 0.875rem 1.125rem;
+  width: 100%;
   box-sizing: border-box;
 }
 
