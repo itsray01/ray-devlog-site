@@ -90,7 +90,7 @@ html, body {
 
 /* --- Sidebar --- */
 .sidebar {
-  width: 320px;
+  width: 280px;
   background: var(--panel-glass);
   backdrop-filter: blur(30px) saturate(180%);
   border-right: 1px solid var(--glass-border);
@@ -116,7 +116,7 @@ html, body {
 
 .sidebar-logo {
   font-family: 'Iceberg', sans-serif;
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   letter-spacing: .15em;
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   -webkit-background-clip: text;
@@ -147,6 +147,7 @@ html, body {
   gap: 1rem;
   width: 100%;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-section {
@@ -252,7 +253,7 @@ html, body {
 
 /* --- Main Content --- */
 .main-content {
-  margin-left: 320px;
+  margin-left: 280px;
   flex: 1;
   padding: 2rem;
   position: relative;
@@ -264,7 +265,7 @@ html, body {
 
 main {
   max-width: 1200px;
-  width: 100%;
+  margin: 0 auto;
 }
 
 /* --- Page Container --- */
@@ -695,11 +696,11 @@ footer {
 /* --- Responsive Design --- */
 @media (max-width: 860px) {
   .sidebar {
-    width: 250px;
+    width: 220px;
   }
   
   .main-content {
-    margin-left: 250px;
+    margin-left: 220px;
   }
   
   .grid-2 { 
