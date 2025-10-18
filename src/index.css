@@ -348,7 +348,7 @@ html, body {
 }
 
 main {
-  max-width: 1200px;
+  max-width: 1560px; /* Extended by 30% from 1200px */
   margin: 0 auto;
 }
 
