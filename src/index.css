@@ -119,11 +119,8 @@ html, body {
   font-family: 'Iceberg', sans-serif;
   font-size: 1.75rem;
   letter-spacing: .15em;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: none;
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
   margin-bottom: 1rem;
   display: block;
   text-decoration: none;
@@ -132,10 +129,8 @@ html, body {
 }
 
 .sidebar-logo:hover {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accent-secondary);
+  text-shadow: 0 0 15px rgba(6, 182, 212, 0.7);
   transform: scale(1.05);
 }
 
