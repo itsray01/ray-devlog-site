@@ -90,7 +90,7 @@ html, body {
 
 /* --- Sidebar --- */
 .sidebar {
-  width: 300px;
+  width: 320px;
   background: var(--panel-glass);
   backdrop-filter: blur(30px) saturate(180%);
   border-right: 1px solid var(--glass-border);
@@ -252,12 +252,14 @@ html, body {
 
 /* --- Main Content --- */
 .main-content {
-  margin-left: 250px;
+  margin-left: 320px;
   flex: 1;
   padding: 2rem;
   position: relative;
   z-index: 1;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
 main {
