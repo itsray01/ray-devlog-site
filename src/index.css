@@ -183,12 +183,17 @@ html, body {
 }
 
 .nav-item:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: var(--accent-primary);
   color: var(--accent-primary);
   transform: translateX(4px);
 }
 
 .nav-item.active {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: var(--accent-primary);
   color: var(--accent-primary);
+  box-shadow: var(--glow-purple);
 }
 
 .nav-item-main {
