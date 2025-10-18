@@ -1,0 +1,72 @@
+[
+  {
+    "date": "3rd October 2025",
+    "title": "Project Proposal Submission",
+    "task": "Submit project proposal outlining the concept, research question, and intended outcomes for the interactive film."
+  },
+  {
+    "date": "Week of 13th October 2025",
+    "title": "Narrative Research & Outline",
+    "task": "Begin drafting the narrative outline in Twine. Research horror conventions and AI anxieties for integration into the story. Experiment with ChatGPT for branching dialogue and scene scripting."
+  },
+  {
+    "date": "Week of 20th October 2025",
+    "title": "Prototype Development (Phase 1)",
+    "task": "Build the first Twine prototype with placeholder choices. Test branching structure and timed decision mechanics to establish player pacing and flow."
+  },
+  {
+    "date": "Week of 27th October 2025",
+    "title": "Asset Generation & Integration",
+    "task": "Generate draft video and audio assets using Veo3, NanoBanana, Kling (visuals), and ElevenLabs/Suno (sound). Integrate assets into the Twine prototype for visual testing."
+  },
+  {
+    "date": "Week of 3rd November 2025",
+    "title": "Internal Playtesting",
+    "task": "Conduct internal playtests to check functionality, immersion, and horror pacing. Gather feedback on user experience, narrative clarity, and tension levels."
+  },
+  {
+    "date": "Week of 10th November 2025",
+    "title": "Prototype Refinement",
+    "task": "Revise prototype based on feedback. Improve consistency between visuals and audio tone, and refine transitions between choice outcomes."
+  },
+  {
+    "date": "Week of 17th November 2025",
+    "title": "Final Prototype Preparation",
+    "task": "Finalise prototype build for submission. Ensure all branches are functional and placeholder assets are replaced with near-final visuals and sound."
+  },
+  {
+    "date": "20th November 2025",
+    "title": "Design Prototype Submission",
+    "task": "Submit the final design prototype before the Christmas break. Prepare supporting documentation and design rationale."
+  },
+  {
+    "date": "December 2025 – January 2026",
+    "title": "Christmas Break",
+    "task": "Minimal project activity during the break. Conduct light reflection and note areas for improvement for Term 2 development."
+  },
+  {
+    "date": "Week of 19th January 2026",
+    "title": "Development Resumption",
+    "task": "Resume development post-break. Conduct further playtesting with peers and collect reflections on horror impact and AI-related themes."
+  },
+  {
+    "date": "February 2026",
+    "title": "Analysis & Essay Drafting",
+    "task": "Analyse playtesting results and begin drafting the 4,000-word essay and reflective development log. Continue refining portfolio structure."
+  },
+  {
+    "date": "March 2026",
+    "title": "Portfolio Completion",
+    "task": "Complete portfolio artefact (interactive horror film in Twine). Polish the reflective essay and development log. Seek supervisor feedback for refinement."
+  },
+  {
+    "date": "Week of 30th March 2026",
+    "title": "Final Revisions",
+    "task": "Apply supervisor feedback and complete final revisions to the portfolio, essay, and development log in preparation for submission."
+  },
+  {
+    "date": "10th April 2026",
+    "title": "Final Submission",
+    "task": "Submit portfolio, 4,000-word essay, and development log. Conclude the project with final reflections on the design process and outcomes."
+  }
+]

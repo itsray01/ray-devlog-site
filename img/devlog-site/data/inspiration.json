@@ -1,0 +1,62 @@
+{
+  "interactive": [
+    {
+      "title": "Black Mirror: Bandersnatch",
+      "year": "2018",
+      "influence": "Branching narrative structure, viewer agency as theme, meta-commentary on choice",
+      "image": "/img/black-mirror.jpg"
+    },
+    {
+      "title": "Detroit: Become Human",
+      "year": "2018",
+      "influence": "Multi-character perspective shifts, consequence visualization, AI autonomy narrative",
+      "image": "/img/detroit.jpg"
+    },
+    {
+      "title": "The Stanley Parable",
+      "year": "2013",
+      "influence": "Narrator-player tension, illusion of choice, meta-narrative experimentation",
+      "image": "/img/stanley-parable.jpg"
+    }
+  ],
+  "games": [
+    {
+      "title": "Portal / Portal 2",
+      "year": "2007 / 2011",
+      "influence": "GLaDOS AI voice design, dark humor in dystopia, environmental storytelling through facility architecture",
+      "image": "/img/portal.jpg"
+    },
+    {
+      "title": "SOMA",
+      "year": "2015",
+      "influence": "Consciousness transfer ethics, horror from existential dread, underwater isolation aesthetics",
+      "image": "/img/soma.jpg"
+    },
+    {
+      "title": "Control",
+      "year": "2019",
+      "influence": "Brutalist architecture, government paranoia, shifting reality mechanics",
+      "image": "/img/control.jpg"
+    }
+  ],
+  "design": [
+    {
+      "title": "Blade Runner (1982)",
+      "designer": "Syd Mead",
+      "influence": "Neon-noir lighting, industrial decay, vertical urban density, rain-soaked reflections",
+      "image": "/img/blade-runner.jpg"
+    },
+    {
+      "title": "Ex Machina (2014)",
+      "designer": "Mark Digby",
+      "influence": "Minimalist AI lab design, glass-wall confinement metaphors, cold clinical color palettes",
+      "image": "/img/ex-machina.jpg"
+    },
+    {
+      "title": "Cyberpunk UI Design",
+      "designer": "Various",
+      "influence": "Holographic data overlays, glitch aesthetics, monospace system fonts, grid-based HUDs",
+      "image": "/img/cyberpunk.jpg"
+    }
+  ]
+}

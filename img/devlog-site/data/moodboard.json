@@ -1,0 +1,9 @@
+[
+  { "id": "1", "title": "Frame 1", "src": "/img/moodboard-1.png" },
+  { "id": "2", "title": "Frame 2", "src": "/img/moodboard-2.png" },
+  { "id": "3", "title": "Frame 3", "src": "/img/moodboard-3.png" },
+  { "id": "4", "title": "Frame 4", "src": "/img/moodboard-4.png" },
+  { "id": "5", "title": "Frame 5", "src": "/img/moodboard-5.png" },
+  { "id": "6", "title": "Frame 6", "src": "/img/moodboard-6.png" }
+]
+

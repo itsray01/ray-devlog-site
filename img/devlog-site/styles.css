@@ -1,0 +1,304 @@
+/* --- Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Rajdhani:wght@400;500;600&display=swap');
+
+/* --- Color Palette & Global Variables --- */
+:root {
+  --bg: #0a0b0d;
+  --panel: #0f1115;
+  --panel-2: #0b0d11;
+  --ink: #e6e7ea;
+  --muted: #9aa0a6;
+  --accent: #8a2be2;
+  --ok: #3ddc97;
+  --warn: #ffb703;
+  --err: #e63946;
+  --glow: 0 0 18px rgba(138, 43, 226, .55);
+}
+
+/* --- Page Background (replace img/bg.jpg with your file) --- */
+html, body {
+  height: 100%;
+  margin: 0;
+  color: var(--ink);
+  background:
+    linear-gradient(rgba(10,11,13,0.75), rgba(7,8,10,0.85)),
+    url("img/bg.png") center center / cover no-repeat fixed;
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  /* Temporary: ensure background doesn't interfere with text */
+  background-color: var(--bg);
+}
+
+/* --- Header & Navigation --- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .7rem 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.12));
+  border-bottom: 1px solid #151821;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.logo {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: .12em;
+  color: var(--ink);
+  text-shadow: 0 0 8px rgba(138,43,226,0.4);
+}
+
+nav {
+  display: flex;
+  gap: 1.2rem;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  transition: .2s color;
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--accent);
+}
+
+/* --- Section Chips Bar --- */
+#sections-bar {
+  position: sticky;
+  top: 60px;
+  z-index: 900;
+  background: linear-gradient(180deg, rgba(10,11,13,.92), rgba(10,11,13,.86));
+  border-bottom: 1px solid #1d1f25;
+  backdrop-filter: blur(6px);
+}
+.sections-wrap {
+  display: flex;
+  gap: .5rem;
+  padding: .6rem 1.25rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.section-chip {
+  white-space: nowrap;
+  padding: .4rem .7rem;
+  border-radius: 999px;
+  border: 1px solid #22262f;
+  background: #13161b;
+  color: var(--muted);
+  font-size: .9rem;
+  cursor: pointer;
+  transition: .15s;
+  font-family: 'Rajdhani', sans-serif;
+}
+.section-chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.section-chip.active {
+  background: #1a1e25;
+  border-color: var(--accent);
+  color: var(--ink);
+  box-shadow: 0 0 0 2px rgba(138,43,226,.15) inset;
+}
+
+/* --- Main Content Layout --- */
+#home {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 1.2rem 1.25rem 2.5rem;
+  /* Ensure content is visible */
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  /* Temporary: add background to make content visible */
+  background: rgba(10, 11, 13, 0.95);
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+#home section {
+  margin: 1.25rem 0 2rem;
+  /* Ensure sections are visible */
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+#home h2 {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 1.6rem;
+  margin: .2rem 0 .8rem;
+  border-bottom: 1px solid #22262f;
+  padding-bottom: .45rem;
+  color: var(--ink);
+  text-shadow: 0 0 8px rgba(138,43,226,0.3);
+  letter-spacing: .05em;
+}
+
+#home h3 {
+  font-family: 'Iceberg', sans-serif;
+  color: var(--accent);
+  letter-spacing: .04em;
+  margin-top: 0;
+}
+
+/* Ensure all text content is visible */
+#home p, #home li, #home div {
+  color: var(--ink);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Cards & Entries --- */
+.card {
+  background: var(--panel);
+  border: 1px solid #1c1f26;
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 0 18px rgba(0,0,0,.45);
+  /* Ensure cards are visible */
+  opacity: 1;
+  visibility: visible;
+  color: var(--ink);
+}
+
+.note + .note {
+  margin-top: 1rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.bullets {
+  margin: .4rem 0 .6rem 1rem;
+}
+.bullets li {
+  margin: .15rem 0;
+}
+
+/* --- Media & Moodboard Layout --- */
+.media-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .6rem;
+  margin-top: .6rem;
+}
+.media-row img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #1c1f26;
+}
+.media-row figcaption {
+  color: var(--muted);
+  font-size: .85rem;
+  margin-top: .25rem;
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: .6rem;
+}
+.mood-grid img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #1c1f26;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+/* --- Two-column Grids --- */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .8rem;
+}
+.mini h3 {
+  margin: .2rem 0 .2rem;
+  color: var(--accent);
+}
+
+/* --- Callouts / Reference Blocks --- */
+.callout {
+  background: #10131a;
+  border: 1px dashed #2b2f3a;
+  border-radius: 12px;
+  padding: .8rem 1rem;
+  margin-top: .6rem;
+}
+
+.refs {
+  margin: .2rem 0 .2rem 1rem;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #1c1f26;
+  background: rgba(10,11,13,0.9);
+  color: var(--muted);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: .9rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 860px) {
+  .media-row { grid-template-columns: 1fr; }
+  .mood-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid-2 { grid-template-columns: 1fr; }
+  #sections-bar { top: 56px; }
+  header { flex-direction: column; gap: .5rem; }
+}
+
+/* === Frosted Blur Section === */
+.section-blur {
+    background: rgba(10, 10, 15, 0.6);  /* semi-transparent dark base */
+    backdrop-filter: blur(12px);        /* main blur effect */
+    -webkit-backdrop-filter: blur(12px); /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 2; /* keeps it above the background */
+  }
+  
+  /* === Placeholder Boxes (vertical stack) === */
+  .placeholder-list {
+    display: flex;
+    flex-direction: column;   /* vertical alignment */
+    gap: 1rem;                /* space between boxes */
+    margin-top: 1.5rem;
+  }
+  
+  .placeholder-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 0, 0, 0.5);  /* red outline */
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Rajdhani', sans-serif;
+    transition: 0.2s;
+  }
+  
+  .placeholder-box:hover {
+    background: rgba(255, 0, 0, 0.15);
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
+  
