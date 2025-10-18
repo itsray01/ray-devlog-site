@@ -165,7 +165,7 @@ html, body {
   text-decoration: none;
   font-family: 'Rajdhani', sans-serif;
   font-weight: 500;
-  padding: 0.875rem 0;
+  padding: 0.875rem 1.125rem;
   margin: 0 1.5rem;
   border-radius: 12px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -174,7 +174,7 @@ html, body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: calc(100% - 3rem);
   text-align: left;
   position: relative;
@@ -218,9 +218,10 @@ html, body {
 /* Ensure Home item aligns with others */
 .nav-item-container .nav-item {
   margin: 0 1.5rem;
-  padding: 0.875rem 0;
+  padding: 0.875rem 1.125rem;
   width: calc(100% - 3rem);
   box-sizing: border-box;
+  justify-content: flex-start;
 }
 
 /* Hover dropdown */
