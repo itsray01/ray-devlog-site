@@ -1,23 +1,20 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 /**
- * Sidebar component with nested navigation
- * Shows page links and section links with smooth scrolling
+ * Sidebar component with simplified navigation
+ * Shows page links without complex functionality
  */
 const Sidebar = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
-  // Other navigation pages
-  const otherPages = [
+  // Navigation pages
+  const pages = [
+    { path: '/', title: 'Home' },
     { path: '/assets', title: 'Assets' },
     { path: '/about', title: 'About' },
     { path: '/extras', title: 'Extras' }
   ];
-
-  // Check if we're on the home page
-  const isHomePage = location.pathname === '/';
 
   // Animation variants
   const sidebarVariants = {
@@ -53,28 +50,8 @@ const Sidebar = () => {
 
         {/* Navigation */}
         <nav className="sidebar-nav">
-          {/* Home Section (simple link) */}
           <div className="nav-section">
-            <Link
-              to="/"
-              className={`nav-item nav-item-main ${isHomePage ? 'active' : ''}`}
-            >
-              <motion.div
-                whileHover={{ x: 5 }}
-                whileTap={{ scale: 0.98 }}
-                style={{ width: '100%' }}
-              >
-                <span className="nav-item-text">Home</span>
-              </motion.div>
-            </Link>
-          </div>
-
-          {/* Divider */}
-          <div className="nav-divider"></div>
-
-          {/* Other Pages */}
-          <div className="nav-section">
-            {otherPages.map((page, index) => (
+            {pages.map((page) => (
               <Link
                 key={page.path}
                 to={page.path}
