@@ -224,6 +224,14 @@ html, body {
 .nav-item-container {
   position: relative;
   width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure Home item aligns with others */
+.nav-item-container .nav-item {
+  margin: 0;
+  padding: 0.875rem 1.125rem;
 }
 
 /* Hover dropdown */
