@@ -349,7 +349,7 @@ html, body {
 }
 
 main {
-  max-width: 1716px; /* Extended by 10% from 1560px (1560 * 1.1 = 1716) */
+  max-width: 1716px; /* Extended by 10% from 1560px (1560 * 1.1 = 1716px) */
   margin: 0; /* Removed auto centering to align left */
 }
 
