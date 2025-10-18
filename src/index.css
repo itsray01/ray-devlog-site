@@ -157,7 +157,7 @@ html, body {
   flex-direction: column;
   gap: 0.25rem;
   width: 100%;
-  align-items: center;
+  align-items: stretch;
 }
 
 .nav-item {
@@ -226,12 +226,16 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: stretch;
 }
 
 /* Ensure Home item aligns with others */
 .nav-item-container .nav-item {
   margin: 0;
   padding: 0.875rem 1.125rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Hover dropdown */
@@ -244,12 +248,14 @@ html, body {
   transform: translateX(-20px) scale(0.95);
   transition: all 0.2s ease;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .nav-item-container:hover .nav-dropdown {
   opacity: 1;
   transform: translateX(0) scale(1);
   pointer-events: auto;
+  visibility: visible;
 }
 
 .dropdown-content {
