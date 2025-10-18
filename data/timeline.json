@@ -10,6 +10,16 @@
     "task": "Begin drafting the narrative outline in Twine. Research horror conventions and AI anxieties for integration into the story. Experiment with ChatGPT for branching dialogue and scene scripting."
   },
   {
+    "date": "Week of 13th October 2025",
+    "title": "Moodboard Creation",
+    "task": "Create moodboards to establish visual tone and atmosphere for the interactive film. Gather reference images and establish color palette, lighting, and aesthetic direction."
+  },
+  {
+    "date": "Week of 13th October 2025",
+    "title": "Storyboard Development",
+    "task": "Develop storyboards for key scenes and branching paths. Plan visual composition, camera angles, and transitions between interactive choices."
+  },
+  {
     "date": "Week of 20th October 2025",
     "title": "Prototype Development (Phase 1)",
     "task": "Build the first Twine prototype with placeholder choices. Test branching structure and timed decision mechanics to establish player pacing and flow."
