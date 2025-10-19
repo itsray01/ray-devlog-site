@@ -41,14 +41,14 @@ const Sidebar = () => {
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 100);
     } else {
       // Just scroll
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   };
