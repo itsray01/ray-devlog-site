@@ -10,11 +10,12 @@ const Sidebar = () => {
 
   // Home sections for dropdown
   const homeSections = [
-    { id: 'overview', title: 'Overview' },
+    { id: 'overview', title: 'Project Overview' },
     { id: 'inspiration', title: 'Inspiration' },
     { id: 'moodboard', title: 'Moodboard' },
     { id: 'storyboard', title: 'Storyboard' },
     { id: 'timeline', title: 'Project Timeline' },
+    { id: 'story-development', title: 'Story Development' },
     { id: 'branching', title: 'Branching Narrative' },
     { id: 'experiments', title: 'Technical Experiments' },
     { id: 'audience', title: 'Audience & Accessibility' },
