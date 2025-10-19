@@ -64,12 +64,13 @@ const Extras = () => {
         <p className="page-subtitle">Bonus content, experiments, and explorations</p>
       </motion.div>
 
-      <motion.div
-        className="content-grid"
+      <motion.section
+        className="content-section"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
+        <div className="content-grid">
         {EXTRA_ITEMS.map((item, index) => (
           <motion.div
             key={item.title}
@@ -108,6 +109,8 @@ const Extras = () => {
           and deep dives into specific aspects of the project. Check back regularly for new additions.
         </p>
       </motion.div>
+        </div>
+      </motion.section>
     </motion.div>
   );
 };

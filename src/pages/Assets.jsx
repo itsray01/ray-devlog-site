@@ -40,12 +40,13 @@ const Assets = () => {
         <p className="page-subtitle">Project assets, media, and resources</p>
       </motion.div>
 
-      <motion.div
-        className="content-grid"
+      <motion.section
+        className="content-section"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
+        <div className="content-grid">
         <motion.div 
           className="card asset-card"
           whileHover={{ 
@@ -97,7 +98,8 @@ const Assets = () => {
           <p>Prompt logs, parameter settings, and generation notes.</p>
           <div className="asset-placeholder">Coming Soon</div>
         </motion.div>
-      </motion.div>
+        </div>
+      </motion.section>
     </motion.div>
   );
 };
