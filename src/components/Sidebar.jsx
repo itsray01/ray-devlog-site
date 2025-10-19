@@ -14,6 +14,7 @@ const Sidebar = () => {
     { id: 'inspiration', title: 'Inspiration' },
     { id: 'moodboard', title: 'Moodboard' },
     { id: 'storyboard', title: 'Storyboard' },
+    { id: 'timeline', title: 'Project Timeline' },
     { id: 'branching', title: 'Branching Narrative' },
     { id: 'experiments', title: 'Technical Experiments' },
     { id: 'audience', title: 'Audience & Accessibility' },
