@@ -242,7 +242,7 @@ html, body {
 /* Hover dropdown */
 .nav-dropdown {
   position: absolute;
-  left: 120%;
+  left: 140%;
   top: 0;
   z-index: 1000;
   opacity: 0;
