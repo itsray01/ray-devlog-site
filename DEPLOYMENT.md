@@ -87,7 +87,7 @@ For static-only deployment (recommended), you don't need any environment variabl
    - Install dependencies
    - Build your site
    - Deploy it to their global CDN
-3. You'll get a URL like: `https://devlog-site.pages.dev`
+3. You'll get a URL like: `https://ray-devlog-site.pages.dev`
 
 ---
 

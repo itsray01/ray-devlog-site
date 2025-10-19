@@ -87,7 +87,7 @@ git push -u origin main
 # - Save and Deploy!
 ```
 
-🎉 Your site will be live at `https://devlog-site.pages.dev` in ~3 minutes!
+🎉 Your site will be live at `https://ray-devlog-site.pages.dev` in ~3 minutes!
 
 ---
 
