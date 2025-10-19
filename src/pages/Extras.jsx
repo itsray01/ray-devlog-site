@@ -90,25 +90,24 @@ const Extras = () => {
             <div className="extra-placeholder">Coming Soon</div>
           </motion.div>
         ))}
-      </motion.div>
 
-      <motion.div
-        className="card cta-card"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.7 }}
-        whileHover={{ 
-          scale: 1.02,
-          boxShadow: "0 0 40px rgba(138, 43, 226, 0.4)",
-          transition: { duration: 0.2 }
-        }}
-      >
-        <h2>More to Come</h2>
-        <p>
-          This section will be continuously updated with additional content, experimental pieces,
-          and deep dives into specific aspects of the project. Check back regularly for new additions.
-        </p>
-      </motion.div>
+        <motion.div
+          className="card cta-card"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.7 }}
+          whileHover={{ 
+            scale: 1.02,
+            boxShadow: "0 0 40px rgba(138, 43, 226, 0.4)",
+            transition: { duration: 0.2 }
+          }}
+        >
+          <h2>More to Come</h2>
+          <p>
+            This section will be continuously updated with additional content, experimental pieces,
+            and deep dives into specific aspects of the project. Check back regularly for new additions.
+          </p>
+        </motion.div>
         </div>
       </motion.section>
     </motion.div>
