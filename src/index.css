@@ -405,6 +405,15 @@ main {
   margin: 2rem 0;
 }
 
+/* Assets Grid - 3 rows x 2 columns */
+.assets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
 /* --- Cards & Entries --- */
 .card {
   background: var(--panel);
@@ -1183,6 +1192,11 @@ html {
 /* Responsive: stack on smaller screens */
 @media (max-width: 768px) {
   .grid-2x3 {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .assets-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
