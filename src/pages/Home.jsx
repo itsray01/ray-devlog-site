@@ -699,23 +699,6 @@ const Home = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
       >
-        {/* VIDEO CONTAINER TEST - AT TOP OF SECTION */}
-        <div 
-          id="sora2-video-container-test"
-          style={{ 
-            height: '300px', 
-            width: '100%', 
-            backgroundColor: '#ff0000', 
-            marginBottom: '2rem',
-            display: 'block',
-            border: '10px solid #00ff00',
-            position: 'relative',
-            zIndex: 99999
-          }}
-        >
-          <div style={{ color: '#ffffff', fontSize: '3rem', fontWeight: 'bold', padding: '2rem', textAlign: 'center' }}>🔴 RED TEST BOX - MUST SEE THIS 🔴</div>
-        </div>
-
         <div className="card">
           <h2>My Journey Through AI Video Generation: Tools, Failures, and Hard-Won Lessons</h2>
           <p>
@@ -741,35 +724,12 @@ const Home = () => {
           </p>
         </motion.article>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
+        <ToolLessonCard
+          title="Sora 2: The Face Problem That Killed My Workflow"
+          videoUrl="/videos/sora2-example.mp4"
+          videoType="mp4"
+          delay={0.9}
         >
-          {/* VIDEO CONTAINER - INSIDE ARTICLE, BEFORE H3 */}
-          <div 
-            id="sora2-video-container"
-            style={{ 
-              height: '300px', 
-              width: '100%', 
-              backgroundColor: '#ff0000', 
-              marginBottom: '1.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: '12px',
-              border: '10px solid #00ff00',
-              position: 'relative',
-              zIndex: 9999,
-              boxSizing: 'border-box'
-            }}
-          >
-            <div style={{ color: '#ffffff', fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', padding: '2rem' }}>🔴 VIDEO CONTAINER - SORA 2 🔴</div>
-          </div>
-          
-          <h3>Sora 2: The Face Problem That Killed My Workflow</h3>
-          
           <p>
             I was genuinely excited to try Sora 2. OpenAI's marketing showed incredible quality—smooth 
             motion, realistic physics, cinematic quality. The demos looked like they were shot by 
@@ -840,7 +800,7 @@ const Home = () => {
             viable yet. This forced me to completely pivot my tool strategy and taught me the 
             importance of understanding tool capabilities beyond just quality metrics.
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
         <ToolLessonCard
           title="Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing"
