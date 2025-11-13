@@ -730,19 +730,27 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          {/* VIDEO CONTAINER - INLINE TEST */}
-          <div style={{ 
-            height: '300px', 
-            width: '100%', 
-            backgroundColor: 'rgba(138, 43, 226, 0.5)', 
-            marginBottom: '1.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '12px',
-            border: '3px solid #8a2be2'
-          }}>
-            <div style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 'bold' }}>VIDEO CONTAINER - SORA 2</div>
+          {/* VIDEO CONTAINER - INLINE TEST - MUST BE VISIBLE */}
+          <div 
+            id="sora2-video-container"
+            style={{ 
+              height: '300px !important', 
+              minHeight: '300px !important',
+              width: '100% !important', 
+              backgroundColor: '#8a2be2 !important', 
+              marginBottom: '1.5rem !important',
+              display: 'flex !important',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '12px',
+              border: '5px solid #ff00ff',
+              position: 'relative',
+              zIndex: 9999,
+              visibility: 'visible !important',
+              opacity: '1 !important'
+            }}
+          >
+            <div style={{ color: '#ffffff', fontSize: '2rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>🎬 VIDEO CONTAINER - SORA 2 🎬</div>
           </div>
           
           <h3>Sora 2: The Face Problem That Killed My Workflow</h3>
