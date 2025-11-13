@@ -733,21 +733,23 @@ const Home = () => {
           {/* VIDEO CONTAINER - INLINE TEST - MUST BE VISIBLE */}
           <div 
             id="sora2-video-container"
+            className="tool-video-container"
             style={{ 
-              height: '300px !important', 
-              minHeight: '300px !important',
-              width: '100% !important', 
-              backgroundColor: '#8a2be2 !important', 
-              marginBottom: '1.5rem !important',
-              display: 'flex !important',
+              height: '300px', 
+              minHeight: '300px',
+              width: '100%', 
+              backgroundColor: '#8a2be2', 
+              marginBottom: '1.5rem',
+              display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               borderRadius: '12px',
               border: '5px solid #ff00ff',
               position: 'relative',
               zIndex: 9999,
-              visibility: 'visible !important',
-              opacity: '1 !important'
+              visibility: 'visible',
+              opacity: 1,
+              boxSizing: 'border-box'
             }}
           >
             <div style={{ color: '#ffffff', fontSize: '2rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>🎬 VIDEO CONTAINER - SORA 2 🎬</div>
