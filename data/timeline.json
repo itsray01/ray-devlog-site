@@ -67,48 +67,6 @@
     "title": "Design Prototype Submission",
     "task": "Submit the final design prototype before the Christmas break. Prepare supporting documentation and design rationale.",
     "challenge": "Documenting design decisions and connecting them to theoretical frameworks required synthesizing months of practical work into coherent academic writing. Balancing creative reflection with analytical rigor was challenging.",
-    "reflection": "The submission process reinforced the importance of documentation throughout development, not just at the end. The challenge of articulating design rationale connects to course objectives on reflective practice and professional communication. This milestone provided an opportunity to step back and see the project's evolution holistically."
-  },
-  {
-    "date": "December 2025 – January 2026",
-    "title": "Christmas Break",
-    "task": "Minimal project activity during the break. Conduct light reflection and note areas for improvement for Term 2 development.",
-    "challenge": "Maintaining momentum after a break while objectively evaluating the work completed. Identifying genuine areas for improvement versus unnecessary perfectionism.",
-    "reflection": "The break provided valuable distance from the project, allowing for more objective evaluation. This period of reflection connected to course discussions on iterative development and the importance of stepping back to gain perspective. Notes from this period informed Term 2 priorities and helped focus remaining development efforts."
-  },
-  {
-    "date": "Week of 19th January 2026",
-    "title": "Development Resumption",
-    "task": "Resume development post-break. Conduct further playtesting with peers and collect reflections on horror impact and AI-related themes.",
-    "challenge": "Re-engaging with the project after a break required re-familiarizing with technical systems and creative decisions. New playtesters provided fresh perspectives but also raised new concerns that needed addressing.",
-    "reflection": "Returning to the project with fresh eyes revealed both strengths and weaknesses more clearly. The additional playtesting connected to course objectives on user-centered design and iterative improvement. This phase demonstrated the value of extended development cycles in allowing for deeper reflection and refinement."
-  },
-  {
-    "date": "February 2026",
-    "title": "Analysis & Essay Drafting",
-    "task": "Analyse playtesting results and begin drafting the 4,000-word essay and reflective development log. Continue refining portfolio structure.",
-    "challenge": "Synthesizing months of practical work, playtest feedback, and theoretical research into coherent academic writing. Balancing creative reflection with analytical rigor while maintaining authentic voice.",
-    "reflection": "The essay drafting process required connecting practical experiences to theoretical frameworks—a key course objective. This phase highlighted the importance of ongoing documentation, as reconstructing decisions and challenges from memory would have been significantly more difficult. The process of articulating design rationale deepened understanding of the project's theoretical foundations."
-  },
-  {
-    "date": "March 2026",
-    "title": "Portfolio Completion",
-    "task": "Complete portfolio artefact (interactive horror film in Twine). Polish the reflective essay and development log. Seek supervisor feedback for refinement.",
-    "challenge": "Balancing final polish with scope management. Some improvements identified during refinement would require significant additional work, requiring careful prioritization. Additionally, integrating supervisor feedback while maintaining creative vision.",
-    "reflection": "The completion phase reinforced the importance of scope management and knowing when to stop iterating. The supervisor feedback process connected to course objectives on professional development and the value of external perspectives. This milestone represented the culmination of months of iterative development and reflection."
-  },
-  {
-    "date": "Week of 30th March 2026",
-    "title": "Final Revisions",
-    "task": "Apply supervisor feedback and complete final revisions to the portfolio, essay, and development log in preparation for submission.",
-    "challenge": "Addressing feedback across multiple deliverables (portfolio, essay, logbook) while ensuring consistency. Managing time effectively to complete revisions without compromising quality.",
-    "reflection": "The revision process demonstrated the value of external feedback in improving work quality. This phase connected to course objectives on professional standards and the importance of iterative refinement. The challenge of balancing multiple deliverables reflects real-world project management requirements."
-  },
-  {
-    "date": "10th April 2026",
-    "title": "Final Submission",
-    "task": "Submit portfolio, 4,000-word essay, and development log. Conclude the project with final reflections on the design process and outcomes.",
-    "challenge": "Letting go of the project and accepting that further iteration would not be possible. Reflecting on the entire journey holistically.",
-    "reflection": "The submission milestone provided an opportunity for comprehensive reflection on the entire development process. This final phase connected to course objectives on reflective practice and professional documentation. The project's completion represented not just a creative artefact, but a learning journey in interactive storytelling, AI-assisted production, and digital media development."
+    "reflection": "The submission process reinforced the importance of documentation throughout development, not just at the end. The challenge of articulating design rationale connects to course objectives on reflective practice and professional communication. This milestone provided an opportunity to step back and see the project's evolution holistically. This development log documents the journey up to this point, capturing the iterative process, challenges faced, and key learnings from prototype development."
   }
 ]

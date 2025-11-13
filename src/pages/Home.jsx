@@ -107,8 +107,9 @@ const Home = () => {
           </p>
           <p>
             Every decision, experiment, and breakthrough is documented here—from initial concept 
-            sketches to final production milestones. This serves as both a creative diary and 
-            technical reference for the emerging medium of AI-assisted filmmaking.
+            sketches through prototype development and submission. This serves as both a creative 
+            diary and technical reference for the emerging medium of AI-assisted filmmaking, 
+            capturing the development process up to the prototype submission in November 2025.
           </p>
         </div>
       </motion.section>
@@ -1553,11 +1554,12 @@ const Home = () => {
           transition={{ delay: 1.2 }}
         >
           <h3>Milestone 6: Digital Logbook Development</h3>
-          <small className="meta">November 2025 - January 2026</small>
+          <small className="meta">November 2025</small>
           
           <p><strong>What I did:</strong> Developed this React-based digital logbook to document the project 
-          development process. Created an interactive interface with filtering, timeline visualization, and 
-          structured content sections for inspiration, moodboards, storyboards, and development reflections.</p>
+          development process up to the prototype submission. Created an interactive interface with filtering, 
+          timeline visualization, and structured content sections for inspiration, moodboards, storyboards, 
+          and development reflections.</p>
           
           <p><strong>Key Decision:</strong> Built a custom React application rather than using a static 
           site generator, allowing for dynamic content loading, interactive timelines, and responsive design. 
@@ -1823,8 +1825,9 @@ const Home = () => {
         transition={{ delay: 1.0 }}
       >
         <p>
-          This logbook is continuously updated as the project evolves. 
-          Check back regularly for new entries, experiments, and insights.
+          This logbook documents the development journey from project inception through prototype 
+          submission (November 2025), capturing key decisions, challenges, and learnings from 
+          the iterative development process.
         </p>
       </motion.footer>
     </motion.div>
