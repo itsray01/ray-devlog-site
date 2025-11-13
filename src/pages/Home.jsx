@@ -724,12 +724,29 @@ const Home = () => {
           </p>
         </motion.article>
 
-        <ToolLessonCard
-          title="Sora 2: The Face Problem That Killed My Workflow"
-          videoUrl="/videos/sora2-example.mp4"
-          videoType="mp4"
-          delay={0.9}
+        <motion.article 
+          className="card note"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
         >
+          {/* VIDEO CONTAINER - INLINE TEST */}
+          <div style={{ 
+            height: '300px', 
+            width: '100%', 
+            backgroundColor: 'rgba(138, 43, 226, 0.5)', 
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '12px',
+            border: '3px solid #8a2be2'
+          }}>
+            <div style={{ color: '#fff', fontSize: '1.5rem', fontWeight: 'bold' }}>VIDEO CONTAINER - SORA 2</div>
+          </div>
+          
+          <h3>Sora 2: The Face Problem That Killed My Workflow</h3>
+          
           <p>
             I was genuinely excited to try Sora 2. OpenAI's marketing showed incredible quality—smooth 
             motion, realistic physics, cinematic quality. The demos looked like they were shot by 
@@ -800,7 +817,7 @@ const Home = () => {
             viable yet. This forced me to completely pivot my tool strategy and taught me the 
             importance of understanding tool capabilities beyond just quality metrics.
           </p>
-        </ToolLessonCard>
+        </motion.article>
 
         <ToolLessonCard
           title="Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing"
