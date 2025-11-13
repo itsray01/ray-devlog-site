@@ -16,10 +16,33 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
     >
-      {/* Video Container - 16:9 aspect ratio */}
-      <div className="tool-video-container">
+      {/* Video Container - 16:9 aspect ratio - MUST BE VISIBLE */}
+      <div 
+        className="tool-video-container" 
+        style={{ 
+          minHeight: '300px',
+          display: 'block',
+          visibility: 'visible',
+          opacity: 1
+        }}
+      >
         {/* Placeholder - always visible by default */}
-        <div className="video-placeholder">
+        <div 
+          className="video-placeholder"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+            pointerEvents: 'none'
+          }}
+        >
           <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.5 }}>▶</div>
           <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>Video placeholder</div>
           <div style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '0.5rem' }}>Add video at: {videoUrl}</div>
@@ -35,7 +58,9 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
               height: '100%',
               objectFit: 'cover',
               display: 'block',
-              position: 'relative',
+              position: 'absolute',
+              top: 0,
+              left: 0,
               zIndex: 2
             }}
             onLoadedData={(e) => {
@@ -58,7 +83,9 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
               height: '100%',
               border: 'none',
               display: 'block',
-              position: 'relative',
+              position: 'absolute',
+              top: 0,
+              left: 0,
               zIndex: 2
             }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
