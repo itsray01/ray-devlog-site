@@ -143,17 +143,36 @@ const Home = () => {
             role="button"
             aria-expanded={timelineExpanded}
           >
-            <h2>Project Timeline</h2>
+            <motion.h2
+              animate={{ 
+                opacity: timelineExpanded ? 1 : [0.3, 1, 0.3],
+                scale: timelineExpanded ? 1 : [1, 1.1, 1],
+                textShadow: timelineExpanded 
+                  ? '0 0 0px rgba(138, 43, 226, 0)' 
+                  : ['0 0 5px rgba(138, 43, 226, 0.5)', '0 0 20px rgba(138, 43, 226, 1)', '0 0 5px rgba(138, 43, 226, 0.5)']
+              }}
+              transition={{ 
+                opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                textShadow: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+              }}
+              style={{ 
+                margin: 0,
+                color: timelineExpanded ? 'var(--ink)' : 'var(--accent)'
+              }}
+            >
+              Project Timeline
+            </motion.h2>
             <motion.span
               animate={{ 
                 rotate: timelineExpanded ? 180 : 0,
-                opacity: timelineExpanded ? 1 : [0.5, 1, 0.5],
-                scale: timelineExpanded ? 1 : [1, 1.2, 1]
+                opacity: timelineExpanded ? 1 : [0.3, 1, 0.3],
+                scale: timelineExpanded ? 1 : [1, 1.3, 1]
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                opacity: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+                opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" }
               }}
               style={{ 
                 fontSize: '1.5rem',
@@ -576,22 +595,42 @@ const Home = () => {
             aria-expanded={branchingExpanded}
           >
             <div>
-          <h2>Branching Narrative Flow</h2>
+              <motion.h2
+                animate={{ 
+                  opacity: branchingExpanded ? 1 : [0.3, 1, 0.3],
+                  scale: branchingExpanded ? 1 : [1, 1.1, 1],
+                  textShadow: branchingExpanded 
+                    ? '0 0 0px rgba(138, 43, 226, 0)' 
+                    : ['0 0 5px rgba(138, 43, 226, 0.5)', '0 0 20px rgba(138, 43, 226, 1)', '0 0 5px rgba(138, 43, 226, 0.5)']
+                }}
+                transition={{ 
+                  opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                  scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                  textShadow: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+                }}
+                style={{ 
+                  margin: 0,
+                  marginBottom: '0.5rem',
+                  color: branchingExpanded ? 'var(--ink)' : 'var(--accent)'
+                }}
+              >
+                Branching Narrative Flow
+              </motion.h2>
               <p style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-            Interactive story paths with multiple decision points and alternative routes. 
-            Click on any node to explore the narrative structure.
-          </p>
+                Interactive story paths with multiple decision points and alternative routes. 
+                Click on any node to explore the narrative structure.
+              </p>
             </div>
             <motion.span
               animate={{ 
                 rotate: branchingExpanded ? 180 : 0,
-                opacity: branchingExpanded ? 1 : [0.5, 1, 0.5],
-                scale: branchingExpanded ? 1 : [1, 1.2, 1]
+                opacity: branchingExpanded ? 1 : [0.3, 1, 0.3],
+                scale: branchingExpanded ? 1 : [1, 1.3, 1]
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                opacity: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+                opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" }
               }}
               style={{ 
                 fontSize: '1.5rem',
