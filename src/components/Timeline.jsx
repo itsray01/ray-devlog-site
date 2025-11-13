@@ -103,7 +103,7 @@ const Timeline = ({ entries = [] }) => {
                 <motion.div
                   className={`date-badge ${isExpanded ? 'expanded' : ''} ${entry.locked ? 'locked' : ''}`}
                   animate={{
-                    scale: isExpanded ? 1.1 : 1,
+                    scale: isExpanded ? 1.0 : 0.85,
                     backgroundColor: entry.locked
                       ? 'rgba(100, 100, 100, 0.3)'
                       : isExpanded
