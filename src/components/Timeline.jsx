@@ -73,7 +73,6 @@ const Timeline = ({ entries = [] }) => {
 
   return (
     <div className="timeline-container-new">
-      <h3>Project Timeline</h3>
       <motion.div
         className="timeline-new"
         variants={timelineVariants}
@@ -84,7 +83,7 @@ const Timeline = ({ entries = [] }) => {
           const isExpanded = expandedIndex === index || hoveredIndex === index;
           const isLast = index === entries.length - 1;
 
-          const isVisible = visibleEntries.has(index);
+          const isVisible = visibleEntries.has(index) || hoveredIndex === index;
 
           return (
             <motion.div
@@ -95,7 +94,7 @@ const Timeline = ({ entries = [] }) => {
               variants={itemVariants}
               initial={{ opacity: 0 }}
               animate={{ 
-                opacity: isVisible ? 1 : 0.15
+                opacity: (isVisible || hoveredIndex === index) ? 1 : 0.15
               }}
               transition={{ duration: 0.4 }}
             >
@@ -125,7 +124,7 @@ const Timeline = ({ entries = [] }) => {
               {/* Content that expands/collapses */}
               <div className="timeline-right">
                 <AnimatePresence mode="wait">
-                  {isVisible && (
+                  {(isVisible || hoveredIndex === index) && (
                     <motion.div
                       className={`entry-details ${entry.locked ? 'locked-entry' : ''}`}
                       initial={{ opacity: 0, x: -20, height: 0 }}
