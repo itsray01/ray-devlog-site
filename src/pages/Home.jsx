@@ -145,9 +145,13 @@ const Home = () => {
           >
             <motion.h2
               animate={{ 
-                color: timelineExpanded 
-                  ? 'var(--ink)' 
-                  : ['#8a2be2', '#b794f6', '#8a2be2'],
+                backgroundImage: timelineExpanded 
+                  ? 'linear-gradient(135deg, var(--ink), var(--ink))' 
+                  : [
+                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)',
+                      'linear-gradient(135deg, #b794f6, #c9a9ff, #b794f6)',
+                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)'
+                    ],
                 textShadow: timelineExpanded 
                   ? '0 0 0px rgba(138, 43, 226, 0)' 
                   : ['0 0 10px rgba(138, 43, 226, 0.6)', '0 0 25px rgba(183, 148, 246, 1)', '0 0 10px rgba(138, 43, 226, 0.6)']
@@ -159,7 +163,11 @@ const Home = () => {
               }}
               style={{ 
                 margin: 0,
-                position: 'relative'
+                position: 'relative',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: timelineExpanded ? 'var(--ink)' : 'transparent'
               }}
             >
               Project Timeline
@@ -167,21 +175,29 @@ const Home = () => {
             <motion.span
               animate={{ 
                 rotate: timelineExpanded ? 180 : 0,
-                color: timelineExpanded 
-                  ? 'var(--accent)' 
-                  : ['#8a2be2', '#b794f6', '#8a2be2'],
+                backgroundImage: timelineExpanded 
+                  ? 'linear-gradient(135deg, var(--accent), var(--accent))' 
+                  : [
+                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)',
+                      'linear-gradient(135deg, #b794f6, #c9a9ff, #b794f6)',
+                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)'
+                    ],
                 filter: timelineExpanded 
                   ? 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
                   : ['drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))', 'drop-shadow(0 0 20px rgba(183, 148, 246, 1))', 'drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))']
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                color: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                backgroundImage: { duration: 3, repeat: Infinity, ease: "easeInOut" },
                 filter: { duration: 3, repeat: Infinity, ease: "easeInOut" }
               }}
               style={{ 
                 fontSize: '1.5rem',
                 marginLeft: '1rem',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: timelineExpanded ? 'var(--accent)' : 'transparent',
                 textShadow: '0 0 10px rgba(138, 43, 226, 0.8)'
               }}
             >
@@ -600,9 +616,13 @@ const Home = () => {
             <div>
               <motion.h2
                 animate={{ 
-                  color: branchingExpanded 
-                    ? 'var(--ink)' 
-                    : ['#8a2be2', '#b794f6', '#8a2be2'],
+                  backgroundImage: branchingExpanded 
+                    ? 'linear-gradient(135deg, var(--ink), var(--ink))' 
+                    : [
+                        'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)',
+                        'linear-gradient(135deg, #b794f6, #c9a9ff, #b794f6)',
+                        'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)'
+                      ],
                   textShadow: branchingExpanded 
                     ? '0 0 0px rgba(138, 43, 226, 0)' 
                     : ['0 0 10px rgba(138, 43, 226, 0.6)', '0 0 25px rgba(183, 148, 246, 1)', '0 0 10px rgba(138, 43, 226, 0.6)']
@@ -615,7 +635,11 @@ const Home = () => {
                 style={{ 
                   margin: 0,
                   marginBottom: '0.5rem',
-                  position: 'relative'
+                  position: 'relative',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  color: branchingExpanded ? 'var(--ink)' : 'transparent'
                 }}
               >
                 Branching Narrative Flow
@@ -628,22 +652,30 @@ const Home = () => {
             <motion.span
               animate={{ 
                 rotate: branchingExpanded ? 180 : 0,
-                color: branchingExpanded 
-                  ? 'var(--accent)' 
-                  : ['#8a2be2', '#b794f6', '#8a2be2'],
+                backgroundImage: branchingExpanded 
+                  ? 'linear-gradient(135deg, var(--accent), var(--accent))' 
+                  : [
+                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)',
+                      'linear-gradient(135deg, #b794f6, #c9a9ff, #b794f6)',
+                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)'
+                    ],
                 filter: branchingExpanded 
                   ? 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
                   : ['drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))', 'drop-shadow(0 0 20px rgba(183, 148, 246, 1))', 'drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))']
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                color: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                backgroundImage: { duration: 3, repeat: Infinity, ease: "easeInOut" },
                 filter: { duration: 3, repeat: Infinity, ease: "easeInOut" }
               }}
               style={{ 
                 fontSize: '1.5rem',
                 marginLeft: '1rem',
                 flexShrink: 0,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                color: branchingExpanded ? 'var(--accent)' : 'transparent',
                 textShadow: '0 0 10px rgba(138, 43, 226, 0.8)'
               }}
             >
