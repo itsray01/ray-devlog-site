@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Timeline from '../components/Timeline';
 import StoryTimeline from '../components/StoryTimeline';
 import useDevlog from '../hooks/useDevlog';
@@ -27,6 +27,7 @@ const pageTransition = {
  */
 const Home = () => {
   const { entries, loading, error } = useDevlog();
+  const [timelineExpanded, setTimelineExpanded] = useState(false);
 
   // Memoize combined visual data to prevent recalculation
   const visualReferenceData = useMemo(() => 
@@ -110,6 +111,65 @@ const Home = () => {
             sketches to final production milestones. This serves as both a creative diary and 
             technical reference for the emerging medium of AI-assisted filmmaking.
           </p>
+        </div>
+      </motion.section>
+
+      {/* Timeline Section - Expandable */}
+      <motion.section
+        id="timeline"
+        className="content-section"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+      >
+        <div className="card">
+          <div 
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              cursor: 'pointer',
+              userSelect: 'none'
+            }}
+            onClick={() => setTimelineExpanded(!timelineExpanded)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setTimelineExpanded(!timelineExpanded);
+              }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-expanded={timelineExpanded}
+          >
+            <h2>Project Timeline</h2>
+            <motion.span
+              animate={{ rotate: timelineExpanded ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ 
+                fontSize: '1.5rem',
+                color: 'var(--accent)',
+                marginLeft: '1rem'
+              }}
+            >
+              ▼
+            </motion.span>
+          </div>
+          <AnimatePresence>
+            {timelineExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div style={{ marginTop: '1.5rem' }}>
+                  <Timeline entries={timelineData} />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.section>
 
@@ -318,17 +378,6 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </motion.section>
-
-      {/* Timeline Section */}
-      <motion.section
-        id="timeline"
-        className="content-section"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.55 }}
-      >
-        <Timeline entries={timelineData} />
       </motion.section>
 
       {/* Story Development Section */}
