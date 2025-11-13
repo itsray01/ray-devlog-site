@@ -145,12 +145,22 @@ const Home = () => {
           >
             <h2>Project Timeline</h2>
             <motion.span
-              animate={{ rotate: timelineExpanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
+              animate={{ 
+                rotate: timelineExpanded ? 180 : 0,
+                opacity: timelineExpanded ? 1 : [0.5, 1, 0.5],
+                scale: timelineExpanded ? 1 : [1, 1.2, 1]
+              }}
+              transition={{ 
+                rotate: { duration: 0.3 },
+                opacity: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+              }}
               style={{ 
                 fontSize: '1.5rem',
                 color: 'var(--accent)',
-                marginLeft: '1rem'
+                marginLeft: '1rem',
+                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)',
+                filter: 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
               }}
             >
               ▼
@@ -573,13 +583,23 @@ const Home = () => {
           </p>
             </div>
             <motion.span
-              animate={{ rotate: branchingExpanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
+              animate={{ 
+                rotate: branchingExpanded ? 180 : 0,
+                opacity: branchingExpanded ? 1 : [0.5, 1, 0.5],
+                scale: branchingExpanded ? 1 : [1, 1.2, 1]
+              }}
+              transition={{ 
+                rotate: { duration: 0.3 },
+                opacity: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+              }}
               style={{ 
                 fontSize: '1.5rem',
                 color: 'var(--accent)',
                 marginLeft: '1rem',
-                flexShrink: 0
+                flexShrink: 0,
+                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)',
+                filter: 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
               }}
             >
               ▼
