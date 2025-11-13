@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sidebarVariants, dropdownVariants } from '../constants/animations';
 
+// Fixed import error - useMemo and useCallback must come from 'react', not 'react-router-dom'
+
 // Static data - moved outside component to prevent recreation
 const homeSections = [
   { id: 'overview', title: 'Project Overview' },
