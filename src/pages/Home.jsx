@@ -145,20 +145,21 @@ const Home = () => {
           >
             <motion.h2
               animate={{ 
-                opacity: timelineExpanded ? 1 : [0.4, 1, 0.4],
-                scale: timelineExpanded ? 1 : [1, 1.08, 1],
+                color: timelineExpanded 
+                  ? 'var(--ink)' 
+                  : ['#8a2be2', '#b794f6', '#8a2be2'],
                 textShadow: timelineExpanded 
                   ? '0 0 0px rgba(138, 43, 226, 0)' 
-                  : ['0 0 5px rgba(138, 43, 226, 0.5)', '0 0 20px rgba(138, 43, 226, 1)', '0 0 5px rgba(138, 43, 226, 0.5)']
+                  : ['0 0 10px rgba(138, 43, 226, 0.6)', '0 0 25px rgba(183, 148, 246, 1)', '0 0 10px rgba(138, 43, 226, 0.6)']
               }}
               transition={{ 
-                opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
-                scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
-                textShadow: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
               }}
               style={{ 
                 margin: 0,
-                color: timelineExpanded ? 'var(--ink)' : 'var(--accent)'
+                position: 'relative'
               }}
             >
               Project Timeline
@@ -166,20 +167,22 @@ const Home = () => {
             <motion.span
               animate={{ 
                 rotate: timelineExpanded ? 180 : 0,
-                opacity: timelineExpanded ? 1 : [0.4, 1, 0.4],
-                scale: timelineExpanded ? 1 : [1, 1.25, 1]
+                color: timelineExpanded 
+                  ? 'var(--accent)' 
+                  : ['#8a2be2', '#b794f6', '#8a2be2'],
+                filter: timelineExpanded 
+                  ? 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
+                  : ['drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))', 'drop-shadow(0 0 20px rgba(183, 148, 246, 1))', 'drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))']
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
-                scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
+                color: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                filter: { duration: 3, repeat: Infinity, ease: "easeInOut" }
               }}
               style={{ 
                 fontSize: '1.5rem',
-                color: 'var(--accent)',
                 marginLeft: '1rem',
-                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)',
-                filter: 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
+                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)'
               }}
             >
               ▼
@@ -597,21 +600,22 @@ const Home = () => {
             <div>
               <motion.h2
                 animate={{ 
-                  opacity: branchingExpanded ? 1 : [0.4, 1, 0.4],
-                  scale: branchingExpanded ? 1 : [1, 1.08, 1],
+                  color: branchingExpanded 
+                    ? 'var(--ink)' 
+                    : ['#8a2be2', '#b794f6', '#8a2be2'],
                   textShadow: branchingExpanded 
                     ? '0 0 0px rgba(138, 43, 226, 0)' 
-                    : ['0 0 5px rgba(138, 43, 226, 0.5)', '0 0 20px rgba(138, 43, 226, 1)', '0 0 5px rgba(138, 43, 226, 0.5)']
+                    : ['0 0 10px rgba(138, 43, 226, 0.6)', '0 0 25px rgba(183, 148, 246, 1)', '0 0 10px rgba(138, 43, 226, 0.6)']
                 }}
                 transition={{ 
-                  opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
-                  scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
-                  textShadow: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
                 }}
                 style={{ 
                   margin: 0,
                   marginBottom: '0.5rem',
-                  color: branchingExpanded ? 'var(--ink)' : 'var(--accent)'
+                  position: 'relative'
                 }}
               >
                 Branching Narrative Flow
@@ -624,21 +628,23 @@ const Home = () => {
             <motion.span
               animate={{ 
                 rotate: branchingExpanded ? 180 : 0,
-                opacity: branchingExpanded ? 1 : [0.4, 1, 0.4],
-                scale: branchingExpanded ? 1 : [1, 1.25, 1]
+                color: branchingExpanded 
+                  ? 'var(--accent)' 
+                  : ['#8a2be2', '#b794f6', '#8a2be2'],
+                filter: branchingExpanded 
+                  ? 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
+                  : ['drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))', 'drop-shadow(0 0 20px rgba(183, 148, 246, 1))', 'drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))']
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
-                scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
+                color: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                filter: { duration: 3, repeat: Infinity, ease: "easeInOut" }
               }}
               style={{ 
                 fontSize: '1.5rem',
-                color: 'var(--accent)',
                 marginLeft: '1rem',
                 flexShrink: 0,
-                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)',
-                filter: 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
+                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)'
               }}
             >
               ▼
