@@ -6,10 +6,10 @@
   /* Dark cyberpunk palette */
   --bg: #0a0b0d;
   --bg-gradient: linear-gradient(180deg, #0a0b0d 0%, #12141a 100%);
-  --panel: rgba(15, 17, 21, 0.6);
-  --panel-glass: rgba(20, 22, 28, 0.4);
-  --panel-hover: rgba(25, 27, 33, 0.7);
-  --panel-2: #0b0d11;
+  --panel: rgba(20, 23, 28, 0.75); /* Lightened for better contrast */
+  --panel-glass: rgba(25, 28, 35, 0.5); /* Lightened */
+  --panel-hover: rgba(30, 33, 40, 0.8); /* Lightened */
+  --panel-2: #0f1216; /* Lightened */
   --ink: #e6e7ea;
   --muted: #9aa0a6;
   --accent: #8a2be2;
@@ -42,8 +42,9 @@ html, body {
   background: url("/img/bg.png") center center / cover no-repeat fixed;
   font-family: 'Rajdhani', system-ui, sans-serif;
   font-size: 24px; /* Increased from 16px to 24px (150% scaling) */
-  line-height: 1.6;
+  line-height: 1.8; /* Increased from 1.6 for better readability */
   background-color: var(--bg);
+  text-align: left; /* Default to left alignment */
 }
 
 #root {
@@ -395,6 +396,8 @@ main {
   color: var(--muted);
   font-size: 1.1rem;
   margin: 0;
+  line-height: 1.7;
+  text-align: left;
 }
 
 .content-section {
@@ -419,26 +422,57 @@ main {
   background: var(--panel);
   border: 1px solid #1c1f26;
   border-radius: 14px;
-  padding: 1.5rem;
+  padding: 2rem; /* Increased from 1.5rem */
   box-shadow: 0 0 18px rgba(0,0,0,.45);
   color: var(--ink);
   margin-bottom: 1.5rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left; /* Ensure left alignment */
+}
+
+/* Paragraph styles in cards */
+.card p {
+  text-align: left;
+  line-height: 1.9; /* Increased line height for readability */
+  margin-bottom: 1.25rem; /* Increased spacing between paragraphs */
+  padding: 0;
+}
+
+.card p:last-child {
+  margin-bottom: 0;
 }
 
 .card h2 {
   font-family: 'Iceberg', sans-serif;
   color: var(--accent);
   margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  margin-bottom: 1.25rem; /* Increased from 1rem */
+  font-size: 1.75rem; /* Slightly larger for hierarchy */
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: left;
 }
 
 .card h3 {
   font-family: 'Iceberg', sans-serif;
   color: var(--ink);
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem; /* Increased from 0.5rem */
+  font-size: 1.35rem; /* Slightly larger for hierarchy */
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.card h4 {
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--ink);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .card.note h3 {
@@ -456,11 +490,13 @@ main {
 }
 
 .bullets {
-  margin: .4rem 0 .6rem 1rem;
+  margin: .6rem 0 1rem 1.5rem; /* Increased margins */
+  text-align: left;
 }
 
 .bullets li {
-  margin: .15rem 0;
+  margin: .4rem 0; /* Increased from .15rem */
+  line-height: 1.8; /* Better line height for list items */
 }
 
 /* --- Filter Section --- */
@@ -890,28 +926,34 @@ footer {
 
 .story-node-detail {
   margin-top: 2rem;
-  padding: 1.5rem;
+  padding: 1.75rem; /* Increased from 1.5rem */
   background: var(--panel);
   border: 1px solid #1c1f26;
   border-radius: 14px;
   box-shadow: 0 0 18px rgba(0,0,0,.45);
+  text-align: left;
 }
 
 .story-node-detail h3 {
   font-family: 'Iceberg', sans-serif;
   color: var(--accent);
   margin-top: 0;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  text-align: left;
 }
 
 .node-type, .node-act, .node-description {
   color: var(--muted);
   font-size: 0.9rem;
-  margin: 0.25rem 0;
+  margin: 0.4rem 0; /* Increased from 0.25rem */
+  line-height: 1.8; /* Added line-height */
+  text-align: left;
 }
 
 .node-description {
   margin: 1rem 0;
-  line-height: 1.6;
+  line-height: 1.9; /* Increased from 1.6 */
 }
 
 /* --- Simple Timeline Styles --- */
@@ -1156,7 +1198,8 @@ html {
 .muted {
   color: #9aa3b2;
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.8; /* Increased from 1.6 */
+  text-align: left;
 }
 
 /* Fixed 2×3 grid layout */
@@ -1317,11 +1360,12 @@ html {
 }
 
 .entry-details {
-  background: rgba(16, 18, 24, 0.6);
+  background: rgba(20, 23, 28, 0.7); /* Lightened for better contrast */
   border: 1px solid rgba(245, 158, 11, 0.15);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.75rem; /* Increased from 1.5rem */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  text-align: left;
 }
 
 .entry-details h4 {
@@ -1329,13 +1373,20 @@ html {
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
 }
 
 .task-text {
   color: #cbd5e1;
-  line-height: 1.7;
-  margin: 0;
+  line-height: 1.9; /* Increased from 1.7 */
+  margin: 0 0 1rem 0; /* Added bottom margin */
   font-size: 0.95rem;
+  text-align: left;
+}
+
+.task-text:last-child {
+  margin-bottom: 0;
 }
 
 /* Responsive */
