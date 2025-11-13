@@ -724,37 +724,32 @@ const Home = () => {
           </p>
         </motion.article>
 
+        {/* VIDEO CONTAINER - OUTSIDE ARTICLE TO TEST */}
+        <div 
+          id="sora2-video-container"
+          style={{ 
+            height: '300px', 
+            width: '100%', 
+            backgroundColor: '#8a2be2', 
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '12px',
+            border: '5px solid #ff00ff',
+            position: 'relative',
+            zIndex: 9999
+          }}
+        >
+          <div style={{ color: '#ffffff', fontSize: '2rem', fontWeight: 'bold' }}>🎬 VIDEO CONTAINER - SORA 2 🎬</div>
+        </div>
+
         <motion.article 
           className="card note"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          {/* VIDEO CONTAINER - INLINE TEST - MUST BE VISIBLE */}
-          <div 
-            id="sora2-video-container"
-            className="tool-video-container"
-            style={{ 
-              height: '300px', 
-              minHeight: '300px',
-              width: '100%', 
-              backgroundColor: '#8a2be2', 
-              marginBottom: '1.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: '12px',
-              border: '5px solid #ff00ff',
-              position: 'relative',
-              zIndex: 9999,
-              visibility: 'visible',
-              opacity: 1,
-              boxSizing: 'border-box'
-            }}
-          >
-            <div style={{ color: '#ffffff', fontSize: '2rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>🎬 VIDEO CONTAINER - SORA 2 🎬</div>
-          </div>
-          
           <h3>Sora 2: The Face Problem That Killed My Workflow</h3>
           
           <p>
