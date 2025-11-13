@@ -441,6 +441,10 @@ main {
   margin-bottom: 0.5rem;
 }
 
+.card.note h3 {
+  color: #d94688; /* Darker pink for blog post headings */
+}
+
 .note + .note {
   margin-top: 1rem;
 }
