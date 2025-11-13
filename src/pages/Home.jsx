@@ -699,6 +699,23 @@ const Home = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
       >
+        {/* VIDEO CONTAINER TEST - AT TOP OF SECTION */}
+        <div 
+          id="sora2-video-container-test"
+          style={{ 
+            height: '300px', 
+            width: '100%', 
+            backgroundColor: '#ff0000', 
+            marginBottom: '2rem',
+            display: 'block',
+            border: '10px solid #00ff00',
+            position: 'relative',
+            zIndex: 99999
+          }}
+        >
+          <div style={{ color: '#ffffff', fontSize: '3rem', fontWeight: 'bold', padding: '2rem', textAlign: 'center' }}>🔴 RED TEST BOX - MUST SEE THIS 🔴</div>
+        </div>
+
         <div className="card">
           <h2>My Journey Through AI Video Generation: Tools, Failures, and Hard-Won Lessons</h2>
           <p>
