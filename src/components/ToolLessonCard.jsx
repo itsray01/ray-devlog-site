@@ -17,7 +17,30 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
       transition={{ delay }}
     >
       {/* Video Container - 16:9 aspect ratio */}
-      <div className="tool-video-container">
+      <div className="tool-video-container" style={{ position: 'relative' }}>
+        {/* Placeholder - always visible */}
+        <div className="video-placeholder" style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#cbd5e1',
+          textAlign: 'center',
+          padding: '2rem',
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.5 }}>▶</div>
+          <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>Video placeholder</div>
+          <div style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '0.5rem' }}>Add video at: {videoUrl}</div>
+        </div>
+        
+        {/* Video - positioned on top, will cover placeholder if it loads */}
         {videoType === "mp4" ? (
           <video 
             controls 
@@ -26,7 +49,18 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              display: 'block'
+              display: 'block',
+              position: 'relative',
+              zIndex: 2
+            }}
+            onLoadedData={(e) => {
+              // Hide placeholder when video loads successfully
+              const placeholder = e.target.parentElement.querySelector('.video-placeholder');
+              if (placeholder) placeholder.style.display = 'none';
+            }}
+            onError={(e) => {
+              // Keep placeholder visible if video fails
+              e.target.style.display = 'none';
             }}
           >
             Your browser does not support the video tag.
@@ -38,11 +72,18 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
               width: '100%',
               height: '100%',
               border: 'none',
-              display: 'block'
+              display: 'block',
+              position: 'relative',
+              zIndex: 2
             }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title={title}
+            onLoad={(e) => {
+              // Hide placeholder when iframe loads successfully
+              const placeholder = e.target.parentElement.querySelector('.video-placeholder');
+              if (placeholder) placeholder.style.display = 'none';
+            }}
           />
         )}
       </div>
