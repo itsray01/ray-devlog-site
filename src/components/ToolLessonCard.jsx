@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
  * @param {number} delay - Animation delay for framer-motion
  */
 const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 0 }) => {
+  // Ensure we always render the video container
   return (
     <motion.article 
       className="card note"
@@ -21,9 +22,15 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
         className="tool-video-container" 
         style={{ 
           minHeight: '300px',
+          height: '300px',
+          width: '100%',
           display: 'block',
           visibility: 'visible',
-          opacity: 1
+          opacity: 1,
+          position: 'relative',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: '12px',
+          marginBottom: '1.5rem'
         }}
       >
         {/* Placeholder - always visible by default */}
