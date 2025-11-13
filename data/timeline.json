@@ -2,81 +2,113 @@
   {
     "date": "3rd October 2025",
     "title": "Project Proposal Submission",
-    "task": "Submit project proposal outlining the concept, research question, and intended outcomes for the interactive film."
+    "task": "Submit project proposal outlining the concept, research question, and intended outcomes for the interactive film.",
+    "challenge": "Defining a research question that balanced creative ambition with academic rigor, ensuring the project would contribute meaningfully to discussions on AI ethics and interactive storytelling.",
+    "reflection": "This milestone established the foundation for the entire project. The decision to explore AI control and human agency through an interactive horror format connected directly to course objectives on narrative design and digital media ethics. The proposal process forced early consideration of scope, which proved invaluable for managing the project's complexity."
   },
   {
     "date": "Week of 13th October 2025",
     "title": "Narrative Research & Outline",
-    "task": "Begin drafting the narrative outline in Twine. Research horror conventions and AI anxieties for integration into the story. Experiment with ChatGPT for branching dialogue and scene scripting."
+    "task": "Begin drafting the narrative outline in Twine. Research horror conventions and AI anxieties for integration into the story. Experiment with ChatGPT for branching dialogue and scene scripting.",
+    "challenge": "Balancing horror genre conventions with original thematic exploration. Initial drafts felt too derivative of reference works like Black Mirror. Additionally, creating meaningful choices that felt consequential rather than arbitrary required multiple iterations.",
+    "reflection": "The research phase revealed the importance of understanding genre conventions before subverting them. Using ChatGPT for dialogue generation was experimental but highlighted the need for human editorial oversight—connecting to course discussions on AI-assisted creative workflows. The Twine outline became a crucial low-fidelity prototype, allowing narrative structure testing before expensive asset generation."
   },
   {
     "date": "Week of 13th October 2025",
     "title": "Moodboard Creation",
-    "task": "Create moodboards to establish visual tone and atmosphere for the interactive film. Gather reference images and establish color palette, lighting, and aesthetic direction."
+    "task": "Create moodboards to establish visual tone and atmosphere for the interactive film. Gather reference images and establish color palette, lighting, and aesthetic direction.",
+    "challenge": "Translating abstract thematic concepts (AI control, human agency) into concrete visual language. Initial moodboards were too broad, lacking the specificity needed for AI prompt engineering.",
+    "reflection": "The moodboard process revealed a key learning: AI-assisted production requires more explicit visual specifications than traditional filmmaking. What would normally be communicated through cinematographer collaboration now needed to be codified in prompts. This connects to course objectives on adapting traditional production workflows to emerging technologies."
   },
   {
     "date": "Week of 13th October 2025",
     "title": "Storyboard Development",
-    "task": "Develop storyboards for key scenes and branching paths. Plan visual composition, camera angles, and transitions between interactive choices."
+    "task": "Develop storyboards for key scenes and branching paths. Plan visual composition, camera angles, and transitions between interactive choices.",
+    "challenge": "Creating storyboards that account for multiple narrative paths while maintaining visual coherence. Traditional linear storyboarding didn't adequately represent the branching structure, requiring a hybrid approach combining storyboards with flow diagrams.",
+    "reflection": "Storyboarding for interactive media requires thinking in systems rather than sequences. This challenge connected to course discussions on non-linear narrative structures and the unique demands of interactive storytelling. The process informed later decisions about visual consistency across branching paths."
   },
   {
     "date": "Week of 20th October 2025",
     "title": "Prototype Development (Phase 1)",
-    "task": "Build the first Twine prototype with placeholder choices. Test branching structure and timed decision mechanics to establish player pacing and flow."
+    "task": "Build the first Twine prototype with placeholder choices. Test branching structure and timed decision mechanics to establish player pacing and flow.",
+    "challenge": "Implementing timed decisions in Twine required custom JavaScript, which was more complex than anticipated. Additionally, early playtests revealed that players found the looping mechanic confusing without clear visual feedback.",
+    "reflection": "The Twine prototype phase was critical for understanding narrative flow before committing resources to asset generation. This aligns with agile development principles and demonstrates the value of rapid prototyping in interactive media. The technical challenges in implementing timed mechanics highlighted the gap between design intent and technical implementation—a recurring theme in interactive development."
   },
   {
     "date": "Week of 27th October 2025",
     "title": "Asset Generation & Integration",
-    "task": "Generate draft video and audio assets using Veo3, NanoBanana, Kling (visuals), and ElevenLabs/Suno (sound). Integrate assets into the Twine prototype for visual testing."
+    "task": "Generate draft video and audio assets using Veo3, NanoBanana, Kling (visuals), and ElevenLabs/Suno (sound). Integrate assets into the Twine prototype for visual testing.",
+    "challenge": "Maintaining visual consistency across different AI tools proved extremely difficult. Each tool interpreted prompts differently, creating jarring visual shifts. Characters and environments varied significantly between generations, breaking immersion. Additionally, AI-generated video often contained artifacts and temporal inconsistencies requiring multiple regeneration attempts.",
+    "reflection": "This phase highlighted both the potential and limitations of current AI video generation. The experience revealed the importance of prompt engineering as a new creative skill, requiring both technical precision and artistic vision. The challenge of consistency connects to course discussions on AI ethics and the role of human oversight in AI-assisted production. Establishing a hybrid workflow combining AI generation with traditional post-production became essential."
   },
   {
     "date": "Week of 3rd November 2025",
     "title": "Internal Playtesting",
-    "task": "Conduct internal playtests to check functionality, immersion, and horror pacing. Gather feedback on user experience, narrative clarity, and tension levels."
+    "task": "Conduct internal playtests to check functionality, immersion, and horror pacing. Gather feedback on user experience, narrative clarity, and tension levels.",
+    "challenge": "Players found the looping mechanic confusing initially—many didn't realize they were in a loop and thought the game had glitched. Some choice points felt arbitrary, reducing player investment. Additionally, horror pacing was inconsistent, with some sections losing tension due to unclear consequences.",
+    "reflection": "Playtesting revealed the fundamental challenge in interactive storytelling: the gap between authorial intent and player experience. This connects directly to course objectives on audience engagement and user experience design. The feedback process highlighted the importance of clear communication in interactive narratives, where players must understand both mechanics and narrative implications. This iterative refinement process demonstrates the value of user testing in interactive media development."
   },
   {
     "date": "Week of 10th November 2025",
     "title": "Prototype Refinement",
-    "task": "Revise prototype based on feedback. Improve consistency between visuals and audio tone, and refine transitions between choice outcomes."
+    "task": "Revise prototype based on feedback. Improve consistency between visuals and audio tone, and refine transitions between choice outcomes.",
+    "challenge": "Addressing playtest feedback required balancing multiple concerns: maintaining narrative integrity while improving clarity, preserving horror atmosphere while ensuring accessibility, and fixing technical issues without losing creative vision.",
+    "reflection": "The refinement phase demonstrated the iterative nature of interactive media development. Each change required considering its impact on multiple aspects of the experience—narrative, technical, and emotional. This process connects to course discussions on iterative design and the importance of user feedback in creative production. The challenge of balancing competing priorities reflects real-world development constraints."
   },
   {
     "date": "Week of 17th November 2025",
     "title": "Final Prototype Preparation",
-    "task": "Finalise prototype build for submission. Ensure all branches are functional and placeholder assets are replaced with near-final visuals and sound."
+    "task": "Finalise prototype build for submission. Ensure all branches are functional and placeholder assets are replaced with near-final visuals and sound.",
+    "challenge": "Managing asset pipeline complexity—ensuring all video, audio, and interactive elements worked together seamlessly. Quality control across multiple branching paths was time-consuming, and some placeholder assets required last-minute regeneration due to quality issues.",
+    "reflection": "This phase highlighted the importance of project management in creative work. The complexity of interactive media production requires careful tracking of assets, paths, and dependencies. The experience connects to course objectives on professional production practices and the challenges of managing non-linear content creation."
   },
   {
     "date": "20th November 2025",
     "title": "Design Prototype Submission",
-    "task": "Submit the final design prototype before the Christmas break. Prepare supporting documentation and design rationale."
+    "task": "Submit the final design prototype before the Christmas break. Prepare supporting documentation and design rationale.",
+    "challenge": "Documenting design decisions and connecting them to theoretical frameworks required synthesizing months of practical work into coherent academic writing. Balancing creative reflection with analytical rigor was challenging.",
+    "reflection": "The submission process reinforced the importance of documentation throughout development, not just at the end. The challenge of articulating design rationale connects to course objectives on reflective practice and professional communication. This milestone provided an opportunity to step back and see the project's evolution holistically."
   },
   {
     "date": "December 2025 – January 2026",
     "title": "Christmas Break",
-    "task": "Minimal project activity during the break. Conduct light reflection and note areas for improvement for Term 2 development."
+    "task": "Minimal project activity during the break. Conduct light reflection and note areas for improvement for Term 2 development.",
+    "challenge": "Maintaining momentum after a break while objectively evaluating the work completed. Identifying genuine areas for improvement versus unnecessary perfectionism.",
+    "reflection": "The break provided valuable distance from the project, allowing for more objective evaluation. This period of reflection connected to course discussions on iterative development and the importance of stepping back to gain perspective. Notes from this period informed Term 2 priorities and helped focus remaining development efforts."
   },
   {
     "date": "Week of 19th January 2026",
     "title": "Development Resumption",
-    "task": "Resume development post-break. Conduct further playtesting with peers and collect reflections on horror impact and AI-related themes."
+    "task": "Resume development post-break. Conduct further playtesting with peers and collect reflections on horror impact and AI-related themes.",
+    "challenge": "Re-engaging with the project after a break required re-familiarizing with technical systems and creative decisions. New playtesters provided fresh perspectives but also raised new concerns that needed addressing.",
+    "reflection": "Returning to the project with fresh eyes revealed both strengths and weaknesses more clearly. The additional playtesting connected to course objectives on user-centered design and iterative improvement. This phase demonstrated the value of extended development cycles in allowing for deeper reflection and refinement."
   },
   {
     "date": "February 2026",
     "title": "Analysis & Essay Drafting",
-    "task": "Analyse playtesting results and begin drafting the 4,000-word essay and reflective development log. Continue refining portfolio structure."
+    "task": "Analyse playtesting results and begin drafting the 4,000-word essay and reflective development log. Continue refining portfolio structure.",
+    "challenge": "Synthesizing months of practical work, playtest feedback, and theoretical research into coherent academic writing. Balancing creative reflection with analytical rigor while maintaining authentic voice.",
+    "reflection": "The essay drafting process required connecting practical experiences to theoretical frameworks—a key course objective. This phase highlighted the importance of ongoing documentation, as reconstructing decisions and challenges from memory would have been significantly more difficult. The process of articulating design rationale deepened understanding of the project's theoretical foundations."
   },
   {
     "date": "March 2026",
     "title": "Portfolio Completion",
-    "task": "Complete portfolio artefact (interactive horror film in Twine). Polish the reflective essay and development log. Seek supervisor feedback for refinement."
+    "task": "Complete portfolio artefact (interactive horror film in Twine). Polish the reflective essay and development log. Seek supervisor feedback for refinement.",
+    "challenge": "Balancing final polish with scope management. Some improvements identified during refinement would require significant additional work, requiring careful prioritization. Additionally, integrating supervisor feedback while maintaining creative vision.",
+    "reflection": "The completion phase reinforced the importance of scope management and knowing when to stop iterating. The supervisor feedback process connected to course objectives on professional development and the value of external perspectives. This milestone represented the culmination of months of iterative development and reflection."
   },
   {
     "date": "Week of 30th March 2026",
     "title": "Final Revisions",
-    "task": "Apply supervisor feedback and complete final revisions to the portfolio, essay, and development log in preparation for submission."
+    "task": "Apply supervisor feedback and complete final revisions to the portfolio, essay, and development log in preparation for submission.",
+    "challenge": "Addressing feedback across multiple deliverables (portfolio, essay, logbook) while ensuring consistency. Managing time effectively to complete revisions without compromising quality.",
+    "reflection": "The revision process demonstrated the value of external feedback in improving work quality. This phase connected to course objectives on professional standards and the importance of iterative refinement. The challenge of balancing multiple deliverables reflects real-world project management requirements."
   },
   {
     "date": "10th April 2026",
     "title": "Final Submission",
-    "task": "Submit portfolio, 4,000-word essay, and development log. Conclude the project with final reflections on the design process and outcomes."
+    "task": "Submit portfolio, 4,000-word essay, and development log. Conclude the project with final reflections on the design process and outcomes.",
+    "challenge": "Letting go of the project and accepting that further iteration would not be possible. Reflecting on the entire journey holistically.",
+    "reflection": "The submission milestone provided an opportunity for comprehensive reflection on the entire development process. This final phase connected to course objectives on reflective practice and professional documentation. The project's completion represented not just a creative artefact, but a learning journey in interactive storytelling, AI-assisted production, and digital media development."
   }
 ]
