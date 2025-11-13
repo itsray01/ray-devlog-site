@@ -102,19 +102,22 @@ const Timeline = ({ entries = [] }) => {
               {/* Date Badge + Timeline Line */}
               <div className="timeline-left">
                 <motion.div
-                  className={`date-badge ${isExpanded ? 'expanded' : ''}`}
+                  className={`date-badge ${isExpanded ? 'expanded' : ''} ${entry.locked ? 'locked' : ''}`}
                   animate={{
                     scale: isExpanded ? 1.1 : 1,
-                    backgroundColor: isExpanded
+                    backgroundColor: entry.locked
+                      ? 'rgba(100, 100, 100, 0.3)'
+                      : isExpanded
                       ? 'rgba(245, 158, 11, 0.2)'
                       : 'rgba(16, 18, 24, 0.8)'
                   }}
                   transition={{ duration: 0.3 }}
-                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseEnter={() => !entry.locked && setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: entry.locked ? 'not-allowed' : 'pointer', opacity: entry.locked ? 0.6 : 1 }}
                 >
                   <span className="date-text">{entry.date}</span>
+                  {entry.locked && <span style={{ fontSize: '0.7rem', marginLeft: '5px', opacity: 0.7 }}>🔒</span>}
                 </motion.div>
                 {!isLast && <div className="timeline-connector" />}
               </div>
@@ -124,14 +127,21 @@ const Timeline = ({ entries = [] }) => {
                 <AnimatePresence mode="wait">
                   {isVisible && (
                     <motion.div
-                      className="entry-details"
+                      className={`entry-details ${entry.locked ? 'locked-entry' : ''}`}
                       initial={{ opacity: 0, x: -20, height: 0 }}
                       animate={{ opacity: 1, x: 0, height: 'auto' }}
                       exit={{ opacity: 0, x: -20, height: 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      style={entry.locked ? { opacity: 0.5, filter: 'grayscale(0.5)' } : {}}
                     >
                       <h4>{entry.title}</h4>
-                      <p className="task-text">{entry.task}</p>
+                      <p className="task-text">
+                        {entry.locked ? (
+                          <em style={{ color: 'var(--muted)' }}>[Locked - Future content]</em>
+                        ) : (
+                          entry.task
+                        )}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>

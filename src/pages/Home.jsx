@@ -107,9 +107,8 @@ const Home = () => {
           </p>
           <p>
             Every decision, experiment, and breakthrough is documented here—from initial concept 
-            sketches through prototype development and submission. This serves as both a creative 
-            diary and technical reference for the emerging medium of AI-assisted filmmaking, 
-            capturing the development process up to the prototype submission in November 2025.
+            sketches to final production milestones. This serves as both a creative diary and 
+            technical reference for the emerging medium of AI-assisted filmmaking.
           </p>
         </div>
       </motion.section>
@@ -1546,39 +1545,18 @@ const Home = () => {
           </p>
         </motion.article>
 
-        {/* Milestone 6: Technical Implementation */}
+        {/* Milestone 6: Technical Implementation - Locked for future */}
         <motion.article 
           className="card note"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
+          style={{opacity: 0.5, pointerEvents: 'none'}}
         >
           <h3>Milestone 6: Digital Logbook Development</h3>
-          <small className="meta">November 2025</small>
+          <small className="meta">[Locked - Future content]</small>
           
-          <p><strong>What I did:</strong> Developed this React-based digital logbook to document the project 
-          development process up to the prototype submission. Created an interactive interface with filtering, 
-          timeline visualization, and structured content sections for inspiration, moodboards, storyboards, 
-          and development reflections.</p>
-          
-          <p><strong>Key Decision:</strong> Built a custom React application rather than using a static 
-          site generator, allowing for dynamic content loading, interactive timelines, and responsive design. 
-          This technical choice supports course objectives on digital media production and web development skills.</p>
-          
-          <p><strong>Challenge:</strong> Balancing documentation needs with development time. Initially, the 
-          logbook became a distraction from the main project. Additionally, organizing diverse content types 
-          (text, images, timelines, story nodes) required careful information architecture.</p>
-          
-          <p><strong>Solution:</strong> Established a clear content structure with dedicated sections for 
-          different documentation types. Implemented a sidebar navigation system for easy access. Used 
-          component-based architecture to make content updates efficient. This approach demonstrates 
-          information design principles and the importance of documentation in creative projects.</p>
-          
-          <p><strong>Reflection:</strong> The logbook development process itself became a valuable learning 
-          experience in React development, state management, and user interface design. It also reinforced 
-          the importance of documentation in creative work—capturing decisions, challenges, and reflections 
-          as they occur rather than reconstructing them later. This connects to course objectives on 
-          reflective practice and professional documentation standards.</p>
+          <p><em>This section will be updated after prototype submission.</em></p>
         </motion.article>
 
         {/* Key Learnings Summary */}
@@ -1825,9 +1803,8 @@ const Home = () => {
         transition={{ delay: 1.0 }}
       >
         <p>
-          This logbook documents the development journey from project inception through prototype 
-          submission (November 2025), capturing key decisions, challenges, and learnings from 
-          the iterative development process.
+          This logbook is continuously updated as the project evolves. 
+          Check back regularly for new entries, experiments, and insights.
         </p>
       </motion.footer>
     </motion.div>
