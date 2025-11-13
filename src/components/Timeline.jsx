@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { timelineVariants, itemVariants } from '../constants/animations';
 
 /**
  * Timeline component with scroll and hover-based expand/collapse behavior
@@ -48,28 +49,6 @@ const Timeline = ({ entries = [] }) => {
       observer.disconnect();
     };
   }, [entries.length]);
-
-  const timelineVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }
-  };
 
   return (
     <div className="timeline-container-new">

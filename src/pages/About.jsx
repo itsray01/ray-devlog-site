@@ -1,18 +1,6 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-
-// Move animation variants outside component
-const pageVariants = {
-  initial: { opacity: 0, scale: 0.95 },
-  in: { opacity: 1, scale: 1 },
-  out: { opacity: 0, scale: 1.05 }
-};
-
-const pageTransition = {
-  type: "tween",
-  ease: "anticipate",
-  duration: 0.4
-};
+import { pageVariants, pageTransition } from '../constants/animations';
 
 /**
  * About page - project and creator information

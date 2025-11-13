@@ -1,24 +1,19 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Timeline from '../components/Timeline';
 import StoryTimeline from '../components/StoryTimeline';
+import ToolLessonCard from '../components/ToolLessonCard';
 import useDevlog from '../hooks/useDevlog';
 import inspirationData from '../../data/inspiration.json';
 import moodboardData from '../../data/moodboard.json';
 import storyboardData from '../../data/storyboard.json';
 import timelineData from '../../data/timeline.json';
+import { pageVariants, pageTransition } from '../constants/animations';
 
-// Move animation variants outside component to prevent recreation
-const pageVariants = {
-  initial: { opacity: 0, scale: 0.95 },
-  in: { opacity: 1, scale: 1 },
-  out: { opacity: 0, scale: 1.05 }
-};
-
-const pageTransition = {
-  type: "tween",
-  ease: "anticipate",
-  duration: 0.4
+// Image error handler - optimized to prevent recreation
+const handleImageError = (e) => {
+  e.target.style.border = '2px solid red';
+  e.target.style.backgroundColor = '#ff000020';
 };
 
 /**
@@ -35,6 +30,15 @@ const Home = () => {
     [...inspirationData.interactive, ...inspirationData.games, ...inspirationData.design],
     []
   );
+
+  // Memoize toggle handlers to prevent recreation
+  const toggleTimeline = useCallback(() => {
+    setTimelineExpanded(prev => !prev);
+  }, []);
+
+  const toggleBranching = useCallback(() => {
+    setBranchingExpanded(prev => !prev);
+  }, []);
 
   if (loading) {
     return (
@@ -132,11 +136,11 @@ const Home = () => {
               cursor: 'pointer',
               userSelect: 'none'
             }}
-            onClick={() => setTimelineExpanded(!timelineExpanded)}
+            onClick={toggleTimeline}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                setTimelineExpanded(!timelineExpanded);
+                toggleTimeline();
               }
             }}
             tabIndex={0}
@@ -324,12 +328,7 @@ const Home = () => {
                   src={item.image} 
                   alt={item.title} 
                   loading="lazy"
-                  onError={(e) => {
-                    console.error('Image failed to load:', item.image);
-                    e.target.style.border = '2px solid red';
-                    e.target.style.backgroundColor = '#ff000020';
-                  }}
-                  onLoad={() => console.log('Image loaded:', item.image)}
+                  onError={handleImageError}
                 />
                 <figcaption>
                   <strong>{item.title}</strong>
@@ -380,11 +379,7 @@ const Home = () => {
                   src={item.src} 
                   alt={item.title} 
                   loading="lazy"
-                  onError={(e) => {
-                    console.error('Moodboard image failed:', item.src);
-                    e.target.style.border = '2px solid red';
-                  }}
-                  onLoad={() => console.log('Moodboard image loaded:', item.src)}
+                  onError={handleImageError}
                 />
                 <figcaption>{item.title}</figcaption>
               </figure>
@@ -416,11 +411,7 @@ const Home = () => {
                   src={item.src} 
                   alt={item.title} 
                   loading="lazy"
-                  onError={(e) => {
-                    console.error('Storyboard image failed:', item.src);
-                    e.target.style.border = '2px solid red';
-                  }}
-                  onLoad={() => console.log('Storyboard image loaded:', item.src)}
+                  onError={handleImageError}
                 />
                 <figcaption>{item.title}</figcaption>
               </figure>
@@ -645,9 +636,9 @@ const Home = () => {
                 Branching Narrative Flow
               </motion.h2>
               <p style={{ marginTop: '0.5rem', marginBottom: 0 }}>
-                Interactive story paths with multiple decision points and alternative routes. 
-                Click on any node to explore the narrative structure.
-              </p>
+            Interactive story paths with multiple decision points and alternative routes. 
+            Click on any node to explore the narrative structure.
+          </p>
             </div>
             <motion.span
               animate={{ 
@@ -733,14 +724,12 @@ const Home = () => {
           </p>
         </motion.article>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
+        <ToolLessonCard
+          title="Sora 2: The Face Problem That Killed My Workflow"
+          videoUrl="/videos/sora2-example.mp4"
+          videoType="mp4"
+          delay={0.9}
         >
-          <h3>Sora 2: The Face Problem That Killed My Workflow</h3>
-          
           <p>
             I was genuinely excited to try Sora 2. OpenAI's marketing showed incredible quality—smooth 
             motion, realistic physics, cinematic quality. The demos looked like they were shot by 
@@ -811,16 +800,14 @@ const Home = () => {
             viable yet. This forced me to completely pivot my tool strategy and taught me the 
             importance of understanding tool capabilities beyond just quality metrics.
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.95 }}
+        <ToolLessonCard
+          title="Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing"
+          videoUrl="/videos/wan25-example.mp4"
+          videoType="mp4"
+          delay={0.95}
         >
-          <h3>Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing</h3>
-          
           <p>
             After Sora's face restrictions killed my workflow, I discovered Wan2.5. This tool 
             actually <strong>lets you upload face reference images</strong>—exactly what I needed! 
@@ -927,16 +914,14 @@ const Home = () => {
             yet. This forced me to accept that current AI video generation tools have fundamental 
             limitations in character consistency that can't be easily worked around.
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0 }}
+        <ToolLessonCard
+          title="Higgsfield: The Unified Platform That Cost Me a Fortune"
+          videoUrl="/videos/higgsfield-example.mp4"
+          videoType="mp4"
+          delay={1.0}
         >
-          <h3>Higgsfield: The Unified Platform That Cost Me a Fortune</h3>
-          
           <p>
             After testing individual tools and hitting dead ends, I discovered Higgsfield. This 
             platform aggregates access to multiple AI video generation models—Veo3.1, Sora 2, 
@@ -1062,16 +1047,14 @@ const Home = () => {
             understand the pricing model before committing, and budget for iteration costs—they 
             add up fast.
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05 }}
+        <ToolLessonCard
+          title="Veo3.1: The Tool That Actually Worked (After Everything Else Failed)"
+          videoUrl="/videos/veo31-example.mp4"
+          videoType="mp4"
+          delay={1.05}
         >
-          <h3>Veo3.1: The Tool That Actually Worked (After Everything Else Failed)</h3>
-          
           <p>
             After weeks of testing Sora (face restrictions), Wan2.5 (poor quality), and other 
             tools, Veo3.1 became my primary workhorse. It wasn't perfect, but it was the only 
@@ -1215,16 +1198,14 @@ const Home = () => {
             are worth it. For character-driven narratives, Veo3.1 is currently one of the best 
             options available, despite its limitations.
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
+        <ToolLessonCard
+          title="RunwayML Gen-3: The Specialized Environmental Tool"
+          videoUrl="/videos/runway-example.mp4"
+          videoType="mp4"
+          delay={1.1}
         >
-          <h3>RunwayML Gen-3: The Specialized Environmental Tool</h3>
-          
           <p>
             RunwayML Gen-3 became my go-to for specific environmental shots where I needed 
             particular aesthetic qualities that Veo3.1 couldn't deliver. While it wasn't reliable 
@@ -1288,16 +1269,14 @@ const Home = () => {
             rate was higher for environmental shots (~60% first attempt) than character scenes 
             (~20% first attempt).
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
-        <motion.article 
-          className="card note"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.15 }}
+        <ToolLessonCard
+          title="Kling: The Abstract Effects Specialist"
+          videoUrl="/videos/kling-example.mp4"
+          videoType="mp4"
+          delay={1.15}
         >
-          <h3>Kling: The Abstract Effects Specialist</h3>
-          
           <p>
             Kling became my specialized tool for abstract sequences and visual effects that 
             couldn't be achieved with other tools. While it wasn't suitable for narrative 
@@ -1395,7 +1374,7 @@ const Home = () => {
             I needed. The lesson: in the current state of AI video generation, specialization 
             beats trying to find one tool that does everything.
           </p>
-        </motion.article>
+        </ToolLessonCard>
 
         <motion.article 
           className="card note"

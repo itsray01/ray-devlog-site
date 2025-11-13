@@ -23,11 +23,25 @@ export default defineConfig({
     // Chunk splitting for better caching
     rollupOptions: {
       output: {
-        manualChunks: {
+        manualChunks: (id) => {
           // Split vendor chunks
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'animation-vendor': ['framer-motion'],
-          'utils': ['simplebar-react', 'simplebar']
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animation-vendor';
+            }
+            if (id.includes('simplebar')) {
+              return 'utils';
+            }
+            // Other node_modules
+            return 'vendor';
+          }
+          // Split large pages into separate chunks
+          if (id.includes('pages/Home')) {
+            return 'home-page';
+          }
         }
       }
     },

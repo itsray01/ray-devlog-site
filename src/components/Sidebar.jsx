@@ -1,40 +1,41 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useMemo, useCallback } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { sidebarVariants, dropdownVariants } from '../constants/animations';
+
+// Static data - moved outside component to prevent recreation
+const homeSections = [
+  { id: 'overview', title: 'Project Overview' },
+  { id: 'inspiration', title: 'Inspiration' },
+  { id: 'moodboard', title: 'Moodboard' },
+  { id: 'storyboard', title: 'Storyboard' },
+  { id: 'timeline', title: 'Project Timeline' },
+  { id: 'story-development', title: 'Story Development' },
+  { id: 'branching', title: 'Branching Narrative' },
+  { id: 'experiments', title: 'Technical Experiments' },
+  { id: 'audience', title: 'Audience & Accessibility' },
+  { id: 'production', title: 'Production & Reflection' },
+  { id: 'references', title: 'References' }
+];
+
+const otherPages = [
+  { path: '/assets', title: 'Assets' },
+  { path: '/about', title: 'About' },
+  { path: '/extras', title: 'Extras' }
+];
 
 /**
  * Sidebar component with hover dropdown navigation
  * Shows page links with hover dropdown for Home sections
+ * Optimized with useMemo and useCallback
  */
 const Sidebar = () => {
   const location = useLocation();
 
-  // Home sections for dropdown
-  const homeSections = [
-    { id: 'overview', title: 'Project Overview' },
-    { id: 'inspiration', title: 'Inspiration' },
-    { id: 'moodboard', title: 'Moodboard' },
-    { id: 'storyboard', title: 'Storyboard' },
-    { id: 'timeline', title: 'Project Timeline' },
-    { id: 'story-development', title: 'Story Development' },
-    { id: 'branching', title: 'Branching Narrative' },
-    { id: 'experiments', title: 'Technical Experiments' },
-    { id: 'audience', title: 'Audience & Accessibility' },
-    { id: 'production', title: 'Production & Reflection' },
-    { id: 'references', title: 'References' }
-  ];
+  // Memoize home page check
+  const isHomePage = useMemo(() => location.pathname === '/', [location.pathname]);
 
-  // Other navigation pages
-  const otherPages = [
-    { path: '/assets', title: 'Assets' },
-    { path: '/about', title: 'About' },
-    { path: '/extras', title: 'Extras' }
-  ];
-
-  // Check if we're on the home page
-  const isHomePage = location.pathname === '/';
-
-  // Handle section click
-  const handleSectionClick = (sectionId) => {
+  // Memoize section click handler
+  const handleSectionClick = useCallback((sectionId) => {
     if (!isHomePage) {
       // Navigate to home first, then scroll
       window.location.href = '/';
@@ -51,47 +52,7 @@ const Sidebar = () => {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-  };
-
-  // Animation variants
-  const sidebarVariants = {
-    hidden: { x: -300, opacity: 0 },
-    visible: { 
-      x: 0, 
-      opacity: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }
-    }
-  };
-
-  const dropdownVariants = {
-    hidden: { 
-      x: -20, 
-      opacity: 0,
-      scale: 0.95
-    },
-    visible: { 
-      x: 0, 
-      opacity: 1,
-      scale: 1,
-      transition: { 
-        duration: 0.2,
-        ease: "easeOut"
-      }
-    },
-    exit: { 
-      x: -20, 
-      opacity: 0,
-      scale: 0.95,
-      transition: { 
-        duration: 0.15,
-        ease: "easeIn"
-      }
-    }
-  };
+  }, [isHomePage]);
 
   return (
     <motion.aside 
