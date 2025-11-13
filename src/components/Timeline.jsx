@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 /**
  * Timeline component with scroll and hover-based expand/collapse behavior
@@ -123,27 +123,31 @@ const Timeline = ({ entries = [] }) => {
 
               {/* Content that expands/collapses */}
               <div className="timeline-right">
-                <AnimatePresence mode="wait">
-                  {(isVisible || hoveredIndex === index) && (
-                    <motion.div
-                      className={`entry-details ${entry.locked ? 'locked-entry' : ''}`}
-                      initial={{ opacity: 0, x: -20, height: 0 }}
-                      animate={{ opacity: 1, x: 0, height: 'auto' }}
-                      exit={{ opacity: 0, x: -20, height: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      style={entry.locked ? { opacity: 0.5, filter: 'grayscale(0.5)' } : {}}
-                    >
-                      <h4>{entry.title}</h4>
-                      <p className="task-text">
-                        {entry.locked ? (
-                          <em style={{ color: 'var(--muted)' }}>[Locked - Future content]</em>
-                        ) : (
-                          entry.task
-                        )}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  className={`entry-details ${entry.locked ? 'locked-entry' : ''}`}
+                  animate={{ 
+                    opacity: isVisible ? 1 : 0,
+                    x: isVisible ? 0 : -20,
+                    height: isVisible ? 'auto' : 0,
+                    marginTop: isVisible ? 0 : 0,
+                    marginBottom: isVisible ? 0 : 0
+                  }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  style={{ 
+                    overflow: 'hidden',
+                    ...(entry.locked ? { opacity: 0.5, filter: 'grayscale(0.5)' } : {}),
+                    ...(!isVisible ? { pointerEvents: 'none' } : {})
+                  }}
+                >
+                  <h4>{entry.title}</h4>
+                  <p className="task-text">
+                    {entry.locked ? (
+                      <em style={{ color: 'var(--muted)' }}>[Locked - Future content]</em>
+                    ) : (
+                      entry.task
+                    )}
+                  </p>
+                </motion.div>
               </div>
             </motion.div>
           );
