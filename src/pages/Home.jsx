@@ -28,6 +28,7 @@ const pageTransition = {
 const Home = () => {
   const { entries, loading, error } = useDevlog();
   const [timelineExpanded, setTimelineExpanded] = useState(false);
+  const [branchingExpanded, setBranchingExpanded] = useState(false);
 
   // Memoize combined visual data to prevent recalculation
   const visualReferenceData = useMemo(() => 
@@ -536,7 +537,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Branching Narrative Section */}
+      {/* Branching Narrative Section - Expandable */}
       <motion.section
         id="branching"
         className="content-section"
@@ -545,12 +546,60 @@ const Home = () => {
         transition={{ delay: 0.75 }}
       >
         <div className="card">
+          <div 
+            style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              cursor: 'pointer',
+              userSelect: 'none'
+            }}
+            onClick={() => setBranchingExpanded(!branchingExpanded)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setBranchingExpanded(!branchingExpanded);
+              }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-expanded={branchingExpanded}
+          >
+            <div>
           <h2>Branching Narrative Flow</h2>
-          <p>
+              <p style={{ marginTop: '0.5rem', marginBottom: 0 }}>
             Interactive story paths with multiple decision points and alternative routes. 
             Click on any node to explore the narrative structure.
           </p>
+            </div>
+            <motion.span
+              animate={{ rotate: branchingExpanded ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ 
+                fontSize: '1.5rem',
+                color: 'var(--accent)',
+                marginLeft: '1rem',
+                flexShrink: 0
+              }}
+            >
+              ▼
+            </motion.span>
+          </div>
+          <AnimatePresence>
+            {branchingExpanded && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
+              >
+                <div style={{ marginTop: '1.5rem' }}>
           <StoryTimeline />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.section>
 
