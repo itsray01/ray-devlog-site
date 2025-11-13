@@ -145,16 +145,16 @@ const Home = () => {
           >
             <motion.h2
               animate={{ 
-                opacity: timelineExpanded ? 1 : [0.3, 1, 0.3],
-                scale: timelineExpanded ? 1 : [1, 1.1, 1],
+                opacity: timelineExpanded ? 1 : [0.4, 1, 0.4],
+                scale: timelineExpanded ? 1 : [1, 1.08, 1],
                 textShadow: timelineExpanded 
                   ? '0 0 0px rgba(138, 43, 226, 0)' 
                   : ['0 0 5px rgba(138, 43, 226, 0.5)', '0 0 20px rgba(138, 43, 226, 1)', '0 0 5px rgba(138, 43, 226, 0.5)']
               }}
               transition={{ 
-                opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                textShadow: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+                opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
+                scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
+                textShadow: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
               }}
               style={{ 
                 margin: 0,
@@ -166,13 +166,13 @@ const Home = () => {
             <motion.span
               animate={{ 
                 rotate: timelineExpanded ? 180 : 0,
-                opacity: timelineExpanded ? 1 : [0.3, 1, 0.3],
-                scale: timelineExpanded ? 1 : [1, 1.3, 1]
+                opacity: timelineExpanded ? 1 : [0.4, 1, 0.4],
+                scale: timelineExpanded ? 1 : [1, 1.25, 1]
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+                opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
+                scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
               }}
               style={{ 
                 fontSize: '1.5rem',
@@ -597,16 +597,16 @@ const Home = () => {
             <div>
               <motion.h2
                 animate={{ 
-                  opacity: branchingExpanded ? 1 : [0.3, 1, 0.3],
-                  scale: branchingExpanded ? 1 : [1, 1.1, 1],
+                  opacity: branchingExpanded ? 1 : [0.4, 1, 0.4],
+                  scale: branchingExpanded ? 1 : [1, 1.08, 1],
                   textShadow: branchingExpanded 
                     ? '0 0 0px rgba(138, 43, 226, 0)' 
                     : ['0 0 5px rgba(138, 43, 226, 0.5)', '0 0 20px rgba(138, 43, 226, 1)', '0 0 5px rgba(138, 43, 226, 0.5)']
                 }}
                 transition={{ 
-                  opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                  scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                  textShadow: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+                  opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
+                  scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
+                  textShadow: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
                 }}
                 style={{ 
                   margin: 0,
@@ -624,13 +624,13 @@ const Home = () => {
             <motion.span
               animate={{ 
                 rotate: branchingExpanded ? 180 : 0,
-                opacity: branchingExpanded ? 1 : [0.3, 1, 0.3],
-                scale: branchingExpanded ? 1 : [1, 1.3, 1]
+                opacity: branchingExpanded ? 1 : [0.4, 1, 0.4],
+                scale: branchingExpanded ? 1 : [1, 1.25, 1]
               }}
               transition={{ 
                 rotate: { duration: 0.3 },
-                opacity: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 1, repeat: Infinity, ease: "easeInOut" }
+                opacity: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] },
+                scale: { duration: 2, repeat: Infinity, repeatType: "loop", ease: [0.4, 0, 0.6, 1] }
               }}
               style={{ 
                 fontSize: '1.5rem',
