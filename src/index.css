@@ -1393,11 +1393,31 @@ html {
 .tool-video-container {
   aspect-ratio: 16 / 9;
   width: 100%;
+  min-height: 300px; /* Fallback for browsers without aspect-ratio support */
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  position: relative;
+  display: block;
+}
+
+/* Fallback for older browsers */
+@supports not (aspect-ratio: 16 / 9) {
+  .tool-video-container::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+  }
+  
+  .tool-video-container > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .tool-video-container video,
@@ -1406,6 +1426,25 @@ html {
   height: 100%;
   object-fit: cover;
   display: block;
+  position: relative;
+}
+
+.tool-video-container .video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 2rem;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive */

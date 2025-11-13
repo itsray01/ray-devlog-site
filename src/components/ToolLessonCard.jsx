@@ -17,24 +17,9 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
       transition={{ delay }}
     >
       {/* Video Container - 16:9 aspect ratio */}
-      <div className="tool-video-container" style={{ position: 'relative' }}>
-        {/* Placeholder - always visible */}
-        <div className="video-placeholder" style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#cbd5e1',
-          textAlign: 'center',
-          padding: '2rem',
-          zIndex: 1,
-          pointerEvents: 'none'
-        }}>
+      <div className="tool-video-container">
+        {/* Placeholder - always visible by default */}
+        <div className="video-placeholder">
           <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.5 }}>▶</div>
           <div style={{ fontSize: '0.9rem', opacity: 0.7 }}>Video placeholder</div>
           <div style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '0.5rem' }}>Add video at: {videoUrl}</div>
