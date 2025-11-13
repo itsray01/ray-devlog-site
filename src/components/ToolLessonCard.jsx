@@ -17,6 +17,21 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
     >
+      {/* TEST: This should appear before h3 */}
+      <div style={{ 
+        height: '300px', 
+        width: '100%', 
+        backgroundColor: 'rgba(138, 43, 226, 0.3)', 
+        marginBottom: '1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '12px',
+        border: '3px solid #8a2be2'
+      }}>
+        <div style={{ color: '#fff', fontSize: '1.5rem' }}>VIDEO CONTAINER TEST</div>
+      </div>
+      
       {/* Video Container - 16:9 aspect ratio - MUST BE VISIBLE */}
       <div 
         className="tool-video-container" 
@@ -25,9 +40,9 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
           minHeight: '300px',
           height: '300px',
           width: '100%',
-          display: 'block !important',
-          visibility: 'visible !important',
-          opacity: '1 !important',
+          display: 'block',
+          visibility: 'visible',
+          opacity: 1,
           position: 'relative',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           borderRadius: '12px',
