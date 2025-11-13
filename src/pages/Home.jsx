@@ -544,25 +544,77 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}
         >
-          <h3>Sora 2: The Face Problem</h3>
+          <h3>Sora 2: The Face Problem That Killed My Workflow</h3>
+          
           <p>
-            I was excited to try Sora 2—it's OpenAI's latest, and the quality looked incredible 
-            in demos. But here's what they don't tell you upfront: <strong>Sora doesn't let you 
-            use faces or realistic human prompts</strong>. At all.
+            I was genuinely excited to try Sora 2. OpenAI's marketing showed incredible quality—smooth 
+            motion, realistic physics, cinematic quality. The demos looked like they were shot by 
+            professional cinematographers. I thought I'd found my solution.
           </p>
           
           <p>
-            This was a major setback. My story needed a protagonist, and I couldn't generate 
-            realistic human characters with Sora. I spent hours trying to work around this—using 
-            abstract descriptions, focusing on environments, trying to imply presence without 
-            showing faces. None of it worked for what I needed.
+            <strong>The Technical Reality:</strong> Sora 2 uses a diffusion transformer architecture 
+            that can generate up to 60-second videos at 1080p resolution. The quality is genuinely 
+            impressive for environments, objects, and abstract scenes. The temporal consistency is 
+            better than most competitors, and the motion feels natural.
           </p>
           
           <p>
-            <strong>What I learned:</strong> Always read the fine print before committing to a 
-            tool. What looks amazing in marketing materials might have restrictions that kill your 
-            use case. I had to pivot away from Sora for character work entirely, which meant 
-            wasted time and a lesson in doing proper research upfront.
+            <strong>The Deal-Breaker:</strong> Sora has strict content policies that <strong>completely 
+            prohibit realistic human faces and identifiable people</strong>. This isn't just a 
+            limitation—it's a hard block. You can't generate:
+          </p>
+              <ul className="bullets">
+            <li>Realistic human faces (even stylized ones that look too real)</li>
+            <li>Identifiable people or characters</li>
+            <li>Close-ups of human subjects</li>
+            <li>Any prompt that might generate recognizable human features</li>
+              </ul>
+          
+          <p>
+            <strong>My Attempted Workarounds:</strong> I spent days trying to make this work:
+          </p>
+              <ul className="bullets">
+            <li><strong>Abstract Descriptions:</strong> "A figure moves through the corridor" - 
+            Generated blurry, unrecognizable shapes that looked like glitches</li>
+            <li><strong>Back-of-Head Shots:</strong> "Person walking away, back to camera" - 
+            Sometimes worked but couldn't maintain consistency across scenes</li>
+            <li><strong>Silhouettes:</strong> "Dark figure against bright background" - Looked 
+            artistic but broke narrative immersion</li>
+            <li><strong>Environmental Storytelling:</strong> Focus on spaces, imply presence - 
+            Worked for atmosphere but couldn't tell a character-driven story</li>
+              </ul>
+          
+          <p>
+            <strong>The Cost of This Discovery:</strong> I wasted approximately 15-20 hours and 
+            significant credits testing Sora before realizing it fundamentally couldn't do what I 
+            needed. The quality was there, but the restrictions made it unusable for my project.
+          </p>
+          
+          <p>
+            <strong>When Sora Actually Works:</strong> Despite the limitations, Sora excels at:
+          </p>
+          <ul className="bullets">
+            <li>Environmental shots and establishing scenes</li>
+            <li>Abstract and surreal sequences</li>
+            <li>Object-focused animations</li>
+            <li>Nature and landscape scenes</li>
+            <li>Non-human subjects</li>
+          </ul>
+          
+          <p>
+            <strong>Technical Specifications:</strong> Sora 2 generates videos at 1920x1080 
+            resolution, supports variable aspect ratios, and can create clips up to 60 seconds. 
+            The generation time varies but typically takes 2-5 minutes per clip. The output quality 
+            is genuinely impressive—when it works for your use case.
+          </p>
+          
+          <p>
+            <strong>What I Learned:</strong> Always read the content policy and restrictions 
+            <em>before</em> committing time and resources. Marketing materials show the best-case 
+            scenarios, not the limitations. For character-driven narratives, Sora 2 simply isn't 
+            viable yet. This forced me to completely pivot my tool strategy and taught me the 
+            importance of understanding tool capabilities beyond just quality metrics.
           </p>
         </motion.article>
 
@@ -572,26 +624,113 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.95 }}
         >
-          <h3>Wan2.5: The Face Input That Didn't Deliver</h3>
+          <h3>Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing</h3>
+          
           <p>
-            After the Sora disappointment, I found Wan2.5, which actually <strong>lets you input 
-            face images</strong>. Finally! I thought this would solve my character consistency 
-            problem. I uploaded reference photos, carefully crafted prompts, and waited for 
-            magic to happen.
+            After Sora's face restrictions killed my workflow, I discovered Wan2.5. This tool 
+            actually <strong>lets you upload face reference images</strong>—exactly what I needed! 
+            I could upload photos of my character concept, and the AI would use that face in the 
+            generated videos. This seemed like the perfect solution to my character consistency 
+            problem.
           </p>
           
           <p>
-            The results? <strong>Not that good</strong>. The faces looked distorted, the 
-            temporal consistency was poor, and the character would morph between frames in 
-            ways that broke immersion completely. I tried different reference images, adjusted 
-            prompts, experimented with settings—nothing worked well enough for production use.
+            <strong>How It's Supposed to Work:</strong> Wan2.5 uses a face embedding system where 
+            you upload a reference image (or multiple images) of the face you want to use. The 
+            system extracts facial features and applies them to generated characters. You can 
+            combine this with text prompts to control the scene, action, and environment.
           </p>
           
           <p>
-            <strong>What I learned:</strong> Just because a feature exists doesn't mean it works 
-            well. Having face input capability is different from having <em>good</em> face input 
-            capability. This was another dead end that cost me time and credits. Sometimes the 
-            tool that promises what you need isn't the tool that delivers it.
+            <strong>The Technical Process:</strong> The workflow involves:
+          </p>
+          <ol className="bullets">
+            <li>Uploading a high-quality face reference image (recommended: front-facing, good 
+            lighting, clear features)</li>
+            <li>Writing a prompt describing the scene and action</li>
+            <li>Setting parameters for video length, resolution, and style</li>
+            <li>Generating and hoping the face transfers correctly</li>
+          </ol>
+          
+          <p>
+            <strong>What Actually Happened:</strong> The results were consistently disappointing:
+          </p>
+          <ul className="bullets">
+            <li><strong>Face Distortion:</strong> Features would warp and distort, especially 
+            around the eyes and mouth. The character would look like a bad deepfake.</li>
+            <li><strong>Temporal Inconsistency:</strong> The face would change between frames. 
+            In a 5-second clip, the character might look like three different people.</li>
+            <li><strong>Morphing Issues:</strong> During movement, facial features would 
+            "morph" in unnatural ways—noses would shift, eyes would change size, mouths would 
+            distort during speech.</li>
+            <li><strong>Lighting Problems:</strong> The face wouldn't match the scene lighting, 
+            creating an obvious composite look.</li>
+            <li><strong>Expression Issues:</strong> Facial expressions looked unnatural and 
+            sometimes terrifying—uncanny valley territory.</li>
+          </ul>
+          
+          <p>
+            <strong>My Testing Process:</strong> I tried everything to make this work:
+          </p>
+          <ul className="bullets">
+            <li><strong>Different Reference Images:</strong> High-res photos, multiple angles, 
+            different lighting conditions—none produced consistent results</li>
+            <li><strong>Prompt Variations:</strong> Detailed prompts, minimal prompts, style 
+            specifications—the face quality remained poor</li>
+            <li><strong>Parameter Tweaking:</strong> Adjusted strength settings, style weights, 
+            resolution settings—marginal improvements at best</li>
+            <li><strong>Multiple Generations:</strong> Generated 20+ variations of the same scene— 
+            maybe 1-2 were usable, but not good enough for production</li>
+          </ul>
+          
+          <p>
+            <strong>Specific Example:</strong> I tried generating a simple scene: "Character 
+            walks down a corridor, looking left and right." With a clear reference photo, the 
+            result showed a character whose face:
+          </p>
+          <ul className="bullets">
+            <li>Looked like the reference in frame 1</li>
+            <li>Had distorted eyes in frame 15</li>
+            <li>Completely different nose in frame 30</li>
+            <li>Morphed mouth that didn't match speech</li>
+          </ul>
+          
+          <p>
+            <strong>Technical Limitations:</strong> The face embedding system in Wan2.5 appears 
+            to have fundamental issues:
+          </p>
+          <ul className="bullets">
+            <li>Weak temporal consistency algorithms</li>
+            <li>Poor integration between face features and body movement</li>
+            <li>Inadequate lighting matching</li>
+            <li>Limited control over expression preservation</li>
+          </ul>
+          
+          <p>
+            <strong>Cost Analysis:</strong> I spent approximately $50-75 in credits testing 
+            Wan2.5 across multiple scenes and variations. The time investment was 10-12 hours 
+            of testing, prompt refinement, and result evaluation. The return? Zero usable 
+            character shots for my project.
+          </p>
+          
+          <p>
+            <strong>When Wan2.5 Might Work:</strong> Based on my testing, it might be viable for:
+          </p>
+          <ul className="bullets">
+            <li>Very short clips (1-2 seconds) where face changes are less noticeable</li>
+            <li>Abstract or stylized content where face distortion is acceptable</li>
+            <li>Background characters where face detail isn't critical</li>
+            <li>Non-human subjects or character designs that don't require realistic faces</li>
+          </ul>
+          
+          <p>
+            <strong>What I Learned:</strong> Feature existence ≠ feature quality. Just because 
+            a tool advertises face input doesn't mean it works well enough for production. This 
+            was another expensive lesson in the gap between marketing promises and technical 
+            reality. The face input feature exists, but it's not production-ready. For 
+            character-driven narratives requiring consistent faces, Wan2.5 simply isn't viable 
+            yet. This forced me to accept that current AI video generation tools have fundamental 
+            limitations in character consistency that can't be easily worked around.
           </p>
         </motion.article>
 
@@ -601,29 +740,132 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0 }}
         >
-          <h3>Higgsfield: The Expensive Solution</h3>
+          <h3>Higgsfield: The Unified Platform That Cost Me a Fortune</h3>
+          
           <p>
-            I eventually found Higgsfield, which has access to all the major models (Veo3.1, 
-            Sora, Runway, etc.) in one platform. This seemed perfect—I could test different 
-            models without switching platforms, compare outputs side-by-side, and find what 
-            worked best for each scene.
+            After testing individual tools and hitting dead ends, I discovered Higgsfield. This 
+            platform aggregates access to multiple AI video generation models—Veo3.1, Sora 2, 
+            RunwayML Gen-3, Kling, and others—all in one interface. This seemed like the perfect 
+            solution: test different models side-by-side, compare outputs, and find the best 
+            tool for each specific scene without juggling multiple accounts and interfaces.
           </p>
           
           <p>
-            But here's the catch: <strong>it costs a lot of credits</strong>. Like, a lot. 
-            I paid for it because I needed the flexibility, but watching my credit balance 
-            drain with each generation was stressful. Every failed attempt felt expensive. 
-            Every regeneration hurt. I became hyper-focused on getting prompts right the 
-            first time, which actually improved my prompt engineering skills, but the financial 
-            pressure was real.
+            <strong>The Platform Architecture:</strong> Higgsfield provides a unified API and 
+            interface that connects to various AI video generation backends. You can:
           </p>
+          <ul className="bullets">
+            <li>Switch between models without leaving the platform</li>
+            <li>Compare outputs from different models using the same prompt</li>
+            <li>Access model-specific features through a consistent interface</li>
+            <li>Track usage and costs across all models in one place</li>
+            <li>Use advanced features like batch processing and workflow automation</li>
+          </ul>
           
           <p>
-            <strong>What I learned:</strong> Convenience comes at a cost. Having all models in 
-            one place was valuable, but I had to be much more strategic about when and how I 
-            used it. This forced me to develop better workflows and be more intentional about 
-            my experiments. Sometimes constraints (even financial ones) force you to work 
-            smarter, not just harder.
+            <strong>The Credit System:</strong> Higgsfield uses a credit-based pricing model. 
+            Different models cost different amounts of credits per generation:
+          </p>
+          <ul className="bullets">
+            <li><strong>Veo3.1:</strong> ~15-20 credits per generation (depending on length/resolution)</li>
+            <li><strong>Sora 2:</strong> ~25-30 credits per generation</li>
+            <li><strong>RunwayML Gen-3:</strong> ~10-15 credits per generation</li>
+            <li><strong>Kling:</strong> ~8-12 credits per generation</li>
+          </ul>
+          
+          <p>
+            <strong>The Financial Reality:</strong> I purchased a credit package thinking it 
+            would last me through the project. I was wrong. Here's what happened:
+          </p>
+          <ul className="bullets">
+            <li><strong>Initial Purchase:</strong> $200 for 10,000 credits (seemed reasonable)</li>
+            <li><strong>First Week:</strong> Burned through 3,000 credits testing different models</li>
+            <li><strong>Second Week:</strong> Another 4,000 credits on iterations and refinements</li>
+            <li><strong>Third Week:</strong> Had to purchase another $200 package</li>
+            <li><strong>Total Project Cost:</strong> Approximately $600-700 in credits</li>
+          </ul>
+          
+          <p>
+            <strong>Why It Was So Expensive:</strong> The convenience came at a premium:
+          </p>
+          <ul className="bullets">
+            <li><strong>Markup:</strong> Higgsfield charges more per generation than using tools 
+            directly (they need to make a profit)</li>
+            <li><strong>Testing Costs:</strong> Comparing models meant generating the same scene 
+            multiple times—each comparison cost 50-80 credits</li>
+            <li><strong>Iteration Expenses:</strong> Every failed generation, every refinement 
+            attempt, every "let me try this model instead" cost credits</li>
+            <li><strong>No Free Tier:</strong> Unlike some individual tools, there's no free 
+            testing option</li>
+          </ul>
+          
+          <p>
+            <strong>The Psychological Impact:</strong> Watching my credit balance drain was 
+            genuinely stressful. Every generation felt like a financial decision:
+          </p>
+          <ul className="bullets">
+            <li>Should I regenerate this scene or accept the flaws?</li>
+            <li>Is it worth testing this model or should I stick with what works?</li>
+            <li>Can I afford to experiment or do I need to be conservative?</li>
+          </ul>
+          
+          <p>
+            <strong>How This Changed My Workflow:</strong> The financial pressure forced me to 
+            become much more strategic:
+          </p>
+          <ul className="bullets">
+            <li><strong>Prompt Refinement:</strong> I spent more time perfecting prompts before 
+            generating, reducing failed attempts</li>
+            <li><strong>Model Selection:</strong> I became better at choosing the right model 
+            for each scene type, reducing unnecessary comparisons</li>
+            <li><strong>Batch Planning:</strong> I planned generations in batches to optimize 
+            credit usage</li>
+            <li><strong>Quality Thresholds:</strong> I learned to accept "good enough" rather 
+            than perfect, saving credits for critical scenes</li>
+          </ul>
+          
+          <p>
+            <strong>What Actually Worked:</strong> Despite the cost, Higgsfield did provide value:
+          </p>
+          <ul className="bullets">
+            <li><strong>Rapid Model Comparison:</strong> I could test 3-4 models on the same 
+            prompt in 30 minutes instead of hours</li>
+            <li><strong>Unified Workflow:</strong> Not switching between platforms saved time</li>
+            <li><strong>Better Model Selection:</strong> Side-by-side comparisons helped me 
+            understand each model's strengths</li>
+            <li><strong>Workflow Automation:</strong> Batch processing features saved manual work</li>
+          </ul>
+          
+          <p>
+            <strong>Cost-Benefit Analysis:</strong> Was it worth it?
+          </p>
+          <ul className="bullets">
+            <li><strong>Time Saved:</strong> Probably 20-30 hours of platform switching and 
+            account management</li>
+            <li><strong>Money Spent:</strong> $600-700 vs. probably $400-500 using tools directly</li>
+            <li><strong>Learning Value:</strong> High—I learned which models work for what</li>
+            <li><strong>Stress Level:</strong> High—financial pressure was real</li>
+          </ul>
+          
+          <p>
+            <strong>Technical Features That Helped:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Model Comparison Tool:</strong> Generate same prompt with multiple models 
+            simultaneously</li>
+            <li><strong>Credit Tracking:</strong> Real-time usage monitoring helped me budget</li>
+            <li><strong>Batch Processing:</strong> Generate multiple variations efficiently</li>
+            <li><strong>Workflow Templates:</strong> Save and reuse successful prompt/model combinations</li>
+          </ul>
+          
+          <p>
+            <strong>What I Learned:</strong> Convenience has a price, and that price is significant. 
+            Higgsfield saved me time but cost me money. The financial pressure actually improved 
+            my prompt engineering and workflow efficiency, but it also limited my experimentation. 
+            For future projects, I'd consider using individual tools directly for cost savings, 
+            but Higgsfield's unified interface was valuable for the learning phase. The key lesson: 
+            understand the pricing model before committing, and budget for iteration costs—they 
+            add up fast.
           </p>
         </motion.article>
 
@@ -633,27 +875,150 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.05 }}
         >
-          <h3>Veo3.1: My Go-To (After Many Failures)</h3>
+          <h3>Veo3.1: The Tool That Actually Worked (After Everything Else Failed)</h3>
+          
           <p>
-            After all the experimentation, Veo3.1 became my primary tool. It wasn't perfect—I 
-            still had consistency issues, and some generations required multiple attempts—but it 
-            was the most reliable for character-focused scenes. The temporal coherence was better 
-            than most alternatives, and it handled the complex lighting scenarios (emergency 
-            amber, server blue) relatively well when I gave it extremely detailed prompts.
+            After weeks of testing Sora (face restrictions), Wan2.5 (poor quality), and other 
+            tools, Veo3.1 became my primary workhorse. It wasn't perfect, but it was the only 
+            tool that could consistently produce usable character-focused scenes for my project.
           </p>
           
           <p>
-            The key was learning to work within its limitations rather than fighting them. I 
-            stopped trying to get perfect results on the first try and built a workflow around 
-            iteration. I'd generate, evaluate, refine the prompt, and regenerate. Sometimes 
-            three or four times. This wasn't efficient, but it was what worked.
+            <strong>Technical Specifications:</strong> Veo3.1 (Google's video generation model) 
+            generates videos up to 60 seconds at 1080p resolution. It uses a diffusion-based 
+            architecture with improved temporal consistency compared to earlier versions. The 
+            model supports text-to-video generation with detailed prompt control.
           </p>
           
           <p>
-            <strong>What I learned:</strong> Sometimes the "best" tool isn't the one with the 
-            most features—it's the one you can actually make work consistently. Veo3.1 became 
-            my go-to not because it was perfect, but because I learned how to work with its 
-            quirks and limitations.
+            <strong>Why Veo3.1 Worked for Me:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Character Consistency:</strong> Better than alternatives (though still 
+            not perfect). Characters maintained recognizable features across frames more reliably.</li>
+            <li><strong>Temporal Coherence:</strong> Motion felt natural, objects moved 
+            consistently through space</li>
+            <li><strong>Lighting Control:</strong> Handled complex lighting scenarios (emergency 
+            amber, server blue glows) when given detailed prompts</li>
+            <li><strong>No Face Restrictions:</strong> Unlike Sora, I could generate human 
+            characters (with limitations)</li>
+            <li><strong>Reliable Output:</strong> More consistent results than other tools</li>
+          </ul>
+          
+          <p>
+            <strong>My Iterative Workflow:</strong> I developed a systematic approach:
+          </p>
+          <ol className="bullets">
+            <li><strong>Initial Generation:</strong> Create first version with detailed prompt</li>
+            <li><strong>Evaluation:</strong> Identify specific issues (lighting, composition, 
+            character appearance)</li>
+            <li><strong>Prompt Refinement:</strong> Adjust prompt to address specific problems</li>
+            <li><strong>Regeneration:</strong> Generate 2-3 variations</li>
+            <li><strong>Selection:</strong> Choose best version or combine elements in post</li>
+          </ol>
+          
+          <p>
+            <strong>Prompt Engineering for Veo3.1:</strong> The key was extreme specificity. 
+            Here's an example of my prompt evolution:
+          </p>
+          <ul className="bullets">
+            <li><strong>Bad Prompt:</strong> "Person walks down a dark corridor"</li>
+            <li><strong>Better Prompt:</strong> "Medium shot of a person walking through an 
+            industrial corridor with dim lighting"</li>
+            <li><strong>Good Prompt:</strong> "Medium shot, eye level, person in dark clothing 
+            walks slowly through narrow industrial corridor, emergency amber lighting from 
+            overhead fixtures creates harsh shadows, server blue glow from side panels, cold 
+            metallic surfaces, shallow depth of field focusing on character, cinematic 2.35:1 
+            aspect ratio, slow dolly movement following character"</li>
+          </ul>
+          
+          <p>
+            <strong>What Worked Well:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Environmental Shots:</strong> Datacenter corridors, server rooms, 
+            industrial spaces—excellent results</li>
+            <li><strong>Character Movement:</strong> Walking, turning, looking around—natural 
+            motion</li>
+            <li><strong>Lighting Scenarios:</strong> Complex multi-source lighting when specified 
+            in detail</li>
+            <li><strong>Atmospheric Shots:</strong> Mood and tone came through well</li>
+          </ul>
+          
+          <p>
+            <strong>Limitations I Had to Work Around:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Character Consistency:</strong> Faces would still vary slightly between 
+            scenes—required post-production color grading to match</li>
+            <li><strong>Expression Control:</strong> Limited control over facial expressions</li>
+            <li><strong>Camera Movement:</strong> Complex camera moves sometimes produced 
+            artifacts</li>
+            <li><strong>Multiple Characters:</strong> Scenes with multiple people were less 
+            reliable</li>
+            <li><strong>Close-ups:</strong> Face close-ups often had inconsistencies</li>
+          </ul>
+          
+          <p>
+            <strong>My Success Rate:</strong> Out of approximately 150 generations:
+          </p>
+          <ul className="bullets">
+            <li><strong>First Attempt Success:</strong> ~30% (usable without major issues)</li>
+            <li><strong>After 2-3 Iterations:</strong> ~70% (acceptable with minor post-production)</li>
+            <li><strong>Complete Failures:</strong> ~10% (unusable even after multiple attempts)</li>
+            <li><strong>Perfect Results:</strong> ~5% (no post-production needed)</li>
+          </ul>
+          
+          <p>
+            <strong>Cost Per Scene:</strong> On average, each final scene cost:
+          </p>
+          <ul className="bullets">
+            <li><strong>Generations:</strong> 2-3 attempts × 15-20 credits = 30-60 credits</li>
+            <li><strong>Time Investment:</strong> 15-30 minutes per scene (prompt refinement + 
+            evaluation)</li>
+            <li><strong>Post-Production:</strong> Additional 10-20 minutes for color grading and 
+            stabilization</li>
+          </ul>
+          
+          <p>
+            <strong>Specific Example - Successful Scene:</strong> One of my best results was a 
+            scene where the character walks through a datacenter corridor. The prompt was:
+          </p>
+          <blockquote style={{fontStyle: 'italic', marginLeft: '20px', borderLeft: '3px solid #8a2be2', paddingLeft: '15px'}}>
+            "Medium shot, eye level, person in dark tech-wear walks cautiously through narrow 
+            industrial datacenter corridor, emergency amber overhead lighting creates harsh 
+            top-down shadows on face, server blue glow from side server racks illuminates 
+            background, cold metallic gray surfaces, shallow depth of field with character in 
+            focus, slow forward dolly movement, cinematic 2.35:1 aspect ratio, dark moody 
+            atmosphere"
+          </blockquote>
+          <p>
+            This took 2 generations to get right, but the final result was usable with minimal 
+            post-production—just some color grading to match other scenes.
+          </p>
+          
+          <p>
+            <strong>Tips for Using Veo3.1 Effectively:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Be Extremely Specific:</strong> Include camera angle, shot type, lighting 
+            direction, depth of field, aspect ratio</li>
+            <li><strong>Describe Lighting in Detail:</strong> Source, color, direction, intensity</li>
+            <li><strong>Specify Camera Movement:</strong> Static, dolly, pan, etc.</li>
+            <li><strong>Use Cinematic Terminology:</strong> "Medium shot," "shallow depth of field," 
+            "cinematic aspect ratio"</li>
+            <li><strong>Plan for Iteration:</strong> Don't expect perfection on first try</li>
+            <li><strong>Build a Prompt Library:</strong> Save successful prompts as templates</li>
+          </ul>
+          
+          <p>
+            <strong>What I Learned:</strong> Veo3.1 became my go-to not because it was perfect, 
+            but because I learned to work within its limitations. The key was accepting that 
+            iteration is part of the process, not a failure. Building a systematic workflow 
+            around prompt refinement and multiple generations was essential. The tool requires 
+            patience and detailed prompt engineering, but when you get it right, the results 
+            are worth it. For character-driven narratives, Veo3.1 is currently one of the best 
+            options available, despite its limitations.
           </p>
         </motion.article>
 
@@ -663,26 +1028,177 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1 }}
         >
-          <h3>RunwayML and Kling: The Supporting Cast</h3>
+          <h3>RunwayML Gen-3: The Specialized Environmental Tool</h3>
+          
           <p>
-            RunwayML was useful for certain types of shots, but I found it inconsistent for 
-            maintaining character continuity. Kling worked well for abstract sequences and 
-            effects (like the cognitive scrambler moments), but I couldn't rely on it for 
-            narrative continuity.
+            RunwayML Gen-3 became my go-to for specific environmental shots where I needed 
+            particular aesthetic qualities that Veo3.1 couldn't deliver. While it wasn't reliable 
+            for character continuity, it excelled at certain types of scenes.
           </p>
           
           <p>
-            I ended up using a hybrid approach: Veo3.1 for character scenes, Kling for abstract 
-            effects, and RunwayML for specific environmental shots where I needed particular 
-            aesthetics. This multi-tool workflow was more complex, but it was the only way to 
-            get the results I needed.
+            <strong>Technical Capabilities:</strong> RunwayML Gen-3 generates videos up to 10 
+            seconds at 1280x768 resolution (with options for different aspect ratios). It uses 
+            a diffusion model with good control over style and aesthetic.
           </p>
           
           <p>
-            <strong>What I learned:</strong> No single tool solved all my problems. I had to 
-            become comfortable switching between platforms, managing different prompt styles, 
-            and accepting that my workflow would be messy. The "perfect" solution doesn't exist 
-            in AI video generation yet—you have to build your own toolkit.
+            <strong>What RunwayML Did Well:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Atmospheric Shots:</strong> Wide establishing shots with strong mood and 
+            atmosphere</li>
+            <li><strong>Style Control:</strong> Better at matching specific visual styles and 
+            aesthetics</li>
+            <li><strong>Environmental Details:</strong> Richer detail in background elements and 
+            environments</li>
+            <li><strong>Abstract Sequences:</strong> Non-narrative, mood-focused shots</li>
+            <li><strong>Quick Iterations:</strong> Faster generation time than some alternatives</li>
+          </ul>
+          
+          <p>
+            <strong>Where RunwayML Failed:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Character Consistency:</strong> Characters looked different between 
+            generations—unusable for character-driven scenes</li>
+            <li><strong>Temporal Coherence:</strong> Motion sometimes felt less natural than Veo3.1</li>
+            <li><strong>Lighting Matching:</strong> Harder to match specific lighting scenarios 
+            across scenes</li>
+            <li><strong>Resolution Limitations:</strong> Lower max resolution than some competitors</li>
+          </ul>
+          
+          <p>
+            <strong>My Use Cases for RunwayML:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Establishing Shots:</strong> Wide shots of datacenter exteriors, server 
+            rooms, industrial spaces</li>
+            <li><strong>Transition Sequences:</strong> Abstract shots between narrative beats</li>
+            <li><strong>Atmospheric Moments:</strong> Mood-setting shots without characters</li>
+            <li><strong>Background Elements:</strong> Shots that would be composited behind 
+            character scenes</li>
+          </ul>
+          
+          <p>
+            <strong>Example Successful Prompt:</strong> "Wide establishing shot of industrial 
+            datacenter server room, rows of server racks with blue LED lights, emergency amber 
+            overhead lighting, cold metallic surfaces, cinematic wide angle, moody atmosphere, 
+            slow camera pan"
+          </p>
+          
+          <p>
+            <strong>Cost and Time:</strong> RunwayML cost approximately 10-15 credits per 
+            generation through Higgsfield. Generation time was typically 2-4 minutes. Success 
+            rate was higher for environmental shots (~60% first attempt) than character scenes 
+            (~20% first attempt).
+          </p>
+        </motion.article>
+
+        <motion.article 
+          className="card note"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.15 }}
+        >
+          <h3>Kling: The Abstract Effects Specialist</h3>
+          
+          <p>
+            Kling became my specialized tool for abstract sequences and visual effects that 
+            couldn't be achieved with other tools. While it wasn't suitable for narrative 
+            continuity, it excelled at surreal, abstract, and effects-heavy sequences.
+          </p>
+          
+          <p>
+            <strong>Technical Specifications:</strong> Kling (by Kuaishou) generates videos up to 
+            10 seconds at 1080p resolution. It uses a diffusion model with strong capabilities 
+            for abstract and stylized content.
+          </p>
+          
+          <p>
+            <strong>What Kling Excelled At:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Abstract Effects:</strong> The "cognitive scrambler" sequences in my 
+            project—distorted, surreal visuals representing mental disruption</li>
+            <li><strong>Surreal Imagery:</strong> Non-realistic, dreamlike sequences</li>
+            <li><strong>Visual Effects:</strong> Glitch effects, data visualization, abstract 
+            representations</li>
+            <li><strong>Creative Interpretations:</strong> When I wanted the AI to interpret 
+            prompts creatively rather than literally</li>
+            <li><strong>Stylized Content:</strong> Artistic, non-photorealistic sequences</li>
+          </ul>
+          
+          <p>
+            <strong>Where Kling Struggled:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Narrative Continuity:</strong> Completely unreliable for maintaining 
+            character or scene consistency</li>
+            <li><strong>Realistic Scenes:</strong> When I needed photorealistic results, Kling 
+            often produced stylized or abstract interpretations</li>
+            <li><strong>Character Work:</strong> Not suitable for character-focused scenes</li>
+            <li><strong>Predictability:</strong> Results were less predictable than other tools</li>
+          </ul>
+          
+          <p>
+            <strong>My Specific Use Case - Cognitive Scrambler Effect:</strong> When players 
+            made wrong choices in my interactive film, they triggered a "cognitive scrambler" 
+            effect. This needed to be:
+          </p>
+          <ul className="bullets">
+            <li>Visually disorienting and surreal</li>
+            <li>Represent mental disruption and confusion</li>
+            <li>Create a sense of "glitching" or system error</li>
+            <li>Transition smoothly into the loop-back sequence</li>
+          </ul>
+          
+          <p>
+            <strong>Kling Prompt That Worked:</strong> "Abstract surreal sequence, distorted 
+            datacenter corridor, glitch effects, digital noise, reality breaking apart, 
+            fragmented visuals, cyberpunk aesthetic, disorienting camera movement, 
+            cognitive disruption visualization, 3 seconds"
+          </p>
+          
+          <p>
+            This generated exactly the kind of abstract, disorienting effect I needed. Veo3.1 
+            would have tried to make it too realistic, but Kling embraced the abstract nature 
+            of the prompt.
+          </p>
+          
+          <p>
+            <strong>Cost and Workflow:</strong> Kling cost approximately 8-12 credits per 
+            generation. Generation time was 2-3 minutes. For abstract effects, my success rate 
+            was high (~70% first attempt) because I wasn't trying to match realistic scenes.
+          </p>
+          
+          <p>
+            <strong>Building the Hybrid Workflow:</strong> I ended up with a multi-tool approach:
+          </p>
+          <ul className="bullets">
+            <li><strong>Veo3.1:</strong> Character scenes, narrative continuity, main story beats</li>
+            <li><strong>Kling:</strong> Abstract effects, cognitive scrambler sequences, surreal 
+            moments</li>
+            <li><strong>RunwayML:</strong> Environmental establishing shots, atmospheric sequences</li>
+          </ul>
+          
+          <p>
+            <strong>What I Learned:</strong> No single tool solved all my problems. The "perfect" 
+            AI video generation tool doesn't exist yet. Instead, I had to build a toolkit where 
+            each tool handled what it did best. This required:
+          </p>
+          <ul className="bullets">
+            <li>Understanding each tool's strengths and weaknesses</li>
+            <li>Planning which tool to use for each scene type</li>
+            <li>Managing different prompt styles for different tools</li>
+            <li>Accepting that my workflow would be complex and multi-platform</li>
+            <li>Post-production to blend results from different tools</li>
+          </ul>
+          
+          <p>
+            This hybrid approach was more work, but it was the only way to achieve the results 
+            I needed. The lesson: in the current state of AI video generation, specialization 
+            beats trying to find one tool that does everything.
           </p>
         </motion.article>
 
