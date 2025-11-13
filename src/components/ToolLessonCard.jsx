@@ -20,24 +20,26 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
       {/* Video Container - 16:9 aspect ratio - MUST BE VISIBLE */}
       <div 
         className="tool-video-container" 
+        data-testid="video-container"
         style={{ 
           minHeight: '300px',
           height: '300px',
           width: '100%',
-          display: 'block',
-          visibility: 'visible',
-          opacity: 1,
+          display: 'block !important',
+          visibility: 'visible !important',
+          opacity: '1 !important',
           position: 'relative',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           borderRadius: '12px',
-          marginBottom: '1.5rem'
+          marginBottom: '1.5rem',
+          border: '2px solid rgba(138, 43, 226, 0.5)'
         }}
       >
         {/* Placeholder - always visible by default */}
         <div 
           className="video-placeholder"
           style={{
-            display: 'flex',
+            display: 'flex !important',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
@@ -47,7 +49,9 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
             width: '100%',
             height: '100%',
             zIndex: 1,
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            visibility: 'visible !important',
+            opacity: '1 !important'
           }}
         >
           <div style={{ fontSize: '3rem', marginBottom: '1rem', opacity: 0.5 }}>▶</div>
