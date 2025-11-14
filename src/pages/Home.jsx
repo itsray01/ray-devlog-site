@@ -717,9 +717,10 @@ const Home = () => {
         >
           <h3>The Tool Graveyard: What I Actually Tried</h3>
           <p>
-            I tested six different tools: <strong>Higgsfield</strong>, <strong>Sora 2</strong>, 
-            <strong>Veo3.1</strong>, <strong>Seedance</strong>, <strong>Kling</strong>, and 
-            <strong>Wan2.5</strong>. Each one taught me something different, and most of them 
+            I tested multiple AI video generation models through two main platforms: <strong>Higgsfield</strong> 
+            (which provided access to Wan2.5, Veo3.1, Seedance, Kling, and several other models I didn't use, 
+            plus Higgsfield's own model) and the <strong>official Sora website</strong> (accessed via VPN since 
+            it's only available in the US). Each one taught me something different, and most of them 
             taught me what <em>doesn't</em> work.
           </p>
         </motion.article>
@@ -737,7 +738,8 @@ const Home = () => {
           <p>
             I was genuinely excited to try Sora 2. OpenAI's marketing showed incredible quality—smooth 
             motion, realistic physics, cinematic quality. The demos looked like they were shot by 
-            professional cinematographers. I thought I'd found my solution.
+            professional cinematographers. I thought I'd found my solution. I accessed Sora 2 through 
+            the official Sora website using a VPN, since the platform is only available in the US.
           </p>
           
           <p>
@@ -807,8 +809,8 @@ const Home = () => {
           </p>
           
           <p>
-            After Sora's face restrictions killed my workflow, I discovered Wan2.5. This tool 
-            actually <strong>lets you upload face reference images</strong>—exactly what I needed! 
+            After Sora's face restrictions killed my workflow, I discovered Wan2.5 through Higgsfield. 
+            This tool actually <strong>lets you upload face reference images</strong>—exactly what I needed! 
             I could upload photos of my character concept, and the AI would use that face in the 
             generated videos. This seemed like the perfect solution to my character consistency 
             problem.
@@ -906,11 +908,12 @@ const Home = () => {
           </p>
           
           <p>
-            After testing individual tools and hitting dead ends, I discovered Higgsfield. This 
-            platform aggregates access to multiple AI video generation models—Veo3.1, Sora 2, 
-            Seedance, Kling, and others—all in one interface. This seemed like the perfect 
-            solution: test different models side-by-side, compare outputs, and find the best 
-            tool for each specific scene without juggling multiple accounts and interfaces.
+            After testing Sora directly and hitting dead ends, I discovered Higgsfield. This 
+            platform aggregates access to multiple AI video generation models—Veo3.1, Wan2.5, 
+            Seedance, Kling, and several others I didn't end up using, plus Higgsfield's own model—all 
+            in one interface. This seemed like the perfect solution: test different models side-by-side, 
+            compare outputs, and find the best tool for each specific scene without juggling multiple 
+            accounts and interfaces.
           </p>
           
           <p>
@@ -927,9 +930,10 @@ const Home = () => {
           </p>
               <ul className="bullets">
             <li><strong>Veo3.1:</strong> ~15-20 credits per generation (depending on length/resolution)</li>
-            <li><strong>Sora 2:</strong> ~25-30 credits per generation</li>
+            <li><strong>Wan2.5:</strong> ~12-18 credits per generation</li>
             <li><strong>Seedance:</strong> ~10-15 credits per generation</li>
             <li><strong>Kling:</strong> ~8-12 credits per generation</li>
+            <li><strong>Higgsfield's own model:</strong> ~10-15 credits per generation</li>
               </ul>
           
           <p>
@@ -988,7 +992,7 @@ const Home = () => {
           <details className="technical-details">
             <summary>Technical details</summary>
             <p>
-              Higgsfield’s interface layers a unified API over models like Veo3.1, Sora 2, Seedance, and Kling. It includes simultaneous comparison runs, real-time credit telemetry, batch queues, and reusable workflow templates—features that otherwise require scripts.
+              Higgsfield's interface layers a unified API over models like Veo3.1, Wan2.5, Seedance, Kling, and its own model. It includes simultaneous comparison runs, real-time credit telemetry, batch queues, and reusable workflow templates—features that otherwise require scripts.
             </p>
           </details>
           
@@ -1018,9 +1022,10 @@ const Home = () => {
           </p>
           
           <p>
-            After weeks of testing Sora (face restrictions), Wan2.5 (poor quality), and other 
-            tools, Veo3.1 became my primary workhorse. It wasn't perfect, but it was the only 
-            tool that could consistently produce usable character-focused scenes for my project.
+            After weeks of testing Sora (face restrictions, accessed via VPN on the official website), 
+            Wan2.5 (poor quality, accessed through Higgsfield), and other tools, Veo3.1 became my 
+            primary workhorse. I accessed Veo3.1 through Higgsfield, and it wasn't perfect, but it 
+            was the only tool that could consistently produce usable character-focused scenes for my project.
           </p>
           
           <p>
@@ -1136,9 +1141,9 @@ const Home = () => {
           </p>
           
           <p>
-            Seedance became my go-to for specific environmental shots where I needed 
-            particular aesthetic qualities that Veo3.1 couldn't deliver. While it wasn't reliable 
-            for character continuity, it excelled at certain types of scenes.
+            I accessed Seedance through Higgsfield, and it became my go-to for specific environmental 
+            shots where I needed particular aesthetic qualities that Veo3.1 couldn't deliver. While it 
+            wasn't reliable for character continuity, it excelled at certain types of scenes.
           </p>
           
           <p>
@@ -1198,15 +1203,19 @@ const Home = () => {
           </p>
           
           <p>
-            Kling became my specialized tool for abstract sequences and visual effects that 
-            couldn't be achieved with other tools. While it wasn't suitable for narrative 
-            continuity, it excelled at surreal, abstract, and effects-heavy sequences.
+            I accessed Kling through Higgsfield, and it became my specialized tool for abstract 
+            sequences and visual effects that couldn't be achieved with other tools. While it wasn't 
+            suitable for narrative continuity, it excelled at surreal, abstract, and effects-heavy sequences.
           </p>
           
           <p>
             <strong>Technical Specifications:</strong> Kling (by Kuaishou) generates videos up to 
             10 seconds at 1080p resolution. It uses a diffusion model with strong capabilities 
-            for abstract and stylized content.
+            for abstract and stylized content. Unlike other models I tested (Veo3.1, Seedance, etc.), 
+            Kling does not allow you to choose the aspect ratio of the video—it generates at a fixed 
+            aspect ratio. This was a constraint, but overall it didn't matter much because Kling's 
+            video generation quality wasn't as good as Veo3.1 or Sora, so I was primarily using it 
+            for abstract effects where aspect ratio was less critical.
           </p>
           
           <p>
@@ -1548,10 +1557,12 @@ const Home = () => {
           </p>
           
           <p>
-            I tried six different tools: Higgsfield, Sora 2, Veo3.1, Seedance, Kling, and Wan2.5. 
-            Most of them failed me in different ways. Sora 2 wouldn't let me use faces—a major problem 
-            when you need a protagonist. Wan2.5 let me input face images, but the results were terrible. 
-            I paid for Higgsfield because it had all the models, but it cost a fortune in credits. 
+            I tried multiple models through two platforms: Higgsfield (which provided access to Wan2.5, 
+            Veo3.1, Seedance, Kling, and several others, plus Higgsfield's own model) and the official 
+            Sora website (accessed via VPN since it's only available in the US). Most of them failed 
+            me in different ways. Sora 2 wouldn't let me use faces—a major problem when you need a 
+            protagonist. Wan2.5 let me input face images, but the results were terrible. I paid for 
+            Higgsfield because it had all the models in one place, but it cost a fortune in credits. 
             Every failed generation felt like money down the drain.
           </p>
           
@@ -1564,10 +1575,11 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>What actually worked:</strong> After all the failures, I settled on Veo3.1 as my 
-            primary tool for character scenes, with Kling for abstract effects and Seedance for 
-            specific environmental shots. I built a hybrid workflow combining AI generation with 
-            traditional post-production. It wasn't elegant, but it was the only way to get usable results.
+            <strong>What actually worked:</strong> After all the failures, I settled on Veo3.1 (accessed 
+            through Higgsfield) as my primary tool for character scenes, with Kling (also through 
+            Higgsfield) for abstract effects and Seedance (also through Higgsfield) for specific 
+            environmental shots. I built a hybrid workflow combining AI generation with traditional 
+            post-production. It wasn't elegant, but it was the only way to get usable results.
           </p>
           
           <p>
