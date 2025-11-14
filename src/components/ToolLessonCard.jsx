@@ -21,11 +21,13 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
       <div 
         className="tool-video-container" 
         style={{ 
-          minHeight: '300px',
-          height: '300px',
           width: '100%',
-          display: 'block',
-          position: 'relative'
+          aspectRatio: '16 / 9',
+          position: 'relative',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          backgroundColor: 'rgba(0, 0, 0, 0.45)',
+          marginBottom: '1.5rem'
         }}
       >
         {/* Placeholder - always visible by default */}
