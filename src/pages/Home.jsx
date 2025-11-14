@@ -718,7 +718,7 @@ const Home = () => {
           <h3>The Tool Graveyard: What I Actually Tried</h3>
           <p>
             I tested six different tools: <strong>Higgsfield</strong>, <strong>Sora 2</strong>, 
-            <strong>Veo3.1</strong>, <strong>RunwayML</strong>, <strong>Kling</strong>, and 
+            <strong>Veo3.1</strong>, <strong>Seedance</strong>, <strong>Kling</strong>, and 
             <strong>Wan2.5</strong>. Each one taught me something different, and most of them 
             taught me what <em>doesn't</em> work.
           </p>
@@ -925,7 +925,7 @@ const Home = () => {
           <p>
             After testing individual tools and hitting dead ends, I discovered Higgsfield. This 
             platform aggregates access to multiple AI video generation models—Veo3.1, Sora 2, 
-            RunwayML Gen-3, Kling, and others—all in one interface. This seemed like the perfect 
+            Seedance, Kling, and others—all in one interface. This seemed like the perfect 
             solution: test different models side-by-side, compare outputs, and find the best 
             tool for each specific scene without juggling multiple accounts and interfaces.
           </p>
@@ -949,7 +949,7 @@ const Home = () => {
           <ul className="bullets">
             <li><strong>Veo3.1:</strong> ~15-20 credits per generation (depending on length/resolution)</li>
             <li><strong>Sora 2:</strong> ~25-30 credits per generation</li>
-            <li><strong>RunwayML Gen-3:</strong> ~10-15 credits per generation</li>
+            <li><strong>Seedance:</strong> ~10-15 credits per generation</li>
             <li><strong>Kling:</strong> ~8-12 credits per generation</li>
           </ul>
           
@@ -1201,25 +1201,25 @@ const Home = () => {
         </ToolLessonCard>
 
         <ToolLessonCard
-          title="RunwayML Gen-3: The Specialized Environmental Tool"
-          videoUrl="/videos/runway-example.mp4"
+          title="Seedance: The Specialized Environmental Tool"
+          videoUrl="/videos/seedance-example.mp4"
           videoType="mp4"
           delay={1.1}
         >
           <p>
-            RunwayML Gen-3 became my go-to for specific environmental shots where I needed 
+            Seedance became my go-to for specific environmental shots where I needed 
             particular aesthetic qualities that Veo3.1 couldn't deliver. While it wasn't reliable 
             for character continuity, it excelled at certain types of scenes.
           </p>
           
           <p>
-            <strong>Technical Capabilities:</strong> RunwayML Gen-3 generates videos up to 10 
+            <strong>Technical Capabilities:</strong> Seedance generates videos up to 10 
             seconds at 1280x768 resolution (with options for different aspect ratios). It uses 
             a diffusion model with good control over style and aesthetic.
           </p>
           
           <p>
-            <strong>What RunwayML Did Well:</strong>
+            <strong>What Seedance Did Well:</strong>
           </p>
           <ul className="bullets">
             <li><strong>Atmospheric Shots:</strong> Wide establishing shots with strong mood and 
@@ -1233,7 +1233,7 @@ const Home = () => {
           </ul>
           
           <p>
-            <strong>Where RunwayML Failed:</strong>
+            <strong>Where Seedance Failed:</strong>
           </p>
           <ul className="bullets">
             <li><strong>Character Consistency:</strong> Characters looked different between 
@@ -1245,7 +1245,7 @@ const Home = () => {
           </ul>
           
           <p>
-            <strong>My Use Cases for RunwayML:</strong>
+            <strong>My Use Cases for Seedance:</strong>
           </p>
           <ul className="bullets">
             <li><strong>Establishing Shots:</strong> Wide shots of datacenter exteriors, server 
@@ -1264,7 +1264,7 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Cost and Time:</strong> RunwayML cost approximately 10-15 credits per 
+            <strong>Cost and Time:</strong> Seedance cost approximately 10-15 credits per 
             generation through Higgsfield. Generation time was typically 2-4 minutes. Success 
             rate was higher for environmental shots (~60% first attempt) than character scenes 
             (~20% first attempt).
@@ -1353,7 +1353,7 @@ const Home = () => {
             <li><strong>Veo3.1:</strong> Character scenes, narrative continuity, main story beats</li>
             <li><strong>Kling:</strong> Abstract effects, cognitive scrambler sequences, surreal 
             moments</li>
-            <li><strong>RunwayML:</strong> Environmental establishing shots, atmospheric sequences</li>
+            <li><strong>Seedance:</strong> Environmental establishing shots, atmospheric sequences</li>
           </ul>
           
           <p>
@@ -1638,7 +1638,7 @@ const Home = () => {
           </p>
           
           <p>
-            I tried six different tools: Higgsfield, Sora 2, Veo3.1, RunwayML, Kling, and Wan2.5. 
+            I tried six different tools: Higgsfield, Sora 2, Veo3.1, Seedance, Kling, and Wan2.5. 
             Most of them failed me in different ways. Sora 2 wouldn't let me use faces—a major problem 
             when you need a protagonist. Wan2.5 let me input face images, but the results were terrible. 
             I paid for Higgsfield because it had all the models, but it cost a fortune in credits. 
@@ -1655,7 +1655,7 @@ const Home = () => {
           
           <p>
             <strong>What actually worked:</strong> After all the failures, I settled on Veo3.1 as my 
-            primary tool for character scenes, with Kling for abstract effects and RunwayML for 
+            primary tool for character scenes, with Kling for abstract effects and Seedance for 
             specific environmental shots. I built a hybrid workflow combining AI generation with 
             traditional post-production. It wasn't elegant, but it was the only way to get usable results.
           </p>

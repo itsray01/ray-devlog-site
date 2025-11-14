@@ -102,6 +102,20 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
         )}
       </div>
 
+      {/* Preset Note */}
+      <p style={{ 
+        fontSize: '0.85rem', 
+        color: 'var(--muted)', 
+        fontStyle: 'italic',
+        marginTop: '-0.5rem',
+        marginBottom: '1rem',
+        lineHeight: '1.6'
+      }}>
+        <strong>Note:</strong> All generations shown above were done using the General preset (no modifications), 
+        with the addition of a starting frame/reference face where possible. Note that Sora 2 and Veo3.1 do not 
+        allow photorealistic faces and have strict content policies regarding human subjects.
+      </p>
+
       {/* Heading */}
       <h3>{title}</h3>
 
