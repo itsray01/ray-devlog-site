@@ -732,8 +732,12 @@ const Home = () => {
           videoType="mp4"
           delay={0.9}
         >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 1 (Early October 2024)
+          </p>
+          
           <p>
-            <strong>Summary:</strong> I chased Sora 2 for its cinematic polish, but the platform’s strict ban on realistic faces made it unusable for a character-driven film that hinges on recognisable protagonists.
+            <strong>Summary:</strong> I chased Sora 2 for its cinematic polish, but the platform's strict ban on realistic faces made it unusable for a character-driven film that hinges on recognisable protagonists.
           </p>
           
           <p>
@@ -795,6 +799,23 @@ const Home = () => {
           </p>
           
           <p>
+            <strong>The Pivot Decision:</strong> After approximately 15-20 hours of testing and multiple 
+            failed workarounds, I made the decision to stop trying to force Sora 2 to generate character 
+            scenes. However, I didn't abandon it entirely—I recognized its strengths in environmental shots 
+            and decided to keep it in my toolkit for non-character sequences. This realization led me to 
+            search for alternative tools that could handle faces, which brought me to Wan2.5.
+          </p>
+          
+          <p>
+            <strong>Iteration notes:</strong> This first phase taught me that tool limitations often aren't 
+            fixable through prompt engineering alone. The face restriction wasn't a technical hurdle I could 
+            overcome—it was a policy limitation baked into the platform. This realization shifted my entire 
+            approach: instead of looking for one perfect tool, I needed to build a multi-tool workflow where 
+            each handled what it did best. This early failure was actually crucial for developing the hybrid 
+            workflow that eventually made the project viable.
+          </p>
+          
+          <p>
             <strong>Key lessons:</strong> Despite the face restrictions, Sora 2's cinematic quality made it 
             indispensable for environmental shots, establishing scenes, and non-character sequences. I ultimately 
             used Sora 2 alongside Veo3.1, leveraging each tool's strengths: Sora 2 for its superior visual 
@@ -809,8 +830,12 @@ const Home = () => {
           videoType="mp4"
           delay={0.95}
         >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 2 (Mid-October 2024)
+          </p>
+          
           <p>
-            <strong>Summary:</strong> Wan2.5 looked like the perfect fix because it accepts reference faces, but inconsistent transfers and warped expressions meant I couldn’t trust a single character shot.
+            <strong>Summary:</strong> Wan2.5 looked like the perfect fix because it accepts reference faces, but inconsistent transfers and warped expressions meant I couldn't trust a single character shot.
           </p>
           
           <p>
@@ -898,7 +923,26 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Key lessons:</strong> Wan2.5’s reference face workflow is clever on paper but still too unstable for hero shots. It might fill niche roles for stylised or background footage, yet for believable protagonists it remains a costly gamble.
+            <strong>The Pivot Decision:</strong> After spending $50-75 in credits and 10-12 hours 
+            of testing with zero usable character shots, I abandoned Wan2.5 entirely. The face input 
+            feature was compelling in theory, but the execution was too unreliable for production use. 
+            This failure taught me to prioritize actual output quality over advertised features. I decided 
+            to explore Higgsfield's platform more broadly to access multiple models simultaneously and 
+            compare results side-by-side.
+          </p>
+          
+          <p>
+            <strong>Iteration notes:</strong> The Wan2.5 phase reinforced a crucial lesson: iteration can 
+            improve results within a tool's capabilities, but it can't overcome fundamental technical 
+            limitations. I tried different reference images, rewrote prompts extensively, and adjusted every 
+            available parameter, but the core problem—unstable face embedding—persisted. This experience 
+            taught me to recognize when a tool simply isn't viable for my needs, rather than continuing to 
+            throw time and money at an unsolvable problem. It also made me more skeptical of marketing 
+            claims and more focused on hands-on testing.
+          </p>
+          
+          <p>
+            <strong>Key lessons:</strong> Wan2.5's reference face workflow is clever on paper but still too unstable for hero shots. It might fill niche roles for stylised or background footage, yet for believable protagonists it remains a costly gamble.
           </p>
         </ToolLessonCard>
 
@@ -908,6 +952,10 @@ const Home = () => {
           videoType="mp4"
           delay={1.0}
         >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 3 (Late October 2024)
+          </p>
+          
           <p>
             <strong>Summary:</strong> Higgsfield promised efficiency by aggregating every major model in one interface, but the convenience tax on credits meant every experiment felt like lighting money on fire.
           </p>
@@ -1012,6 +1060,26 @@ const Home = () => {
           </p>
           
           <p>
+            <strong>The Pivot Decision:</strong> Despite the high costs, I decided to continue using 
+            Higgsfield as my primary platform because the unified interface and side-by-side comparison 
+            capabilities were too valuable to lose during the testing phase. The credit system forced me 
+            to be more strategic about my testing—I couldn't afford to waste generations on poorly 
+            constructed prompts. This financial constraint actually improved my workflow by forcing me 
+            to think more carefully before generating, plan my tests systematically, and develop better 
+            prompt engineering skills faster than I would have otherwise.
+          </p>
+          
+          <p>
+            <strong>Iteration notes:</strong> The Higgsfield phase taught me to balance convenience against 
+            cost. The platform's aggregation feature was invaluable for discovering which models worked best 
+            for specific scene types, but the credit markup meant I had to be extremely selective about 
+            experimentation. This constraint led to a more disciplined approach: I started documenting every 
+            prompt, tracking which models worked for which scene types, and building a systematic testing 
+            methodology. The high cost was painful but educational—it forced me to develop better practices 
+            that would serve the entire project.
+          </p>
+          
+          <p>
             <strong>Key lessons:</strong> Higgsfield is brilliant for rapid discovery but punishing for exploratory play. Use it when time is scarce and budgets are defined; switch to direct model accounts once you know exactly what you need.
           </p>
         </ToolLessonCard>
@@ -1022,6 +1090,10 @@ const Home = () => {
           videoType="mp4"
           delay={1.05}
         >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2024)
+          </p>
+          
           <p>
             <strong>Summary:</strong> After burning through novelty tools, Veo3.1 became my dependable workhorse because it balanced cinematic quality with the loose human realism my project needed.
           </p>
@@ -1131,6 +1203,28 @@ const Home = () => {
           </p>
           
           <p>
+            <strong>The Pivot Decision:</strong> After seeing consistent (though imperfect) results with 
+            Veo3.1, I made the strategic decision to commit to it as my primary tool for all character-driven 
+            scenes. This was a major turning point—instead of continuing to search for the "perfect" tool, 
+            I accepted Veo3.1's limitations and focused on building a systematic workflow around them. I invested 
+            time in developing a library of successful prompts, learning which cinematic language worked best, 
+            and establishing a consistent iteration process. This decision allowed me to move forward with 
+            production rather than remaining stuck in endless tool testing.
+          </p>
+          
+          <p>
+            <strong>Iteration notes:</strong> The Veo3.1 phase marked a fundamental shift in my approach. 
+            Instead of trying different tools to avoid limitations, I learned to work systematically within 
+            them. I developed a prompt template library, documented what worked and what didn't, and built 
+            a predictable iteration cycle. This systematic approach transformed an imperfect tool into a 
+            reliable production workhorse. The key insight: consistency and workflow optimization matter more 
+            than finding the "perfect" tool. By accepting Veo3.1's limitations and building processes to work 
+            within them, I finally had a viable path forward for character scenes. This phase also reinforced 
+            that the hybrid workflow concept was correct—Veo3.1 handled characters, but I still needed other 
+            tools for environmental and abstract sequences.
+          </p>
+          
+          <p>
             <strong>Key lessons:</strong> Veo3.1 rewards meticulous prompts and planned iteration. It still needs light post work, but for projects that require believable humans, it's the most dependable option in my toolkit. I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non-character sequences.
           </p>
         </ToolLessonCard>
@@ -1141,8 +1235,12 @@ const Home = () => {
           videoType="mp4"
           delay={1.1}
         >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 5-6 (Mid-Late November 2024)
+          </p>
+          
           <p>
-            <strong>Summary:</strong> Seedance became my specialist for mood-heavy establishing shots because it delivered stylised lighting and camera work that Veo3.1 couldn’t, even though it still fell apart on characters.
+            <strong>Summary:</strong> Seedance became my specialist for mood-heavy establishing shots because it delivered stylised lighting and camera work that Veo3.1 couldn't, even though it still fell apart on characters.
           </p>
           
           <p>
@@ -1193,6 +1291,27 @@ const Home = () => {
           </details>
           
           <p>
+            <strong>The Pivot Decision:</strong> After successfully establishing Veo3.1 as my character tool, 
+            I started testing Seedance specifically for environmental shots where Veo3.1's aesthetic wasn't 
+            quite right. Rather than trying to force Seedance to do everything, I strategically limited its 
+            use to wide shots, establishing scenes, and atmospheric transitions where character faces weren't 
+            critical. This specialized role allowed me to leverage Seedance's strengths (stylized environments, 
+            mood, aesthetic control) while avoiding its weaknesses (character consistency). This decision 
+            reinforced the hybrid workflow approach—using each tool for what it does best.
+          </p>
+          
+          <p>
+            <strong>Iteration notes:</strong> The Seedance phase demonstrated that specialization can be as 
+            valuable as versatility. By limiting Seedance to specific scene types, I achieved a ~60% first-pass 
+            success rate for environmental shots—much better than trying to force it into character work. 
+            This experience taught me to think about tools as specialized instruments in a larger toolkit rather 
+            than trying to find one tool that does everything. It also showed the value of testing tools for 
+            specific use cases rather than general capability. Seedance's lower resolution and faster render 
+            times made it cost-effective for background plates, allowing me to save credits for character-heavy 
+            Veo3.1 generations.
+          </p>
+          
+          <p>
             <strong>Key lessons:</strong> Seedance is brilliant for stylised environments and transitional beats, but it cannot carry narrative scenes alone. Use it as a supporting painter, not the lead actor.
           </p>
         </ToolLessonCard>
@@ -1203,8 +1322,12 @@ const Home = () => {
           videoType="mp4"
           delay={1.15}
         >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 6-7 (Late November 2024)
+          </p>
+          
           <p>
-            <strong>Summary:</strong> Kling became my go-to for surreal “cognitive scrambler” sequences because it leaned into abstraction instead of fighting it, even though it can’t handle realistic storytelling.
+            <strong>Summary:</strong> Kling became my go-to for surreal "cognitive scrambler" sequences because it leaned into abstraction instead of fighting it, even though it can't handle realistic storytelling.
           </p>
           
           <p>
@@ -1294,6 +1417,28 @@ const Home = () => {
             This hybrid approach was more work, but it was the only way to achieve the results 
             I needed. The lesson: in the current state of AI video generation, specialization 
             beats trying to find one tool that does everything.
+          </p>
+          
+          <p>
+            <strong>The Pivot Decision:</strong> After establishing my primary tools (Veo3.1 for characters, 
+            Sora 2 for environmental quality, Seedance for stylized environments), I encountered a specific 
+            narrative need: the "cognitive scrambler" effect for wrong choices in the branching narrative. 
+            I tested Kling specifically for this abstract, disorienting effect and immediately recognized 
+            that its weakness (inability to maintain realism) was actually a strength for this use case. 
+            I decided to integrate Kling as a specialized tool for abstract sequences where surreal, glitchy, 
+            disorienting visuals were the goal. This decision completed my hybrid workflow toolkit.
+          </p>
+          
+          <p>
+            <strong>Iteration notes:</strong> The Kling phase represented the final piece of my hybrid workflow 
+            puzzle. By this point, I had learned to evaluate tools based on specialized use cases rather than 
+            general capability. Kling's ~70% success rate for abstract content (versus much lower for realistic 
+            scenes) confirmed my approach: match tools to specific needs rather than forcing versatility. The 
+            testing process was faster and more efficient because I already had a clear methodology: test 
+            systematically, document results, identify strengths/weaknesses, and assign specialized roles. 
+            Kling's lower cost (8-12 credits) and fast renders (2-3 minutes) made it perfect for the brief 
+            abstract sequences I needed. This final phase validated the entire hybrid approach—no single tool 
+            was perfect, but a specialized toolkit could handle every requirement.
           </p>
           
           <p>
