@@ -721,7 +721,8 @@ const Home = () => {
             (which provided access to Wan2.5, Veo3.1, Seedance, Kling, and several other models I didn't use, 
             plus Higgsfield's own model) and the <strong>official Sora website</strong> (accessed via VPN since 
             it's only available in the US). Each one taught me something different, and most of them 
-            taught me what <em>doesn't</em> work.
+            taught me what <em>doesn't</em> work. In the end, I used both <strong>Veo3.1</strong> and <strong>Sora 2</strong> 
+            as they are, in my opinion, the best models available.
           </p>
         </motion.article>
 
@@ -794,7 +795,11 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Key lessons:</strong> Cinematic fidelity means nothing if the tool blocks your subject matter. Sora 2 is fantastic for ambience and objects, but the absolute face ban makes it a non-starter for protagonist-led stories like mine.
+            <strong>Key lessons:</strong> Despite the face restrictions, Sora 2's cinematic quality made it 
+            indispensable for environmental shots, establishing scenes, and non-character sequences. I ultimately 
+            used Sora 2 alongside Veo3.1, leveraging each tool's strengths: Sora 2 for its superior visual 
+            quality in scenes without faces, and Veo3.1 for character-driven moments. The face ban was a 
+            limitation, but not a deal-breaker when used strategically as part of a hybrid workflow.
           </p>
         </ToolLessonCard>
 
@@ -1126,7 +1131,7 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Key lessons:</strong> Veo3.1 rewards meticulous prompts and planned iteration. It still needs light post work, but for projects that require believable humans, it’s the most dependable option in my toolkit.
+            <strong>Key lessons:</strong> Veo3.1 rewards meticulous prompts and planned iteration. It still needs light post work, but for projects that require believable humans, it's the most dependable option in my toolkit. I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non-character sequences.
           </p>
         </ToolLessonCard>
 
@@ -1266,9 +1271,10 @@ const Home = () => {
           </p>
           <ul className="bullets">
             <li><strong>Veo3.1:</strong> Character scenes, narrative continuity, main story beats</li>
+            <li><strong>Sora 2:</strong> Environmental shots, establishing scenes, non-character sequences with superior cinematic quality</li>
             <li><strong>Kling:</strong> Abstract effects, cognitive scrambler sequences, surreal 
             moments</li>
-            <li><strong>Seedance:</strong> Environmental establishing shots, atmospheric sequences</li>
+            <li><strong>Seedance:</strong> Specialized environmental shots when needed</li>
           </ul>
           
           <p>
@@ -1575,11 +1581,13 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>What actually worked:</strong> After all the failures, I settled on Veo3.1 (accessed 
-            through Higgsfield) as my primary tool for character scenes, with Kling (also through 
-            Higgsfield) for abstract effects and Seedance (also through Higgsfield) for specific 
-            environmental shots. I built a hybrid workflow combining AI generation with traditional 
-            post-production. It wasn't elegant, but it was the only way to get usable results.
+            <strong>What actually worked:</strong> After all the failures, I settled on <strong>Veo3.1</strong> 
+            (accessed through Higgsfield) and <strong>Sora 2</strong> (accessed via VPN on the official website) 
+            as my primary tools—in my opinion, they are the best models available. Veo3.1 handled character 
+            scenes, while Sora 2 provided superior quality for environmental shots, establishing scenes, and 
+            non-character sequences. I also used Kling (through Higgsfield) for abstract effects. I built a 
+            hybrid workflow combining AI generation with traditional post-production. It wasn't elegant, but 
+            it was the only way to get usable results.
           </p>
           
           <p>
