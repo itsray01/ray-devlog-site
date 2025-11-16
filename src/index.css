@@ -455,7 +455,7 @@ main {
 
 .card h3 {
   font-family: 'Iceberg', sans-serif;
-  color: var(--ink);
+  color: #c084fc;
   margin-top: 0;
   margin-bottom: 0.75rem; /* Increased from 0.5rem */
   font-size: 1.35rem; /* Slightly larger for hierarchy */
@@ -476,7 +476,7 @@ main {
 }
 
 .card.note h3 {
-  color: #d94688; /* Darker pink for blog post headings */
+  color: #c084fc; /* Purple for blog post headings */
 }
 
 .note + .note {
@@ -816,7 +816,7 @@ main {
 
 .mini h3 {
   margin: .2rem 0 .5rem;
-  color: var(--accent);
+  color: #c084fc;
 }
 
 /* --- Loading & Error States --- */
@@ -936,7 +936,7 @@ footer {
 
 .story-node-detail h3 {
   font-family: 'Iceberg', sans-serif;
-  color: var(--accent);
+  color: #c084fc;
   margin-top: 0;
   margin-bottom: 0.75rem;
   line-height: 1.4;
