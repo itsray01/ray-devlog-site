@@ -15,8 +15,8 @@ const StatisticsDashboard = () => {
       value: '247',
       subtitle: 'AI-generated videos',
       icon: IconVideo,
-      trend: 12.6,
-      chartData: [180, 190, 195, 210, 220, 230, 247],
+      trend: null,
+      chartData: [],
       chartType: 'line'
     },
     {
@@ -25,8 +25,8 @@ const StatisticsDashboard = () => {
       value: '$700',
       subtitle: 'Higgsfield & Sora 2',
       icon: IconCurrencyDollar,
-      trend: -8,
-      chartData: [100, 250, 350, 450, 550, 650, 700],
+      trend: null,
+      chartData: [],
       chartType: 'bar'
     },
     {
@@ -35,8 +35,8 @@ const StatisticsDashboard = () => {
       value: '42 kg',
       subtitle: 'CO₂ emissions',
       icon: IconLeaf,
-      trend: 15,
-      chartData: [30, 32, 35, 37, 38, 40, 42],
+      trend: null,
+      chartData: [],
       chartType: 'line'
     },
     {
@@ -45,8 +45,8 @@ const StatisticsDashboard = () => {
       value: '156',
       subtitle: 'Script revisions',
       icon: IconRefresh,
-      trend: 24,
-      chartData: [85],
+      trend: null,
+      chartData: [],
       chartType: 'progress'
     },
     {
@@ -55,8 +55,8 @@ const StatisticsDashboard = () => {
       value: '8',
       subtitle: 'Platforms tested',
       icon: IconBrain,
-      trend: 0,
-      chartData: [1, 2, 3, 4, 5, 7, 8],
+      trend: null,
+      chartData: [],
       chartType: 'bar'
     }
   ];
