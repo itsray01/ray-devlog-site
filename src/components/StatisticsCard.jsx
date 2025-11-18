@@ -285,11 +285,71 @@ const StatisticsCard = ({
     );
   };
   
+  // Render split bar chart (for showing breakdown like Higgsfield vs Sora 2)
+  const renderSplitBar = () => {
+    if (!chartData || chartData.length === 0) return null;
+    
+    const total = chartData.reduce((sum, item) => sum + item.value, 0);
+    
+    return (
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        {chartData.map((item, index) => {
+          const percentage = (item.value / total) * 100;
+          const colors = [
+            'var(--accent-primary)',
+            'var(--accent-secondary)',
+            'var(--accent-tertiary)',
+            'var(--accent-pink)'
+          ];
+          
+          return (
+            <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center',
+                fontSize: '0.65rem',
+                color: 'var(--muted)',
+                fontWeight: '500'
+              }}>
+                <span>{item.label}</span>
+                <span style={{ color: item.color || colors[index % colors.length] }}>
+                  ${item.value}
+                </span>
+              </div>
+              <div style={{
+                width: '100%',
+                height: '8px',
+                background: 'rgba(139, 92, 246, 0.1)',
+                borderRadius: '4px',
+                overflow: 'hidden',
+                position: 'relative'
+              }}>
+                <div
+                  style={{
+                    width: `${percentage}%`,
+                    height: '100%',
+                    background: `linear-gradient(90deg, ${item.color || colors[index % colors.length]}, ${item.color || colors[index % colors.length]}dd)`,
+                    borderRadius: '4px',
+                    transition: 'width 0.6s ease-out',
+                    animation: 'splitBarGrow 0.8s ease-out forwards',
+                    boxShadow: `0 0 8px ${item.color || colors[index % colors.length]}66`
+                  }}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+  
   const renderChart = () => {
     if (chartType === 'line') return renderLineChart();
     if (chartType === 'bar') return renderBarChart();
     if (chartType === 'progress') return renderProgressCircle();
     if (chartType === 'donut') return renderDonutChart();
+    if (chartType === 'split') return renderSplitBar();
     return null;
   };
   

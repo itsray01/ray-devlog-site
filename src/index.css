@@ -1221,12 +1221,12 @@ html {
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--glass-border);
   border-radius: 14px;
-  padding: 1.5rem;
+  padding: 1.75rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  min-height: 220px;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
 }
@@ -1354,8 +1354,11 @@ html {
 /* Chart Container */
 .stat-chart-container {
   width: 100%;
-  height: 60px;
+  height: 90px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Line Chart */
@@ -1399,6 +1402,12 @@ html {
   }
 }
 
+@keyframes splitBarGrow {
+  from {
+    width: 0%;
+  }
+}
+
 .statistics-card:hover .stat-bar {
   background: linear-gradient(180deg, var(--accent-secondary), rgba(6, 182, 212, 0.4));
 }
@@ -1413,8 +1422,8 @@ html {
 
 /* Donut Chart */
 .stat-chart-donut {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto;
   display: block;
   position: relative;

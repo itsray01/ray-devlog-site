@@ -26,8 +26,11 @@ const StatisticsDashboard = () => {
       subtitle: 'Higgsfield & Sora 2',
       icon: IconCurrencyDollar,
       trend: null,
-      chartData: [],
-      chartType: 'bar'
+      chartData: [
+        { label: 'Sora 2', value: 450, color: '#8b5cf6' },
+        { label: 'Higgsfield', value: 250, color: '#06b6d4' }
+      ],
+      chartType: 'split'
     },
     {
       id: 3,
