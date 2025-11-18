@@ -16,7 +16,7 @@ const StatisticsDashboard = () => {
       subtitle: 'AI-generated videos',
       icon: IconVideo,
       trend: null,
-      chartData: [],
+      chartData: [180, 190, 195, 210, 220, 230, 247],
       chartType: 'line'
     },
     {
@@ -51,13 +51,16 @@ const StatisticsDashboard = () => {
     },
     {
       id: 5,
-      title: 'AI Models Explored',
-      value: '8',
-      subtitle: 'Platforms tested',
+      title: 'AI Models Used',
+      value: '2',
+      subtitle: 'Sora 2 & Veo 3.1',
       icon: IconBrain,
       trend: null,
-      chartData: [],
-      chartType: 'bar'
+      chartData: [
+        { label: 'Sora 2', value: 147 },
+        { label: 'Veo 3.1', value: 100 }
+      ],
+      chartType: 'donut'
     }
   ];
 

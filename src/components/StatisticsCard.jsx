@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -12,8 +13,9 @@ const StatisticsCard = ({
   icon: Icon, 
   trend,
   chartData = [],
-  chartType = 'line' // 'line', 'bar', 'progress'
+  chartType = 'line' // 'line', 'bar', 'progress', 'donut'
 }) => {
+  const [tooltip, setTooltip] = useState({ show: false, x: 0, y: 0, label: '', value: '' });
   
   // Render mini line chart
   const renderLineChart = () => {
@@ -121,10 +123,120 @@ const StatisticsCard = ({
     );
   };
   
+  // Render donut chart
+  const renderDonutChart = () => {
+    if (!chartData || chartData.length === 0) return null;
+    
+    const total = chartData.reduce((sum, item) => sum + item.value, 0);
+    let currentAngle = -90; // Start from top
+    
+    const segments = chartData.map((item, index) => {
+      const percentage = (item.value / total) * 100;
+      const angle = (percentage / 100) * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + angle;
+      
+      // Calculate arc path
+      const startRad = (startAngle * Math.PI) / 180;
+      const endRad = (endAngle * Math.PI) / 180;
+      const outerRadius = 45;
+      const innerRadius = 28;
+      
+      const x1 = 50 + outerRadius * Math.cos(startRad);
+      const y1 = 50 + outerRadius * Math.sin(startRad);
+      const x2 = 50 + outerRadius * Math.cos(endRad);
+      const y2 = 50 + outerRadius * Math.sin(endRad);
+      const x3 = 50 + innerRadius * Math.cos(endRad);
+      const y3 = 50 + innerRadius * Math.sin(endRad);
+      const x4 = 50 + innerRadius * Math.cos(startRad);
+      const y4 = 50 + innerRadius * Math.sin(startRad);
+      
+      const largeArc = angle > 180 ? 1 : 0;
+      
+      const pathData = [
+        `M ${x1} ${y1}`,
+        `A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${x2} ${y2}`,
+        `L ${x3} ${y3}`,
+        `A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x4} ${y4}`,
+        'Z'
+      ].join(' ');
+      
+      currentAngle = endAngle;
+      
+      const colors = [
+        'var(--accent-primary)',
+        'var(--accent-secondary)',
+        'var(--accent-tertiary)',
+        'var(--accent-pink)'
+      ];
+      
+      return {
+        path: pathData,
+        color: item.color || colors[index % colors.length],
+        label: item.label,
+        value: item.value,
+        percentage: percentage.toFixed(1)
+      };
+    });
+    
+    const handleMouseEnter = (e, segment) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setTooltip({
+        show: true,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        label: segment.label,
+        value: `${segment.value} clips (${segment.percentage}%)`
+      });
+    };
+    
+    const handleMouseLeave = () => {
+      setTooltip({ show: false, x: 0, y: 0, label: '', value: '' });
+    };
+    
+    return (
+      <div style={{ position: 'relative' }}>
+        <svg className="stat-chart-donut" viewBox="0 0 100 100">
+          {segments.map((segment, index) => (
+            <path
+              key={index}
+              d={segment.path}
+              fill={segment.color}
+              className="donut-segment"
+              onMouseEnter={(e) => handleMouseEnter(e, segment)}
+              onMouseLeave={handleMouseLeave}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setTooltip(prev => ({
+                  ...prev,
+                  x: e.clientX - rect.left,
+                  y: e.clientY - rect.top
+                }));
+              }}
+            />
+          ))}
+        </svg>
+        {tooltip.show && (
+          <div 
+            className="donut-tooltip"
+            style={{
+              left: `${tooltip.x + 10}px`,
+              top: `${tooltip.y - 10}px`
+            }}
+          >
+            <div className="donut-tooltip-label">{tooltip.label}</div>
+            <div className="donut-tooltip-value">{tooltip.value}</div>
+          </div>
+        )}
+      </div>
+    );
+  };
+  
   const renderChart = () => {
     if (chartType === 'line') return renderLineChart();
     if (chartType === 'bar') return renderBarChart();
     if (chartType === 'progress') return renderProgressCircle();
+    if (chartType === 'donut') return renderDonutChart();
     return null;
   };
   

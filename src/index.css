@@ -1226,6 +1226,9 @@ html {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
 }
 
 .statistics-card::before {
@@ -1406,6 +1409,50 @@ html {
   height: 80px;
   margin: 0 auto;
   display: block;
+}
+
+/* Donut Chart */
+.stat-chart-donut {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+
+.donut-segment {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.donut-segment:hover {
+  opacity: 0.8;
+  filter: brightness(1.2);
+}
+
+.donut-tooltip {
+  position: absolute;
+  background: rgba(15, 18, 22, 0.95);
+  border: 1px solid var(--accent-primary);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--ink);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.donut-tooltip-label {
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-bottom: 0.25rem;
+}
+
+.donut-tooltip-value {
+  font-size: 0.7rem;
+  color: var(--muted);
 }
 
 /* Responsive Statistics Dashboard */
