@@ -856,110 +856,25 @@ const Home = () => {
           </p>
           
           <p>
-            After Sora's face restrictions killed my workflow, I discovered Wan2.5 through Higgsfield. 
-            This tool actually <strong>lets you upload face reference images</strong>—exactly what I needed! 
-            I could upload photos of my character concept, and the AI would use that face in the 
-            generated videos. This seemed like the perfect solution to my character consistency 
-            problem.
+            After Sora's face restrictions, I discovered Wan2.5 through Higgsfield. It lets you upload face reference images, which seemed perfect for character consistency.
           </p>
           
           <p>
-            <strong>How It's Supposed to Work:</strong> Wan2.5 uses a face embedding system where 
-            you upload a reference image (or multiple images) of the face you want to use. The 
-            system extracts facial features and applies them to generated characters. You can 
-            combine this with text prompts to control the scene, action, and environment.
-          </p>
-          
-          <p>
-            <strong>The Technical Process:</strong> The workflow involves:
-          </p>
-          <p>
-            <strong>How it works:</strong> Upload multiple clean face references, craft a scene prompt, set clip duration/style, and hope the embedding system keeps the likeness through the entire render. In theory, it’s a straightforward workflow.
-          </p>
-          
-          <p>
-            <strong>What Actually Happened:</strong> The results were consistently disappointing:
-          </p>
-          <p>
-            <strong>Common issues:</strong> Faces warped around the eyes and mouth, changed identity mid‑clip, morphed unpredictably whenever the character moved, ignored scene lighting, and produced uncanny expressions that pulled viewers out of the moment.
-          </p>
-          
-          <p>
-            <strong>My Testing Process:</strong> I tried everything to make this work:
-          </p>
-          <p>
-            <strong>Experimenting:</strong> I cycled through dozens of high-resolution references, rewrote prompts from minimal to extremely detailed, tweaked every strength and style slider, and generated twenty-plus variations per scene. The occasional usable frame never justified the time or credit burn.
-          </p>
-          
-          <p>
-            <strong>Specific Example:</strong> I tried generating a simple scene: "Character 
-            walks down a corridor, looking left and right." With a clear reference photo, the 
-            result showed a character whose face:
-          </p>
-          <p>
-            <strong>Example outcome:</strong> Frame one matched the reference; fifteen frames later the eyes stretched; midway through the nose belonged to someone else; by the end, the mouth no longer matched the dialogue. Consistency simply evaporated.
-          </p>
-          
-          <p>
-            <strong>Technical Limitations:</strong> The face embedding system in Wan2.5 appears 
-            to have fundamental issues:
-          </p>
-          <p>
-            <strong>Underlying problems:</strong> Temporal stability is weak, face embeddings don’t move naturally with bodies, lighting passes ignore the grafted face, and there’s no reliable way to preserve expressions.
-          </p>
-          
-          <p>
-            <strong>Cost Analysis:</strong> I spent approximately $50-75 in credits testing 
-            Wan2.5 across multiple scenes and variations. The time investment was 10-12 hours 
-            of testing, prompt refinement, and result evaluation. The return? Zero usable 
-            character shots for my project.
-          </p>
-          
-          <p>
-            <strong>When Wan2.5 Might Work:</strong> Based on my testing, it might be viable for:
-          </p>
-          <p>
-            <strong>Where it fits:</strong> Extremely short clips where shifts go unnoticed, stylised or abstract outputs that embrace distortion, background characters, or any non-human subject.
+            <strong>The Problem:</strong> Faces warped around the eyes and mouth, changed identity mid clip, morphed unpredictably during movement, and produced uncanny expressions. I spent $50-75 in credits across 10-12 hours of testing with zero usable character shots.
           </p>
           
           <details className="technical-details">
             <summary>Technical details</summary>
             <p>
-              Wan2.5’s face-embedding workflow supports multi-image references, prompt-tuned style presets, and adjustable strength parameters. Renders averaged 2–4 minutes, but every iteration consumed additional credits, making large batches expensive.
+              Wan2.5's face embedding workflow supports multi image references but has weak temporal stability. Renders averaged 2 to 4 minutes, with every iteration consuming additional credits.
             </p>
           </details>
           
           <p>
-            <strong>What I Learned:</strong> Feature existence ≠ feature quality. Just because 
-            a tool advertises face input doesn't mean it works well enough for production. This 
-            was another expensive lesson in the gap between marketing promises and technical 
-            reality. The face input feature exists, but it's not production-ready. For 
-            character-driven narratives requiring consistent faces, Wan2.5 simply isn't viable 
-            yet. This forced me to accept that current AI video generation tools have fundamental 
-            limitations in character consistency that can't be easily worked around.
-          </p>
-          
-          <p>
-            <strong>The Pivot Decision:</strong> After spending $50-75 in credits and 10-12 hours 
-            of testing with zero usable character shots, I abandoned Wan2.5 entirely. The face input 
-            feature was compelling in theory, but the execution was too unreliable for production use. 
+            <strong>What I Learned:</strong> Feature existence does not equal feature quality. The face input feature exists but is not production ready. I abandoned Wan2.5 entirely after extensive testing. 
             This failure taught me to prioritize actual output quality over advertised features. I decided 
             to explore Higgsfield's platform more broadly to access multiple models simultaneously and 
             compare results side-by-side.
-          </p>
-          
-          <p>
-            <strong>Iteration notes:</strong> The Wan2.5 phase reinforced a crucial lesson: iteration can 
-            improve results within a tool's capabilities, but it can't overcome fundamental technical 
-            limitations. I tried different reference images, rewrote prompts extensively, and adjusted every 
-            available parameter, but the core problem—unstable face embedding—persisted. This experience 
-            taught me to recognize when a tool simply isn't viable for my needs, rather than continuing to 
-            throw time and money at an unsolvable problem. It also made me more skeptical of marketing 
-            claims and more focused on hands-on testing.
-          </p>
-          
-          <p>
-            <strong>Key lessons:</strong> Wan2.5's reference face workflow is clever on paper but still too unstable for hero shots. It might fill niche roles for stylised or background footage, yet for believable protagonists it remains a costly gamble.
           </p>
         </ToolLessonCard>
 
@@ -978,86 +893,11 @@ const Home = () => {
           </p>
           
           <p>
-            After testing Sora directly and hitting dead ends, I discovered Higgsfield. This 
-            platform aggregates access to multiple AI video generation models—Veo3.1, Wan2.5, 
-            Seedance, Kling, and several others I didn't end up using, plus Higgsfield's own model—all 
-            in one interface. This seemed like the perfect solution: test different models side-by-side, 
-            compare outputs, and find the best tool for each specific scene without juggling multiple 
-            accounts and interfaces.
+            Higgsfield aggregates access to multiple models (Veo3.1, Wan2.5, Seedance, Kling, and others) in one interface. The unified platform allows side-by-side model comparisons and batch workflows, but with a significant credit markup.
           </p>
           
           <p>
-            <strong>The Platform Architecture:</strong> Higgsfield provides a unified API and 
-            interface that connects to various AI video generation backends. You can:
-          </p>
-          <p>
-            <strong>Why it’s attractive:</strong> Swap models without changing tabs, compare identical prompts side-by-side, access feature sets from a common UI, monitor spend centrally, and trigger batch workflows without scripting.
-          </p>
-          
-          <p>
-            <strong>The Credit System:</strong> Higgsfield uses a credit-based pricing model. 
-            Different models cost different amounts of credits per generation:
-          </p>
-              <ul className="bullets">
-            <li><strong>Veo3.1:</strong> ~15-20 credits per generation (depending on length/resolution)</li>
-            <li><strong>Wan2.5:</strong> ~12-18 credits per generation</li>
-            <li><strong>Seedance:</strong> ~10-15 credits per generation</li>
-            <li><strong>Kling:</strong> ~8-12 credits per generation</li>
-            <li><strong>Higgsfield's own model:</strong> ~10-15 credits per generation</li>
-              </ul>
-          
-          <p>
-            <strong>The Financial Reality:</strong> I purchased a credit package thinking it 
-            would last me through the project. I was wrong. Here's what happened:
-          </p>
-              <ul className="bullets">
-            <li><strong>Initial Purchase:</strong> $200 for 10,000 credits (seemed reasonable)</li>
-            <li><strong>First Week:</strong> Burned through 3,000 credits testing different models</li>
-            <li><strong>Second Week:</strong> Another 4,000 credits on iterations and refinements</li>
-            <li><strong>Third Week:</strong> Had to purchase another $200 package</li>
-            <li><strong>Total Project Cost:</strong> Approximately $600-700 in credits</li>
-              </ul>
-          
-          <p>
-            <strong>Why It Was So Expensive:</strong> The convenience came at a premium:
-          </p>
-          <p>
-            <strong>Cost sink:</strong> Higgsfield adds a markup to every render, each comparison run multiplies the spend, iterative tweaks compound the bill, and there’s no free safety net. Every creative impulse carried a visible price tag.
-          </p>
-          
-          <p>
-            <strong>The Psychological Impact:</strong> Watching my credit balance drain was 
-            genuinely stressful. Every generation felt like a financial decision:
-          </p>
-          <p>
-            <strong>Decision fatigue:</strong> I constantly debated whether to regenerate flawed shots, try alternate models, or just settle. Creative choices turned into budget approvals.
-          </p>
-          
-          <p>
-            <strong>How This Changed My Workflow:</strong> The financial pressure forced me to 
-            become much more strategic:
-          </p>
-          <p>
-            <strong>Forced discipline:</strong> I obsessively refined prompts before hitting generate, became selective about which model matched each scene, queued renders in cost-efficient batches, and learned to accept “good enough” so I could save credits for hero shots.
-          </p>
-          
-          <p>
-            <strong>What Actually Worked:</strong> Despite the cost, Higgsfield did provide value:
-          </p>
-          <p>
-            <strong>Productivity wins:</strong> Rapid comparisons revealed each model’s strengths, a single interface eliminated context switching, and batch tools saved tedious manual triggering. When speed mattered more than cost, Higgsfield delivered.
-          </p>
-          
-          <p>
-            <strong>Cost-Benefit Analysis:</strong> Was it worth it?
-          </p>
-          <ul className="bullets">
-            <li><strong>Time Saved:</strong> Probably 20-30 hours of platform switching and 
-            account management</li>
-            <li><strong>Money Spent:</strong> $600-700 vs. probably $400-500 using tools directly</li>
-            <li><strong>Learning Value:</strong> High—I learned which models work for what</li>
-            <li><strong>Stress Level:</strong> High—financial pressure was real</li>
-          </ul>
+            <strong>The Financial Reality:</strong> I spent approximately $600-700 total. The financial pressure forced me to be more strategic with prompt engineering and model selection, but limited experimentation.</p>
           
           <details className="technical-details">
             <summary>Technical details</summary>
@@ -1067,37 +907,7 @@ const Home = () => {
           </details>
           
           <p>
-            <strong>What I Learned:</strong> Convenience has a price, and that price is significant. 
-            Higgsfield saved me time but cost me money. The financial pressure actually improved 
-            my prompt engineering and workflow efficiency, but it also limited my experimentation. 
-            For future projects, I'd consider using individual tools directly for cost savings, 
-            but Higgsfield's unified interface was valuable for the learning phase. The key lesson: 
-            understand the pricing model before committing, and budget for iteration costs—they 
-            add up fast.
-          </p>
-          
-          <p>
-            <strong>The Pivot Decision:</strong> Despite the high costs, I decided to continue using 
-            Higgsfield as my primary platform because the unified interface and side-by-side comparison 
-            capabilities were too valuable to lose during the testing phase. The credit system forced me 
-            to be more strategic about my testing—I couldn't afford to waste generations on poorly 
-            constructed prompts. This financial constraint actually improved my workflow by forcing me 
-            to think more carefully before generating, plan my tests systematically, and develop better 
-            prompt engineering skills faster than I would have otherwise.
-          </p>
-          
-          <p>
-            <strong>Iteration notes:</strong> The Higgsfield phase taught me to balance convenience against 
-            cost. The platform's aggregation feature was invaluable for discovering which models worked best 
-            for specific scene types, but the credit markup meant I had to be extremely selective about 
-            experimentation. This constraint led to a more disciplined approach: I started documenting every 
-            prompt, tracking which models worked for which scene types, and building a systematic testing 
-            methodology. The high cost was painful but educational—it forced me to develop better practices 
-            that would serve the entire project.
-          </p>
-          
-          <p>
-            <strong>Key lessons:</strong> Higgsfield is brilliant for rapid discovery but punishing for exploratory play. Use it when time is scarce and budgets are defined; switch to direct model accounts once you know exactly what you need.
+            <strong>What I Learned:</strong> Convenience has a price. Higgsfield saved time but cost significant money. The financial pressure improved my prompt engineering but limited experimentation. The unified interface was valuable for learning which models worked best for specific scenes.
           </p>
         </ToolLessonCard>
 

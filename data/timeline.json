@@ -29,10 +29,10 @@
   },
   {
     "date": "Week of 20th October 2025",
-    "title": "Prototype Development (Phase 1)",
-    "task": "Build the first Twine prototype with placeholder choices. Test branching structure and timed decision mechanics to establish player pacing and flow.",
-    "challenge": "Implementing timed decisions in Twine required custom JavaScript, which was more complex than anticipated. Additionally, early playtests revealed that players found the looping mechanic confusing without clear visual feedback.",
-    "reflection": "The Twine prototype phase was critical for understanding narrative flow before committing resources to asset generation. This aligns with agile development principles and demonstrates the value of rapid prototyping in interactive media. The technical challenges in implementing timed mechanics highlighted the gap between design intent and technical implementation—a recurring theme in interactive development."
+    "title": "Narrative Structure & Twine Prototyping",
+    "task": "Drafted the complete narrative outline in Twine, creating a three-act branching structure (Initialization, Trials, Exit) where wrong choices trigger cognitive scrambler effects and loop back to checkpoints. Implemented timed decisions to create tension.",
+    "challenge": "Early playtests revealed confusion when players looped back, losing track of progression. Integrating AI-generated video into Twine initially posed technical challenges.",
+    "reflection": "Added visual markers (chalk arrows, checkpoint labels) that persist across loops, providing spatial memory cues inspired by environmental storytelling in Control and Portal. Following Dr. Conor McKeown's YouTube tutorial, I learned to host videos on GitHub and embed them using raw links in Twine div elements, a critical workflow for prototyping interactive video narratives. The Twine prototype phase proved crucial for testing narrative flow before committing to expensive AI-generated assets, demonstrating the value of low-fidelity prototyping in interactive media development."
   },
   {
     "date": "Week of 27th October 2025",
