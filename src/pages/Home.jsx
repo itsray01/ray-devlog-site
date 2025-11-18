@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Timeline from '../components/Timeline';
 import StoryTimeline from '../components/StoryTimeline';
 import ToolLessonCard from '../components/ToolLessonCard';
+import StatisticsDashboard from '../components/StatisticsDashboard';
 import useDevlog from '../hooks/useDevlog';
 import inspirationData from '../../data/inspiration.json';
 import moodboardData from '../../data/moodboard.json';
@@ -94,6 +95,9 @@ const Home = () => {
         <h1>Digital Project Logbook</h1>
         <p className="page-subtitle">Documenting the journey of creating an interactive dystopian film</p>
       </motion.div>
+
+      {/* Statistics Dashboard */}
+      <StatisticsDashboard />
 
       {/* Overview Section */}
       <motion.section
