@@ -758,39 +758,15 @@ const Home = () => {
           </p>
           
           <p>
-            I was genuinely excited to try Sora 2. OpenAI's marketing showed incredible quality—smooth 
-            motion, realistic physics, cinematic quality. The demos looked like they were shot by 
-            professional cinematographers. I thought I'd found my solution. I accessed Sora 2 through 
-            the official Sora website using a VPN, since the platform is only available in the US.
+            I accessed Sora 2 through the official website using a VPN (US only). The marketing showed incredible cinematic quality, but Sora has strict content policies that completely prohibit realistic human faces and identifiable people. No realistic faces, identifiable characters, close ups, or any prompt implying recognizable human features. Every character shot was rejected before rendering.
           </p>
           
           <p>
-            <strong>The Technical Reality:</strong> Sora 2 uses a diffusion transformer architecture 
-            that can generate up to 60-second videos at 1080p resolution. The quality is genuinely 
-            impressive for environments, objects, and abstract scenes. The temporal consistency is 
-            better than most competitors, and the motion feels natural.
+            <strong>Technical Reality:</strong> Sora 2 uses a diffusion transformer architecture generating up to 60-second videos at 1080p. The quality is impressive for environments and objects, with better temporal consistency than most competitors.
           </p>
           
           <p>
-            <strong>The Deal-Breaker:</strong> Sora has strict content policies that <strong>completely 
-            prohibit realistic human faces and identifiable people</strong>. This isn't just a 
-            limitation—it's a hard block. You can't generate:
-          </p>
-          <p>
-            <strong>Policy limits:</strong> No realistic faces, identifiable characters, close‑ups, or any prompt that might imply recognisable human features. In short, every shot that required a readable protagonist was rejected before it rendered.
-          </p>
-          
-          <p>
-            <strong>My Attempted Workarounds:</strong> I spent days trying to make this work:
-          </p>
-          <p>
-            <strong>Workaround attempts:</strong> Abstract corridor prompts devolved into glitchy blobs, “back‑of‑head” shots broke continuity between scenes, stylised silhouettes killed immersion, and purely environmental storytelling left the narrative faceless. None of these tricks solved the core problem—readable human emotion.
-          </p>
-          
-          <p>
-            <strong>The Cost of This Discovery:</strong> I wasted approximately 15-20 hours and 
-            significant credits testing Sora before realizing it fundamentally couldn't do what I 
-            needed. The quality was there, but the restrictions made it unusable for my project.
+            <strong>Workaround Attempts:</strong> Abstract corridor prompts devolved into glitchy blobs, back of head shots broke continuity, stylized silhouettes killed immersion. I wasted 15-20 hours and significant credits before realizing it fundamentally could not do what I needed.
           </p>
           
           <p>
@@ -808,36 +784,11 @@ const Home = () => {
           </details>
           
           <p>
-            <strong>What I Learned:</strong> Always read the content policy and restrictions 
-            <em>before</em> committing time and resources. Marketing materials show the best-case 
-            scenarios, not the limitations. For character-driven narratives, Sora 2 simply isn't 
-            viable yet. This forced me to completely pivot my tool strategy and taught me the 
-            importance of understanding tool capabilities beyond just quality metrics.
+            <strong>What I Learned:</strong> Always read content policies before committing resources. For character driven narratives, Sora 2 is not viable. However, I kept it for environmental shots and non character sequences, recognizing its superior cinematic quality for those use cases.
           </p>
           
           <p>
-            <strong>The Pivot Decision:</strong> After approximately 15-20 hours of testing and multiple 
-            failed workarounds, I made the decision to stop trying to force Sora 2 to generate character 
-            scenes. However, I didn't abandon it entirely—I recognized its strengths in environmental shots 
-            and decided to keep it in my toolkit for non-character sequences. This realization led me to 
-            search for alternative tools that could handle faces, which brought me to Wan2.5.
-          </p>
-          
-          <p>
-            <strong>Iteration notes:</strong> This first phase taught me that tool limitations often aren't 
-            fixable through prompt engineering alone. The face restriction wasn't a technical hurdle I could 
-            overcome—it was a policy limitation baked into the platform. This realization shifted my entire 
-            approach: instead of looking for one perfect tool, I needed to build a multi-tool workflow where 
-            each handled what it did best. This early failure was actually crucial for developing the hybrid 
-            workflow that eventually made the project viable.
-          </p>
-          
-          <p>
-            <strong>Key lessons:</strong> Despite the face restrictions, Sora 2's cinematic quality made it 
-            indispensable for environmental shots, establishing scenes, and non-character sequences. I ultimately 
-            used Sora 2 alongside Veo3.1, leveraging each tool's strengths: Sora 2 for its superior visual 
-            quality in scenes without faces, and Veo3.1 for character-driven moments. The face ban was a 
-            limitation, but not a deal-breaker when used strategically as part of a hybrid workflow.
+            <strong>Key Lesson:</strong> This early failure taught me to build a multi tool hybrid workflow where each tool handles what it does best. I ultimately used Sora 2 alongside Veo3.1, leveraging Sora 2 for superior visual quality in scenes without faces, and Veo3.1 for character driven moments.
           </p>
         </ToolLessonCard>
 
@@ -926,66 +877,27 @@ const Home = () => {
           </p>
           
           <p>
-            After weeks of testing Sora (face restrictions, accessed via VPN on the official website), 
-            Wan2.5 (poor quality, accessed through Higgsfield), and other tools, Veo3.1 became my 
-            primary workhorse. I accessed Veo3.1 through Higgsfield, and it wasn't perfect, but it 
-            was the only tool that could consistently produce usable character-focused scenes for my project.
+            After testing Sora (face restrictions), Wan2.5 (poor quality), and other tools, Veo3.1 became my primary workhorse through Higgsfield. It was the only tool that could consistently produce usable character focused scenes.
           </p>
           
           <p>
-            <strong>Technical Specifications:</strong> Veo3.1 (Google's video generation model) 
-            generates videos up to 60 seconds at 1080p resolution. It uses a diffusion-based 
-            architecture with improved temporal consistency compared to earlier versions. The 
-            model supports text-to-video generation with detailed prompt control.
+            <strong>Technical Specs:</strong> Veo3.1 (Google) generates videos up to 60 seconds at 1080p with improved temporal consistency. It uses a diffusion based architecture with detailed prompt control.
           </p>
           
           <p>
-            <strong>Why Veo3.1 Worked for Me:</strong>
-          </p>
-          <p>
-            <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions actually rendered, there were no hard bans on human subjects, and the overall reliability beat everything else I tested.
+            <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions rendered accurately, no hard bans on human subjects, and overall reliability beat everything else I tested.
           </p>
           
           <p>
-            <strong>My Iterative Workflow:</strong> I developed a systematic approach:
-          </p>
-          <p>
-            <strong>Workflow:</strong> Generate a first pass with a hyper-specific prompt, review for issues, adjust copy to target those flaws, render two or three new variations, and composite or grade the keeper. Iteration remained part of the process, but it was predictable.
+            <strong>Workflow:</strong> Generate with hyper specific prompts, review for issues, adjust targeting flaws, render 2-3 variations, composite or grade the keeper. Iteration was predictable.
           </p>
           
           <p>
-            <strong>Prompt Engineering for Veo3.1:</strong> The key was extreme specificity. 
-            Here's an example of my prompt evolution:
+            <strong>Prompt Engineering Example:</strong> The key was extreme specificity. Bad: "Person walks down a dark corridor." Good: "Medium shot, eye level, person in dark clothing walks slowly through narrow industrial corridor, emergency amber lighting from overhead fixtures creates harsh shadows, server blue glow from side panels, cold metallic surfaces, shallow depth of field focusing on character, cinematic 2.35:1 aspect ratio, slow dolly movement following character."
           </p>
-          <ul className="bullets">
-            <li><strong>Bad Prompt:</strong> "Person walks down a dark corridor"</li>
-            <li><strong>Better Prompt:</strong> "Medium shot of a person walking through an 
-            industrial corridor with dim lighting"</li>
-            <li><strong>Good Prompt:</strong> "Medium shot, eye level, person in dark clothing 
-            walks slowly through narrow industrial corridor, emergency amber lighting from 
-            overhead fixtures creates harsh shadows, server blue glow from side panels, cold 
-            metallic surfaces, shallow depth of field focusing on character, cinematic 2.35:1 
-            aspect ratio, slow dolly movement following character"</li>
-          </ul>
           
           <p>
-            <strong>What Worked Well:</strong>
-          </p>
-          <ul className="bullets">
-            <li><strong>Environmental Shots:</strong> Datacenter corridors, server rooms, 
-            industrial spaces—excellent results</li>
-            <li><strong>Character Movement:</strong> Walking, turning, looking around—natural 
-            motion</li>
-            <li><strong>Lighting Scenarios:</strong> Complex multi-source lighting when specified 
-            in detail</li>
-            <li><strong>Atmospheric Shots:</strong> Mood and tone came through well</li>
-          </ul>
-          
-          <p>
-            <strong>Limitations I Had to Work Around:</strong>
-          </p>
-          <p>
-            <strong>Limitations:</strong> Faces still drifted slightly between scenes, there was minimal control over expressions, complex camera moves added artifacts, multi-character shots were fragile, and close-ups were risky.
+            <strong>Limitations:</strong> Faces still drifted slightly between scenes, minimal control over expressions, complex camera moves added artifacts, multi character shots were fragile, close ups were risky.
           </p>
           
           <details className="technical-details">
@@ -996,63 +908,11 @@ const Home = () => {
           </details>
           
           <p>
-            <strong>Specific Example - Successful Scene:</strong> One of my best results was a 
-            scene where the character walks through a datacenter corridor. The prompt was:
-          </p>
-          <blockquote style={{fontStyle: 'italic', marginLeft: '20px', borderLeft: '3px solid #8a2be2', paddingLeft: '15px'}}>
-            "Medium shot, eye level, person in dark tech-wear walks cautiously through narrow 
-            industrial datacenter corridor, emergency amber overhead lighting creates harsh 
-            top-down shadows on face, server blue glow from side server racks illuminates 
-            background, cold metallic gray surfaces, shallow depth of field with character in 
-            focus, slow forward dolly movement, cinematic 2.35:1 aspect ratio, dark moody 
-            atmosphere"
-          </blockquote>
-          <p>
-            This took 2 generations to get right, but the final result was usable with minimal 
-            post-production—just some color grading to match other scenes.
+            <strong>What I Learned:</strong> Veo3.1 became my go to because I learned to work within its limitations. Iteration is part of the process. Building a systematic workflow around prompt refinement was essential. For character driven narratives, Veo3.1 is currently one of the best options available.
           </p>
           
           <p>
-            <strong>Tips for Using Veo3.1 Effectively:</strong>
-          </p>
-          <p>
-            <strong>Best practices:</strong> Be painfully specific about camera, lighting, and movement; use cinematic language; expect at least one iteration; and save every prompt that works so you can reuse it later.
-          </p>
-          
-          <p>
-            <strong>What I Learned:</strong> Veo3.1 became my go-to not because it was perfect, 
-            but because I learned to work within its limitations. The key was accepting that 
-            iteration is part of the process, not a failure. Building a systematic workflow 
-            around prompt refinement and multiple generations was essential. The tool requires 
-            patience and detailed prompt engineering, but when you get it right, the results 
-            are worth it. For character-driven narratives, Veo3.1 is currently one of the best 
-            options available, despite its limitations.
-          </p>
-          
-          <p>
-            <strong>The Pivot Decision:</strong> After seeing consistent (though imperfect) results with 
-            Veo3.1, I made the strategic decision to commit to it as my primary tool for all character-driven 
-            scenes. This was a major turning point—instead of continuing to search for the "perfect" tool, 
-            I accepted Veo3.1's limitations and focused on building a systematic workflow around them. I invested 
-            time in developing a library of successful prompts, learning which cinematic language worked best, 
-            and establishing a consistent iteration process. This decision allowed me to move forward with 
-            production rather than remaining stuck in endless tool testing.
-          </p>
-          
-          <p>
-            <strong>Iteration notes:</strong> The Veo3.1 phase marked a fundamental shift in my approach. 
-            Instead of trying different tools to avoid limitations, I learned to work systematically within 
-            them. I developed a prompt template library, documented what worked and what didn't, and built 
-            a predictable iteration cycle. This systematic approach transformed an imperfect tool into a 
-            reliable production workhorse. The key insight: consistency and workflow optimization matter more 
-            than finding the "perfect" tool. By accepting Veo3.1's limitations and building processes to work 
-            within them, I finally had a viable path forward for character scenes. This phase also reinforced 
-            that the hybrid workflow concept was correct—Veo3.1 handled characters, but I still needed other 
-            tools for environmental and abstract sequences.
-          </p>
-          
-          <p>
-            <strong>Key lessons:</strong> Veo3.1 rewards meticulous prompts and planned iteration. It still needs light post work, but for projects that require believable humans, it's the most dependable option in my toolkit. I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non-character sequences.
+            <strong>Key Lesson:</strong> I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non character sequences. This hybrid workflow proved essential for completing the project.
           </p>
         </ToolLessonCard>
 
@@ -1067,79 +927,15 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Summary:</strong> Seedance became my specialist for mood-heavy establishing shots because it delivered stylised lighting and camera work that Veo3.1 couldn't, even though it still fell apart on characters.
+            <strong>Summary:</strong> Seedance became my specialist for mood heavy establishing shots because it delivered stylized lighting and camera work that Veo3.1 could not, even though it fell apart on characters.
           </p>
           
           <p>
-            I accessed Seedance through Higgsfield, and it became my go-to for specific environmental 
-            shots where I needed particular aesthetic qualities that Veo3.1 couldn't deliver. While it 
-            wasn't reliable for character continuity, it excelled at certain types of scenes.
+            Accessed through Higgsfield. Generates videos up to 10 seconds at 1280x768. Excelled at moody wide shots and environmental plates. Character faces shifted wildly, making it unusable for character work.
           </p>
           
           <p>
-            <strong>Technical Capabilities:</strong> Seedance generates videos up to 10 
-            seconds at 1280x768 resolution (with options for different aspect ratios). It uses 
-            a diffusion model with good control over style and aesthetic.
-          </p>
-          
-          <p>
-            <strong>What Seedance Did Well:</strong>
-          </p>
-          <p>
-            <strong>Strengths:</strong> It excelled at moody wide shots, matched visual styles better than Veo3.1, produced detailed backgrounds, created abstract in-between beats, and rendered quickly.
-          </p>
-          
-          <p>
-            <strong>Where Seedance Failed:</strong>
-          </p>
-          <p>
-            <strong>Limitations:</strong> Character faces shifted wildly, motion occasionally stuttered, matching exact lighting setups was harder, and the lower resolution capped detail.
-          </p>
-          
-          <p>
-            <strong>My Use Cases for Seedance:</strong>
-          </p>
-          <p>
-            <strong>Best fit:</strong> Wide datacenter exteriors, grungy interior transitions, atmospheric connective tissue, and plates I could composite behind Veo3.1 character passes.
-          </p>
-          
-          <p>
-            <strong>Example Successful Prompt:</strong> "Wide establishing shot of industrial 
-            datacenter server room, rows of server racks with blue LED lights, emergency amber 
-            overhead lighting, cold metallic surfaces, cinematic wide angle, moody atmosphere, 
-            slow camera pan"
-          </p>
-          
-          <details className="technical-details">
-            <summary>Technical details</summary>
-            <p>
-              Through Higgsfield each Seedance clip cost roughly 10–15 credits, rendered in 2–4 minutes, and succeeded on the first pass about 60% of the time for environmental plates (dropping to ~20% for character work).
-            </p>
-          </details>
-          
-          <p>
-            <strong>The Pivot Decision:</strong> After successfully establishing Veo3.1 as my character tool, 
-            I started testing Seedance specifically for environmental shots where Veo3.1's aesthetic wasn't 
-            quite right. Rather than trying to force Seedance to do everything, I strategically limited its 
-            use to wide shots, establishing scenes, and atmospheric transitions where character faces weren't 
-            critical. This specialized role allowed me to leverage Seedance's strengths (stylized environments, 
-            mood, aesthetic control) while avoiding its weaknesses (character consistency). This decision 
-            reinforced the hybrid workflow approach—using each tool for what it does best.
-          </p>
-          
-          <p>
-            <strong>Iteration notes:</strong> The Seedance phase demonstrated that specialization can be as 
-            valuable as versatility. By limiting Seedance to specific scene types, I achieved a ~60% first-pass 
-            success rate for environmental shots—much better than trying to force it into character work. 
-            This experience taught me to think about tools as specialized instruments in a larger toolkit rather 
-            than trying to find one tool that does everything. It also showed the value of testing tools for 
-            specific use cases rather than general capability. Seedance's lower resolution and faster render 
-            times made it cost-effective for background plates, allowing me to save credits for character-heavy 
-            Veo3.1 generations.
-          </p>
-          
-          <p>
-            <strong>Key lessons:</strong> Seedance is brilliant for stylised environments and transitional beats, but it cannot carry narrative scenes alone. Use it as a supporting painter, not the lead actor.
+            <strong>Use Case:</strong> Wide datacenter exteriors, atmospheric transitions, and background plates composited behind Veo3.1 character passes. Cost roughly 10 to 15 credits per clip through Higgsfield.
           </p>
         </ToolLessonCard>
 
@@ -1154,91 +950,19 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Summary:</strong> Kling became my go-to for surreal "cognitive scrambler" sequences because it leaned into abstraction instead of fighting it, even though it can't handle realistic storytelling.
+            <strong>Summary:</strong> Kling became my go to for surreal cognitive scrambler sequences because it leaned into abstraction instead of fighting it, though it cannot handle realistic storytelling.
           </p>
           
           <p>
-            I accessed Kling through Higgsfield, and it became my specialized tool for abstract 
-            sequences and visual effects that couldn't be achieved with other tools. While it wasn't 
-            suitable for narrative continuity, it excelled at surreal, abstract, and effects-heavy sequences.
+            Accessed through Higgsfield. Generates videos up to 10 seconds at 1080p (fixed aspect ratio). Excels at distorted glitch effects, dreamlike imagery, and abstract visuals. Cannot maintain continuity or realism.
           </p>
           
           <p>
-            <strong>Technical Specifications:</strong> Kling (by Kuaishou) generates videos up to 
-            10 seconds at 1080p resolution. It uses a diffusion model with strong capabilities 
-            for abstract and stylized content. Unlike other models I tested (Veo3.1, Seedance, etc.), 
-            Kling does not allow you to choose the aspect ratio of the video—it generates at a fixed 
-            aspect ratio. This was a constraint, but overall it didn't matter much because Kling's 
-            video generation quality wasn't as good as Veo3.1 or Sora, so I was primarily using it 
-            for abstract effects where aspect ratio was less critical.
+            <strong>Use Case:</strong> Cognitive scrambler effects when players made wrong choices, creating disorienting abstract sequences that visualized mental disruption. Cost roughly 8 to 12 credits per clip.
           </p>
           
           <p>
-            <strong>What Kling Excelled At:</strong>
-          </p>
-          <p>
-            <strong>Strengths:</strong> It thrives on distorted glitch effects, dreamlike imagery, data-visualisation inspired visuals, prompts that invite creative interpretation, and any stylised content with zero realism requirements.
-          </p>
-          
-          <p>
-            <strong>Where Kling Struggled:</strong>
-          </p>
-          <p>
-            <strong>Limitations:</strong> It cannot maintain continuity, fails hard on realism, shouldn’t be used for character beats, and its results are intentionally unpredictable.
-          </p>
-          
-          <p>
-            <strong>My Specific Use Case - Cognitive Scrambler Effect:</strong> When players 
-            made wrong choices in my interactive film, they triggered a "cognitive scrambler" 
-            effect. This needed to be:
-          </p>
-          <p>
-            <strong>Design goals:</strong> The effect had to disorient, visualise mental disruption, feel like a system glitch, and transition smoothly back into the loop mechanic—Kling nailed that tone.
-          </p>
-          
-          <p>
-            <strong>Kling Prompt That Worked:</strong> "Abstract surreal sequence, distorted 
-            datacenter corridor, glitch effects, digital noise, reality breaking apart, 
-            fragmented visuals, cyberpunk aesthetic, disorienting camera movement, 
-            cognitive disruption visualization, 3 seconds"
-          </p>
-          
-          <p>
-            This generated exactly the kind of abstract, disorienting effect I needed. Veo3.1 
-            would have tried to make it too realistic, but Kling embraced the abstract nature 
-            of the prompt.
-          </p>
-          
-          <details className="technical-details">
-            <summary>Technical details</summary>
-            <p>
-              Kling renders cost roughly 8–12 credits, took 2–3 minutes, and hit about a 70% first-attempt success rate for abstract clips because I wasn’t forcing realism.
-            </p>
-          </details>
-          
-          <p>
-            <strong>Building the Hybrid Workflow:</strong> I ended up with a multi-tool approach:
-          </p>
-          <ul className="bullets">
-            <li><strong>Veo3.1:</strong> Character scenes, narrative continuity, main story beats</li>
-            <li><strong>Sora 2:</strong> Environmental shots, establishing scenes, non-character sequences with superior cinematic quality</li>
-            <li><strong>Kling:</strong> Abstract effects, cognitive scrambler sequences, surreal 
-            moments</li>
-            <li><strong>Seedance:</strong> Specialized environmental shots when needed</li>
-          </ul>
-          
-          <p>
-            <strong>What I Learned:</strong> No single tool solved all my problems. The "perfect" 
-            AI video generation tool doesn't exist yet. Instead, I had to build a toolkit where 
-            each tool handled what it did best. This required:
-          </p>
-          <ul className="bullets">
-            <li>Understanding each tool's strengths and weaknesses</li>
-            <li>Planning which tool to use for each scene type</li>
-            <li>Managing different prompt styles for different tools</li>
-            <li>Accepting that my workflow would be complex and multi-platform</li>
-            <li>Post-production to blend results from different tools</li>
-          </ul>
+            <strong>Hybrid Workflow:</strong> Veo3.1 for character scenes, Sora 2 for environmental shots, Kling for abstract effects, Seedance for specialized environmental plates. No single tool solved all problems.</p>
           
           <p>
             This hybrid approach was more work, but it was the only way to achieve the results 
