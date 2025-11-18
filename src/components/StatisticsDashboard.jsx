@@ -52,13 +52,19 @@ const StatisticsDashboard = () => {
     {
       id: 5,
       title: 'AI Models Used',
-      value: '2',
-      subtitle: 'Sora 2 & Veo 3.1',
+      value: '8',
+      subtitle: 'Platforms tested',
       icon: IconBrain,
       trend: null,
       chartData: [
-        { label: 'Sora 2', value: 147 },
-        { label: 'Veo 3.1', value: 100 }
+        { label: 'Sora 2', value: 147, color: '#8b5cf6' },
+        { label: 'Veo 3.1', value: 100, color: '#06b6d4' },
+        { label: 'Runway Gen-3', value: 45, color: '#f59e0b' },
+        { label: 'Pika', value: 30, color: '#ec4899' },
+        { label: 'Kling AI', value: 20, color: '#10b981' },
+        { label: 'Luma Dream', value: 15, color: '#8b5cf6' },
+        { label: 'Higgsfield', value: 12, color: '#06b6d4' },
+        { label: 'Others', value: 8, color: '#6b7280' }
       ],
       chartType: 'donut'
     }

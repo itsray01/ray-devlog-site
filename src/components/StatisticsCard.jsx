@@ -197,12 +197,37 @@ const StatisticsCard = ({
     return (
       <div style={{ position: 'relative' }}>
         <svg className="stat-chart-donut" viewBox="0 0 100 100">
+          <defs>
+            <filter id="donut-glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <linearGradient id="center-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="var(--accent-primary)" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="var(--accent-primary)" stopOpacity="0.1" />
+            </linearGradient>
+          </defs>
+          
+          {/* Background circle for depth */}
+          <circle
+            cx="50"
+            cy="50"
+            r="28"
+            fill="url(#center-gradient)"
+            opacity="0.5"
+          />
+          
+          {/* Donut segments */}
           {segments.map((segment, index) => (
             <path
               key={index}
               d={segment.path}
               fill={segment.color}
               className="donut-segment"
+              filter="url(#donut-glow)"
               onMouseEnter={(e) => handleMouseEnter(e, segment)}
               onMouseLeave={handleMouseLeave}
               onMouseMove={(e) => {
@@ -215,6 +240,34 @@ const StatisticsCard = ({
               }}
             />
           ))}
+          
+          {/* Center text */}
+          <text
+            x="50"
+            y="47"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="var(--ink)"
+            fontSize="16"
+            fontWeight="700"
+            fontFamily="'Iceberg', sans-serif"
+            style={{ textShadow: '0 0 10px rgba(139, 92, 246, 0.5)' }}
+          >
+            {chartData.length}
+          </text>
+          <text
+            x="50"
+            y="57"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="var(--muted)"
+            fontSize="7"
+            fontWeight="500"
+            fontFamily="'Rajdhani', sans-serif"
+            letterSpacing="0.5"
+          >
+            MODELS
+          </text>
         </svg>
         {tooltip.show && (
           <div 
