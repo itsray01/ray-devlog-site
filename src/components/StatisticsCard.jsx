@@ -15,7 +15,7 @@ const StatisticsCard = ({
   chartData = [],
   chartType = 'line' // 'line', 'bar', 'progress', 'donut'
 }) => {
-  const [tooltip, setTooltip] = useState({ show: false, x: 0, y: 0, label: '', value: '' });
+  const [tooltip, setTooltip] = useState({ show: false, x: 0, y: 0, label: '', value: '', isVeo: false });
   
   // Render mini line chart
   const renderLineChart = () => {
@@ -181,17 +181,19 @@ const StatisticsCard = ({
     
     const handleMouseEnter = (e, segment) => {
       const rect = e.currentTarget.getBoundingClientRect();
+      const isVeo = segment.label.includes('Veo');
       setTooltip({
         show: true,
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
         label: segment.label,
-        value: `${segment.value} clips (${segment.percentage}%)`
+        value: `${segment.value} clips (${segment.percentage}%)`,
+        isVeo: isVeo
       });
     };
     
     const handleMouseLeave = () => {
-      setTooltip({ show: false, x: 0, y: 0, label: '', value: '' });
+      setTooltip({ show: false, x: 0, y: 0, label: '', value: '', isVeo: false });
     };
     
     return (
@@ -273,7 +275,8 @@ const StatisticsCard = ({
           <div 
             className="donut-tooltip"
             style={{
-              left: `${tooltip.x + 10}px`,
+              left: tooltip.isVeo ? `${tooltip.x + 10}px` : 'auto',
+              right: tooltip.isVeo ? 'auto' : `${100 - tooltip.x + 10}px`,
               top: `${tooltip.y - 10}px`
             }}
           >
