@@ -766,6 +766,10 @@ const Home = () => {
           </p>
           
           <p>
+            <strong>The Watermark Problem:</strong> Sora 2 applies a visible on-screen watermark to every generated video. For usable clips, I had to implement a multi-step workflow: (1) Download Sora 2 clips from the platform, (2) Use <a href="https://ezremove.ai/sora-watermark-remover/" target="_blank" rel="noopener noreferrer">ezremove.ai</a> to remove the watermark, (3) Upscale the video using <a href="https://imgupscaler.ai/sora-enhancer/" target="_blank" rel="noopener noreferrer">imgupscaler.ai</a> because watermark removal significantly degraded quality. This added 10-15 minutes per clip and introduced quality loss that required post-processing fixes.
+          </p>
+          
+          <p>
             <strong>Workaround Attempts:</strong> Abstract corridor prompts devolved into glitchy blobs, back of head shots broke continuity, stylized silhouettes killed immersion. I wasted 15-20 hours and significant credits before realizing it fundamentally could not do what I needed.
           </p>
           
@@ -779,7 +783,7 @@ const Home = () => {
           <details className="technical-details">
             <summary>Technical details</summary>
             <p>
-              Sora 2 generates up to 60-second clips at 1920×1080 and supports multiple aspect ratios. Renders averaged 2–5 minutes per clip and rely on a diffusion transformer pipeline tuned for cinematic motion.
+              Sora 2 generates up to 60-second clips at 1920×1080 and supports multiple aspect ratios. Renders averaged 2–5 minutes per clip and rely on a diffusion transformer pipeline tuned for cinematic motion. Every clip contains a visible watermark that requires removal and re-upscaling for production use.
             </p>
           </details>
           
