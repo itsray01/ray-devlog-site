@@ -62,18 +62,18 @@ const MoodboardSection = () => {
           aria-modal="true"
           aria-label="Image lightbox"
         >
+          <button
+            className="lightbox-close"
+            onClick={() => setLightboxImage(null)}
+            aria-label="Close lightbox"
+          >
+            ×
+          </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="lightbox-close"
-              onClick={() => setLightboxImage(null)}
-              aria-label="Close lightbox"
-            >
-              ×
-            </button>
             <img src={lightboxImage.src} alt={lightboxImage.title} />
-            <div className="lightbox-caption">
-              <strong>{lightboxImage.title}</strong>
-            </div>
+          </div>
+          <div className="lightbox-caption">
+            <strong>{lightboxImage.title}</strong>
           </div>
         </div>
       )}
