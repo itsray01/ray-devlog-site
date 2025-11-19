@@ -793,6 +793,60 @@ const Home = () => {
         </ToolLessonCard>
 
         <ToolLessonCard
+          title="Veo3.1: The Tool That Actually Worked (After Everything Else Failed)"
+          videoUrl="/videos/veo31-example.mp4"
+          videoType="mp4"
+          delay={0.95}
+        >
+          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
+            <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2024)
+          </p>
+          
+          <p>
+            <strong>Summary:</strong> After burning through novelty tools, Veo3.1 became my dependable workhorse because it balanced cinematic quality with the loose human realism my project needed.
+          </p>
+          
+          <p>
+            After testing Sora (face restrictions), Wan2.5 (poor quality), and other tools, Veo3.1 became my primary workhorse through Higgsfield. It was the only tool that could consistently produce usable character focused scenes.
+          </p>
+          
+          <p>
+            <strong>Technical Specs:</strong> Veo3.1 (Google) generates videos up to 60 seconds at 1080p with improved temporal consistency. It uses a diffusion based architecture with detailed prompt control.
+          </p>
+          
+          <p>
+            <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions rendered accurately, no hard bans on human subjects, and overall reliability beat everything else I tested.
+          </p>
+          
+          <p>
+            <strong>Workflow:</strong> Generate with hyper specific prompts, review for issues, adjust targeting flaws, render 2-3 variations, composite or grade the keeper. Iteration was predictable.
+          </p>
+          
+          <p>
+            <strong>Prompt Engineering Example:</strong> The key was extreme specificity. Bad: "Person walks down a dark corridor." Good: "Medium shot, eye level, person in dark clothing walks slowly through narrow industrial corridor, emergency amber lighting from overhead fixtures creates harsh shadows, server blue glow from side panels, cold metallic surfaces, shallow depth of field focusing on character, cinematic 2.35:1 aspect ratio, slow dolly movement following character."
+          </p>
+          
+          <p>
+            <strong>Limitations:</strong> Faces still drifted slightly between scenes, minimal control over expressions, complex camera moves added artifacts, multi character shots were fragile, close ups were risky.
+          </p>
+          
+          <details className="technical-details">
+            <summary>Technical details</summary>
+            <p>
+              Out of roughly 150 generations, about 30% were usable on the first try, 70% worked after two or three iterations, 10% were total failures, and only 5% needed no post work. Typical scenes cost 30–60 credits, required 15–30 minutes of prompt tuning, and another 10–20 minutes of grading/stabilisation.
+            </p>
+          </details>
+          
+          <p>
+            <strong>What I Learned:</strong> Veo3.1 became my go to because I learned to work within its limitations. Iteration is part of the process. Building a systematic workflow around prompt refinement was essential. For character driven narratives, Veo3.1 is currently one of the best options available.
+          </p>
+          
+          <p>
+            <strong>Key Lesson:</strong> I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non character sequences. This hybrid workflow proved essential for completing the project.
+          </p>
+        </ToolLessonCard>
+
+        <ToolLessonCard
           title="Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing"
           videoUrl="/videos/wan25-example.mp4"
           videoType="mp4"
@@ -859,60 +913,6 @@ const Home = () => {
           
           <p>
             <strong>What I Learned:</strong> Convenience has a price. Higgsfield saved time but cost significant money. The financial pressure improved my prompt engineering but limited experimentation. The unified interface was valuable for learning which models worked best for specific scenes.
-          </p>
-        </ToolLessonCard>
-
-        <ToolLessonCard
-          title="Veo3.1: The Tool That Actually Worked (After Everything Else Failed)"
-          videoUrl="/videos/veo31-example.mp4"
-          videoType="mp4"
-          delay={1.05}
-        >
-          <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-            <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2024)
-          </p>
-          
-          <p>
-            <strong>Summary:</strong> After burning through novelty tools, Veo3.1 became my dependable workhorse because it balanced cinematic quality with the loose human realism my project needed.
-          </p>
-          
-          <p>
-            After testing Sora (face restrictions), Wan2.5 (poor quality), and other tools, Veo3.1 became my primary workhorse through Higgsfield. It was the only tool that could consistently produce usable character focused scenes.
-          </p>
-          
-          <p>
-            <strong>Technical Specs:</strong> Veo3.1 (Google) generates videos up to 60 seconds at 1080p with improved temporal consistency. It uses a diffusion based architecture with detailed prompt control.
-          </p>
-          
-          <p>
-            <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions rendered accurately, no hard bans on human subjects, and overall reliability beat everything else I tested.
-          </p>
-          
-          <p>
-            <strong>Workflow:</strong> Generate with hyper specific prompts, review for issues, adjust targeting flaws, render 2-3 variations, composite or grade the keeper. Iteration was predictable.
-          </p>
-          
-          <p>
-            <strong>Prompt Engineering Example:</strong> The key was extreme specificity. Bad: "Person walks down a dark corridor." Good: "Medium shot, eye level, person in dark clothing walks slowly through narrow industrial corridor, emergency amber lighting from overhead fixtures creates harsh shadows, server blue glow from side panels, cold metallic surfaces, shallow depth of field focusing on character, cinematic 2.35:1 aspect ratio, slow dolly movement following character."
-          </p>
-          
-          <p>
-            <strong>Limitations:</strong> Faces still drifted slightly between scenes, minimal control over expressions, complex camera moves added artifacts, multi character shots were fragile, close ups were risky.
-          </p>
-          
-          <details className="technical-details">
-            <summary>Technical details</summary>
-            <p>
-              Out of roughly 150 generations, about 30% were usable on the first try, 70% worked after two or three iterations, 10% were total failures, and only 5% needed no post work. Typical scenes cost 30–60 credits, required 15–30 minutes of prompt tuning, and another 10–20 minutes of grading/stabilisation.
-            </p>
-          </details>
-          
-          <p>
-            <strong>What I Learned:</strong> Veo3.1 became my go to because I learned to work within its limitations. Iteration is part of the process. Building a systematic workflow around prompt refinement was essential. For character driven narratives, Veo3.1 is currently one of the best options available.
-          </p>
-          
-          <p>
-            <strong>Key Lesson:</strong> I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non character sequences. This hybrid workflow proved essential for completing the project.
           </p>
         </ToolLessonCard>
 
