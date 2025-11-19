@@ -2,7 +2,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import StoryTimeline from '../components/StoryTimeline';
 import ToolLessonCard from '../components/ToolLessonCard';
-import HeroStatsStrip from '../components/HeroStatsStrip';
+import StatisticsDashboard from '../components/StatisticsDashboard';
 import useDevlog from '../hooks/useDevlog';
 import inspirationData from '../../data/inspiration.json';
 import moodboardData from '../../data/moodboard.json';
@@ -89,8 +89,8 @@ const Home = () => {
         <p className="page-subtitle">Documenting the journey of creating an interactive dystopian film</p>
       </motion.div>
 
-      {/* Hero Stats Strip */}
-      <HeroStatsStrip />
+      {/* Statistics Dashboard */}
+      <StatisticsDashboard />
 
       {/* Overview Section */}
       <motion.section

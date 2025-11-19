@@ -8,20 +8,14 @@ import { timelineVariants, itemVariants } from '../constants/animations';
  * Only 3 entries visible at a time (center entry + 1 above + 1 below)
  */
 const Timeline = ({ entries = [] }) => {
-  const [expandedIndex, setExpandedIndex] = useState(0);
+  const [expandedIndex, setExpandedIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [visibleEntries, setVisibleEntries] = useState(new Set([0, 1]));
+  const [visibleEntries, setVisibleEntries] = useState(new Set());
   const entryRefs = useRef([]);
 
   // Scroll observer for expand/collapse behavior
   useEffect(() => {
     if (entries.length === 0) return;
-
-    // Initialize first entries as visible on mount
-    const initialVisible = new Set([0]);
-    if (entries.length > 1) initialVisible.add(1);
-    setVisibleEntries(initialVisible);
-    setExpandedIndex(0);
 
     const observer = new IntersectionObserver(
       (observerEntries) => {
