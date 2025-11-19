@@ -361,13 +361,14 @@ html, body {
   z-index: 1;
   min-height: 100vh;
   display: flex;
-  justify-content: flex-start; /* Changed from center to move content left */
-  padding-left: 1rem; /* Reduced left padding to extend content left */
+  justify-content: center; /* Center content horizontally */
+  align-items: flex-start; /* Align to top */
 }
 
 main {
   max-width: 1716px; /* Extended by 10% from 1560px (1560 * 1.1 = 1716px) */
-  margin: 0; /* Removed auto centering to align left */
+  width: 100%;
+  margin: 0 auto; /* Center the main container */
 }
 
 /* --- Page Container --- */
@@ -887,6 +888,12 @@ footer {
   
   .main-content {
     margin-left: 220px;
+    justify-content: center; /* Ensure centering on medium screens */
+  }
+  
+  main {
+    width: 100%;
+    margin: 0 auto; /* Center on medium screens */
   }
   
   .grid-2 { 
@@ -920,6 +927,12 @@ footer {
   .main-content {
     margin-left: 0;
     padding: 1rem;
+    justify-content: center; /* Ensure centering on mobile */
+  }
+  
+  main {
+    width: 100%;
+    margin: 0 auto; /* Center on mobile */
   }
   
   .page-header h1 {
