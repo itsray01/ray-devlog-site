@@ -744,7 +744,7 @@ const Home = () => {
         </motion.article>
 
         <ToolLessonCard
-          title="Sora 2: The Face Problem That Killed My Workflow"
+          title="Sora 2: Inconsistent Generation and Evolving Content Policies"
           videoUrl="/videos/sora2-example.mp4"
           videoType="mp4"
           delay={0.9}
@@ -754,15 +754,19 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Summary:</strong> I chased Sora 2 for its cinematic polish, but the platform's strict ban on realistic faces made it unusable for a character-driven film that hinges on recognisable protagonists.
+            <strong>Summary:</strong> Sora 2 delivered impressive cinematic quality, but inconsistent face generation and evolving content policies created significant challenges for character-driven scenes.
           </p>
           
           <p>
-            I accessed Sora 2 through the official website using a VPN (US only). The marketing showed incredible cinematic quality, but Sora has strict content policies that completely prohibit realistic human faces and identifiable people. No realistic faces, identifiable characters, close ups, or any prompt implying recognizable human features. Every character shot was rejected before rendering.
+            I accessed Sora 2 through the official website using a VPN (US only). The marketing showed incredible cinematic quality, and the technical output lived up to the hype—when it worked. However, Sora 2's face generation proved inconsistent in ways I didn't expect. Sometimes I would get very realistic, human-like faces that looked perfect for my character-driven film. Other times, the same prompt would generate game-looking characters with subtitles, as if Sora 2 interpreted my prompt as a request for game footage rather than cinematic content.
           </p>
           
           <p>
-            <strong>Technical Reality:</strong> Sora 2 uses a diffusion transformer architecture generating up to 60-second videos at 1080p. The quality is impressive for environments and objects, with better temporal consistency than most competitors.
+            <strong>The Consistency Problem:</strong> Even with identical prompts, Sora 2's generations varied unpredictably. This inconsistency extended to character appearance—despite explicitly describing Maya as having specific physical characteristics, the model would sometimes generate her with completely different features in subsequent generations. This wasn't just about facial details; the entire character's appearance could shift between generations, making it impossible to maintain visual continuity across scenes.
+          </p>
+          
+          <p>
+            <strong>Technical Reality:</strong> Sora 2 uses a diffusion transformer architecture generating up to 60-second videos at 1080p. The quality is impressive for environments and objects, with better temporal consistency than most competitors. When face generation worked, it produced some of the most realistic results I saw.
           </p>
           
           <p>
@@ -770,14 +774,11 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Workaround Attempts:</strong> Abstract corridor prompts devolved into glitchy blobs, back of head shots broke continuity, stylized silhouettes killed immersion. I wasted 15-20 hours and significant credits before realizing it fundamentally could not do what I needed.
+            <strong>Content Policy Evolution:</strong> Sora 2 has very strict content policies that became even more restrictive during my project. When Sora 2 first launched, I was able to generate more human-like content, including scenes that showed human figures in various contexts. For example, I initially generated a furnace scene depicting human figures being used to power a data center—this was possible when Sora 2 first came out. However, as OpenAI updated their content policies throughout the project, such depictions became impossible. I had to modify my prompts, using terms like "life-like mannequin" instead of "human" or "person" to comply with the new restrictions. This policy evolution forced me to adapt my creative approach mid-project, requiring significant prompt revisions and re-generation of scenes.
           </p>
           
           <p>
-            <strong>When Sora Actually Works:</strong> Despite the limitations, Sora excels at:
-          </p>
-          <p>
-            <strong>Where it shines:</strong> Spacious establishing shots, abstract or surreal montages, object‑centric animations, nature plates, and any non-human subject can look gorgeous. If you never need to show a person, Sora 2 delivers.
+            <strong>Where it shines:</strong> Spacious establishing shots, abstract or surreal montages, object‑centric animations, nature plates, and any non-human subject can look gorgeous. When face generation worked, it produced some of the most realistic human-like results I achieved. If you can work around the inconsistency, Sora 2 delivers exceptional quality.
           </p>
           
           <details className="technical-details">
@@ -788,16 +789,16 @@ const Home = () => {
           </details>
           
           <p>
-            <strong>What I Learned:</strong> Always read content policies before committing resources. For character driven narratives, Sora 2 is not viable. However, I kept it for environmental shots and non character sequences, recognizing its superior cinematic quality for those use cases.
+            <strong>What I Learned:</strong> Sora 2's inconsistency made it unreliable for maintaining character continuity, but when it worked, the quality was unmatched. The evolving content policies required constant adaptation and prompt revision. I ultimately used Sora 2 alongside Veo3.1, leveraging Sora 2 for superior visual quality in scenes where consistency was less critical, and Veo3.1 for character-driven moments requiring reliable continuity.
           </p>
           
           <p>
-            <strong>Key Lesson:</strong> This early failure taught me to build a multi tool hybrid workflow where each tool handles what it does best. I ultimately used Sora 2 alongside Veo3.1, leveraging Sora 2 for superior visual quality in scenes without faces, and Veo3.1 for character driven moments.
+            <strong>Key Lesson:</strong> Even the best models have significant limitations. Sora 2's inconsistency and evolving policies taught me to build a flexible, multi-tool hybrid workflow where each tool handles what it does best. I ultimately used Sora 2 alongside Veo3.1, recognizing that both models had strengths and weaknesses that required careful workflow design.
           </p>
         </ToolLessonCard>
 
         <ToolLessonCard
-          title="Veo3.1: The Tool That Actually Worked (After Everything Else Failed)"
+          title="Veo3.1: Reliable Character Generation with Technical Limitations"
           videoUrl="/videos/veo31-example.mp4"
           videoType="mp4"
           delay={0.95}
@@ -807,11 +808,11 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Summary:</strong> After burning through novelty tools, Veo3.1 became my dependable workhorse because it balanced cinematic quality with the loose human realism my project needed.
+            <strong>Summary:</strong> Veo3.1 became one of my primary tools alongside Sora 2, delivering reliable character-focused scenes with better consistency than most alternatives, though it has its own technical limitations.
           </p>
           
           <p>
-            After testing Sora (face restrictions), Wan2.5 (poor quality), and other tools, Veo3.1 became my primary workhorse through Higgsfield. It was the only tool that could consistently produce usable character focused scenes.
+            After testing multiple tools, I found that both <strong>Veo3.1</strong> and <strong>Sora 2</strong> produced the best results for my project. Veo3.1, accessed through Higgsfield, became my primary tool for character-focused scenes because it offered better consistency than alternatives like Wan2.5, while Sora 2 provided superior quality for environmental shots. Both models were essential to completing the project.
           </p>
           
           <p>
@@ -819,7 +820,7 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions rendered accurately, no hard bans on human subjects, and overall reliability beat everything else I tested.
+            <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions rendered accurately, no hard bans on human subjects, and overall reliability beat most alternatives I tested.
           </p>
           
           <p>
@@ -831,7 +832,15 @@ const Home = () => {
           </p>
           
           <p>
-            <strong>Limitations:</strong> Faces still drifted slightly between scenes, minimal control over expressions, complex camera moves added artifacts, multi character shots were fragile, close ups were risky.
+            <strong>Limitations:</strong> Despite being one of the best models available, Veo3.1 has significant downsides. For example, I had a prompt where Maya opens a door, but instead of her opening the door, the door would swing open by itself before Maya even reached it. This kind of action sequencing issue required multiple regeneration attempts and careful prompt refinement.
+          </p>
+          
+          <p>
+            <strong>Camera Movement Inconsistency:</strong> Another limitation is inconsistent camera movement even with explicit instructions. I would specify a panning shot on Maya's face, but sometimes the camera would show her legs or even the background instead of following the intended framing. This inconsistency meant I had to generate multiple variations and select the best result, adding time and cost to the workflow.
+          </p>
+          
+          <p>
+            <strong>Other Limitations:</strong> Faces still drifted slightly between scenes, minimal control over expressions, complex camera moves added artifacts, multi character shots were fragile, and close ups were risky.
           </p>
           
           <details className="technical-details">
@@ -842,13 +851,37 @@ const Home = () => {
           </details>
           
           <p>
-            <strong>What I Learned:</strong> Veo3.1 became my go to because I learned to work within its limitations. Iteration is part of the process. Building a systematic workflow around prompt refinement was essential. For character driven narratives, Veo3.1 is currently one of the best options available.
+            <strong>What I Learned:</strong> Veo3.1 became essential to my workflow because I learned to work within its limitations. Iteration is part of the process. Building a systematic workflow around prompt refinement was essential. For character driven narratives, Veo3.1 is currently one of the best options available, but even the best models require patience and multiple attempts.
           </p>
           
           <p>
-            <strong>Key Lesson:</strong> I ultimately used Veo3.1 alongside Sora 2, with Veo3.1 handling character scenes and Sora 2 providing superior quality for environmental and non character sequences. This hybrid workflow proved essential for completing the project.
+            <strong>Key Lesson:</strong> I ultimately used Veo3.1 alongside Sora 2, recognizing that both models produced great results but had their own limitations. Veo3.1 handled character scenes with better consistency, while Sora 2 provided superior quality for environmental and non-character sequences. This hybrid workflow proved essential for completing the project, but required accepting that even the best tools have significant limitations.
           </p>
         </ToolLessonCard>
+
+        <motion.article 
+          className="card note"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+        >
+          <h3>Sora 2 and Veo3.1: The Best Models, But Not Perfect</h3>
+          <p>
+            After extensive testing, I can confidently say that <strong>Sora 2</strong> and <strong>Veo3.1</strong> were the best models available for my interactive film project. I used both of them extensively to generate clips, and together they formed the foundation of my production workflow. However, even the best models have significant downsides that required constant workarounds and adaptations.
+          </p>
+          
+          <p>
+            <strong>Sora 2's Challenges:</strong> Beyond the inconsistent face generation I mentioned, Sora 2 also has very strict content policies that evolved during my project. When Sora 2 first launched, I was able to generate more human-like content. For example, I initially created a furnace scene showing human figures being used to power a data center—this was possible when Sora 2 first came out. However, as OpenAI updated their content policies throughout the project, such depictions became impossible. I had to modify my prompts, using terms like "life-like mannequin" instead of "human" or "person" to comply with the new restrictions. This policy evolution forced me to adapt my creative approach mid-project, requiring significant prompt revisions and re-generation of scenes.
+          </p>
+          
+          <p>
+            <strong>Veo3.1's Challenges:</strong> As detailed above, Veo3.1 struggled with action sequencing (doors opening by themselves) and inconsistent camera movement even with explicit instructions. These weren't minor issues—they required multiple regeneration attempts and careful prompt refinement, adding significant time and cost to the workflow.
+          </p>
+          
+          <p>
+            <strong>The Reality:</strong> Both Sora 2 and Veo3.1 produced excellent results when they worked, but neither was reliable enough to use exclusively. The inconsistency, policy changes, and technical limitations meant I had to build a flexible hybrid workflow that could adapt when one tool failed. This wasn't a failure of the tools—it's simply the current state of AI video generation. Even the best models require patience, multiple attempts, and creative problem-solving to achieve usable results.
+          </p>
+        </motion.article>
 
         <ToolLessonCard
           title="Wan2.5: The Face Input Feature That Promised Everything, Delivered Nothing"
@@ -1266,10 +1299,12 @@ const Home = () => {
             I tried multiple models through two platforms: Higgsfield (which provided access to Wan2.5, 
             Veo3.1, Seedance, Kling, and several others, plus Higgsfield's own model) and the official 
             Sora website (accessed via VPN since it's only available in the US). Most of them failed 
-            me in different ways. Sora 2 wouldn't let me use faces—a major problem when you need a 
-            protagonist. Wan2.5 let me input face images, but the results were terrible. I paid for 
-            Higgsfield because it had all the models in one place, but it cost a fortune in credits. 
-            Every failed generation felt like money down the drain.
+            me in different ways. Sora 2 had inconsistent face generation—sometimes producing realistic 
+            human-like faces, other times generating game-looking characters with subtitles, and even 
+            changing character appearance between generations despite identical prompts. Wan2.5 let me input 
+            face images, but the results were terrible. I paid for Higgsfield because it had all the models 
+            in one place, but it cost a fortune in credits. Every failed generation felt like money down 
+            the drain.
           </p>
           
           <p>
@@ -1283,11 +1318,13 @@ const Home = () => {
           <p>
             <strong>What actually worked:</strong> After all the failures, I settled on <strong>Veo3.1</strong> 
             (accessed through Higgsfield) and <strong>Sora 2</strong> (accessed via VPN on the official website) 
-            as my primary tools—in my opinion, they are the best models available. Veo3.1 handled character 
-            scenes, while Sora 2 provided superior quality for environmental shots, establishing scenes, and 
-            non-character sequences. I also used Kling (through Higgsfield) for abstract effects. I built a 
-            hybrid workflow combining AI generation with traditional post-production. It wasn't elegant, but 
-            it was the only way to get usable results.
+            as my primary tools—in my opinion, they are the best models available. Both produced great results, 
+            but each had significant limitations. Veo3.1 handled character scenes with better consistency, 
+            though it struggled with action sequencing and camera movement. Sora 2 provided superior quality 
+            for environmental shots, establishing scenes, and non-character sequences, but its inconsistent 
+            face generation and evolving content policies created challenges. I also used Kling (through 
+            Higgsfield) for abstract effects. I built a hybrid workflow combining AI generation with traditional 
+            post-production. It wasn't elegant, but it was the only way to get usable results.
           </p>
           
           <p>
