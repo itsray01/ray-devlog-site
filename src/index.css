@@ -41,7 +41,8 @@ html, body {
   color: var(--ink);
   background: url("/img/bg.png") center center / cover no-repeat fixed;
   font-family: 'Rajdhani', system-ui, sans-serif;
-  font-size: 16px; /* Standard base font size for consistent scaling across devices */
+  /* Viewport-based scaling: scales from 14px (small screens) to 18px (large screens) based on viewport width */
+  font-size: clamp(14px, 1.2vw + 0.5rem, 18px);
   line-height: 1.6;
   background-color: var(--bg);
   text-align: left; /* Default to left alignment */
@@ -847,7 +848,39 @@ footer {
 }
 
 /* --- Responsive Design --- */
+/* Large screens (desktops, large monitors) - larger base font */
+@media (min-width: 1920px) {
+  html, body {
+    font-size: 18px;
+  }
+}
+
+/* Medium-large screens (standard monitors) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  html, body {
+    font-size: 16px;
+  }
+}
+
+/* Medium screens (laptops, smaller monitors) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  html, body {
+    font-size: 15px;
+  }
+}
+
+/* Small screens (tablets, small laptops) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  html, body {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 860px) {
+  html, body {
+    font-size: 14px;
+  }
+  
   .sidebar {
     width: 220px;
   }
@@ -871,6 +904,10 @@ footer {
 }
 
 @media (max-width: 600px) {
+  html, body {
+    font-size: 13px;
+  }
+  
   .sidebar {
     width: 100%;
     height: auto;
