@@ -1652,27 +1652,28 @@ html {
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.92);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 10000;
-  overflow: hidden;
-}
-
-.lightbox-content {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.lightbox-content {
+  background: rgba(0, 0, 0, 0.95);
+  padding: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
 }
 
 .lightbox-content img {
-  max-width: 100vw;
-  max-height: 100vh;
+  max-width: 85vw;
+  max-height: 85vh;
   object-fit: contain;
-  cursor: default;
+  display: block;
 }
 
 .lightbox-close {
