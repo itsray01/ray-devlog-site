@@ -356,19 +356,24 @@ html, body {
 .main-content {
   margin-left: 200px;
   flex: 1;
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 2rem; /* Equal padding on all sides */
   position: relative;
   z-index: 1;
   min-height: 100vh;
   display: flex;
   justify-content: center; /* Center content horizontally */
   align-items: flex-start; /* Align to top */
+  box-sizing: border-box;
+  width: calc(100% - 200px); /* Account for sidebar width */
 }
 
 main {
   max-width: 1716px; /* Extended by 10% from 1560px (1560 * 1.1 = 1716px) */
   width: 100%;
   margin: 0 auto; /* Center the main container */
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
 }
 
 /* --- Page Container --- */
@@ -888,6 +893,8 @@ footer {
   
   .main-content {
     margin-left: 220px;
+    width: calc(100% - 220px); /* Account for sidebar width on medium screens */
+    padding: 2rem;
     justify-content: center; /* Ensure centering on medium screens */
   }
   
@@ -926,6 +933,7 @@ footer {
   
   .main-content {
     margin-left: 0;
+    width: 100%; /* Full width on mobile */
     padding: 1rem;
     justify-content: center; /* Ensure centering on mobile */
   }
