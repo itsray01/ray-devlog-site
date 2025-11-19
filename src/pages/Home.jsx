@@ -1,6 +1,5 @@
 import { useMemo, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Timeline from '../components/Timeline';
 import StoryTimeline from '../components/StoryTimeline';
 import ToolLessonCard from '../components/ToolLessonCard';
 import StatisticsDashboard from '../components/StatisticsDashboard';
@@ -8,7 +7,6 @@ import useDevlog from '../hooks/useDevlog';
 import inspirationData from '../../data/inspiration.json';
 import moodboardData from '../../data/moodboard.json';
 import storyboardData from '../../data/storyboard.json';
-import timelineData from '../../data/timeline.json';
 import { pageVariants, pageTransition } from '../constants/animations';
 
 // Image error handler - optimized to prevent recreation
@@ -23,7 +21,6 @@ const handleImageError = (e) => {
  */
 const Home = () => {
   const { entries, loading, error } = useDevlog();
-  const [timelineExpanded, setTimelineExpanded] = useState(false);
   const [branchingExpanded, setBranchingExpanded] = useState(false);
 
   // Memoize combined visual data to prevent recalculation
@@ -33,10 +30,6 @@ const Home = () => {
   );
 
   // Memoize toggle handlers to prevent recreation
-  const toggleTimeline = useCallback(() => {
-    setTimelineExpanded(prev => !prev);
-  }, []);
-
   const toggleBranching = useCallback(() => {
     setBranchingExpanded(prev => !prev);
   }, []);
@@ -133,113 +126,6 @@ const Home = () => {
             with Nick Bostrom's (2014) concerns about misaligned optimization in advanced AI systems, 
             where seemingly benign goals can produce harmful outcomes.
           </p>
-        </div>
-      </motion.section>
-
-      {/* Timeline Section - Expandable */}
-      <motion.section
-        id="timeline"
-        className="content-section"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.35 }}
-      >
-        <div className="card">
-          <div 
-            style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'center',
-              cursor: 'pointer',
-              userSelect: 'none'
-            }}
-            onClick={toggleTimeline}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleTimeline();
-              }
-            }}
-            tabIndex={0}
-            role="button"
-            aria-expanded={timelineExpanded}
-          >
-            <motion.h2
-              animate={{ 
-                backgroundImage: timelineExpanded 
-                  ? 'linear-gradient(135deg, var(--ink), var(--ink))' 
-                  : [
-                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)',
-                      'linear-gradient(135deg, #b794f6, #c9a9ff, #b794f6)',
-                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)'
-                    ],
-                textShadow: timelineExpanded 
-                  ? '0 0 0px rgba(138, 43, 226, 0)' 
-                  : ['0 0 10px rgba(138, 43, 226, 0.6)', '0 0 25px rgba(183, 148, 246, 1)', '0 0 10px rgba(138, 43, 226, 0.6)']
-              }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              style={{ 
-                margin: 0,
-                position: 'relative',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                color: timelineExpanded ? 'var(--ink)' : 'transparent'
-              }}
-            >
-              Project Timeline
-            </motion.h2>
-            <motion.span
-              animate={{ 
-                rotate: timelineExpanded ? 180 : 0,
-                backgroundImage: timelineExpanded 
-                  ? 'linear-gradient(135deg, var(--accent), var(--accent))' 
-                  : [
-                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)',
-                      'linear-gradient(135deg, #b794f6, #c9a9ff, #b794f6)',
-                      'linear-gradient(135deg, #8a2be2, #b794f6, #8a2be2)'
-                    ],
-                filter: timelineExpanded 
-                  ? 'drop-shadow(0 0 8px rgba(138, 43, 226, 0.6))'
-                  : ['drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))', 'drop-shadow(0 0 20px rgba(183, 148, 246, 1))', 'drop-shadow(0 0 10px rgba(138, 43, 226, 0.8))']
-              }}
-              transition={{ 
-                rotate: { duration: 0.3 },
-                backgroundImage: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                filter: { duration: 3, repeat: Infinity, ease: "easeInOut" }
-              }}
-              style={{ 
-                fontSize: '1.5rem',
-                marginLeft: '1rem',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                color: timelineExpanded ? 'var(--accent)' : 'transparent',
-                textShadow: '0 0 10px rgba(138, 43, 226, 0.8)'
-              }}
-            >
-              ▼
-            </motion.span>
-          </div>
-          <AnimatePresence>
-            {timelineExpanded && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.4, ease: 'easeInOut' }}
-                style={{ overflow: 'hidden' }}
-              >
-                <div style={{ marginTop: '1.5rem' }}>
-                  <Timeline entries={timelineData} />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </motion.section>
 

@@ -11,7 +11,6 @@ const homeSections = [
   { id: 'inspiration', title: 'Inspiration' },
   { id: 'moodboard', title: 'Moodboard' },
   { id: 'storyboard', title: 'Storyboard' },
-  { id: 'timeline', title: 'Project Timeline' },
   { id: 'story-development', title: 'Story Development' },
   { id: 'branching', title: 'Branching Narrative' },
   { id: 'experiments', title: 'Technical Experiments' },
@@ -21,6 +20,7 @@ const homeSections = [
 ];
 
 const otherPages = [
+  { path: '/timeline', title: 'Timeline' },
   { path: '/assets', title: 'Assets' },
   { path: '/about', title: 'About' },
   { path: '/extras', title: 'Extras' }
