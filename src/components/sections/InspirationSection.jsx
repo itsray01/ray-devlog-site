@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import inspirationData from '../../../data/inspiration.json';
 
@@ -158,7 +159,7 @@ const InspirationSection = () => {
       </motion.section>
 
       {/* Lightbox */}
-      {lightboxImage && (
+      {lightboxImage && createPortal(
         <div
           className="lightbox"
           onClick={() => setLightboxImage(null)}
@@ -184,7 +185,8 @@ const InspirationSection = () => {
             <br />
             <span className="muted">{lightboxImage.year}</span>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

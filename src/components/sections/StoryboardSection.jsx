@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import storyboardData from '../../../data/storyboard.json';
 
@@ -54,7 +55,7 @@ const StoryboardSection = () => {
       </motion.section>
 
       {/* Lightbox */}
-      {lightboxImage && (
+      {lightboxImage && createPortal(
         <div
           className="lightbox"
           onClick={() => setLightboxImage(null)}
@@ -78,7 +79,8 @@ const StoryboardSection = () => {
           <div className="lightbox-caption">
             <strong>{lightboxImage.title}</strong>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
