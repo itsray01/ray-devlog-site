@@ -20,8 +20,8 @@ const homeSections = [
 ];
 
 const otherPages = [
-  { path: '/assets', title: 'Assets' },
   { path: '/about', title: 'About' },
+  { path: '/assets', title: 'Assets' },
   { path: '/extras', title: 'Extras' }
 ];
 
