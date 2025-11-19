@@ -1651,60 +1651,59 @@ html {
 /* --- Image Lightbox Styles --- */
 .lightbox {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(8px);
   z-index: 10000;
-  cursor: pointer;
+  overflow: hidden;
 }
 
 .lightbox-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: default;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
 }
 
 .lightbox-content img {
-  max-width: 90vw;
-  max-height: 85vh;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(138, 43, 226, 0.3);
+  cursor: default;
 }
 
 .lightbox-close {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  width: 40px;
-  height: 40px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
   background: rgba(138, 43, 226, 0.9);
   border: 2px solid var(--accent);
   border-radius: 50%;
   color: white;
-  font-size: 24px;
+  font-size: 28px;
   line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+  z-index: 10001;
 }
 
 .lightbox-close:hover {
   background: var(--accent);
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
 }
 
 .lightbox-caption {
-  position: fixed;
-  bottom: 2rem;
+  position: absolute;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -1712,43 +1711,18 @@ html {
   padding: 0.75rem 1.5rem;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 8px;
-  backdrop-filter: blur(10px);
   border: 1px solid var(--accent);
   max-width: 80vw;
+  z-index: 10001;
 }
 
 .lightbox-caption strong {
   display: block;
   font-size: 1.1rem;
-  margin-bottom: 0.25rem;
 }
 
 .lightbox-caption .muted {
   font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-  .lightbox {
-    padding: 1rem;
-  }
-
-  .lightbox-close {
-    top: 1rem;
-    right: 1rem;
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
-  }
-
-  .lightbox-content img {
-    max-height: 80vh;
-  }
-
-  .lightbox-caption {
-    bottom: 1rem;
-    max-width: 90vw;
-    padding: 0.5rem 1rem;
-  }
 }
 
 /* --- Reading Progress Indicator --- */
