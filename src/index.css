@@ -41,8 +41,8 @@ html, body {
   color: var(--ink);
   background: url("/img/bg.png") center center / cover no-repeat fixed;
   font-family: 'Rajdhani', system-ui, sans-serif;
-  font-size: 24px; /* Increased from 16px to 24px (150% scaling) */
-  line-height: 1.8; /* Increased from 1.6 for better readability */
+  font-size: 16px; /* Standard base font size for consistent scaling across devices */
+  line-height: 1.6;
   background-color: var(--bg);
   text-align: left; /* Default to left alignment */
 }
