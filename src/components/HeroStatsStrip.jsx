@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
-import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 /**
- * HeroStatsStrip - Custom neon/cyberpunk stats strip with minimal charts
- * Displays 5 key project statistics with Recharts visualizations
+ * HeroStatsStrip - Custom neon/cyberpunk stats strip with minimal SVG charts
+ * Displays 5 key project statistics with pure SVG/CSS visualizations
  */
 const HeroStatsStrip = () => {
   // Hardcoded data
@@ -15,39 +14,28 @@ const HeroStatsStrip = () => {
   const iterations = 156;
   const modelsUsed = 5;
 
-  // Chart data
-  const sparklineData = [
-    { value: 180 },
-    { value: 190 },
-    { value: 195 },
-    { value: 210 },
-    { value: 220 },
-    { value: 230 },
-    { value: 240 },
-    { value: 247 }
-  ];
-
-  const spendData = [
-    { name: 'Sora 2', value: soraSpend },
-    { name: 'Higgsfield', value: higgsfieldSpend }
-  ];
-
-  const iterationBars = [
-    { value: 120 },
-    { value: 140 },
-    { value: 135 },
-    { value: 156 }
-  ];
-
-  const donutData = [
-    { name: 'Model 1', value: 1 },
-    { name: 'Model 2', value: 1 },
-    { name: 'Model 3', value: 1 },
-    { name: 'Model 4', value: 1 },
-    { name: 'Model 5', value: 1 }
-  ];
-
+  // Chart data arrays
+  const sparklinePoints = [180, 190, 195, 210, 220, 230, 240, 247];
+  const iterationBars = [120, 140, 135, 156];
   const donutColors = ['#a855f7', '#22d3ee', '#ec4899', '#8b5cf6', '#06b6d4'];
+
+  // Generate sparkline path
+  const generateSparkline = (data) => {
+    const width = 200;
+    const height = 60;
+    const max = Math.max(...data);
+    const min = Math.min(...data);
+    const range = max - min;
+    const step = width / (data.length - 1);
+    
+    const points = data.map((value, index) => {
+      const x = index * step;
+      const y = height - ((value - min) / range) * height;
+      return `${x},${y}`;
+    }).join(' ');
+    
+    return points;
+  };
 
   return (
     <motion.div
@@ -69,25 +57,24 @@ const HeroStatsStrip = () => {
             {totalClips}
           </div>
           <div className="flex-1 min-h-[60px]">
-            <ResponsiveContainer width="100%" height={60}>
-              <AreaChart data={sparklineData}>
-                <defs>
-                  <linearGradient id="sparklineGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#a855f7" stopOpacity={0.8} />
-                    <stop offset="100%" stopColor="#a855f7" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <Area
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#a855f7"
-                  strokeWidth={2}
-                  fill="url(#sparklineGradient)"
-                  isAnimationActive={true}
-                  animationDuration={1000}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+            <svg width="100%" height="60" viewBox="0 0 200 60" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="sparklineGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#a855f7" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <polygon
+                points={`0,60 ${generateSparkline(sparklinePoints)} 200,60`}
+                fill="url(#sparklineGradient)"
+              />
+              <polyline
+                points={generateSparkline(sparklinePoints)}
+                fill="none"
+                stroke="#a855f7"
+                strokeWidth="2"
+              />
+            </svg>
           </div>
         </motion.div>
 
@@ -175,18 +162,18 @@ const HeroStatsStrip = () => {
           <div className="text-4xl font-bold text-white mb-4">
             {iterations}
           </div>
-          <div className="flex-1 min-h-[60px]">
-            <ResponsiveContainer width="100%" height={60}>
-              <BarChart data={iterationBars}>
-                <Bar
-                  dataKey="value"
-                  fill="#ec4899"
-                  radius={[4, 4, 0, 0]}
-                  isAnimationActive={true}
-                  animationDuration={800}
+          <div className="flex-1 min-h-[60px] flex items-end gap-2">
+            {iterationBars.map((value, index) => {
+              const maxValue = Math.max(...iterationBars);
+              const heightPercent = (value / maxValue) * 100;
+              return (
+                <div
+                  key={index}
+                  className="flex-1 bg-pink-500 rounded-t"
+                  style={{ height: `${heightPercent}%`, minHeight: '20%' }}
                 />
-              </BarChart>
-            </ResponsiveContainer>
+              );
+            })}
           </div>
         </motion.div>
 
@@ -199,24 +186,33 @@ const HeroStatsStrip = () => {
             AI Models Used
           </div>
           <div className="relative flex items-center justify-center w-32 h-32">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={donutData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={35}
-                  outerRadius={50}
-                  dataKey="value"
-                  isAnimationActive={true}
-                  animationDuration={1000}
-                >
-                  {donutData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={donutColors[index % donutColors.length]} />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
+            <svg width="128" height="128" viewBox="0 0 128 128">
+              {donutColors.map((color, index) => {
+                const angle = (360 / modelsUsed) * index;
+                const nextAngle = (360 / modelsUsed) * (index + 1);
+                const startAngle = (angle - 90) * (Math.PI / 180);
+                const endAngle = (nextAngle - 90) * (Math.PI / 180);
+                const innerRadius = 45;
+                const outerRadius = 60;
+                
+                const x1 = 64 + innerRadius * Math.cos(startAngle);
+                const y1 = 64 + innerRadius * Math.sin(startAngle);
+                const x2 = 64 + outerRadius * Math.cos(startAngle);
+                const y2 = 64 + outerRadius * Math.sin(startAngle);
+                const x3 = 64 + outerRadius * Math.cos(endAngle);
+                const y3 = 64 + outerRadius * Math.sin(endAngle);
+                const x4 = 64 + innerRadius * Math.cos(endAngle);
+                const y4 = 64 + innerRadius * Math.sin(endAngle);
+                
+                return (
+                  <path
+                    key={index}
+                    d={`M ${x1} ${y1} L ${x2} ${y2} A ${outerRadius} ${outerRadius} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${innerRadius} ${innerRadius} 0 0 0 ${x1} ${y1}`}
+                    fill={color}
+                  />
+                );
+              })}
+            </svg>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-3xl font-bold text-white">{modelsUsed}</div>
