@@ -1,6 +1,8 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition } from '../constants/animations';
+import Timeline from '../components/Timeline';
+import timelineData from '../../data/timeline.json';
 
 /**
  * About page - project and creator information
@@ -27,6 +29,23 @@ const About = () => {
         <h1>About This Project</h1>
         <p className="page-subtitle">The story behind the logbook</p>
       </motion.div>
+
+      {/* Project Timeline Section */}
+      <motion.section
+        id="timeline"
+        className="content-section"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+      >
+        <div className="card">
+          <h2>Project Timeline</h2>
+          <p className="page-subtitle" style={{ marginBottom: '1.5rem' }}>
+            Key milestones and development phases
+          </p>
+          <Timeline entries={timelineData} />
+        </div>
+      </motion.section>
 
       <motion.div
         className="content-section"

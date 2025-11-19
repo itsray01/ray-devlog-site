@@ -29,7 +29,7 @@ const Home = () => {
     []
   );
 
-  // Memoize toggle handlers to prevent recreation
+  // Memoize toggle handler to prevent recreation
   const toggleBranching = useCallback(() => {
     setBranchingExpanded(prev => !prev);
   }, []);

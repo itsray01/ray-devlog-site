@@ -20,7 +20,6 @@ const homeSections = [
 ];
 
 const otherPages = [
-  { path: '/timeline', title: 'Timeline' },
   { path: '/assets', title: 'Assets' },
   { path: '/about', title: 'About' },
   { path: '/extras', title: 'Extras' }
