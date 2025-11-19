@@ -1653,56 +1653,27 @@ html {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 10000;
   cursor: pointer;
-  animation: lightbox-fade-in 0.2s ease-out;
-  padding: 2rem;
-}
-
-@keyframes lightbox-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .lightbox-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   cursor: default;
-  animation: lightbox-zoom-in 0.3s ease-out;
-  line-height: 0;
-}
-
-@keyframes lightbox-zoom-in {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 .lightbox-content img {
   max-width: 90vw;
   max-height: 85vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(138, 43, 226, 0.3);
-  margin: 0;
-  padding: 0;
 }
 
 .lightbox-close {
