@@ -1679,10 +1679,9 @@ html {
   position: relative;
   cursor: default;
   animation: lightbox-zoom-in 0.3s ease-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  max-width: 90vw;
+  max-height: 85vh;
 }
 
 @keyframes lightbox-zoom-in {
