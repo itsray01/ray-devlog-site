@@ -139,6 +139,12 @@ const StatisticsCardChartJS = ({
   const renderDonutChart = () => {
     if (!chartData || chartData.length === 0) return null;
 
+    // Determine if this is investment or models based on title
+    const isInvestmentChart = title?.toLowerCase().includes('investment');
+    const total = isInvestmentChart 
+      ? chartData.reduce((sum, item) => sum + item.value, 0)
+      : chartData.length;
+
     const data = {
       labels: chartData.map((item) => item.label),
       datasets: [
@@ -181,7 +187,12 @@ const StatisticsCardChartJS = ({
             size: 12,
           },
           callbacks: {
-            label: (context) => ` ${context.label}: ${context.parsed} clips`,
+            label: (context) => {
+              if (isInvestmentChart) {
+                return ` ${context.label}: $${context.parsed}`;
+              }
+              return ` ${context.label}: ${context.parsed} clips`;
+            },
           },
         },
       },
@@ -214,7 +225,7 @@ const StatisticsCardChartJS = ({
               textShadow: '0 0 10px rgba(139, 92, 246, 0.5)',
             }}
           >
-            {chartData.length}
+            {isInvestmentChart ? chartData.length : total}
           </div>
           <div
             style={{
@@ -225,7 +236,7 @@ const StatisticsCardChartJS = ({
               letterSpacing: '0.5px',
             }}
           >
-            MODELS
+            {isInvestmentChart ? 'SOURCES' : 'MODELS'}
           </div>
         </div>
       </div>
@@ -455,12 +466,12 @@ const StatisticsCardChartJS = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
         style={{
-          marginTop: '1.5rem',
+          marginTop: '1rem',
           textAlign: 'center',
-          padding: '1.5rem 1rem',
-          background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02))',
-          borderRadius: '12px',
-          border: '1px solid rgba(16, 185, 129, 0.15)',
+          padding: '1.25rem 1rem 1rem',
+          background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.04), rgba(16, 185, 129, 0.02))',
+          borderRadius: '10px',
+          border: '1px solid rgba(16, 185, 129, 0.12)',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -469,7 +480,7 @@ const StatisticsCardChartJS = ({
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
             duration: 3,
@@ -481,9 +492,9 @@ const StatisticsCardChartJS = ({
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '120px',
-            height: '120px',
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15), transparent)',
+            width: '100px',
+            height: '100px',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent)',
             borderRadius: '50%',
             pointerEvents: 'none',
           }}
@@ -491,64 +502,47 @@ const StatisticsCardChartJS = ({
 
         {/* Content */}
         <div style={{ position: 'relative', zIndex: 1 }}>
-          {/* Context label */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            style={{
-              fontSize: '0.7rem',
-              color: '#10b981',
-              fontFamily: "'Rajdhani', sans-serif",
-              fontWeight: '600',
-              letterSpacing: '1px',
-              marginBottom: '0.5rem',
-              textTransform: 'uppercase',
-            }}
-          >
-            Environmental Impact
-          </motion.div>
-
           {/* Comparison text */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
             style={{
-              fontSize: '0.85rem',
+              fontSize: '0.8rem',
               color: 'var(--muted)',
               fontFamily: "'Rajdhani', sans-serif",
               fontWeight: '500',
-              lineHeight: '1.5',
-              marginTop: '0.75rem',
+              lineHeight: '1.6',
+              marginBottom: '0.75rem',
             }}
           >
-            Equivalent to <span style={{ color: '#10b981', fontWeight: '600' }}>165 km</span> driven by car
+            ≈ <span style={{ color: '#10b981', fontWeight: '600' }}>165 km</span> by car
           </motion.div>
 
           {/* CO2 savings indicator */}
           {trend && trend < 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 5 }}
+              initial={{ opacity: 0, y: 3 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+              transition={{ delay: 0.7 }}
               style={{
-                marginTop: '0.75rem',
-                padding: '0.5rem 1rem',
-                background: 'rgba(16, 185, 129, 0.1)',
-                borderRadius: '8px',
+                padding: '0.4rem 0.85rem',
+                background: 'rgba(16, 185, 129, 0.08)',
+                borderRadius: '6px',
                 display: 'inline-block',
+                border: '1px solid rgba(16, 185, 129, 0.15)',
               }}
             >
               <span
                 style={{
-                  fontSize: '0.75rem',
+                  fontSize: '0.7rem',
                   color: '#10b981',
-                  fontFamily: "'Iceberg', sans-serif",
+                  fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: '700',
+                  letterSpacing: '0.3px',
                 }}
               >
-                ↓ {Math.abs(trend)}% vs traditional filming
+                ↓ {Math.abs(trend)}% vs traditional
               </span>
             </motion.div>
           )}
