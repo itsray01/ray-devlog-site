@@ -35,9 +35,6 @@ export default defineConfig({
             if (id.includes('simplebar')) {
               return 'utils';
             }
-            if (id.includes('@tremor')) {
-              return 'tremor-vendor';
-            }
             // Other node_modules
             return 'vendor';
           }

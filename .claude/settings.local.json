@@ -8,7 +8,9 @@
       "Bash(npm install:*)",
       "Bash(powershell:*)",
       "Bash(del \"c:\\Users\\admin\\Documents\\Digital Project\\devlog-site\\check-sizes.ps1\")",
-      "Bash(del \"c:\\Users\\admin\\Documents\\Digital Project\\devlog-site\\resize-images.ps1\")"
+      "Bash(del \"c:\\Users\\admin\\Documents\\Digital Project\\devlog-site\\resize-images.ps1\")",
+      "Bash(if exist dist rmdir /s /q dist)",
+      "Bash(if exist node_modules.vite rmdir /s /q node_modules.vite)"
     ],
     "deny": [],
     "ask": []
