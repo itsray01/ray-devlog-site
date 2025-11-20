@@ -27,13 +27,14 @@ const StatisticsDashboard = () => {
     {
       id: 2,
       title: 'Project Investment',
-      value: '$700',
-      subtitle: 'Higgsfield & Sora 2',
+      value: '$500',
+      subtitle: 'AI platforms + infrastructure',
       icon: IconCurrencyDollar,
       trend: null,
       chartData: [
-        { label: 'Sora 2', value: 450, color: '#8b5cf6' },
-        { label: 'Higgsfield', value: 250, color: '#06b6d4' }
+        { label: 'Sora 2', value: 280, color: '#8b5cf6' },
+        { label: 'Higgsfield', value: 150, color: '#06b6d4' },
+        { label: 'VPN', value: 70, color: '#f59e0b' }
       ],
       chartType: 'donut'
     },
