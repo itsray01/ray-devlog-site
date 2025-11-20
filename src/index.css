@@ -2194,3 +2194,33 @@ html {
   line-height: 1.7;
   margin-top: 1rem;
 }
+
+/* ===========================
+   Chart.js Custom Styling
+   =========================== */
+
+/* Add glow effect to Chart.js canvas */
+.chartjs-card canvas {
+  filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.chartjs-card:hover canvas {
+  filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.6));
+}
+
+/* Smooth animations */
+.chartjs-card .stat-chart-container {
+  animation: fadeInChart 0.6s ease-out;
+}
+
+@keyframes fadeInChart {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

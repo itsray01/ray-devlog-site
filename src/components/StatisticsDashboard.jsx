@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
 import StatisticsCard from './StatisticsCard';
+import StatisticsCardChartJS from './StatisticsCardChartJS';
 import { IconVideo, IconCurrencyDollar, IconLeaf, IconRefresh, IconBrain } from '@tabler/icons-react';
+
+// Toggle between SVG charts and Chart.js
+// Set to false initially for safe deployment
+const USE_CHARTJS = false;
 
 /**
  * StatisticsDashboard - Container for project statistics cards
@@ -102,19 +107,22 @@ const StatisticsDashboard = () => {
       animate="visible"
     >
       <div className="statistics-grid">
-        {statistics.map((stat) => (
-          <motion.div key={stat.id} variants={cardVariants}>
-            <StatisticsCard
-              title={stat.title}
-              value={stat.value}
-              subtitle={stat.subtitle}
-              icon={stat.icon}
-              trend={stat.trend}
-              chartData={stat.chartData}
-              chartType={stat.chartType}
-            />
-          </motion.div>
-        ))}
+        {statistics.map((stat) => {
+          const CardComponent = USE_CHARTJS ? StatisticsCardChartJS : StatisticsCard;
+          return (
+            <motion.div key={stat.id} variants={cardVariants}>
+              <CardComponent
+                title={stat.title}
+                value={stat.value}
+                subtitle={stat.subtitle}
+                icon={stat.icon}
+                trend={stat.trend}
+                chartData={stat.chartData}
+                chartType={stat.chartType}
+              />
+            </motion.div>
+          );
+        })}
       </div>
     </motion.section>
   );
