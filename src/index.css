@@ -1662,13 +1662,21 @@ html {
 
 .lightbox-content {
   position: relative;
-  background: linear-gradient(135deg, #8a2be2, #6b21a8, #a855f7, #8a2be2);
+  background: linear-gradient(90deg, #8a2be2, #a855f7, #ec4899, #8a2be2, #a855f7);
+  background-size: 300% 100%;
+  animation: gradient-move 3s ease infinite;
   padding: 3px;
   border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: default;
+}
+
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .lightbox-content img {
@@ -1682,12 +1690,12 @@ html {
 
 .lightbox-close {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: 8px;
+  right: 8px;
   width: 36px;
   height: 36px;
-  background: rgba(20, 20, 20, 0.95);
-  border: 2px solid #8a2be2;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
   border-radius: 50%;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
@@ -1696,10 +1704,11 @@ html {
   justify-content: center;
   z-index: 10001;
   transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
 }
 
 .lightbox-close:hover {
-  background: #8a2be2;
+  background: rgba(0, 0, 0, 0.9);
   color: white;
   transform: scale(1.1);
 }
