@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     './index.html',
@@ -6,6 +7,8 @@ export default {
   ],
   darkMode: 'class',
   theme: {
+    transparent: 'transparent',
+    current: 'currentColor',
     extend: {
       colors: {
         violet: {
@@ -24,6 +27,6 @@ export default {
       },
     },
   },
-  plugins: [require('@tremor/react/plugin')],
+  plugins: [],
 }
 
