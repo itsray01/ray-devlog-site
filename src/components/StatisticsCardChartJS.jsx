@@ -85,12 +85,12 @@ const StatisticsCardChartJS = ({
         legend: { display: false },
         tooltip: {
           enabled: true,
-          backgroundColor: 'rgba(15, 18, 22, 0.95)',
+          backgroundColor: 'rgba(15, 18, 22, 1)', // Fully opaque
           titleColor: '#8a2be2',
           bodyColor: '#cbd5e1',
           borderColor: '#8a2be2',
-          borderWidth: 1,
-          padding: 12,
+          borderWidth: 2,
+          padding: 14,
           displayColors: false,
           titleFont: {
             family: "'Iceberg', sans-serif",
@@ -168,12 +168,12 @@ const StatisticsCardChartJS = ({
         legend: { display: false },
         tooltip: {
           enabled: true,
-          backgroundColor: 'rgba(15, 18, 22, 0.95)',
+          backgroundColor: 'rgba(15, 18, 22, 1)', // Fully opaque
           titleColor: '#8a2be2',
           bodyColor: '#cbd5e1',
           borderColor: '#8a2be2',
-          borderWidth: 1,
-          padding: 12,
+          borderWidth: 2,
+          padding: 14,
           displayColors: true,
           boxWidth: 12,
           boxHeight: 12,
@@ -194,6 +194,7 @@ const StatisticsCardChartJS = ({
               return ` ${context.label}: ${context.parsed} clips`;
             },
           },
+          z: 9999, // Ensure tooltip is on top
         },
       },
       animation: {
@@ -205,7 +206,7 @@ const StatisticsCardChartJS = ({
     return (
       <div style={{ height: '150px', position: 'relative' }}>
         <Doughnut data={data} options={options} />
-        {/* Center text overlay */}
+        {/* Center text overlay - z-index 1 to stay behind tooltip */}
         <div
           style={{
             position: 'absolute',
@@ -214,6 +215,7 @@ const StatisticsCardChartJS = ({
             transform: 'translate(-50%, -50%)',
             textAlign: 'center',
             pointerEvents: 'none',
+            zIndex: 1,
           }}
         >
           <div
