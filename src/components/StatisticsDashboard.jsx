@@ -35,7 +35,7 @@ const StatisticsDashboard = () => {
         { label: 'Sora 2', value: 450, color: '#8b5cf6' },
         { label: 'Higgsfield', value: 250, color: '#06b6d4' }
       ],
-      chartType: 'split'
+      chartType: 'donut'
     },
     {
       id: 3,
@@ -44,8 +44,8 @@ const StatisticsDashboard = () => {
       subtitle: 'CO₂ emissions',
       icon: IconLeaf,
       trend: -12,
-      chartData: [65], // 65% of 65kg estimated budget
-      chartType: 'progress'
+      chartData: [], // Clean stat display, no chart needed
+      chartType: 'stat'
     },
     {
       id: 4,

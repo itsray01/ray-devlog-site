@@ -447,11 +447,122 @@ const StatisticsCardChartJS = ({
     );
   };
 
+  // Clean stat display for environmental data
+  const renderCleanStat = () => {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        style={{
+          marginTop: '1.5rem',
+          textAlign: 'center',
+          padding: '1.5rem 1rem',
+          background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02))',
+          borderRadius: '12px',
+          border: '1px solid rgba(16, 185, 129, 0.15)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Animated background glow */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '120px',
+            height: '120px',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15), transparent)',
+            borderRadius: '50%',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {/* Context label */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            style={{
+              fontSize: '0.7rem',
+              color: '#10b981',
+              fontFamily: "'Rajdhani', sans-serif",
+              fontWeight: '600',
+              letterSpacing: '1px',
+              marginBottom: '0.5rem',
+              textTransform: 'uppercase',
+            }}
+          >
+            Environmental Impact
+          </motion.div>
+
+          {/* Comparison text */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            style={{
+              fontSize: '0.85rem',
+              color: 'var(--muted)',
+              fontFamily: "'Rajdhani', sans-serif",
+              fontWeight: '500',
+              lineHeight: '1.5',
+              marginTop: '0.75rem',
+            }}
+          >
+            Equivalent to <span style={{ color: '#10b981', fontWeight: '600' }}>165 km</span> driven by car
+          </motion.div>
+
+          {/* CO2 savings indicator */}
+          {trend && trend < 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              style={{
+                marginTop: '0.75rem',
+                padding: '0.5rem 1rem',
+                background: 'rgba(16, 185, 129, 0.1)',
+                borderRadius: '8px',
+                display: 'inline-block',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '0.75rem',
+                  color: '#10b981',
+                  fontFamily: "'Iceberg', sans-serif",
+                  fontWeight: '700',
+                }}
+              >
+                ↓ {Math.abs(trend)}% vs traditional filming
+              </span>
+            </motion.div>
+          )}
+        </div>
+      </motion.div>
+    );
+  };
+
   const renderChart = () => {
     if (chartType === 'line') return renderLineChart();
     if (chartType === 'split') return renderSplitBar();
     if (chartType === 'donut') return renderDonutChart();
     if (chartType === 'progress') return renderProgressCircle();
+    if (chartType === 'stat') return renderCleanStat();
     return null;
   };
 
@@ -522,7 +633,7 @@ StatisticsCardChartJS.propTypes = {
   icon: PropTypes.elementType,
   trend: PropTypes.number,
   chartData: PropTypes.array,
-  chartType: PropTypes.oneOf(['line', 'split', 'donut', 'progress']),
+  chartType: PropTypes.oneOf(['line', 'split', 'donut', 'progress', 'stat']),
 };
 
 export default StatisticsCardChartJS;
