@@ -4,8 +4,8 @@ import StatisticsCardChartJS from './StatisticsCardChartJS';
 import { IconVideo, IconCurrencyDollar, IconLeaf, IconRefresh, IconBrain } from '@tabler/icons-react';
 
 // Toggle between SVG charts and Chart.js
-// Set to false initially for safe deployment
-const USE_CHARTJS = false;
+// Enabled: Beautiful Chart.js with gradients and glow effects!
+const USE_CHARTJS = true;
 
 /**
  * StatisticsDashboard - Container for project statistics cards
