@@ -1,7 +1,6 @@
 import { lazy, Suspense, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import StatisticsDashboard from '../components/StatisticsDashboard';
 import SearchBar from '../components/SearchBar';
 import ReadingProgress from '../components/ReadingProgress';
 import useDevlog from '../hooks/useDevlog';
@@ -173,9 +172,6 @@ const Home = () => {
             <SearchBar searchableContent={searchableContent} />
           </div>
         </motion.div>
-
-        {/* Statistics Dashboard */}
-        <StatisticsDashboard />
 
         {/* Lazy-loaded sections */}
         <Suspense fallback={<SectionLoader />}>

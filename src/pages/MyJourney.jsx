@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
+import StatisticsDashboard from '../components/StatisticsDashboard';
 import { pageVariants, pageTransition } from '../constants/animations';
 
 /**
@@ -34,6 +35,9 @@ const MyJourney = () => {
             Tools, Failures, and Hard-Won Lessons from AI Video Generation
           </p>
         </motion.div>
+
+        {/* Statistics Dashboard */}
+        <StatisticsDashboard />
 
         {/* Introduction */}
         <motion.div
