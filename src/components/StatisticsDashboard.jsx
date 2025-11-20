@@ -43,9 +43,9 @@ const StatisticsDashboard = () => {
       value: '42 kg',
       subtitle: 'CO₂ emissions',
       icon: IconLeaf,
-      trend: null,
-      chartData: [],
-      chartType: 'line'
+      trend: -12,
+      chartData: [65], // 65% of 65kg estimated budget
+      chartType: 'progress'
     },
     {
       id: 4,
@@ -54,8 +54,8 @@ const StatisticsDashboard = () => {
       subtitle: 'Script revisions',
       icon: IconRefresh,
       trend: null,
-      chartData: [],
-      chartType: 'progress'
+      chartData: [12, 28, 45, 72, 98, 130, 156], // iterations over time
+      chartType: 'line'
     },
     {
       id: 5,

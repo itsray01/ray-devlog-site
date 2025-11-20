@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Chart as ChartJS,
@@ -232,6 +232,22 @@ const StatisticsCardChartJS = ({
     );
   };
 
+  // Animated Counter Component
+  const AnimatedValue = ({ value, prefix = '', suffix = '' }) => {
+    const [displayValue, setDisplayValue] = useState(0);
+
+    useEffect(() => {
+      const controls = animate(0, value, {
+        duration: 1.2,
+        ease: 'easeOut',
+        onUpdate: (v) => setDisplayValue(Math.round(v))
+      });
+      return () => controls.stop();
+    }, [value]);
+
+    return <>{prefix}{displayValue}{suffix}</>;
+  };
+
   // Split Bars with Animated Progress
   const renderSplitBar = () => {
     if (!chartData || chartData.length === 0) return null;
@@ -246,50 +262,90 @@ const StatisticsCardChartJS = ({
           return (
             <div
               key={index}
-              style={{ marginBottom: index < chartData.length - 1 ? '1rem' : 0 }}
+              style={{ marginBottom: index < chartData.length - 1 ? '1.25rem' : 0 }}
             >
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginBottom: '0.5rem',
-                  fontSize: '0.75rem',
+                  marginBottom: '0.6rem',
+                  fontSize: '0.8rem',
                   color: 'var(--muted)',
                   fontWeight: '500',
                 }}
               >
-                <span>{item.label}</span>
+                <span style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}>
+                  <span
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      background: item.color,
+                      boxShadow: `0 0 8px ${item.color}88`
+                    }}
+                  />
+                  {item.label}
+                </span>
                 <span
                   style={{
                     color: item.color,
-                    fontWeight: '600',
+                    fontWeight: '700',
+                    fontFamily: "'Iceberg', sans-serif",
+                    fontSize: '0.85rem',
+                    textShadow: `0 0 10px ${item.color}44`
                   }}
                 >
-                  ${item.value} ({percentage.toFixed(1)}%)
+                  <AnimatedValue value={item.value} prefix="$" /> ({percentage.toFixed(1)}%)
                 </span>
               </div>
               <div
                 style={{
                   width: '100%',
-                  height: '10px',
-                  background: 'rgba(139, 92, 246, 0.1)',
-                  borderRadius: '5px',
+                  height: '12px',
+                  background: 'rgba(139, 92, 246, 0.08)',
+                  borderRadius: '6px',
                   overflow: 'hidden',
                   position: 'relative',
+                  border: '1px solid rgba(139, 92, 246, 0.15)',
                 }}
               >
                 <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${percentage}%` }}
-                  transition={{ duration: 0.8, ease: 'easeOut', delay: index * 0.1 }}
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: `${percentage}%`, opacity: 1 }}
+                  transition={{ duration: 1, ease: 'easeOut', delay: index * 0.15 }}
                   style={{
                     height: '100%',
-                    background: `linear-gradient(90deg, ${item.color}, ${item.color}dd)`,
-                    borderRadius: '5px',
-                    boxShadow: `0 0 10px ${item.color}66`,
+                    background: `linear-gradient(90deg, ${item.color}cc, ${item.color})`,
+                    borderRadius: '6px',
+                    boxShadow: `0 0 15px ${item.color}55, inset 0 1px 0 rgba(255,255,255,0.2)`,
+                    position: 'relative',
                   }}
-                />
+                >
+                  {/* Shimmer effect */}
+                  <motion.div
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '200%' }}
+                    transition={{
+                      duration: 1.5,
+                      delay: index * 0.15 + 0.8,
+                      ease: 'easeInOut'
+                    }}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                      borderRadius: '6px',
+                    }}
+                  />
+                </motion.div>
               </div>
             </div>
           );
@@ -298,7 +354,7 @@ const StatisticsCardChartJS = ({
     );
   };
 
-  // Progress Circle (keep existing SVG)
+  // Progress Circle with enhanced glow effects
   const renderProgressCircle = () => {
     if (!chartData || chartData.length === 0) return null;
 
@@ -306,45 +362,88 @@ const StatisticsCardChartJS = ({
     const circumference = 2 * Math.PI * 40;
     const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
+    // Color based on percentage (green for low carbon, yellow for medium, red for high)
+    const getColor = (pct) => {
+      if (pct < 50) return '#10b981'; // green
+      if (pct < 75) return '#f59e0b'; // yellow
+      return '#ef4444'; // red
+    };
+    const progressColor = getColor(percentage);
+
     return (
-      <svg
-        className="stat-chart-progress"
-        viewBox="0 0 100 100"
-        style={{ width: '80px', height: '80px', margin: '1rem auto 0', display: 'block' }}
-      >
-        <circle
-          cx="50"
-          cy="50"
-          r="40"
-          fill="none"
-          stroke="rgba(138, 43, 226, 0.1)"
-          strokeWidth="8"
-        />
-        <circle
-          cx="50"
-          cy="50"
-          r="40"
-          fill="none"
-          stroke="var(--accent-primary)"
-          strokeWidth="8"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          transform="rotate(-90 50 50)"
-          style={{ transition: 'stroke-dashoffset 1s ease-out' }}
-        />
-        <text
-          x="50"
-          y="50"
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fill="var(--ink)"
-          fontSize="20"
-          fontWeight="600"
+      <div style={{ position: 'relative', width: '100px', height: '100px', margin: '0.5rem auto 0' }}>
+        <svg
+          className="stat-chart-progress"
+          viewBox="0 0 100 100"
+          style={{ width: '100%', height: '100%', display: 'block' }}
         >
-          {Math.round(percentage)}%
-        </text>
-      </svg>
+          <defs>
+            <filter id="progress-glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={progressColor} stopOpacity="1" />
+              <stop offset="100%" stopColor={progressColor} stopOpacity="0.7" />
+            </linearGradient>
+          </defs>
+          {/* Background circle */}
+          <circle
+            cx="50"
+            cy="50"
+            r="40"
+            fill="none"
+            stroke="rgba(138, 43, 226, 0.1)"
+            strokeWidth="8"
+          />
+          {/* Animated progress circle */}
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="40"
+            fill="none"
+            stroke="url(#progress-gradient)"
+            strokeWidth="8"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset }}
+            transition={{ duration: 1.5, ease: 'easeOut' }}
+            strokeLinecap="round"
+            transform="rotate(-90 50 50)"
+            filter="url(#progress-glow)"
+          />
+          {/* Center percentage */}
+          <text
+            x="50"
+            y="46"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="var(--ink)"
+            fontSize="18"
+            fontWeight="700"
+            fontFamily="'Iceberg', sans-serif"
+            style={{ textShadow: `0 0 10px ${progressColor}66` }}
+          >
+            {Math.round(percentage)}%
+          </text>
+          <text
+            x="50"
+            y="60"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="var(--muted)"
+            fontSize="7"
+            fontWeight="500"
+            fontFamily="'Rajdhani', sans-serif"
+            letterSpacing="0.5"
+          >
+            OF BUDGET
+          </text>
+        </svg>
+      </div>
     );
   };
 
@@ -361,14 +460,21 @@ const StatisticsCardChartJS = ({
       className="statistics-card glass-hover chartjs-card"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{
+        scale: 1.02,
+        boxShadow: '0 0 30px rgba(139, 92, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.1)'
+      }}
       transition={{ duration: 0.3 }}
     >
       <div className="stat-header">
         {Icon && (
-          <div className="stat-icon">
+          <motion.div
+            className="stat-icon"
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            transition={{ type: 'spring', stiffness: 400 }}
+          >
             <Icon size={24} />
-          </div>
+          </motion.div>
         )}
         <div className="stat-title-group">
           <h4 className="stat-title">{title}</h4>
@@ -378,18 +484,28 @@ const StatisticsCardChartJS = ({
 
       <div className="stat-body">
         <div className="stat-value-group">
-          <div className="stat-value">{value}</div>
+          <motion.div
+            className="stat-value"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {value}
+          </motion.div>
           {trend && (
-            <div
+            <motion.div
               className={`stat-trend ${
                 trend > 0 ? 'positive' : trend < 0 ? 'negative' : 'neutral'
               }`}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
             >
               <span className="stat-trend-icon">
                 {trend > 0 ? '↑' : trend < 0 ? '↓' : '→'}
               </span>
               <span className="stat-trend-value">{Math.abs(trend)}%</span>
-            </div>
+            </motion.div>
           )}
         </div>
 
