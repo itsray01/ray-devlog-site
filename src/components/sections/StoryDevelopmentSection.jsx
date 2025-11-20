@@ -15,11 +15,17 @@ const StoryDevelopmentSection = () => {
     >
       <div className="card">
         <h2>Story Development</h2>
+        
+        <h3>Core Concept</h3>
         <p>
-          "Echo Maze Protocol" follows a protagonist awakening in an AI-controlled datacenter,
-          navigating a maze where wrong choices trigger cognitive scramblers and loop back to
-          checkpoints. The narrative structure explores themes of agency, control, and the ethics
-          of AI through interactive choice mechanics that mirror the story's central questions.
+          "Echo Maze Protocol" follows a protagonist awakening in an AI-controlled datacenter.
+          They must navigate a physical and metaphorical maze where wrong choices trigger cognitive
+          scramblers and loop back to checkpoints.
+        </p>
+        <p>
+          The narrative structure explores themes of agency, control, and AI ethics through interactive
+          choice mechanics. Each decision mirrors the story's central questions about autonomy and
+          predetermined paths.
         </p>
       </div>
 
@@ -85,56 +91,61 @@ const StoryDevelopmentSection = () => {
       </div>
 
       <div className="card">
-        <h3>User Testing & Iteration</h3>
-
-        <h4>Initial Playtest Findings</h4>
+        <h3>User Testing: Initial Findings</h3>
+        <small className="meta">October-November 2024</small>
+        
         <p>
-          Early playtests revealed several issues with narrative clarity and player engagement:
+          Early playtests revealed several critical issues with narrative clarity and player engagement:
         </p>
+        
         <ul className="bullets">
-          <li><strong>Loop Confusion:</strong> Players didn't recognize looping mechanics,
-          thinking the game had glitched. This required adding explicit visual and audio
-          cues (RETRY text, cognitive scrambler effects) to communicate the intentional
-          nature of loops.</li>
+          <li>
+            <strong>Loop Confusion:</strong> Players didn't recognize looping mechanics, thinking the 
+            game had glitched. Required adding explicit visual and audio cues (RETRY text, cognitive 
+            scrambler effects).
+          </li>
+          <li>
+            <strong>Arbitrary Choices:</strong> Some decision points felt arbitrary, reducing player 
+            investment. Needed clearer connections to thematic exploration.
+          </li>
+          <li>
+            <strong>Pacing Issues:</strong> Horror pacing was inconsistent—some sections lost tension. 
+            Environmental storytelling elements were added to maintain atmosphere between choice points.
+          </li>
+        </ul>
+      </div>
 
-          <li><strong>Arbitrary Choices:</strong> Some decision points felt arbitrary,
-          reducing player investment. Refinements emphasized consequences and moral weight,
-          connecting choices more clearly to thematic exploration.</li>
-
-          <li><strong>Pacing Issues:</strong> Horror pacing was inconsistent, with some
-          sections losing tension. Environmental storytelling elements were added to maintain
-          atmosphere between choice points.</li>
+      <div className="card">
+        <h3>Iterative Refinements</h3>
+        <p>
+          Based on playtest feedback, I refined several narrative elements:
+        </p>
+        
+        <ul className="bullets">
+          <li>
+            <strong>Spatial Memory:</strong> Added visual markers (chalk arrows, checkpoint labels) that 
+            persist across loops, connecting to environmental storytelling from games like Portal and Control.
+          </li>
+          <li>
+            <strong>Choice Clarity:</strong> Refined descriptions to emphasize consequences and moral 
+            implications, making decisions feel more meaningful.
+          </li>
+          <li>
+            <strong>Subtle Guidance:</strong> Introduced environmental hints that guide players toward 
+            correct paths without making choices obvious.
+          </li>
+          <li>
+            <strong>Better Transitions:</strong> Improved transitions between outcomes to maintain 
+            narrative flow and emotional continuity.
+          </li>
         </ul>
 
-        <h4>Iterative Refinements</h4>
+        <h4>Key Takeaway</h4>
         <p>
-          Based on feedback, several narrative elements were refined:
-        </p>
-        <ul className="bullets">
-          <li>Added visual markers (chalk arrows, checkpoint labels) that persist across
-          loops, providing spatial memory cues and connecting to environmental storytelling
-          principles from games like Control and Portal.</li>
-
-          <li>Refined choice descriptions to emphasize consequences and moral implications,
-          making decisions feel more meaningful and connected to thematic exploration.</li>
-
-          <li>Introduced subtle environmental hints that guide players toward correct paths
-          without making choices obvious, balancing player agency with narrative guidance.</li>
-
-          <li>Improved transitions between choice outcomes to maintain narrative flow and
-          emotional continuity.</li>
-        </ul>
-
-        <h4>Reflection on User Testing</h4>
-        <p>
-          The playtesting process revealed the fundamental challenge in interactive storytelling:
-          the gap between authorial intent and player experience. This connects directly to
-          course objectives on audience engagement and user experience design. The feedback
-          process highlighted the importance of clear communication in interactive narratives,
-          where players must understand both the mechanics and the narrative implications of
-          their choices. This iterative refinement demonstrates the value of user testing
-          in interactive media development and the necessity of balancing creative vision with
-          audience needs.
+          The playtesting process revealed the fundamental challenge in interactive storytelling: the 
+          gap between authorial intent and player experience. Players must understand both the mechanics 
+          and the narrative implications of their choices—this requires clear communication, which is 
+          often harder than it seems.
         </p>
       </div>
 

@@ -224,9 +224,9 @@ const Home = () => {
             >
               <h2 style={{ marginBottom: '1rem' }}>My Journey Through AI Video Generation</h2>
               <p style={{ marginBottom: '1.5rem' }}>
-                Explore my hands-on experience testing 5 different AI video generation models—including 
-                Sora 2, Veo3.1, Wan2.5, Higgsfield, and Seedance. Learn about the failures, frustrations, 
-                and hard-won lessons from weeks of experimentation.
+                I tested 5 different AI video generation models—Sora 2, Veo3.1, Wan2.5, Higgsfield, 
+                and Seedance. Most of them failed in ways I didn't expect. Here's what I learned from 
+                weeks of experimentation, burned credits, and frustrating failures.
               </p>
               <div style={{ 
                 display: 'inline-flex', 
@@ -257,8 +257,9 @@ const Home = () => {
           transition={{ delay: 1.0 }}
         >
           <p>
-            This logbook is continuously updated as the project evolves.
-            Check back regularly for new entries, experiments, and insights.
+            This logbook documents the ongoing development of an interactive dystopian film project
+            as of November 2024. It serves as both a creative diary and technical reference for
+            AI-assisted filmmaking.
           </p>
         </motion.footer>
       </motion.div>

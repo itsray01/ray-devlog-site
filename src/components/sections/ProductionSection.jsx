@@ -18,8 +18,11 @@ const ProductionSection = () => {
         <h2>Production & Reflection: The Real Story</h2>
         <p>
           This isn't a polished success story. It's the messy reality of trying to create something
-          ambitious with tools that aren't quite ready yet. Here's what actually happened—the failures,
-          the pivots, and what I learned along the way.
+          ambitious with AI tools that aren't quite ready for narrative filmmaking yet.
+        </p>
+        <p>
+          Here's what actually happened—the false starts, the tool failures, the pivot points, and 
+          what I learned along the way.
         </p>
       </div>
 

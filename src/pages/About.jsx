@@ -84,35 +84,16 @@ const About = () => {
         >
           <h2>The Process</h2>
           <p>
-            Every step of this journey is documented here—from initial concept sketches to final
-            production. This logbook serves as both a creative diary and a technical reference,
-            tracking experiments with various AI tools, narrative iterations, and production decisions.
+            Every step of this journey is documented here—from initial concept sketches to current
+            production milestones. This logbook serves as both a creative diary and a technical reference
+            for my experiments with AI-assisted filmmaking.
           </p>
           <p>
-            The goal is transparency: showing the messy, iterative reality of creative work in an
-            emerging medium where tools and techniques are still being discovered.
+            The goal is transparency: showing the messy, iterative reality of creative work with tools
+            that are still evolving and workflows that are still being figured out.
           </p>
         </motion.div>
 
-        <motion.div 
-          className="card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          whileHover={{ 
-            boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
-            transition: { duration: 0.2 }
-          }}
-        >
-          <h2>Contact & Collaboration</h2>
-          <p>
-            Interested in following along or collaborating? This logbook will be regularly updated
-            with new experiments, insights, and milestones.
-          </p>
-          <div className="contact-placeholder">
-            <p>Contact information and collaboration details coming soon.</p>
-          </div>
-        </motion.div>
       </motion.div>
     </motion.div>
   );

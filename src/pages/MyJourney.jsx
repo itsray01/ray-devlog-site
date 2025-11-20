@@ -50,6 +50,8 @@ const MyJourney = () => {
           <p>
             Let me be honest: this wasn't a smooth ride. I spent weeks experimenting with different
             AI video generation tools, burning through credits, and hitting walls I didn't expect.
+          </p>
+          <p>
             Here's the real story—the failures, the frustrations, and what I actually learned from
             trying to make this work.
           </p>
@@ -64,12 +66,21 @@ const MyJourney = () => {
         >
           <h3>The Tool Graveyard: What I Actually Tried</h3>
           <p>
-            I tested multiple AI video generation models through two main platforms: <strong>Higgsfield</strong>
-            (which provided access to Wan2.5, Veo3.1, Seedance, Kling, and several other models I didn't use,
-            plus Higgsfield's own model) and the <strong>official Sora website</strong> (accessed via VPN since
-            it's only available in the US). Each one taught me something different, and most of them
-            taught me what <em>doesn't</em> work. In the end, I used both <strong>Veo3.1</strong> and <strong>Sora 2</strong>
-            as they are, in my opinion, the best models available.
+            I tested multiple AI video generation models through two main platforms:
+          </p>
+          <ul className="bullets">
+            <li>
+              <strong>Higgsfield</strong> — Provided access to Wan2.5, Veo3.1, Seedance, Kling, 
+              and several other models, plus Higgsfield's own proprietary model
+            </li>
+            <li>
+              <strong>Official Sora website</strong> — Accessed via VPN (US-only availability)
+            </li>
+          </ul>
+          <p>
+            Each tool taught me something different, and most of them taught me what <em>doesn't</em> work. 
+            In the end, I used both <strong>Veo3.1</strong> and <strong>Sora 2</strong> as they are, in my 
+            opinion, the best models currently available.
           </p>
         </motion.article>
 
@@ -86,19 +97,31 @@ const MyJourney = () => {
             </p>
 
             <p>
-              <strong>Summary:</strong> Sora 2 delivered impressive cinematic quality, but inconsistent face generation and evolving content policies created significant challenges for character-driven scenes.
+              <strong>Summary:</strong> Sora 2 delivered impressive cinematic quality, but inconsistent face 
+              generation and evolving content policies created significant challenges for character-driven scenes.
             </p>
 
             <p>
-              I accessed Sora 2 through the official website using a VPN (US only). The marketing showed incredible cinematic quality, and the technical output lived up to the hype—when it worked. However, Sora 2's face generation proved inconsistent in ways I didn't expect.
+              <strong>Access Method:</strong> I accessed Sora 2 through the official website using a VPN 
+              (US only). The marketing showed incredible cinematic quality, and the technical output lived 
+              up to the hype—when it worked.
             </p>
 
             <p>
-              <strong>Where it shines:</strong> Spacious establishing shots, abstract or surreal montages, object‑centric animations, nature plates, and any non-human subject can look gorgeous.
+              <strong>The Problem:</strong> Sora 2's face generation proved inconsistent in ways I didn't 
+              expect. Character continuity was a constant challenge, making it difficult to maintain visual 
+              consistency across dialogue-heavy scenes.
             </p>
 
             <p>
-              <strong>Key Lesson:</strong> Even the best models have significant limitations. Sora 2's inconsistency and evolving policies taught me to build a flexible, multi-tool hybrid workflow.
+              <strong>Where it shines:</strong> Spacious establishing shots, abstract or surreal montages, 
+              object-centric animations, nature plates, and any non-human subject matter. These can look gorgeous.
+            </p>
+
+            <p>
+              <strong>Key Lesson:</strong> Even the best models have significant limitations. Sora 2's 
+              inconsistency and evolving policies taught me to build a flexible, multi-tool hybrid workflow 
+              rather than relying on a single platform.
             </p>
           </ToolLessonCard>
 
@@ -113,15 +136,30 @@ const MyJourney = () => {
             </p>
 
             <p>
-              <strong>Summary:</strong> Veo3.1 became one of my primary tools alongside Sora 2, delivering reliable character-focused scenes with better consistency than most alternatives.
+              <strong>Summary:</strong> Veo3.1 became one of my primary tools alongside Sora 2, delivering 
+              reliable character-focused scenes with better consistency than most alternatives.
             </p>
 
             <p>
-              <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed lighting directions rendered accurately, no hard bans on human subjects.
+              <strong>Why It Worked:</strong> Unlike Sora 2, Veo3.1's character rendering stayed mostly 
+              consistent across multiple generations. This made it invaluable for dialogue scenes and 
+              character-focused shots where maintaining visual continuity was critical.
             </p>
 
             <p>
-              <strong>What I Learned:</strong> Veo3.1 became essential to my workflow. I learned to work within its limitations through systematic prompt refinement.
+              <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed 
+              lighting directions rendered accurately, no hard bans on human subjects.
+            </p>
+
+            <p>
+              <strong>Limitations:</strong> Lower overall visual fidelity compared to Sora 2's best outputs. 
+              Some stylistic limitations and occasional texture artifacts that required post-processing fixes.
+            </p>
+
+            <p>
+              <strong>What I Learned:</strong> Systematic prompt refinement became essential. I developed a 
+              template system for describing lighting, mood, and character positioning that produced more 
+              consistent results across multiple shots.
             </p>
           </ToolLessonCard>
 
@@ -136,19 +174,26 @@ const MyJourney = () => {
             </p>
 
             <p>
-              <strong>Summary:</strong> Wan2.5 offered fast generation times but struggled with maintaining visual coherence and detail quality needed for cinematic footage.
+              <strong>Summary:</strong> Wan2.5 offered fast generation times but struggled with maintaining 
+              visual coherence and detail quality needed for cinematic footage.
             </p>
 
             <p>
-              <strong>Challenges:</strong> While Wan2.5 generated videos quickly, the output often lacked the cinematic polish required for the project. Motion was sometimes jittery, and fine details would blur or morph unexpectedly. The model seemed optimized for speed rather than quality.
+              <strong>Challenges:</strong> While Wan2.5 generated videos quickly, the output often lacked the 
+              cinematic polish required for the project. Motion was sometimes jittery, and fine details would 
+              blur or morph unexpectedly. The model seemed optimized for speed rather than quality.
             </p>
 
             <p>
-              <strong>Use Case:</strong> Best suited for quick concept tests and rough previsualization rather than final footage. Good for rapid iteration when exploring ideas.
+              <strong>Use Case:</strong> Best suited for quick concept tests and rough previsualization rather 
+              than final footage. I used Wan2.5 primarily for testing framing and composition ideas before 
+              committing credits to higher-quality models.
             </p>
 
             <p>
-              <strong>Key Lesson:</strong> Fast generation isn't always better. Sometimes you need to wait longer for quality that actually works for your project.
+              <strong>Key Lesson:</strong> Fast generation isn't always better. Sometimes you need to wait 
+              longer for quality that actually works for your project. Speed doesn't compensate for unusable 
+              output.
             </p>
           </ToolLessonCard>
 
@@ -220,26 +265,30 @@ const MyJourney = () => {
           transition={{ delay: 0.2 }}
           style={{ marginTop: '3rem' }}
         >
-          <h2>Overall Reflections</h2>
+          <h2>Overall Reflections (as of November 2024)</h2>
           <p>
             Testing five different AI video generation models taught me that there's no single perfect tool. 
-            Each model has strengths and weaknesses, and understanding these trade-offs is crucial for 
-            effective use.
+            Each model has strengths and weaknesses, and understanding these trade-offs became crucial for 
+            effective production.
           </p>
           
           <h3>What Actually Worked</h3>
           <ul className="bullets">
-            <li><strong>Hybrid Workflow:</strong> Combining Veo3.1 and Sora 2 gave me the best results</li>
-            <li><strong>Rapid Prototyping:</strong> Using faster models like Wan2.5 for concept testing saved time</li>
-            <li><strong>Platform Flexibility:</strong> Higgsfield's multi-model access enabled quick comparisons</li>
-            <li><strong>Knowing Limitations:</strong> Understanding what each tool can't do prevented wasted effort</li>
+            <li><strong>Hybrid Workflow:</strong> Combining Veo3.1 for character shots and Sora 2 for 
+            establishing shots gave me the best results</li>
+            <li><strong>Rapid Prototyping:</strong> Using Wan2.5 for quick concept testing saved both time 
+            and credits before committing to final generation</li>
+            <li><strong>Platform Flexibility:</strong> Higgsfield's multi-model access enabled side-by-side 
+            comparisons without switching platforms</li>
+            <li><strong>Knowing Limitations:</strong> Understanding what each tool can't do prevented wasted 
+            effort and unrealistic expectations</li>
           </ul>
 
-          <h3>Moving Forward</h3>
+          <h3>Current Status & Next Steps</h3>
           <p>
-            The future of this project relies on a strategic combination of tools rather than dependence on 
-            any single model. As these AI systems evolve, staying flexible and experimental remains the key 
-            to creating compelling interactive narratives.
+            As of November 21, 2024, the project continues to evolve. The hybrid workflow combining Veo3.1 
+            and Sora 2 remains the foundation of my production pipeline. Each generation teaches something 
+            new about prompt engineering and how these models interpret creative direction.
           </p>
         </motion.div>
 
@@ -250,8 +299,8 @@ const MyJourney = () => {
           transition={{ delay: 1.0 }}
         >
           <p>
-            This journey continues to evolve as new tools emerge and existing ones improve.
-            The lessons learned here shape every creative decision in the project.
+            This journey represents ongoing experimentation and learning as of November 2024. 
+            The lessons documented here continue to shape every creative decision in the project.
           </p>
         </motion.footer>
       </motion.div>
