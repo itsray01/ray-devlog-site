@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm uninstall:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx eslint:*)",
+      "Bash(timeout 20 npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(powershell:*)",
+      "Bash(del \"c:\\Users\\admin\\Documents\\Digital Project\\devlog-site\\check-sizes.ps1\")",
+      "Bash(del \"c:\\Users\\admin\\Documents\\Digital Project\\devlog-site\\resize-images.ps1\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

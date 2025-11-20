@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* --- Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Rajdhani:wght@400;500;600&display=swap');
 
@@ -2193,4 +2197,47 @@ html {
   color: #cbd5e1;
   line-height: 1.7;
   margin-top: 1rem;
+}
+
+/* --- Tremor Custom Enhancements --- */
+.tremor-card-custom {
+  background: var(--panel-glass) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.tremor-LineChart-line,
+.tremor-AreaChart-area {
+  filter: drop-shadow(0 0 6px rgba(138, 43, 226, 0.4));
+  transition: filter 0.3s ease;
+}
+
+.tremor-DonutChart-slice {
+  transition: all 0.3s ease;
+}
+
+.tremor-DonutChart-slice:hover {
+  filter: brightness(1.3) drop-shadow(0 0 12px currentColor);
+}
+
+.tremor-ProgressBar-bar {
+  box-shadow: 0 0 10px currentColor;
+  transition: box-shadow 0.3s ease;
+}
+
+.statistics-card:hover .tremor-LineChart-line {
+  filter: drop-shadow(0 0 12px rgba(138, 43, 226, 0.7));
+}
+
+/* Override Tremor defaults to match theme */
+.tremor-Card-root {
+  background: transparent;
+}
+
+.tremor-Text-root {
+  color: var(--ink);
+}
+
+.tremor-Metric-root {
+  color: var(--ink);
+  font-family: 'Iceberg', sans-serif;
 }
