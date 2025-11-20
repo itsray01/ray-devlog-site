@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
 import moodboardData from '../../../data/moodboard.json';
 
 // Image error handler - optimized to prevent recreation
@@ -14,6 +15,18 @@ const handleImageError = (e) => {
  */
 const MoodboardSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
+
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (lightboxImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [lightboxImage]);
 
   return (
     <>
@@ -71,7 +84,7 @@ const MoodboardSection = () => {
             }}
             aria-label="Close lightbox"
           >
-            ×
+            <X size={20} strokeWidth={2} />
           </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
             <img src={lightboxImage.src} alt={lightboxImage.title} />

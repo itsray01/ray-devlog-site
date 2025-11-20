@@ -1677,11 +1677,26 @@ html {
 }
 
 .lightbox-close {
-  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  transition: all 0.2s ease;
 }
 
 .lightbox-close:hover {
-  background: var(--accent);
+  background: rgba(50, 50, 50, 0.95);
+  color: white;
   transform: scale(1.1);
 }
 

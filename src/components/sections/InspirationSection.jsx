@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
 import inspirationData from '../../../data/inspiration.json';
 
 // Image error handler - optimized to prevent recreation
@@ -14,6 +15,18 @@ const handleImageError = (e) => {
  */
 const InspirationSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
+
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (lightboxImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [lightboxImage]);
 
   // Memoize combined visual data to prevent recalculation
   const visualReferenceData = useMemo(() =>
@@ -175,7 +188,7 @@ const InspirationSection = () => {
             }}
             aria-label="Close lightbox"
           >
-            ×
+            <X size={20} strokeWidth={2} />
           </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
             <img src={lightboxImage.src} alt={lightboxImage.title} />
