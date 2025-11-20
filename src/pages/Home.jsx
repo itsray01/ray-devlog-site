@@ -1,4 +1,5 @@
 import { lazy, Suspense, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import StatisticsDashboard from '../components/StatisticsDashboard';
 import SearchBar from '../components/SearchBar';
@@ -15,8 +16,6 @@ const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryD
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
 
 // Lazy load remaining sections too
-const ExperimentsSection = lazy(() => import('../components/sections/ExperimentsSection'));
-const AudienceSection = lazy(() => import('../components/sections/AudienceSection'));
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
 const ReferencesSection = lazy(() => import('../components/sections/ReferencesSection'));
 
@@ -84,18 +83,6 @@ const Home = () => {
       title: 'Branching Narrative',
       content: 'Interactive story paths decision points alternative routes timeline',
       tags: ['branching', 'interactive', 'choices']
-    },
-    {
-      sectionId: 'experiments',
-      title: 'AI Video Generation Experiments',
-      content: 'Sora Veo3.1 Wan2.5 Higgsfield Seedance Kling AI tools failures lessons',
-      tags: ['experiments', 'AI', 'tools', 'video generation']
-    },
-    {
-      sectionId: 'audience',
-      title: 'Audience & Accessibility',
-      content: 'Accessibility visual audio cues subtitles difficulty pathways content warnings',
-      tags: ['audience', 'accessibility', 'UX']
     },
     {
       sectionId: 'production',
@@ -203,13 +190,49 @@ const Home = () => {
           <BranchingSection />
         </Suspense>
 
-        <Suspense fallback={<SectionLoader />}>
-          <ExperimentsSection />
-        </Suspense>
-
-        <Suspense fallback={<SectionLoader />}>
-          <AudienceSection />
-        </Suspense>
+        {/* AI Video Generation Journey - Link to dedicated page */}
+        <motion.section
+          className="content-section"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <Link to="/my-journey" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="card" style={{ 
+              background: 'linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(138, 43, 226, 0.05) 100%)',
+              border: '2px solid rgba(138, 43, 226, 0.3)',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.borderColor = 'rgba(138, 43, 226, 0.5)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.borderColor = 'rgba(138, 43, 226, 0.3)';
+            }}
+            >
+              <h2 style={{ marginBottom: '1rem' }}>My Journey Through AI Video Generation</h2>
+              <p style={{ marginBottom: '1.5rem' }}>
+                Explore my hands-on experience testing 5 different AI video generation models—including 
+                Sora 2, Veo3.1, Wan2.5, Higgsfield, and Seedance. Learn about the failures, frustrations, 
+                and hard-won lessons from weeks of experimentation.
+              </p>
+              <div style={{ 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '0.5rem',
+                color: '#8a2be2',
+                fontWeight: '600',
+                fontSize: '1.05rem'
+              }}>
+                Read My Journey →
+              </div>
+            </div>
+          </Link>
+        </motion.section>
 
         <Suspense fallback={<SectionLoader />}>
           <ProductionSection />
