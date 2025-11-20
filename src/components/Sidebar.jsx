@@ -13,13 +13,12 @@ const homeSections = [
   { id: 'storyboard', title: 'Storyboard' },
   { id: 'story-development', title: 'Story Development' },
   { id: 'branching', title: 'Branching Narrative' },
-  { id: 'experiments', title: 'Technical Experiments' },
-  { id: 'audience', title: 'Audience & Accessibility' },
   { id: 'production', title: 'Production & Reflection' },
   { id: 'references', title: 'References' }
 ];
 
 const otherPages = [
+  { path: '/my-journey', title: 'My Journey So Far' },
   { path: '/about', title: 'About' },
   { path: '/assets', title: 'Assets' },
   { path: '/extras', title: 'Extras' }
