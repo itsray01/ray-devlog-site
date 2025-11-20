@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import StatisticsCard from './StatisticsCard';
 import StatisticsCardChartJS from './StatisticsCardChartJS';
-import { IconVideo, IconCurrencyDollar, IconLeaf, IconRefresh, IconBrain } from '@tabler/icons-react';
+import { IconVideo, IconCurrencyDollar, IconRefresh, IconBrain } from '@tabler/icons-react';
 
 // Toggle between SVG charts and Chart.js
 // Enabled: Beautiful Chart.js with gradients and glow effects!
@@ -12,7 +12,7 @@ const USE_CHARTJS = true;
  * Displays key metrics about the project development
  */
 const StatisticsDashboard = () => {
-  // Statistics data - can be updated dynamically later
+  // Statistics data - 4 key metrics for the dashboard
   const statistics = [
     {
       id: 1,
@@ -39,16 +39,6 @@ const StatisticsDashboard = () => {
     },
     {
       id: 3,
-      title: 'Carbon Footprint',
-      value: '42 kg',
-      subtitle: 'CO₂ emissions',
-      icon: IconLeaf,
-      trend: -12,
-      chartData: [], // Clean stat display, no chart needed
-      chartType: 'stat'
-    },
-    {
-      id: 4,
       title: 'Development Iterations',
       value: '156',
       subtitle: 'Script revisions',
@@ -58,7 +48,7 @@ const StatisticsDashboard = () => {
       chartType: 'line'
     },
     {
-      id: 5,
+      id: 4,
       title: 'AI Models Used',
       value: '5',
       subtitle: 'Platforms tested',
