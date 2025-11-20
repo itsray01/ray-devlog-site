@@ -94,6 +94,45 @@ const About = () => {
           </p>
         </motion.div>
 
+        <motion.div 
+          className="card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          whileHover={{ 
+            boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
+            transition: { duration: 0.2 }
+          }}
+        >
+          <h2>Research Methodology</h2>
+          <p>
+            This project employs a <strong>Practice as Research (PaR)</strong> approach, where knowledge 
+            emerges through the creative process itself. Rather than applying pre-existing theories to 
+            AI filmmaking, I'm generating new insights by doing the work.
+          </p>
+          <p>
+            <strong>Key PaR Principles Applied:</strong>
+          </p>
+          <ul className="bullets">
+            <li><strong>Practice generates theory</strong> — Testing AI tools revealed limitations not documented 
+            in marketing materials</li>
+            <li><strong>Failure is data</strong> — Each unsuccessful generation taught me about model constraints 
+            and capabilities</li>
+            <li><strong>Iteration builds knowledge</strong> — Hundreds of prompt refinements developed tacit 
+            expertise in prompt engineering</li>
+            <li><strong>Reflection completes the cycle</strong> — Documenting lessons learned transforms experience 
+            into transferable knowledge</li>
+            <li><strong>Systematic documentation</strong> — Capturing both successes and failures creates a 
+            research record for others working with these tools</li>
+          </ul>
+          <p>
+            The <strong>"My Journey"</strong> page documents this research process in detail, showing how 
+            hands-on experimentation with emerging AI tools produces insights unavailable through traditional 
+            research methods. The <strong>"References"</strong> section grounds this approach in established 
+            PaR scholarship by Robin Nelson, Donald Schön, and others.
+          </p>
+        </motion.div>
+
       </motion.div>
     </motion.div>
   );

@@ -24,6 +24,44 @@ const ReferencesSection = () => {
       </div>
 
       <div className="card">
+        <h3>Research Methodology: Practice as Research</h3>
+
+        <h4>Robin Nelson - "Practice as Research in the Arts" (2013)</h4>
+        <p>
+          This project employs Practice as Research (PaR) methodology, where creative practice itself 
+          generates knowledge. Nelson's framework of "know-how" (tacit knowledge gained through practice) 
+          directly applies to my experimentation with AI video generation tools documented in "My Journey."
+        </p>
+        <p>
+          <strong>Application:</strong> Each tool test, failed generation, and workflow iteration produced 
+          insights that couldn't be gained through secondary research alone. The systematic documentation 
+          of Sora 2's inconsistencies, Veo3.1's character reliability, and other models' limitations 
+          represents emergent knowledge from sustained creative practice.
+        </p>
+
+        <h4>Donald Schön - "The Reflective Practitioner" (1983)</h4>
+        <p>
+          Schön's concept of "reflection-in-action" describes how practitioners think while doing, making 
+          real-time adjustments based on emerging results. My iterative testing process—where each AI 
+          generation informed immediate decisions about prompt engineering and workflow adaptation—exemplifies 
+          this reflective practice.
+        </p>
+        <p>
+          <strong>Application:</strong> The development of systematic prompt templates for Veo3.1 and the 
+          hybrid workflow combining multiple models emerged through reflective experimentation, not 
+          predetermined planning.
+        </p>
+
+        <h4>Estelle Barrett & Barbara Bolt - "Practice as Research: Approaches to Creative Arts Enquiry" (2010)</h4>
+        <p>
+          Barrett and Bolt argue that practice-led research produces different kinds of knowledge than 
+          traditional academic research. This project demonstrates how hands-on engagement with emerging 
+          AI tools reveals technical limitations, workflow optimizations, and creative possibilities 
+          unavailable through theoretical analysis alone.
+        </p>
+      </div>
+
+      <div className="card">
         <h3>Interactive Storytelling Theory</h3>
 
         <h4>Janet Murray - "Hamlet on the Holodeck"</h4>

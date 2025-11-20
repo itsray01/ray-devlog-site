@@ -57,6 +57,37 @@ const MyJourney = () => {
           </p>
         </motion.div>
 
+        {/* Practice as Research Framework */}
+        <motion.div
+          className="card note"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          style={{ 
+            background: 'linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(138, 43, 226, 0.02) 100%)',
+            borderLeft: '4px solid #8a2be2'
+          }}
+        >
+          <h3>Practice as Research: Learning Through Making</h3>
+          <p>
+            This documentation follows a <strong>Practice as Research (PaR)</strong> methodology, where the 
+            act of creating with AI tools generates knowledge that couldn't be gained through theory alone.
+          </p>
+          <p>
+            Rather than just reading about AI video generation, I learned by:
+          </p>
+          <ul className="bullets">
+            <li><strong>Iterative experimentation</strong> — Testing multiple models to understand their capabilities</li>
+            <li><strong>Documenting failures</strong> — Recording what doesn't work is as valuable as successes</li>
+            <li><strong>Reflective practice</strong> — Each generation informed the next, building tacit knowledge</li>
+            <li><strong>Systematic comparison</strong> — Side-by-side testing revealed patterns invisible in marketing</li>
+          </ul>
+          <p>
+            The knowledge documented here emerged from hundreds of hours of hands-on practice—trial, error, 
+            refinement, and discovery. This is research through making.
+          </p>
+        </motion.div>
+
         {/* The Tool Graveyard */}
         <motion.article
           className="card note"
