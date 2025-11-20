@@ -1661,8 +1661,10 @@ html {
 }
 
 .lightbox-content {
-  background: rgba(0, 0, 0, 0.95);
-  padding: 20px;
+  position: relative;
+  background: linear-gradient(135deg, #8a2be2, #6b21a8, #a855f7, #8a2be2);
+  padding: 3px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1674,18 +1676,20 @@ html {
   max-height: 85vh;
   object-fit: contain;
   display: block;
+  border-radius: 5px;
+  background: #000;
 }
 
 .lightbox-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  background: rgba(30, 30, 30, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  top: -15px;
+  right: -15px;
+  width: 36px;
+  height: 36px;
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid #8a2be2;
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1695,7 +1699,7 @@ html {
 }
 
 .lightbox-close:hover {
-  background: rgba(50, 50, 50, 0.95);
+  background: #8a2be2;
   color: white;
   transform: scale(1.1);
 }

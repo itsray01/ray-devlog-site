@@ -76,17 +76,17 @@ const StoryboardSection = () => {
           aria-modal="true"
           aria-label="Image lightbox"
         >
-          <button
-            className="lightbox-close"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightboxImage(null);
-            }}
-            aria-label="Close lightbox"
-          >
-            <X size={20} strokeWidth={2} />
-          </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="lightbox-close"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxImage(null);
+              }}
+              aria-label="Close lightbox"
+            >
+              <X size={20} strokeWidth={2} />
+            </button>
             <img src={lightboxImage.src} alt={lightboxImage.title} />
           </div>
           <div className="lightbox-caption">
