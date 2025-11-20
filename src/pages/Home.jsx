@@ -108,8 +108,20 @@ const Home = () => {
         transition={pageTransition}
       >
         <div className="loading-container">
-          <h1>Loading Devlog...</h1>
-          <p>Fetching latest entries...</p>
+          <div className="loading-spinner" />
+          <motion.h1
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Loading Devlog...
+          </motion.h1>
+          <motion.p>
+            Fetching latest entries
+            <motion.span
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1] }}
+            >...</motion.span>
+          </motion.p>
         </div>
       </motion.div>
     );
