@@ -23,6 +23,12 @@ const Header = () => {
           Home
         </Link>
         <Link 
+          to="/my-journey" 
+          className={isActive('/my-journey') ? 'active' : ''}
+        >
+          My Journey So Far
+        </Link>
+        <Link 
           to="/assets" 
           className={isActive('/assets') ? 'active' : ''}
         >
