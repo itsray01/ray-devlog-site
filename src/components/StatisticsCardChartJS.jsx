@@ -205,8 +205,11 @@ const StatisticsCardChartJS = ({
 
     return (
       <div style={{ height: '150px', position: 'relative' }}>
-        <Doughnut data={data} options={options} />
-        {/* Center text overlay - z-index 1 to stay behind tooltip */}
+        {/* Canvas wrapper with higher z-index */}
+        <div style={{ position: 'relative', zIndex: 10, width: '100%', height: '100%' }}>
+          <Doughnut data={data} options={options} />
+        </div>
+        {/* Center text overlay - lower z-index to stay behind tooltip */}
         <div
           style={{
             position: 'absolute',
