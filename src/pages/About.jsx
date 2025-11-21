@@ -11,24 +11,34 @@ import timelineData from '../../data/timeline.json';
 const About = () => {
 
   return (
-    <motion.div
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-      className="page-container"
-      id="about"
-    >
+    <>
+      {/* Skip Link for Accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       <motion.div
-        className="page-header"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
+        transition={pageTransition}
+        className="page-container"
+        id="about"
+        role="main"
+        aria-label="Main content"
       >
-        <h1>About This Project</h1>
-        <p className="page-subtitle">The story behind the logbook</p>
-      </motion.div>
+        <div id="main-content"></div>
+
+        <motion.header
+          className="page-header"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h1>About This Project</h1>
+          <p className="page-subtitle">The story behind the logbook</p>
+        </motion.header>
 
       {/* Project Timeline Section */}
       <motion.section
@@ -37,9 +47,10 @@ const About = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
+        aria-labelledby="timeline-heading"
       >
         <div className="card">
-          <h2>Project Timeline</h2>
+          <h2 id="timeline-heading">Project Timeline</h2>
           <p className="page-subtitle" style={{ marginBottom: '1.5rem' }}>
             Key milestones and development phases
           </p>
@@ -47,11 +58,12 @@ const About = () => {
         </div>
       </motion.section>
 
-      <motion.div
+      <motion.section
         className="content-section"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
+        aria-label="Project information"
       >
         <motion.div 
           className="card"
@@ -133,8 +145,9 @@ const About = () => {
           </p>
         </motion.div>
 
+      </motion.section>
       </motion.div>
-    </motion.div>
+    </>)
   );
 };
 

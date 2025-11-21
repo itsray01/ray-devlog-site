@@ -1,42 +1,8 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { motion } from 'framer-motion';
-
-// Move animation variants outside component
-const pageVariants = {
-  initial: { opacity: 0, scale: 0.95 },
-  in: { opacity: 1, scale: 1 },
-  out: { opacity: 0, scale: 1.05 }
-};
-
-const pageTransition = {
-  type: "tween",
-  ease: "anticipate",
-  duration: 0.4
-};
-
-// Static data moved outside component
-const EXTRA_ITEMS = [
-  {
-    title: "Behind the Scenes",
-    desc: "Process videos, tool comparisons, and creative decisions.",
-    icon: "🎬"
-  },
-  {
-    title: "Research & Reading",
-    desc: "Articles, papers, and media that influenced the project.",
-    icon: "📚"
-  },
-  {
-    title: "Interactive Prototypes",
-    desc: "Early branching narrative experiments and UI tests.",
-    icon: "🎮"
-  },
-  {
-    title: "Outtakes & Experiments",
-    desc: "Failed experiments, interesting accidents, and alternative directions.",
-    icon: "✨"
-  }
-];
+import { pageVariants, pageTransition } from '../constants/animations';
+import PlaceholderCard from '../components/PlaceholderCard';
+import { EXTRA_ITEMS } from '../config/extrasContent';
 
 /**
  * Extras page - bonus content and additional resources
@@ -45,50 +11,51 @@ const EXTRA_ITEMS = [
 const Extras = () => {
 
   return (
-    <motion.div
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-      className="page-container"
-      id="extras"
-    >
+    <>
+      {/* Skip Link for Accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       <motion.div
-        className="page-header"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
+        transition={pageTransition}
+        className="page-container"
+        id="extras"
+        role="main"
+        aria-label="Main content"
       >
-        <h1>Extras</h1>
-        <p className="page-subtitle">Bonus content, experiments, and explorations</p>
-      </motion.div>
+        <div id="main-content"></div>
+
+        <motion.header
+          className="page-header"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h1>Extras</h1>
+          <p className="page-subtitle">Bonus content, experiments, and explorations</p>
+        </motion.header>
 
       <motion.section
         className="content-section"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
+        aria-label="Extras content categories"
       >
         <div className="content-grid">
         {EXTRA_ITEMS.map((item, index) => (
-          <motion.div
+          <PlaceholderCard
             key={item.title}
-            className="card extra-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
-            whileHover={{ 
-              scale: 1.03,
-              boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
-              transition: { duration: 0.2 }
-            }}
-          >
-            <div className="extra-icon">{item.icon}</div>
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
-            <div className="extra-placeholder">Coming Soon</div>
-          </motion.div>
+            title={item.title}
+            description={item.desc}
+            icon={item.icon}
+            delay={0.3 + index * 0.1}
+          />
         ))}
 
         <motion.div
@@ -101,6 +68,8 @@ const Extras = () => {
             boxShadow: "0 0 40px rgba(138, 43, 226, 0.4)",
             transition: { duration: 0.2 }
           }}
+          role="note"
+          aria-label="Future content announcement"
         >
           <h2>More to Come</h2>
           <p>
@@ -110,7 +79,8 @@ const Extras = () => {
         </motion.div>
         </div>
       </motion.section>
-    </motion.div>
+      </motion.div>
+    </>)
   );
 };
 

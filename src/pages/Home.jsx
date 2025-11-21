@@ -1,10 +1,12 @@
-import { lazy, Suspense, useMemo } from 'react';
+import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SearchBar from '../components/SearchBar';
 import ReadingProgress from '../components/ReadingProgress';
+import ErrorBoundary from '../components/ErrorBoundary';
 import useDevlog from '../hooks/useDevlog';
 import { pageVariants, pageTransition } from '../constants/animations';
+import { SEARCHABLE_CONTENT } from '../config/searchableContent';
 
 // Lazy load all section components for better code splitting
 const OverviewSection = lazy(() => import('../components/sections/OverviewSection'));
@@ -20,20 +22,27 @@ const ReferencesSection = lazy(() => import('../components/sections/ReferencesSe
 
 // Loading fallback component
 const SectionLoader = () => (
-  <div style={{
-    padding: '3rem 0',
-    textAlign: 'center',
-    color: 'var(--muted)'
-  }}>
-    <div style={{
-      width: '40px',
-      height: '40px',
-      border: '4px solid rgba(138, 43, 226, 0.2)',
-      borderTop: '4px solid #8a2be2',
-      borderRadius: '50%',
-      animation: 'spin 1s linear infinite',
-      margin: '0 auto 1rem'
-    }} />
+  <div 
+    role="status" 
+    aria-label="Loading section"
+    style={{
+      padding: '3rem 0',
+      textAlign: 'center',
+      color: 'var(--muted)'
+    }}
+  >
+    <div 
+      aria-hidden="true"
+      style={{
+        width: '40px',
+        height: '40px',
+        border: '4px solid rgba(138, 43, 226, 0.2)',
+        borderTop: '4px solid #8a2be2',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+        margin: '0 auto 1rem'
+      }} 
+    />
     <p>Loading section...</p>
   </div>
 );
@@ -45,58 +54,6 @@ const SectionLoader = () => (
 const Home = () => {
   const { entries, loading, error } = useDevlog();
 
-  // Prepare searchable content from all sections
-  const searchableContent = useMemo(() => [
-    {
-      sectionId: 'overview',
-      title: 'Project Overview',
-      content: 'Echoes of Control interactive dystopian film AI dominance human agency moral choice',
-      tags: ['overview', 'introduction', 'project']
-    },
-    {
-      sectionId: 'inspiration',
-      title: 'Inspiration',
-      content: 'Black Mirror Bandersnatch Stanley Parable Portal Blade Runner interactive films games',
-      tags: ['inspiration', 'references', 'games', 'films']
-    },
-    {
-      sectionId: 'moodboard',
-      title: 'Moodboard',
-      content: 'Visual tone cold industrial labyrinth amber blue lighting palette textures',
-      tags: ['moodboard', 'visual', 'design']
-    },
-    {
-      sectionId: 'storyboard',
-      title: 'Storyboard',
-      content: 'Shot planning frames key beats blocking lighting emotional pacing',
-      tags: ['storyboard', 'planning', 'shots']
-    },
-    {
-      sectionId: 'story-development',
-      title: 'Story Development',
-      content: 'Echo Maze Protocol narrative design three-act structure looping mechanics timed decisions',
-      tags: ['story', 'narrative', 'development', 'design']
-    },
-    {
-      sectionId: 'branching',
-      title: 'Branching Narrative',
-      content: 'Interactive story paths decision points alternative routes timeline',
-      tags: ['branching', 'interactive', 'choices']
-    },
-    {
-      sectionId: 'production',
-      title: 'Production & Reflection',
-      content: 'Milestones playtesting iteration asset generation failures learnings',
-      tags: ['production', 'reflection', 'process']
-    },
-    {
-      sectionId: 'references',
-      title: 'References',
-      content: 'Janet Murray Aarseth Ryan Bostrom Russell theoretical foundations course objectives',
-      tags: ['references', 'theory', 'research']
-    }
-  ], []);
-
   if (loading) {
     return (
       <motion.div
@@ -105,9 +62,11 @@ const Home = () => {
         animate="in"
         variants={pageVariants}
         transition={pageTransition}
+        role="main"
+        aria-label="Main content"
       >
-        <div className="loading-container">
-          <div className="loading-spinner" />
+        <div className="loading-container" role="status" aria-live="polite">
+          <div className="loading-spinner" aria-hidden="true" />
           <motion.h1
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -115,10 +74,11 @@ const Home = () => {
             Loading Devlog...
           </motion.h1>
           <motion.p>
-            Fetching latest entries
+            Fetching latest entries from development log
             <motion.span
               animate={{ opacity: [0, 1, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1] }}
+              aria-hidden="true"
             >...</motion.span>
           </motion.p>
         </div>
@@ -134,8 +94,10 @@ const Home = () => {
         animate="in"
         variants={pageVariants}
         transition={pageTransition}
+        role="main"
+        aria-label="Main content"
       >
-        <div className="error-container">
+        <div className="error-container" role="alert" aria-live="assertive">
           <h1>Error Loading Devlog</h1>
           <p>{error}</p>
         </div>
@@ -145,6 +107,11 @@ const Home = () => {
 
   return (
     <>
+      {/* Skip Link for Accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       {/* Reading Progress Indicator */}
       <ReadingProgress />
 
@@ -156,9 +123,12 @@ const Home = () => {
         transition={pageTransition}
         className="page-container"
         id="home"
+        role="main"
+        aria-label="Main content"
       >
+        <div id="main-content"></div>
         {/* Page Header with Search */}
-        <motion.div
+        <motion.header
           className="page-header"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -169,34 +139,46 @@ const Home = () => {
               <h1>Digital Project Logbook</h1>
               <p className="page-subtitle">Documenting the journey of creating an interactive dystopian film</p>
             </div>
-            <SearchBar searchableContent={searchableContent} />
+            <SearchBar searchableContent={SEARCHABLE_CONTENT} />
           </div>
-        </motion.div>
+        </motion.header>
 
         {/* Lazy-loaded sections */}
-        <Suspense fallback={<SectionLoader />}>
-          <OverviewSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <OverviewSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<SectionLoader />}>
-          <InspirationSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <InspirationSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<SectionLoader />}>
-          <MoodboardSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <MoodboardSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<SectionLoader />}>
-          <StoryboardSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <StoryboardSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<SectionLoader />}>
-          <StoryDevelopmentSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <StoryDevelopmentSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<SectionLoader />}>
-          <BranchingSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <BranchingSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* AI Video Generation Journey - Link to dedicated page */}
         <motion.section
@@ -205,50 +187,41 @@ const Home = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
+          aria-label="AI video generation journey section"
         >
-          <Link to="/my-journey" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div className="card" style={{ 
-              background: 'linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(138, 43, 226, 0.05) 100%)',
-              border: '2px solid rgba(138, 43, 226, 0.3)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
+          <Link 
+            to="/my-journey" 
+            style={{ textDecoration: 'none', color: 'inherit' }}
+            aria-label="Read my journey through AI video generation - detailed documentation of testing 5 different AI models"
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.borderColor = 'rgba(138, 43, 226, 0.5)';
+              import('../pages/MyJourney'); // Prefetch on hover
             }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.borderColor = 'rgba(138, 43, 226, 0.3)';
-            }}
-            >
+          >
+            <div className="card journey-card">
               <h2 style={{ marginBottom: '1rem' }}>My Journey Through AI Video Generation</h2>
               <p style={{ marginBottom: '1.5rem' }}>
                 I tested 5 different AI video generation models—Sora 2, Veo3.1, Wan2.5, Higgsfield, 
                 and Seedance. Most of them failed in ways I didn't expect. Here's what I learned from 
                 weeks of experimentation, burned credits, and frustrating failures.
               </p>
-              <div style={{ 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '0.5rem',
-                color: '#8a2be2',
-                fontWeight: '600',
-                fontSize: '1.05rem'
-              }}>
+              <div className="journey-card-cta">
                 Read My Journey →
               </div>
             </div>
           </Link>
         </motion.section>
 
-        <Suspense fallback={<SectionLoader />}>
-          <ProductionSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <ProductionSection />
+          </Suspense>
+        </ErrorBoundary>
 
-        <Suspense fallback={<SectionLoader />}>
-          <ReferencesSection />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <ReferencesSection />
+          </Suspense>
+        </ErrorBoundary>
 
         {/* Footer */}
         <motion.footer

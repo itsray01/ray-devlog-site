@@ -2,7 +2,22 @@ import { motion } from 'framer-motion';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
 import StatisticsDashboard from '../components/StatisticsDashboard';
+import TableOfContents from '../components/TableOfContents';
 import { pageVariants, pageTransition } from '../constants/animations';
+
+// Table of Contents sections
+const TOC_SECTIONS = [
+  { id: 'statistics', title: 'Statistics' },
+  { id: 'introduction', title: 'Introduction' },
+  { id: 'practice-as-research', title: 'Practice as Research' },
+  { id: 'tool-graveyard', title: 'Tools Tested' },
+  { id: 'sora2', title: 'Sora 2' },
+  { id: 'veo31', title: 'Veo 3.1' },
+  { id: 'wan25', title: 'Wan 2.5' },
+  { id: 'higgsfield', title: 'Higgsfield' },
+  { id: 'seedance', title: 'Seedance' },
+  { id: 'reflections', title: 'Reflections' }
+];
 
 /**
  * My Journey So Far - Dedicated page for AI video generation experiments
@@ -11,6 +26,11 @@ import { pageVariants, pageTransition } from '../constants/animations';
 const MyJourney = () => {
   return (
     <>
+      {/* Skip Link for Accessibility */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+
       {/* Reading Progress Indicator */}
       <ReadingProgress />
 
@@ -22,9 +42,13 @@ const MyJourney = () => {
         transition={pageTransition}
         className="page-container"
         id="my-journey"
+        role="main"
+        aria-label="Main content"
       >
+        <div id="main-content"></div>
+
         {/* Page Header */}
-        <motion.div
+        <motion.header
           className="page-header"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -34,13 +58,19 @@ const MyJourney = () => {
           <p className="page-subtitle">
             Tools, Failures, and Hard-Won Lessons from AI Video Generation
           </p>
-        </motion.div>
+        </motion.header>
+
+        {/* Table of Contents */}
+        <TableOfContents sections={TOC_SECTIONS} />
 
         {/* Statistics Dashboard */}
-        <StatisticsDashboard />
+        <div id="statistics">
+          <StatisticsDashboard />
+        </div>
 
         {/* Introduction */}
-        <motion.div
+        <motion.article
+          id="introduction"
           className="card"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,20 +85,18 @@ const MyJourney = () => {
             Here's the real story—the failures, the frustrations, and what I actually learned from
             trying to make this work.
           </p>
-        </motion.div>
+        </motion.article>
 
         {/* Practice as Research Framework */}
-        <motion.div
-          className="card note"
+        <motion.article
+          id="practice-as-research"
+          className="card note par-note"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          style={{ 
-            background: 'linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(138, 43, 226, 0.02) 100%)',
-            borderLeft: '4px solid #8a2be2'
-          }}
+          aria-labelledby="par-heading"
         >
-          <h3>Practice as Research: Learning Through Making</h3>
+          <h3 id="par-heading">Practice as Research: Learning Through Making</h3>
           <p>
             This documentation follows a <strong>Practice as Research (PaR)</strong> methodology, where the 
             act of creating with AI tools generates knowledge that couldn't be gained through theory alone.
@@ -86,16 +114,18 @@ const MyJourney = () => {
             The knowledge documented here emerged from hundreds of hours of hands-on practice—trial, error, 
             refinement, and discovery. This is research through making.
           </p>
-        </motion.div>
+        </motion.article>
 
         {/* The Tool Graveyard */}
         <motion.article
+          id="tool-graveyard"
           className="card note"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
+          aria-labelledby="tool-graveyard-heading"
         >
-          <h3>The Tool Graveyard: What I Actually Tried</h3>
+          <h3 id="tool-graveyard-heading">The Tool Graveyard: What I Actually Tried</h3>
           <p>
             I tested multiple AI video generation models through two main platforms:
           </p>
@@ -116,13 +146,14 @@ const MyJourney = () => {
         </motion.article>
 
         {/* Tool Cards Section */}
-        <div style={{ marginTop: '2rem' }}>
-          <ToolLessonCard
-            title="Sora 2: Inconsistent Generation and Evolving Content Policies"
-            videoUrl="/videos/sora2-example.mp4"
-            videoType="mp4"
-            delay={0.5}
-          >
+        <section style={{ marginTop: '2rem' }} aria-label="AI tool reviews">
+          <div id="sora2">
+            <ToolLessonCard
+              title="Sora 2: Inconsistent Generation and Evolving Content Policies"
+              videoUrl="/videos/sora2-example.mp4"
+              videoType="mp4"
+              delay={0.5}
+            >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
               <strong>Testing Period:</strong> Week 1 (Early October 2024)
             </p>
@@ -154,14 +185,16 @@ const MyJourney = () => {
               inconsistency and evolving policies taught me to build a flexible, multi-tool hybrid workflow 
               rather than relying on a single platform.
             </p>
-          </ToolLessonCard>
+            </ToolLessonCard>
+          </div>
 
-          <ToolLessonCard
-            title="Veo3.1: Reliable Character Generation with Technical Limitations"
-            videoUrl="/videos/veo31-example.mp4"
-            videoType="mp4"
-            delay={0.6}
-          >
+          <div id="veo31">
+            <ToolLessonCard
+              title="Veo3.1: Reliable Character Generation with Technical Limitations"
+              videoUrl="/videos/veo31-example.mp4"
+              videoType="mp4"
+              delay={0.6}
+            >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
               <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2024)
             </p>
@@ -192,14 +225,16 @@ const MyJourney = () => {
               template system for describing lighting, mood, and character positioning that produced more 
               consistent results across multiple shots.
             </p>
-          </ToolLessonCard>
+            </ToolLessonCard>
+          </div>
 
-          <ToolLessonCard
-            title="Wan2.5: Speed Over Quality"
-            videoUrl="/videos/wan25-example.mp4"
-            videoType="mp4"
-            delay={0.7}
-          >
+          <div id="wan25">
+            <ToolLessonCard
+              title="Wan2.5: Speed Over Quality"
+              videoUrl="/videos/wan25-example.mp4"
+              videoType="mp4"
+              delay={0.7}
+            >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
               <strong>Testing Period:</strong> Week 2 (Mid October 2024)
             </p>
@@ -226,14 +261,16 @@ const MyJourney = () => {
               longer for quality that actually works for your project. Speed doesn't compensate for unusable 
               output.
             </p>
-          </ToolLessonCard>
+            </ToolLessonCard>
+          </div>
 
-          <ToolLessonCard
-            title="Higgsfield: Platform Access with Mixed Results"
-            videoUrl="/videos/higgsfield-example.mp4"
-            videoType="mp4"
-            delay={0.8}
-          >
+          <div id="higgsfield">
+            <ToolLessonCard
+              title="Higgsfield: Platform Access with Mixed Results"
+              videoUrl="/videos/higgsfield-example.mp4"
+              videoType="mp4"
+              delay={0.8}
+            >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
               <strong>Testing Period:</strong> Week 3 (Late October 2024)
             </p>
@@ -253,14 +290,16 @@ const MyJourney = () => {
             <p>
               <strong>Key Lesson:</strong> A good platform with multiple model options is invaluable for experimentation, even if the platform's proprietary model doesn't meet your needs.
             </p>
-          </ToolLessonCard>
+            </ToolLessonCard>
+          </div>
 
-          <ToolLessonCard
-            title="Seedance: Creative Style, Limited Control"
-            videoUrl="/videos/seedance-example.mp4"
-            videoType="mp4"
-            delay={0.9}
-          >
+          <div id="seedance">
+            <ToolLessonCard
+              title="Seedance: Creative Style, Limited Control"
+              videoUrl="/videos/seedance-example.mp4"
+              videoType="mp4"
+              delay={0.9}
+            >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
               <strong>Testing Period:</strong> Week 3 (Late October 2024)
             </p>
@@ -284,19 +323,22 @@ const MyJourney = () => {
             <p>
               <strong>Key Lesson:</strong> Know when artistic interpretation helps vs. when you need literal prompt adherence. Not every tool fits every use case.
             </p>
-          </ToolLessonCard>
-        </div>
+            </ToolLessonCard>
+          </div>
+        </section>
 
         {/* Reflection Section */}
-        <motion.div
+        <motion.article
+          id="reflections"
           className="card"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           style={{ marginTop: '3rem' }}
+          aria-labelledby="reflections-heading"
         >
-          <h2>Overall Reflections (as of November 2024)</h2>
+          <h2 id="reflections-heading">Overall Reflections (as of November 2024)</h2>
           <p>
             Testing five different AI video generation models taught me that there's no single perfect tool. 
             Each model has strengths and weaknesses, and understanding these trade-offs became crucial for 
@@ -321,7 +363,7 @@ const MyJourney = () => {
             and Sora 2 remains the foundation of my production pipeline. Each generation teaches something 
             new about prompt engineering and how these models interpret creative direction.
           </p>
-        </motion.div>
+        </motion.article>
 
         {/* Footer */}
         <motion.footer

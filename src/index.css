@@ -2276,6 +2276,126 @@ html {
   margin-top: 1rem;
 }
 
+/* --- Journey Card Styles (Home page link to MyJourney) --- */
+.journey-card {
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(138, 43, 226, 0.05) 100%);
+  border: 2px solid rgba(138, 43, 226, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.journey-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(138, 43, 226, 0.5);
+}
+
+.journey-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8a2be2;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* --- Skip Link for Accessibility --- */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--accent);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 8px;
+  z-index: 10000;
+  font-weight: 600;
+  transition: top 0.3s ease;
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+}
+
+.skip-link:focus {
+  top: 20px;
+  outline: 3px solid var(--accent-secondary);
+  outline-offset: 2px;
+}
+
+/* --- Table of Contents Styles --- */
+.table-of-contents {
+  position: sticky;
+  top: 2rem;
+  background: var(--panel-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+}
+
+.table-of-contents h3 {
+  font-family: 'Iceberg', sans-serif;
+  color: var(--accent);
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toc-list li {
+  margin: 0;
+}
+
+.toc-link {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+}
+
+.toc-link:hover {
+  color: var(--ink);
+  background: rgba(138, 43, 226, 0.1);
+  border-left-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.toc-link.active {
+  color: var(--accent);
+  background: rgba(138, 43, 226, 0.15);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .table-of-contents {
+    position: relative;
+    top: 0;
+  }
+}
+
+/* --- Practice as Research Note Box --- */
+.par-note {
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(138, 43, 226, 0.02) 100%);
+  border-left: 4px solid #8a2be2;
+  padding: 1.75rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
 /* ===========================
    Chart.js Custom Styling
    =========================== */
