@@ -59,7 +59,7 @@ const Assets = () => {
         </div>
       </motion.section>
       </motion.div>
-    </>)
+    </>
   );
 };
 
