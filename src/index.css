@@ -497,7 +497,7 @@ main > * {
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  scroll-margin-top: 20px;
+  scroll-margin-top: 120px;
 }
 
 /* TOC target sections - ensures scroll offset for all navigable sections */
@@ -511,7 +511,7 @@ main > * {
 #higgsfield,
 #seedance,
 #reflections {
-  scroll-margin-top: 20px;
+  scroll-margin-top: 120px;
 }
 
 /* Paragraph styles in cards */
@@ -2492,7 +2492,7 @@ html {
   backdrop-filter: blur(10px);
   margin: 2.5rem 0;
   transition: all 0.3s ease;
-  scroll-margin-top: 20px;
+  scroll-margin-top: 120px;
 }
 
 .theory-card:hover {
