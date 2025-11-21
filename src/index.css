@@ -112,7 +112,7 @@ body {
 
 /* --- Sidebar --- */
 .sidebar {
-  width: 200px;
+  width: 260px;
   background: var(--panel-glass);
   backdrop-filter: blur(30px) saturate(180%);
   border-right: 1px solid var(--glass-border);
@@ -388,7 +388,7 @@ body {
   justify-content: center; /* Center content horizontally */
   align-items: flex-start; /* Align to top */
   box-sizing: border-box;
-  margin-left: 200px; /* Offset for sidebar */
+  margin-left: 260px; /* Offset for sidebar */
   max-width: 100%; /* Never exceed container width */
   overflow-x: hidden; /* Prevent horizontal overflow */
 }
@@ -974,11 +974,11 @@ footer {
 
 @media (min-width: 601px) and (max-width: 767px) {
   .sidebar {
-    width: 220px;
+    width: 286px;
   }
 
   .main-content {
-    margin-left: 220px;
+    margin-left: 286px;
     padding: 2rem;
     justify-content: center; /* Ensure centering on medium screens */
   }
