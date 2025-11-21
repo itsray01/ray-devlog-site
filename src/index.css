@@ -173,11 +173,30 @@ body {
   content: '';
   position: absolute;
   bottom: -8px;
-  left: 0;
-  width: 60px;
+  left: 50%;
+  transform: translateX(-50%);
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-primary), transparent);
-  box-shadow: var(--glow-purple);
+  background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), var(--accent-primary), transparent);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+  animation: lineBreath 3s ease-in-out infinite;
+}
+
+@keyframes lineBreath {
+  0% {
+    width: 40%;
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+  }
+  50% {
+    width: 100%;
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+  }
+  100% {
+    width: 40%;
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+  }
 }
 
 .sidebar-nav {
