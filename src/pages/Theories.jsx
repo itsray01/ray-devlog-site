@@ -88,14 +88,13 @@ const Theories = () => {
 
         {/* Research Framework Section */}
         <motion.article
-          id="research-framework"
           className="card theory-card gradient-research"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <div className="theory-header">
+          <div className="theory-header" id="research-framework">
             <FaBrain className="theory-icon" />
             <h2>Research Methodology: Practice as Research</h2>
           </div>
@@ -142,14 +141,13 @@ const Theories = () => {
 
         {/* AI & Ethics Section */}
         <motion.article
-          id="ai-ethics"
           className="card theory-card gradient-ai"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <div className="theory-header">
+          <div className="theory-header" id="ai-ethics">
             <FaRobot className="theory-icon" />
             <h2>AI & Ethics</h2>
           </div>
@@ -218,14 +216,13 @@ const Theories = () => {
 
         {/* Interactive Media Theory Section */}
         <motion.article
-          id="interactive-media"
           className="card theory-card gradient-interactive"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <div className="theory-header">
+          <div className="theory-header" id="interactive-media">
             <FaGamepad className="theory-icon" />
             <h2>Interactive Media Theory</h2>
           </div>
@@ -302,14 +299,13 @@ const Theories = () => {
 
         {/* Influences Section */}
         <motion.article
-          id="influences"
           className="card theory-card gradient-influences"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <div className="theory-header">
+          <div className="theory-header" id="influences">
             <FaFilm className="theory-icon" />
             <h2>Film & Media Influences</h2>
           </div>
@@ -331,14 +327,13 @@ const Theories = () => {
 
         {/* Course Connection Section */}
         <motion.article
-          id="course-connection"
           className="card theory-card gradient-course"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <div className="theory-header">
+          <div className="theory-header" id="course-connection">
             <FaGraduationCap className="theory-icon" />
             <h2>Connection to Course Objectives</h2>
           </div>
