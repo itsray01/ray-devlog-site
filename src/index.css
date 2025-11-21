@@ -2448,6 +2448,248 @@ html {
 }
 
 /* ===========================
+   Theory Cards - Modern Aesthetic
+   =========================== */
+
+.theory-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  margin: 2.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.theory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Gradient backgrounds for different categories */
+.gradient-research {
+  background: linear-gradient(135deg, 
+    rgba(138, 43, 226, 0.12) 0%, 
+    rgba(75, 0, 130, 0.08) 50%,
+    rgba(25, 25, 35, 0.95) 100%);
+  border-left: 4px solid #8a2be2;
+}
+
+.gradient-ai {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.12) 0%, 
+    rgba(37, 99, 235, 0.08) 50%,
+    rgba(25, 25, 35, 0.95) 100%);
+  border-left: 4px solid #3b82f6;
+}
+
+.gradient-interactive {
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.12) 0%, 
+    rgba(219, 39, 119, 0.08) 50%,
+    rgba(25, 25, 35, 0.95) 100%);
+  border-left: 4px solid #ec4899;
+}
+
+.gradient-influences {
+  background: linear-gradient(135deg, 
+    rgba(251, 191, 36, 0.12) 0%, 
+    rgba(245, 158, 11, 0.08) 50%,
+    rgba(25, 25, 35, 0.95) 100%);
+  border-left: 4px solid #fbbf24;
+}
+
+.gradient-course {
+  background: linear-gradient(135deg, 
+    rgba(52, 211, 153, 0.12) 0%, 
+    rgba(16, 185, 129, 0.08) 50%,
+    rgba(25, 25, 35, 0.95) 100%);
+  border-left: 4px solid #34d399;
+}
+
+.theory-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theory-icon {
+  font-size: 2.5rem;
+  color: #8a2be2;
+  filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.5));
+}
+
+.gradient-ai .theory-icon {
+  color: #3b82f6;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+}
+
+.gradient-interactive .theory-icon {
+  color: #ec4899;
+  filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5));
+}
+
+.gradient-influences .theory-icon {
+  color: #fbbf24;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+}
+
+.gradient-course .theory-icon {
+  color: #34d399;
+  filter: drop-shadow(0 0 10px rgba(52, 211, 153, 0.5));
+}
+
+.theory-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.subsection-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.3rem;
+  color: #c084fc;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.subsection-icon {
+  font-size: 1.4rem;
+  color: #8a2be2;
+}
+
+.author-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.author-card:hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(138, 43, 226, 0.3);
+  transform: translateX(5px);
+}
+
+.author-icon {
+  font-size: 1.5rem;
+  color: #8a2be2;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.author-card h3 {
+  color: #c084fc;
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+}
+
+.citation {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0.25rem 0 0.75rem 0;
+}
+
+.author-card blockquote {
+  margin: 0.75rem 0 0 0;
+  padding: 0;
+  border: none;
+  color: #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  font-style: normal;
+}
+
+.influence-card {
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border-left: 3px solid #fbbf24;
+  transition: all 0.3s ease;
+}
+
+.influence-card:hover {
+  background: rgba(0, 0, 0, 0.4);
+  transform: translateX(5px);
+}
+
+.influence-card h3 {
+  color: #fbbf24;
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.influence-card p {
+  margin: 0.5rem 0;
+  line-height: 1.7;
+}
+
+.objective-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.objective-card {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  transition: all 0.3s ease;
+}
+
+.objective-card:hover {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(52, 211, 153, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(52, 211, 153, 0.2);
+}
+
+.objective-card h3 {
+  color: #34d399;
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem 0;
+  font-weight: 600;
+}
+
+.objective-card p {
+  margin: 0;
+  line-height: 1.7;
+  color: #d1d5db;
+}
+
+/* Responsive adjustments for theory cards */
+@media (max-width: 767px) {
+  .theory-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .theory-icon {
+    font-size: 2rem;
+  }
+  
+  .author-card {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .objective-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
    Chart.js Custom Styling
    =========================== */
 
