@@ -66,6 +66,8 @@ body {
 
 #root {
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* --- App Container --- */
@@ -73,6 +75,8 @@ body {
   display: flex;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* --- Glassmorphism utility classes --- */
@@ -370,7 +374,6 @@ body {
 
 /* --- Main Content --- */
 .main-content {
-  margin-left: 200px;
   flex: 1;
   padding: 2rem 2rem 2rem 2rem; /* Equal padding on all sides */
   position: relative;
@@ -380,8 +383,8 @@ body {
   justify-content: center; /* Center content horizontally */
   align-items: flex-start; /* Align to top */
   box-sizing: border-box;
-  width: calc(100% - 200px); /* Account for sidebar width */
-  max-width: 100vw; /* Never exceed viewport width */
+  margin-left: 200px; /* Offset for sidebar */
+  max-width: 100%; /* Never exceed container width */
   overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
@@ -392,6 +395,16 @@ main {
   padding: 0;
   box-sizing: border-box;
   position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Ensure all direct children of main are properly constrained */
+main > * {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* --- Page Container --- */
@@ -914,12 +927,20 @@ footer {
   html, body {
     font-size: 18px;
   }
+  
+  main {
+    max-width: 1600px; /* Larger screens get more space */
+  }
 }
 
 /* Medium-large screens (standard monitors) */
 @media (min-width: 1440px) and (max-width: 1919px) {
   html, body {
     font-size: 16px;
+  }
+  
+  main {
+    max-width: 1400px;
   }
 }
 
@@ -928,6 +949,10 @@ footer {
   html, body {
     font-size: 15px;
   }
+  
+  main {
+    max-width: 1200px;
+  }
 }
 
 /* Small screens (tablets, small laptops) */
@@ -935,66 +960,64 @@ footer {
   html, body {
     font-size: 14px;
   }
+  
+  main {
+    max-width: 100%;
+    padding: 0 1.5rem;
+  }
 }
 
-@media (max-width: 860px) {
-  html, body {
-    font-size: 14px;
-  }
-  
+@media (min-width: 601px) and (max-width: 767px) {
   .sidebar {
     width: 220px;
   }
-  
+
   .main-content {
     margin-left: 220px;
-    width: calc(100% - 220px); /* Account for sidebar width on medium screens */
     padding: 2rem;
     justify-content: center; /* Ensure centering on medium screens */
   }
-  
+
   main {
     width: 100%;
     margin: 0 auto; /* Center on medium screens */
   }
-  
-  .grid-2 { 
-    grid-template-columns: 1fr; 
+
+  .grid-2 {
+    grid-template-columns: 1fr;
   }
-  
+
   .filter-row {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .filter-group {
     min-width: auto;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   html, body {
     font-size: 13px;
   }
   
   .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid #1c1f26;
-    padding: 1rem;
+    display: none; /* Hidden on mobile - handled by Layout component */
   }
   
   .main-content {
     margin-left: 0;
     width: 100%; /* Full width on mobile */
     padding: 1rem;
+    padding-bottom: 4rem; /* Space for mobile indicator */
     justify-content: center; /* Ensure centering on mobile */
   }
   
   main {
     width: 100%;
+    max-width: 100%;
+    padding: 0 1rem;
     margin: 0 auto; /* Center on mobile */
   }
   
@@ -1004,6 +1027,10 @@ footer {
   
   .timeline-content {
     margin-left: 50px;
+  }
+  
+  .card {
+    padding: 1.5rem; /* Slightly less padding on mobile */
   }
 }
 
@@ -1216,6 +1243,38 @@ footer {
 
 .timeline-svg .main-connector {
   animation: connectorPulse 3s ease-in-out infinite;
+}
+
+/* Timeline responsive adjustments */
+@media (max-width: 1200px) {
+  .timeline-node-container.offset-right {
+    margin-left: 100px;
+  }
+
+  .timeline-node-container.offset-left {
+    margin-right: 100px;
+  }
+
+  .timeline-row.choices-row::before {
+    width: 150px;
+  }
+
+  .timeline-row.endings-row::before {
+    width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline-node-container.offset-right,
+  .timeline-node-container.offset-left {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .timeline-row.choices-row::before,
+  .timeline-row.endings-row::before {
+    width: 100px;
+  }
 }
 
 /* --- Premium Animation Utilities --- */

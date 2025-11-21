@@ -2,6 +2,7 @@ import { useMemo, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sidebarVariants, dropdownVariants } from '../constants/animations';
+import useViewport from '../hooks/useViewport';
 
 // Fixed import error - useMemo and useCallback must come from 'react', not 'react-router-dom'
 
@@ -27,10 +28,15 @@ const otherPages = [
 /**
  * Sidebar component with hover dropdown navigation
  * Shows page links with hover dropdown for Home sections
+ * Auto-hides on mobile devices (handled by Layout)
  * Optimized with useMemo and useCallback
  */
 const Sidebar = () => {
   const location = useLocation();
+  const { isMobile } = useViewport();
+  
+  // Don't render sidebar on mobile (Layout handles mobile navigation)
+  if (isMobile) return null;
 
   // Memoize home page check
   const isHomePage = useMemo(() => location.pathname === '/', [location.pathname]);
