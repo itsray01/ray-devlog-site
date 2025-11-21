@@ -26,7 +26,6 @@ const theoriesSections = [
 ];
 
 const otherPages = [
-  { path: '/my-journey', title: 'My Journey' },
   { path: '/about', title: 'About' },
   { path: '/assets', title: 'Assets' },
   { path: '/extras', title: 'Extras' }
