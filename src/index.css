@@ -497,6 +497,21 @@ main > * {
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  scroll-margin-top: 100px;
+}
+
+/* TOC target sections - ensures scroll offset for all navigable sections */
+#statistics,
+#introduction,
+#practice-as-research,
+#tool-graveyard,
+#sora2,
+#veo31,
+#wan25,
+#higgsfield,
+#seedance,
+#reflections {
+  scroll-margin-top: 100px;
 }
 
 /* Paragraph styles in cards */

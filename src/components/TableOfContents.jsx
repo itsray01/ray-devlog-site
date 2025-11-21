@@ -39,17 +39,17 @@ const TableOfContents = ({ sections }) => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100; // Offset from top
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      // Close dropdown first
+      setIsOpen(false);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+      // Use scrollIntoView - more reliable across different layouts
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
 
-      // Close dropdown after clicking
-      setIsOpen(false);
+      // Update URL hash
+      window.history.pushState(null, '', `#${id}`);
     }
   };
 
