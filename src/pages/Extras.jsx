@@ -80,7 +80,7 @@ const Extras = () => {
         </div>
       </motion.section>
       </motion.div>
-    </>)
+    </>
   );
 };
 
