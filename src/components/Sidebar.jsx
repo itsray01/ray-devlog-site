@@ -72,13 +72,7 @@ const Sidebar = () => {
   const handleTheoriesSectionClick = useCallback((sectionId) => {
     if (!isTheoriesPage) {
       // Navigate to theories first, then scroll
-      window.location.href = '/theories';
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
+      window.location.href = `/theories#${sectionId}`;
     } else {
       // Just scroll
       const element = document.getElementById(sectionId);

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ReadingProgress from '../components/ReadingProgress';
 import TableOfContents from '../components/TableOfContents';
@@ -17,6 +18,20 @@ const TOC_SECTIONS = [
  * Comprehensive documentation of theories, citations, and their application to the project
  */
 const Theories = () => {
+  // Handle hash navigation on page load
+  useEffect(() => {
+    const hash = window.location.hash.slice(1); // Remove the # symbol
+    if (hash) {
+      // Wait for page to render, then scroll to section
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    }
+  }, []);
+
   return (
     <>
       {/* Skip Link for Accessibility */}
