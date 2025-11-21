@@ -4,14 +4,14 @@ import { IconChevronDown } from '@tabler/icons-react';
 
 /**
  * TableOfContents - Collapsible dropdown navigation for long pages
- * Automatically highlights active section based on scroll position
- *
+ * 
  * @param {Array} sections - Array of {id, title} objects
  */
 const TableOfContents = ({ sections }) => {
   const [activeSection, setActiveSection] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
+  // Optional: IntersectionObserver for active section highlighting
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -39,10 +39,10 @@ const TableOfContents = ({ sections }) => {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      // Close dropdown first
+      // Close dropdown immediately
       setIsOpen(false);
 
-      // Use scrollIntoView - more reliable across different layouts
+      // Scroll to section with element at top of viewport
       element.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
@@ -110,4 +110,3 @@ const TableOfContents = ({ sections }) => {
 };
 
 export default TableOfContents;
-
