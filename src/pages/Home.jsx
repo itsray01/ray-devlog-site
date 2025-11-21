@@ -18,7 +18,6 @@ const BranchingSection = lazy(() => import('../components/sections/BranchingSect
 
 // Lazy load remaining sections too
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
-const ReferencesSection = lazy(() => import('../components/sections/ReferencesSection'));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -217,11 +216,36 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <ReferencesSection />
-          </Suspense>
-        </ErrorBoundary>
+        {/* Theoretical Foundations - Link to dedicated page */}
+        <motion.section
+          className="content-section"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          aria-label="Theoretical foundations section"
+        >
+          <Link 
+            to="/theories" 
+            style={{ textDecoration: 'none', color: 'inherit' }}
+            aria-label="Explore theoretical foundations - academic frameworks and research methodologies"
+            onMouseEnter={(e) => {
+              import('../pages/Theories'); // Prefetch on hover
+            }}
+          >
+            <div className="card journey-card">
+              <h2 style={{ marginBottom: '1rem' }}>Theoretical Foundations</h2>
+              <p style={{ marginBottom: '1.5rem' }}>
+                Explore the academic frameworks and theoretical concepts that inform this project—
+                from Practice as Research methodology to AI ethics, interactive horror, and 
+                authorship in AI-assisted creation.
+              </p>
+              <div className="journey-card-cta">
+                View Theories →
+              </div>
+            </div>
+          </Link>
+        </motion.section>
 
         {/* Footer */}
         <motion.footer

@@ -6,6 +6,7 @@ import ScrollToTop from './components/ScrollToTop';
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
 const MyJourney = lazy(() => import('./pages/MyJourney'));
+const Theories = lazy(() => import('./pages/Theories'));
 const Assets = lazy(() => import('./pages/Assets'));
 const About = lazy(() => import('./pages/About'));
 const Extras = lazy(() => import('./pages/Extras'));
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="my-journey" element={<MyJourney />} />
+            <Route path="theories" element={<Theories />} />
             <Route path="assets" element={<Assets />} />
             <Route path="about" element={<About />} />
             <Route path="extras" element={<Extras />} />

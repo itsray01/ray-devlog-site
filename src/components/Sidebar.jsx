@@ -14,8 +14,15 @@ const homeSections = [
   { id: 'storyboard', title: 'Storyboard' },
   { id: 'story-development', title: 'Story Development' },
   { id: 'branching', title: 'Branching Narrative' },
-  { id: 'production', title: 'Production & Reflection' },
-  { id: 'references', title: 'References' }
+  { id: 'production', title: 'Production & Reflection' }
+];
+
+const theoriesSections = [
+  { id: 'research-framework', title: 'Research Framework' },
+  { id: 'ai-ethics', title: 'AI & Ethics' },
+  { id: 'interactive-media', title: 'Interactive Media Theory' },
+  { id: 'influences', title: 'Influences' },
+  { id: 'course-connection', title: 'Course Connection' }
 ];
 
 const otherPages = [
@@ -38,10 +45,11 @@ const Sidebar = () => {
   // Don't render sidebar on mobile (Layout handles mobile navigation)
   if (isMobile) return null;
 
-  // Memoize home page check
+  // Memoize page checks
   const isHomePage = useMemo(() => location.pathname === '/', [location.pathname]);
+  const isTheoriesPage = useMemo(() => location.pathname === '/theories', [location.pathname]);
 
-  // Memoize section click handler
+  // Memoize section click handler for Home sections
   const handleSectionClick = useCallback((sectionId) => {
     if (!isHomePage) {
       // Navigate to home first, then scroll
@@ -60,6 +68,26 @@ const Sidebar = () => {
       }
     }
   }, [isHomePage]);
+
+  // Memoize section click handler for Theories sections
+  const handleTheoriesSectionClick = useCallback((sectionId) => {
+    if (!isTheoriesPage) {
+      // Navigate to theories first, then scroll
+      window.location.href = '/theories';
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      // Just scroll
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [isTheoriesPage]);
 
   return (
     <motion.aside 
@@ -105,6 +133,57 @@ const Sidebar = () => {
                       key={section.id}
                       className="dropdown-item"
                       onClick={() => handleSectionClick(section.id)}
+                      whileHover={{ x: 5, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <span className="dropdown-bullet">•</span>
+                      <span className="dropdown-text">{section.title}</span>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* My Journey Page */}
+            <Link
+              to="/my-journey"
+              className={`nav-item nav-item-main ${location.pathname === '/my-journey' ? 'active' : ''}`}
+            >
+              <motion.div
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ width: '100%' }}
+              >
+                <span className="nav-item-text">My Journey</span>
+              </motion.div>
+            </Link>
+
+            {/* Theories with hover dropdown */}
+            <div className="nav-item-container">
+              <Link
+                to="/theories"
+                className={`nav-item nav-item-main ${isTheoriesPage ? 'active' : ''}`}
+              >
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                  style={{ width: '100%' }}
+                >
+                  <span className="nav-item-text">Theories</span>
+                </motion.div>
+              </Link>
+              
+              {/* Hover dropdown */}
+              <div className="nav-dropdown">
+                <div className="dropdown-content">
+                  {theoriesSections.map((section, index) => (
+                    <motion.button
+                      key={section.id}
+                      className="dropdown-item"
+                      onClick={() => handleTheoriesSectionClick(section.id)}
                       whileHover={{ x: 5, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       initial={{ opacity: 0, x: -10 }}

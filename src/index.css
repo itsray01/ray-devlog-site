@@ -117,10 +117,12 @@ body {
   backdrop-filter: blur(30px) saturate(180%);
   border-right: 1px solid var(--glass-border);
   padding: 2rem 1.5rem;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   height: 100vh;
-  overflow: visible;
+  min-height: 100vh;
+  overflow: hidden;
   z-index: 100;
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -187,6 +189,9 @@ body {
   align-items: center;
   justify-content: flex-start;
   margin-top: 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 1rem;
 }
 
 .nav-section {
