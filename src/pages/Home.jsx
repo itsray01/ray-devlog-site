@@ -78,14 +78,23 @@ const Home = () => {
           justifyContent: 'center',
           textAlign: 'center'
         }}>
-          <div className="loading-spinner" aria-hidden="true" />
+          <div className="loading-spinner" aria-hidden="true" style={{
+            width: '80px',
+            height: '80px',
+            border: '6px solid rgba(138, 43, 226, 0.2)',
+            borderTop: '6px solid #8a2be2',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            marginBottom: '2rem'
+          }} />
           <motion.h1
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
+            style={{ fontSize: '3rem', marginBottom: '1rem' }}
           >
             Loading Devlog...
           </motion.h1>
-          <motion.p>
+          <motion.p style={{ fontSize: '1.3rem' }}>
             Fetching latest entries from development log
             <motion.span
               animate={{ opacity: [0, 1, 0] }}

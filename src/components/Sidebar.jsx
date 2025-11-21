@@ -96,7 +96,7 @@ const Sidebar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            DIGITAL LOGBOOK
+            Ray's Digital Logbook
           </motion.div>
         </Link>
 
