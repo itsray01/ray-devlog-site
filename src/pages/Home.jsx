@@ -63,8 +63,21 @@ const Home = () => {
         transition={pageTransition}
         role="main"
         aria-label="Main content"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+          width: '100%'
+        }}
       >
-        <div className="loading-container" role="status" aria-live="polite">
+        <div className="loading-container" role="status" aria-live="polite" style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center'
+        }}>
           <div className="loading-spinner" aria-hidden="true" />
           <motion.h1
             animate={{ opacity: [0.5, 1, 0.5] }}
@@ -95,8 +108,17 @@ const Home = () => {
         transition={pageTransition}
         role="main"
         aria-label="Main content"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+          width: '100%'
+        }}
       >
-        <div className="error-container" role="alert" aria-live="assertive">
+        <div className="error-container" role="alert" aria-live="assertive" style={{
+          textAlign: 'center'
+        }}>
           <h1>Error Loading Devlog</h1>
           <p>{error}</p>
         </div>
