@@ -2410,6 +2410,7 @@ html {
 
 .toc-link {
   display: block;
+  width: 100%;
   color: var(--muted);
   text-decoration: none;
   padding: 0.6rem 1rem;
@@ -2420,6 +2421,11 @@ html {
   font-weight: 500;
   position: relative;
   overflow: hidden;
+  /* Button reset styles */
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
 }
 
 .toc-link::before {

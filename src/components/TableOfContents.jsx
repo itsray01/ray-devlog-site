@@ -2,19 +2,78 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconChevronDown } from '@tabler/icons-react';
 
-/**
- * TableOfContents - Collapsible dropdown navigation for long pages
- * 
- * @param {Array} sections - Array of {id, title} objects
- */
 // Offset in pixels from top of viewport for scroll positioning
 const SCROLL_OFFSET = 140;
 
+/**
+ * Get the scroll container - either a custom container or window
+ */
+function getScrollContainer() {
+  const el = document.querySelector('[data-scroll-root]');
+  return el || window;
+}
+
+/**
+ * Scroll to an element by ID with offset
+ */
+function scrollToId(id, options = {}) {
+  console.log('[TOC] scrollToId', id);
+
+  if (!id) return;
+  const target = document.getElementById(id);
+  if (!target) {
+    console.warn('[TOC] no element with id', id);
+    return;
+  }
+
+  const scrollContainer = getScrollContainer();
+  const rect = target.getBoundingClientRect();
+
+  // Use scrollIntoView (which works in this codebase) then adjust for offset
+  console.log('[TOC] using scrollIntoView then adjusting by', -SCROLL_OFFSET);
+
+  target.scrollIntoView({ behavior: 'instant', block: 'start' });
+
+  // Adjust for the offset after scrollIntoView completes
+  window.scrollBy(0, -SCROLL_OFFSET);
+
+  console.log('[TOC] final scrollY:', window.scrollY);
+}
+
+/**
+ * TableOfContents - Collapsible dropdown navigation for long pages
+ *
+ * @param {Array} sections - Array of {id, title} objects
+ */
 const TableOfContents = ({ sections }) => {
   const [activeSection, setActiveSection] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  // Optional: IntersectionObserver for active section highlighting
+  // Handle initial hash when the page first loads
+  useEffect(() => {
+    const initialHash = window.location.hash?.slice(1);
+    if (initialHash) {
+      console.log('[TOC] initial hash detected:', initialHash);
+      // Wait for content to render
+      const timer = setTimeout(() => {
+        scrollToId(initialHash, { smooth: false });
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Handle manual hash changes (if user edits URL)
+  useEffect(() => {
+    const onHashChange = () => {
+      const id = window.location.hash?.slice(1);
+      console.log('[TOC] hash changed to:', id);
+      scrollToId(id);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // IntersectionObserver for active section highlighting
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -39,25 +98,19 @@ const TableOfContents = ({ sections }) => {
     return () => observer.disconnect();
   }, [sections]);
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      // Close dropdown immediately
-      setIsOpen(false);
+  const handleItemClick = (id) => {
+    console.log('[TOC] click', id);
 
-      // Calculate scroll position with offset for breathing room
-      const elementTop = element.getBoundingClientRect().top + window.scrollY;
-      const targetY = elementTop - SCROLL_OFFSET;
+    // Update URL hash first
+    const { pathname, search } = window.location;
+    const newUrl = `${pathname}${search}#${id}`;
+    window.history.replaceState(null, '', newUrl);
 
-      // Scroll to calculated position
-      window.scrollTo({
-        top: targetY,
-        behavior: 'smooth'
-      });
+    // Scroll IMMEDIATELY before any state changes
+    scrollToId(id);
 
-      // Update URL hash
-      window.history.pushState(null, '', `#${id}`);
-    }
+    // Then close the dropdown
+    setIsOpen(false);
   };
 
   return (
@@ -69,6 +122,7 @@ const TableOfContents = ({ sections }) => {
       aria-label="Table of contents"
     >
       <button
+        type="button"
         className="toc-toggle"
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
@@ -96,17 +150,14 @@ const TableOfContents = ({ sections }) => {
           >
             {sections.map(({ id, title }) => (
               <li key={id}>
-                <a
-                  href={`#${id}`}
+                <button
+                  type="button"
                   className={`toc-link ${activeSection === id ? 'active' : ''}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(id);
-                  }}
+                  onClick={() => handleItemClick(id)}
                   aria-current={activeSection === id ? 'location' : undefined}
                 >
                   {title}
-                </a>
+                </button>
               </li>
             ))}
           </motion.ul>
