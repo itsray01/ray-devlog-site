@@ -7,6 +7,9 @@ import { IconChevronDown } from '@tabler/icons-react';
  * 
  * @param {Array} sections - Array of {id, title} objects
  */
+// Offset in pixels from top of viewport for scroll positioning
+const SCROLL_OFFSET = 140;
+
 const TableOfContents = ({ sections }) => {
   const [activeSection, setActiveSection] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +45,14 @@ const TableOfContents = ({ sections }) => {
       // Close dropdown immediately
       setIsOpen(false);
 
-      // Scroll to section with element at top of viewport
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+      // Calculate scroll position with offset for breathing room
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const targetY = elementTop - SCROLL_OFFSET;
+
+      // Scroll to calculated position
+      window.scrollTo({
+        top: targetY,
+        behavior: 'smooth'
       });
 
       // Update URL hash

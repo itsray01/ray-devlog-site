@@ -497,21 +497,6 @@ main > * {
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  scroll-margin-top: 0px;
-}
-
-/* TOC target sections - ensures scroll offset for all navigable sections */
-#statistics,
-#introduction,
-#practice-as-research,
-#tool-graveyard,
-#sora2,
-#veo31,
-#wan25,
-#higgsfield,
-#seedance,
-#reflections {
-  scroll-margin-top: 0px;
 }
 
 /* Paragraph styles in cards */
@@ -2492,7 +2477,6 @@ html {
   backdrop-filter: blur(10px);
   margin: 2.5rem 0;
   transition: all 0.3s ease;
-  scroll-margin-top: 0px;
 }
 
 .theory-card:hover {
@@ -2533,7 +2517,6 @@ html {
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  scroll-margin-top: 100px;
 }
 
 .theory-header h2 {
