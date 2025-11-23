@@ -20,17 +20,23 @@ const PageLoader = () => (
     minHeight: '100vh',
     color: 'var(--muted)'
   }}>
-    <div style={{ textAlign: 'center' }}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center'
+    }}>
       <div style={{
-        width: '40px',
-        height: '40px',
-        border: '4px solid rgba(138, 43, 226, 0.2)',
-        borderTop: '4px solid #8a2be2',
+        width: '80px',
+        height: '80px',
+        border: '6px solid rgba(138, 43, 226, 0.2)',
+        borderTop: '6px solid #8a2be2',
         borderRadius: '50%',
         animation: 'spin 1s linear infinite',
-        margin: '0 auto 1rem'
+        marginBottom: '2rem'
       }} />
-      <p>Loading...</p>
+      <p style={{ fontSize: '1.3rem' }}>Loading...</p>
     </div>
   </div>
 );
