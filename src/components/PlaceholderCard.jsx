@@ -32,3 +32,5 @@ const PlaceholderCard = ({ title, description, icon, delay = 0 }) => {
 
 export default PlaceholderCard;
 
+
+

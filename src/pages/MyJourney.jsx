@@ -150,7 +150,7 @@ const MyJourney = () => {
           <div id="sora2">
             <ToolLessonCard
               title="Sora 2: Inconsistent Generation and Evolving Content Policies"
-              videoUrl="/videos/sora2-example.mp4"
+              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/sora2-example.mp4"
               videoType="mp4"
               delay={0.5}
             >
@@ -191,7 +191,7 @@ const MyJourney = () => {
           <div id="veo31">
             <ToolLessonCard
               title="Veo3.1: Reliable Character Generation with Technical Limitations"
-              videoUrl="/videos/veo31-example.mp4"
+              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/veo31-example.mp4"
               videoType="mp4"
               delay={0.6}
             >
@@ -231,7 +231,7 @@ const MyJourney = () => {
           <div id="wan25">
             <ToolLessonCard
               title="Wan2.5: Speed Over Quality"
-              videoUrl="/videos/wan25-example.mp4"
+              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/wan25-example.mp4"
               videoType="mp4"
               delay={0.7}
             >
@@ -267,7 +267,7 @@ const MyJourney = () => {
           <div id="higgsfield">
             <ToolLessonCard
               title="Higgsfield: Platform Access with Mixed Results"
-              videoUrl="/videos/higgsfield-example.mp4"
+              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/higgsfield-example.mp4"
               videoType="mp4"
               delay={0.8}
             >
@@ -296,7 +296,7 @@ const MyJourney = () => {
           <div id="seedance">
             <ToolLessonCard
               title="Seedance: Creative Style, Limited Control"
-              videoUrl="/videos/seedance-example.mp4"
+              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/seedance-example.mp4"
               videoType="mp4"
               delay={0.9}
             >
