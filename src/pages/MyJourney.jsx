@@ -155,7 +155,7 @@ const MyJourney = () => {
               delay={0.5}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 1 (Early October 2024)
+              <strong>Testing Period:</strong> Week 1 (Early October 2025)
             </p>
 
             <p>
@@ -196,7 +196,7 @@ const MyJourney = () => {
               delay={0.6}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2024)
+              <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2025)
             </p>
 
             <p>
@@ -236,7 +236,7 @@ const MyJourney = () => {
               delay={0.7}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 2 (Mid October 2024)
+              <strong>Testing Period:</strong> Week 2 (Mid October 2025)
             </p>
 
             <p>
@@ -272,7 +272,7 @@ const MyJourney = () => {
               delay={0.8}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 3 (Late October 2024)
+              <strong>Testing Period:</strong> Week 3 (Late October 2025)
             </p>
 
             <p>
@@ -301,7 +301,7 @@ const MyJourney = () => {
               delay={0.9}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 3 (Late October 2024)
+              <strong>Testing Period:</strong> Week 3 (Late October 2025)
             </p>
 
             <p>
@@ -338,7 +338,7 @@ const MyJourney = () => {
           style={{ marginTop: '3rem' }}
           aria-labelledby="reflections-heading"
         >
-          <h2 id="reflections-heading">Overall Reflections (as of November 2024)</h2>
+          <h2 id="reflections-heading">Overall Reflections (as of November 2025)</h2>
           <p>
             Testing five different AI video generation models taught me that there's no single perfect tool. 
             Each model has strengths and weaknesses, and understanding these trade-offs became crucial for 
@@ -359,7 +359,7 @@ const MyJourney = () => {
 
           <h3>Current Status & Next Steps</h3>
           <p>
-            As of November 21, 2024, the project continues to evolve. The hybrid workflow combining Veo3.1 
+            As of November 21, 2025, the project continues to evolve. The hybrid workflow combining Veo3.1 
             and Sora 2 remains the foundation of my production pipeline. Each generation teaches something 
             new about prompt engineering and how these models interpret creative direction.
           </p>
@@ -372,7 +372,7 @@ const MyJourney = () => {
           transition={{ delay: 1.0 }}
         >
           <p>
-            This journey represents ongoing experimentation and learning as of November 2024. 
+            This journey represents ongoing experimentation and learning as of November 2025. 
             The lessons documented here continue to shape every creative decision in the project.
           </p>
         </motion.footer>

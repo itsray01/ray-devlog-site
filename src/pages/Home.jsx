@@ -286,7 +286,7 @@ const Home = () => {
         >
           <p>
             This logbook documents the ongoing development of an interactive dystopian film project
-            as of November 2024. It serves as both a creative diary and technical reference for
+            as of November 2025. It serves as both a creative diary and technical reference for
             AI-assisted filmmaking.
           </p>
         </motion.footer>

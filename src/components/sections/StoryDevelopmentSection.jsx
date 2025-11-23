@@ -92,7 +92,7 @@ const StoryDevelopmentSection = () => {
 
       <div className="card">
         <h3>User Testing: Initial Findings</h3>
-        <small className="meta">October-November 2024</small>
+        <small className="meta">October-November 2025</small>
         
         <p>
           Early playtests revealed several critical issues with narrative clarity and player engagement:

@@ -51,7 +51,7 @@ const ExperimentsSection = () => {
         delay={0.2}
       >
         <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-          <strong>Testing Period:</strong> Week 1 (Early October 2024)
+          <strong>Testing Period:</strong> Week 1 (Early October 2025)
         </p>
 
         <p>
@@ -78,7 +78,7 @@ const ExperimentsSection = () => {
         delay={0.3}
       >
         <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-          <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2024)
+          <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2025)
         </p>
 
         <p>
