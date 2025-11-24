@@ -1,13 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import SearchBar from '../components/SearchBar';
 import ReadingProgress from '../components/ReadingProgress';
 import TableOfContents from '../components/TableOfContents';
 import ErrorBoundary from '../components/ErrorBoundary';
 import useDevlog from '../hooks/useDevlog';
 import { pageVariants, pageTransition } from '../constants/animations';
-import { SEARCHABLE_CONTENT } from '../config/searchableContent';
 
 // Table of Contents sections
 const TOC_SECTIONS = [
@@ -176,12 +174,9 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '2rem', flexWrap: 'wrap' }}>
-            <div style={{ flex: 1, minWidth: '300px' }}>
-              <h1>Digital Project Logbook</h1>
-              <p className="page-subtitle">Documenting the journey of creating an interactive dystopian film</p>
-            </div>
-            <SearchBar searchableContent={SEARCHABLE_CONTENT} />
+          <div>
+            <h1>Digital Project Logbook</h1>
+            <p className="page-subtitle">Documenting the journey of creating an interactive dystopian film</p>
           </div>
         </motion.header>
 
