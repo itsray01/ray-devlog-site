@@ -148,19 +148,19 @@ const StoryTimeline = () => {
     const maxX = Math.max(...xs);
     const maxY = Math.max(...ys);
     
-    // Center the entire layout horizontally
-    const centerX = (minX + maxX) / 2;
+    // Center the entire layout horizontally by centering on the start node
+    const startX = pos['start']?.x || 0;
     Object.keys(pos).forEach(id => {
-      pos[id].x = pos[id].x - centerX;
+      pos[id].x = pos[id].x - startX;
     });
     
-    // Recompute bounds after centering
+    // Recompute bounds after centering (start should now be at x=0)
     const centeredXs = Object.values(pos).map(p => p.x);
     const newMinX = Math.min(...centeredXs);
     const newMaxX = Math.max(...centeredXs);
     
     const marginX = 200;
-    const marginY = 100; // Reduced from 300 to minimize bottom space
+    const marginY = 50; // Further reduced to minimize bottom space
     const stageWidth = (newMaxX - newMinX) + marginX * 2;
     const stageHeight = (maxY + NODE_R) + marginY;
     
@@ -316,12 +316,14 @@ const StoryTimeline = () => {
           </marker>
         </defs>
       
-        {/* --- Optional short amber spine (Awakening → First Fork) --- */}
+        {/* --- Optional short amber spine (Start → DataHall) --- */}
         {(() => {
-          const firstMain = edges.find((e) => (e.kind ?? "main") === "main");
+          const firstMain = edges.find((e) => (e.kind ?? "main") === "main" && e.from === "start");
           if (!firstMain) return null;
           const a = pos[firstMain.from],
             b = pos[firstMain.to];
+          if (!a || !b) return null;
+          // Start is centered at x=0 after centering, so spineX should be at marginX
           const spineX = (0 - minX) + marginX;
           const topY = Math.min(a.y, b.y) + NODE_R;
           const botY = Math.max(a.y, b.y) - NODE_R;
