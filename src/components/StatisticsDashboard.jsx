@@ -32,9 +32,9 @@ const StatisticsDashboard = () => {
       icon: IconCurrencyDollar,
       trend: null,
       chartData: [
-        { label: 'Sora 2', value: 280, color: '#8b5cf6' },
-        { label: 'Higgsfield', value: 150, color: '#06b6d4' },
-        { label: 'VPN', value: 70, color: '#f59e0b' }
+        { label: 'Sora 2', value: 30, color: '#8b5cf6' },
+        { label: 'Higgsfield', value: 460, color: '#06b6d4' },
+        { label: 'VPN', value: 10, color: '#f59e0b' }
       ],
       chartType: 'donut'
     },
@@ -51,7 +51,6 @@ const StatisticsDashboard = () => {
     {
       id: 4,
       title: 'AI Models Used',
-      value: '5',
       subtitle: 'Platforms tested',
       icon: IconBrain,
       trend: null,
@@ -101,7 +100,11 @@ const StatisticsDashboard = () => {
         {statistics.map((stat) => {
           const CardComponent = USE_CHARTJS ? StatisticsCardChartJS : StatisticsCard;
           return (
-            <motion.div key={stat.id} variants={cardVariants}>
+            <motion.div 
+              key={stat.id} 
+              variants={cardVariants}
+              className={stat.id === 4 ? 'ai-models-card-wrapper' : ''}
+            >
               <CardComponent
                 title={stat.title}
                 value={stat.value}

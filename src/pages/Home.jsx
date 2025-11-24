@@ -3,10 +3,22 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SearchBar from '../components/SearchBar';
 import ReadingProgress from '../components/ReadingProgress';
+import TableOfContents from '../components/TableOfContents';
 import ErrorBoundary from '../components/ErrorBoundary';
 import useDevlog from '../hooks/useDevlog';
 import { pageVariants, pageTransition } from '../constants/animations';
 import { SEARCHABLE_CONTENT } from '../config/searchableContent';
+
+// Table of Contents sections
+const TOC_SECTIONS = [
+  { id: 'overview', title: 'Overview' },
+  { id: 'inspiration', title: 'Inspiration' },
+  { id: 'moodboard', title: 'Moodboard' },
+  { id: 'storyboard', title: 'Storyboard' },
+  { id: 'story-development', title: 'Story Development' },
+  { id: 'branching', title: 'Branching' },
+  { id: 'production', title: 'Production' }
+];
 
 // Lazy load all section components for better code splitting
 const OverviewSection = lazy(() => import('../components/sections/OverviewSection'));
@@ -172,6 +184,9 @@ const Home = () => {
             <SearchBar searchableContent={SEARCHABLE_CONTENT} />
           </div>
         </motion.header>
+
+        {/* Table of Contents */}
+        <TableOfContents sections={TOC_SECTIONS} />
 
         {/* Lazy-loaded sections */}
         <ErrorBoundary>

@@ -2,7 +2,17 @@ import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition } from '../constants/animations';
 import Timeline from '../components/Timeline';
+import TableOfContents from '../components/TableOfContents';
+import ReadingProgress from '../components/ReadingProgress';
 import timelineData from '../../data/timeline.json';
+
+// Table of Contents sections
+const TOC_SECTIONS = [
+  { id: 'timeline', title: 'Project Timeline' },
+  { id: 'vision', title: 'The Vision' },
+  { id: 'process', title: 'The Process' },
+  { id: 'methodology', title: 'Research Methodology' }
+];
 
 /**
  * About page - project and creator information
@@ -16,6 +26,9 @@ const About = () => {
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
+
+      {/* Reading Progress Indicator */}
+      <ReadingProgress />
 
       <motion.div
         initial="initial"
@@ -39,6 +52,9 @@ const About = () => {
           <h1>About This Project</h1>
           <p className="page-subtitle">The story behind the logbook</p>
         </motion.header>
+
+        {/* Table of Contents */}
+        <TableOfContents sections={TOC_SECTIONS} />
 
       {/* Project Timeline Section */}
       <motion.section
@@ -65,9 +81,10 @@ const About = () => {
         transition={{ delay: 0.3 }}
         aria-label="Project information"
       >
-        <motion.div 
+        <motion.div
+          id="vision"
           className="card"
-          whileHover={{ 
+          whileHover={{
             boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
             transition: { duration: 0.2 }
           }}
@@ -84,12 +101,13 @@ const About = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
+          id="process"
           className="card"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          whileHover={{ 
+          whileHover={{
             boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
             transition: { duration: 0.2 }
           }}
@@ -106,12 +124,13 @@ const About = () => {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
+          id="methodology"
           className="card"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          whileHover={{ 
+          whileHover={{
             boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
             transition: { duration: 0.2 }
           }}
