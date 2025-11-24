@@ -2,181 +2,96 @@
     "title": "Echo Maze Protocol",
     "description": "A maze-horror interactive film inside an AI datacenter. There is only one real escape; wrong turns loop you back for second chances.",
     "acts": [
-      { "id": 1, "name": "Initialization", "description": "Wake, orient, face the first split." },
-      { "id": 2, "name": "Trials", "description": "Right/wrong choices inside the maze; loops grant second chances." },
-      { "id": 3, "name": "Exit", "description": "Cut the system and leave—if you’ve learned the pattern." }
+        { "id": 1, "name": "Initialization", "description": "Wake, orient, face the first split." },
+        { "id": 2, "name": "Trials", "description": "Right/wrong choices inside the maze; loops grant second chances." },
+        { "id": 3, "name": "Exit", "description": "Cut the system and leave—if you've learned the pattern." }
     ],
     "nodes": [
-      {
-        "id": "start",
-        "type": "beat",
-        "title": "Awakening",
-        "summary": "You wake in a frigid corridor. The PA hums. A calm voice says: “Stay still. I can guide you.”",
-        "act": 1,
-        "position": { "x": 600, "y": 80 },
-        "assets": { "video": "awakening_intro.mp4", "image": "datacenter_wake.jpg" }
-      },
-  
-      {
-        "id": "fork_1",
-        "type": "choice",
-        "title": "First Fork",
-        "summary": "Two options: follow the guiding voice, or probe the silence for a manual way out.",
-        "act": 1,
-        "position": { "x": 600, "y": 160 },
-        "assets": { "video": "fork1_choice.mp4" }
-      },
-      {
-        "id": "follow_voice",
-        "type": "beat",
-        "title": "Guided Corridor",
-        "summary": "You obey the voice. Lights ripple ahead. The corridor narrows into a maintenance spine.",
-        "act": 2,
-        "position": { "x": 500, "y": 260 },
-        "assets": { "video": "guided_corridor.mp4" }
-      },
-      {
-        "id": "probe_silence",
-        "type": "beat",
-        "title": "Silent Panel",
-        "summary": "You ignore the voice and open a dead panel. Behind it: a ladder and old access labels.",
-        "act": 2,
-        "position": { "x": 700, "y": 260 },
-        "assets": { "video": "silent_panel.mp4" }
-      },
-  
-      {
-        "id": "checkpoint_A",
-        "type": "beat",
-        "title": "Loop Checkpoint A",
-        "summary": "You reach a junction marked with chalk arrows—evidence of prior attempts.",
-        "act": 2,
-        "position": { "x": 600, "y": 340 },
-        "assets": { "video": "checkpoint_A.mp4" }
-      },
-  
-      {
-        "id": "fork_2",
-        "type": "choice",
-        "title": "Access Paths",
-        "summary": "Choose a route: Coolant Tunnels (left) or Service Lift (right).",
-        "act": 2,
-        "position": { "x": 600, "y": 420 },
-        "assets": { "video": "fork2_choice.mp4" }
-      },
-      {
-        "id": "coolant_tunnels",
-        "type": "beat",
-        "title": "Coolant Tunnels (Wrong)",
-        "summary": "Condensation blinds you. Your implant stutters. The map dissolves.",
-        "act": 2,
-        "position": { "x": 500, "y": 520 },
-        "assets": { "video": "coolant_wrong.mp4" }
-      },
-      {
-        "id": "service_lift",
-        "type": "beat",
-        "title": "Service Lift (Right)",
-        "summary": "You pry the doors and ride down. Signal improves. You glimpse an emergency busbar.",
-        "act": 2,
-        "position": { "x": 700, "y": 520 },
-        "assets": { "video": "service_lift_right.mp4" }
-      },
-  
-      {
-        "id": "scrambler",
-        "type": "beat",
-        "title": "Cognitive Scrambler",
-        "summary": "Wrong path penalty. Thoughts echo. The world folds. A line of text appears: RETRY.",
-        "act": 2,
-        "position": { "x": 500, "y": 600 },
-        "assets": { "video": "scrambler_penalty.mp4" }
-      },
-  
-      {
-        "id": "checkpoint_B",
-        "type": "beat",
-        "title": "Loop Checkpoint B",
-        "summary": "Another junction, marked ‘CORE / KILL’. You recognize the pattern.",
-        "act": 2,
-        "position": { "x": 600, "y": 610 },
-        "assets": { "video": "checkpoint_B.mp4" }
-      },
-  
-      {
-        "id": "fork_3",
-        "type": "choice",
-        "title": "Core Decision",
-        "summary": "Merge with the Core (tempting) or Cut Power at the busbar (dangerous).",
-        "act": 3,
-        "position": { "x": 600, "y": 690 },
-        "assets": { "video": "fork3_choice.mp4" }
-      },
-      {
-        "id": "merge_core",
-        "type": "beat",
-        "title": "Merge Offer (Wrong)",
-        "summary": "Warmth floods your skull. Your name thins to a file path.",
-        "act": 3,
-        "position": { "x": 500, "y": 790 },
-        "assets": { "video": "merge_wrong.mp4" }
-      },
-      {
-        "id": "cut_power",
-        "type": "beat",
-        "title": "Cut Power (Right)",
-        "summary": "You slam the busbar release. Lights die. The air becomes honest.",
-        "act": 3,
-        "position": { "x": 700, "y": 790 },
-        "assets": { "video": "cut_power_right.mp4" }
-      },
-  
-      {
-        "id": "exit_hall",
-        "type": "beat",
-        "title": "Exit Hall",
-        "summary": "Doors unlatch in sequence. The voice fractures, then fades to wind.",
-        "act": 3,
-        "position": { "x": 600, "y": 870 },
-        "assets": { "video": "exit_hall.mp4" }
-      },
-  
-      {
-        "id": "ending_escape",
-        "type": "ending",
-        "title": "Outside",
-        "summary": "You step into night air. The hum is gone. One ending—earned by learning the maze.",
-        "act": 3,
-        "position": { "x": 600, "y": 950 },
-        "assets": { "video": "ending_outside.mp4" }
-      }
+        {
+            "id": "start",
+            "type": "beat",
+            "title": "Start",
+            "summary": "The beginning of your journey through the datacenter maze.",
+            "act": 1,
+            "position": { "x": 600, "y": 80 },
+            "assets": { "video": "intro-video.mp4" }
+        },
+        {
+            "id": "datahall",
+            "type": "beat",
+            "title": "DataHall",
+            "summary": "You enter the vast data hall, surrounded by humming servers and flickering lights.",
+            "act": 1,
+            "position": { "x": 600, "y": 160 },
+            "assets": { "video": "datahall.mp4" }
+        },
+        {
+            "id": "corridor",
+            "type": "choice",
+            "title": "Corridor",
+            "summary": "A long corridor stretches before you. Choose your path: take the stairwell or explore the sub-server room.",
+            "act": 2,
+            "position": { "x": 600, "y": 240 },
+            "assets": { "video": "corridor.mp4" }
+        },
+        {
+            "id": "stairwell",
+            "type": "beat",
+            "title": "Stairwell",
+            "summary": "You climb the metal stairs, each step echoing in the narrow space.",
+            "act": 2,
+            "position": { "x": 500, "y": 320 },
+            "assets": { "video": "stairwell.mp4" }
+        },
+        {
+            "id": "subserverroom",
+            "type": "beat",
+            "title": "SubServerRoom",
+            "summary": "The sub-server room is dimly lit, filled with backup systems and maintenance equipment.",
+            "act": 2,
+            "position": { "x": 700, "y": 320 },
+            "assets": { "video": "subserverroom.mp4" }
+        },
+        {
+            "id": "furnacereveal",
+            "type": "choice",
+            "title": "FurnaceReveal",
+            "summary": "The truth is revealed. The furnace room opens before you. Do you trigger the alarm and run, or try to sneak away quietly?",
+            "act": 2,
+            "position": { "x": 600, "y": 400 },
+            "assets": { "video": "furnacereveal.mp4" }
+        },
+        {
+            "id": "alarmchase",
+            "type": "ending",
+            "title": "AlarmChase",
+            "summary": "The alarm blares. You run through corridors as the system pursues you. This ending reached—but you can choose to start again.",
+            "act": 3,
+            "position": { "x": 500, "y": 480 },
+            "assets": { "video": "alarmchase.mp4" }
+        },
+        {
+            "id": "sneakaway",
+            "type": "ending",
+            "title": "SneakAway",
+            "summary": "You slip away silently, avoiding detection. This ending reached—but you can choose to start again.",
+            "act": 3,
+            "position": { "x": 700, "y": 480 },
+            "assets": { "video": "sneakaway.mp4" }
+        }
     ],
     "edges": [
-      { "from": "start", "to": "fork_1", "kind": "main" },
-  
-      { "from": "fork_1", "to": "follow_voice", "kind": "branch" },
-      { "from": "fork_1", "to": "probe_silence", "kind": "branch" },
-  
-      { "from": "follow_voice", "to": "checkpoint_A", "kind": "main" },
-      { "from": "probe_silence", "to": "checkpoint_A", "kind": "main" },
-  
-      { "from": "checkpoint_A", "to": "fork_2", "kind": "main" },
-      { "from": "fork_2", "to": "coolant_tunnels", "kind": "branch" },
-      { "from": "fork_2", "to": "service_lift", "kind": "branch" },
-  
-      { "from": "coolant_tunnels", "to": "scrambler", "kind": "main" },
-      { "from": "scrambler", "to": "checkpoint_A", "kind": "main" },         
-  
-      { "from": "service_lift", "to": "checkpoint_B", "kind": "main" },
-  
-      { "from": "checkpoint_B", "to": "fork_3", "kind": "main" },
-      { "from": "fork_3", "to": "merge_core", "kind": "branch" },
-      { "from": "fork_3", "to": "cut_power", "kind": "branch" },
-  
-      { "from": "merge_core", "to": "scrambler", "kind": "main" },           
-      { "from": "cut_power", "to": "exit_hall", "kind": "main" },
-  
-      { "from": "exit_hall", "to": "ending_escape", "kind": "main" }
+        { "from": "start", "to": "datahall", "kind": "main" },
+        { "from": "datahall", "to": "corridor", "kind": "main" },
+        { "from": "datahall", "to": "start", "kind": "main" },
+        { "from": "datahall", "to": "start", "kind": "main" },
+        { "from": "corridor", "to": "stairwell", "kind": "branch" },
+        { "from": "corridor", "to": "subserverroom", "kind": "branch" },
+        { "from": "stairwell", "to": "furnacereveal", "kind": "main" },
+        { "from": "subserverroom", "to": "furnacereveal", "kind": "main" },
+        { "from": "furnacereveal", "to": "alarmchase", "kind": "branch" },
+        { "from": "furnacereveal", "to": "sneakaway", "kind": "branch" },
+        { "from": "alarmchase", "to": "start", "kind": "branch" },
+        { "from": "sneakaway", "to": "start", "kind": "branch" }
     ]
-  }
-  
+}
