@@ -260,9 +260,6 @@ const StoryTimeline = () => {
     const { pos, stageWidth, stageHeight, NODE_R } = layout;
     const edges = storyData.edges;
     
-    // Center the stage: start is at x=0, so position relative to stage center
-    const stageCenterX = stageWidth / 2;
-    
     return (
         <svg
         className="timeline-svg"
@@ -328,8 +325,8 @@ const StoryTimeline = () => {
           const a = pos[firstMain.from],
             b = pos[firstMain.to];
           if (!a || !b) return null;
-          // Start is centered at x=0, so spineX should be at stage center
-          const spineX = stageCenterX;
+          // Start is at x=0 after centering
+          const spineX = a.x;
           const topY = Math.min(a.y, b.y) + NODE_R;
           const botY = Math.max(a.y, b.y) - NODE_R;
           return (
@@ -350,10 +347,10 @@ const StoryTimeline = () => {
             B = pos[e.to];
           if (!A || !B) return null;
       
-          // Use centered coordinates
-          const sx = stageCenterX + A.x,
+          // Use direct coordinates (already centered)
+          const sx = A.x,
             sy = A.y + NODE_R;
-          const tx = stageCenterX + B.x,
+          const tx = B.x,
             ty = B.y - NODE_R;
           const dy = (ty - sy) * 0.5;
           const d = `M ${sx},${sy} C ${sx},${sy + dy} ${tx},${ty - dy} ${tx},${ty}`;
@@ -400,16 +397,22 @@ const StoryTimeline = () => {
         </div>
       </div>
 
-      <div
-        className="timeline-stage"
-        style={{
-          position: 'relative',
-          width: `${layout.stageWidth}px`,
-          height: `${layout.stageHeight}px`,
-          margin: '0 auto',
-          padding: '40px 0'
-        }}
-      >
+      <div style={{ 
+        width: '100%', 
+        display: 'flex', 
+        justifyContent: 'center'
+      }}>
+        <div
+          className="timeline-stage"
+          style={{
+            position: 'relative',
+            width: `${layout.stageWidth}px`,
+            height: `${layout.stageHeight}px`,
+            left: '50%',
+            padding: '40px 0',
+            transform: 'translateX(-50%)'
+          }}
+        >
         {/* Dynamic SVG connectors */}
         {renderConnectors(layout)}
 
@@ -418,9 +421,8 @@ const StoryTimeline = () => {
           const p = layout.pos[node.id];
           if (!p) return null;
           
-          // Center the stage: start is at x=0, so position relative to stage center
-          const stageCenterX = layout.stageWidth / 2;
-          const x = stageCenterX + p.x;
+          // Shift everything left by 50% to center it
+          const x = p.x;
           const y = p.y;
           
           return (
@@ -470,6 +472,7 @@ const StoryTimeline = () => {
             </div>
           );
         })}
+        </div>
       </div>
 
       {/* Selected node details panel */}
