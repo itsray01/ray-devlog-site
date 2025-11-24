@@ -159,9 +159,11 @@ const StoryTimeline = () => {
     const newMinX = Math.min(...centeredXs);
     const newMaxX = Math.max(...centeredXs);
     
-    const marginX = 200;
+    // Ensure symmetric margins for proper centering
+    const maxAbsX = Math.max(Math.abs(newMinX), Math.abs(newMaxX));
+    const marginX = Math.max(200, maxAbsX + 100); // Ensure enough space on both sides
     const marginY = 50; // Further reduced to minimize bottom space
-    const stageWidth = (newMaxX - newMinX) + marginX * 2;
+    const stageWidth = maxAbsX * 2 + marginX * 2; // Symmetric width centered on 0
     const stageHeight = (maxY + NODE_R) + marginY;
     
     return { pos, minX: newMinX, maxX: newMaxX, maxY, stageWidth, stageHeight, marginX, NODE_R };
@@ -255,8 +257,11 @@ const StoryTimeline = () => {
   // Generate SVG connectors based on edges
   const renderConnectors = (layout) => {
     if (!storyData?.edges) return null;
-    const { pos, minX, stageWidth, stageHeight, marginX, NODE_R } = layout;
+    const { pos, stageWidth, stageHeight, NODE_R } = layout;
     const edges = storyData.edges;
+    
+    // Center the stage: start is at x=0, so position relative to stage center
+    const stageCenterX = stageWidth / 2;
     
     return (
         <svg
@@ -323,8 +328,8 @@ const StoryTimeline = () => {
           const a = pos[firstMain.from],
             b = pos[firstMain.to];
           if (!a || !b) return null;
-          // Start is centered at x=0 after centering, so spineX should be at marginX
-          const spineX = (0 - minX) + marginX;
+          // Start is centered at x=0, so spineX should be at stage center
+          const spineX = stageCenterX;
           const topY = Math.min(a.y, b.y) + NODE_R;
           const botY = Math.max(a.y, b.y) - NODE_R;
           return (
@@ -345,9 +350,10 @@ const StoryTimeline = () => {
             B = pos[e.to];
           if (!A || !B) return null;
       
-          const sx = (A.x - minX) + marginX,
+          // Use centered coordinates
+          const sx = stageCenterX + A.x,
             sy = A.y + NODE_R;
-          const tx = (B.x - minX) + marginX,
+          const tx = stageCenterX + B.x,
             ty = B.y - NODE_R;
           const dy = (ty - sy) * 0.5;
           const d = `M ${sx},${sy} C ${sx},${sy + dy} ${tx},${ty - dy} ${tx},${ty}`;
@@ -412,7 +418,9 @@ const StoryTimeline = () => {
           const p = layout.pos[node.id];
           if (!p) return null;
           
-          const x = (p.x - layout.minX) + layout.marginX;
+          // Center the stage: start is at x=0, so position relative to stage center
+          const stageCenterX = layout.stageWidth / 2;
+          const x = stageCenterX + p.x;
           const y = p.y;
           
           return (
@@ -468,14 +476,142 @@ const StoryTimeline = () => {
       {selectedNode && (
         <motion.div
           className="story-node-detail"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          style={{
+            marginTop: '0.5rem', // Very small spacing from endings
+            position: 'relative',
+            overflow: 'hidden'
+          }}
         >
-          <h3>{selectedNode.title}</h3>
-          <p className="node-type">Type: {selectedNode.type}</p>
-          <p className="node-description">{selectedNode.summary}</p>
-          {selectedNode.act && <p className="node-act">Act: {selectedNode.act}</p>}
+          {/* Decorative gradient overlay */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '3px',
+            background: selectedNode.type === 'ending' 
+              ? 'linear-gradient(90deg, #10b981, #059669, #10b981)'
+              : selectedNode.type === 'choice'
+              ? 'linear-gradient(90deg, #3b82f6, #2563eb, #3b82f6)'
+              : 'linear-gradient(90deg, #8a2be2, #6a1b9a, #8a2be2)',
+            backgroundSize: '200% 100%',
+            animation: 'shimmer 3s ease-in-out infinite'
+          }} />
+          
+          {/* Close button */}
+          <button
+            onClick={() => setSelectedNode(null)}
+            style={{
+              position: 'absolute',
+              top: '1rem',
+              right: '1rem',
+              background: 'rgba(138, 43, 226, 0.1)',
+              border: '1px solid rgba(138, 43, 226, 0.3)',
+              borderRadius: '50%',
+              width: '28px',
+              height: '28px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              color: 'var(--accent)',
+              fontSize: '18px',
+              lineHeight: 1,
+              transition: 'all 0.2s ease',
+              zIndex: 1
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(138, 43, 226, 0.2)';
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(138, 43, 226, 0.1)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            ×
+          </button>
+          
+          <h3 style={{
+            marginTop: 0,
+            marginBottom: '0.75rem',
+            paddingRight: '2.5rem',
+            background: selectedNode.type === 'ending' 
+              ? 'linear-gradient(135deg, #10b981, #34d399)'
+              : selectedNode.type === 'choice'
+              ? 'linear-gradient(135deg, #3b82f6, #60a5fa)'
+              : 'linear-gradient(135deg, #8a2be2, #a78bfa)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            fontSize: '1.5rem',
+            fontWeight: '700',
+            letterSpacing: '0.5px'
+          }}>
+            {selectedNode.title}
+          </h3>
+          
+          <div style={{
+            display: 'flex',
+            gap: '1rem',
+            marginBottom: '1rem',
+            flexWrap: 'wrap'
+          }}>
+            <span style={{
+              padding: '0.35rem 0.75rem',
+              background: selectedNode.type === 'ending' 
+                ? 'rgba(16, 185, 129, 0.15)'
+                : selectedNode.type === 'choice'
+                ? 'rgba(59, 130, 246, 0.15)'
+                : 'rgba(138, 43, 226, 0.15)',
+              border: `1px solid ${selectedNode.type === 'ending' 
+                ? 'rgba(16, 185, 129, 0.3)'
+                : selectedNode.type === 'choice'
+                ? 'rgba(59, 130, 246, 0.3)'
+                : 'rgba(138, 43, 226, 0.3)'}`,
+              borderRadius: '8px',
+              fontSize: '0.85rem',
+              fontWeight: '600',
+              color: selectedNode.type === 'ending' 
+                ? '#10b981'
+                : selectedNode.type === 'choice'
+                ? '#3b82f6'
+                : '#c084fc',
+              textTransform: 'capitalize'
+            }}>
+              {selectedNode.type}
+            </span>
+            {selectedNode.act && (
+              <span style={{
+                padding: '0.35rem 0.75rem',
+                background: 'rgba(245, 158, 11, 0.15)',
+                border: '1px solid rgba(245, 158, 11, 0.3)',
+                borderRadius: '8px',
+                fontSize: '0.85rem',
+                fontWeight: '600',
+                color: '#f59e0b'
+              }}>
+                Act {selectedNode.act}
+              </span>
+            )}
+          </div>
+          
+          <p className="node-description" style={{
+            margin: 0,
+            lineHeight: '1.7',
+            fontSize: '1rem',
+            color: 'var(--text)',
+            padding: '1rem',
+            background: 'rgba(138, 43, 226, 0.05)',
+            borderRadius: '10px',
+            border: '1px solid rgba(138, 43, 226, 0.1)'
+          }}>
+            {selectedNode.summary}
+          </p>
         </motion.div>
       )}
     </div>

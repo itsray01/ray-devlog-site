@@ -1131,13 +1131,24 @@ footer {
 }
 
 .story-node-detail {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   padding: 1.75rem;
-  background: var(--panel);
+  background: linear-gradient(135deg, rgba(22, 26, 32, 0.95) 0%, rgba(28, 32, 42, 0.95) 100%);
   border: 1px solid var(--card-border);
-  border-radius: 14px;
-  box-shadow: var(--card-shadow);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.1);
   text-align: left;
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .story-node-detail h3 {
