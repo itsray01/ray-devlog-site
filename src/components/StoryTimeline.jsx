@@ -147,12 +147,24 @@ const StoryTimeline = () => {
     const minX = Math.min(...xs);
     const maxX = Math.max(...xs);
     const maxY = Math.max(...ys);
+    
+    // Center the entire layout horizontally
+    const centerX = (minX + maxX) / 2;
+    Object.keys(pos).forEach(id => {
+      pos[id].x = pos[id].x - centerX;
+    });
+    
+    // Recompute bounds after centering
+    const centeredXs = Object.values(pos).map(p => p.x);
+    const newMinX = Math.min(...centeredXs);
+    const newMaxX = Math.max(...centeredXs);
+    
     const marginX = 200;
-    const marginY = 300;
-    const stageWidth = (maxX - minX) + marginX * 2;
+    const marginY = 100; // Reduced from 300 to minimize bottom space
+    const stageWidth = (newMaxX - newMinX) + marginX * 2;
     const stageHeight = (maxY + NODE_R) + marginY;
     
-    return { pos, minX, maxX, maxY, stageWidth, stageHeight, marginX, NODE_R };
+    return { pos, minX: newMinX, maxX: newMaxX, maxY, stageWidth, stageHeight, marginX, NODE_R };
   };
 
   const layout = computeLayout();
