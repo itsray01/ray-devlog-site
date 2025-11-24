@@ -476,142 +476,241 @@ const StoryTimeline = () => {
       {selectedNode && (
         <motion.div
           className="story-node-detail"
-          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+          initial={{ opacity: 0, y: 10, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+          exit={{ opacity: 0, y: 10, scale: 0.96 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           style={{
-            marginTop: '0.5rem', // Very small spacing from endings
+            marginTop: '0.5rem',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            padding: '2.5rem',
+            minHeight: '280px'
           }}
         >
-          {/* Decorative gradient overlay */}
+          {/* Animated background gradient */}
           <div style={{
             position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: '3px',
+            bottom: 0,
             background: selectedNode.type === 'ending' 
-              ? 'linear-gradient(90deg, #10b981, #059669, #10b981)'
+              ? 'radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(5, 150, 105, 0.06) 0%, transparent 50%)'
               : selectedNode.type === 'choice'
-              ? 'linear-gradient(90deg, #3b82f6, #2563eb, #3b82f6)'
-              : 'linear-gradient(90deg, #8a2be2, #6a1b9a, #8a2be2)',
+              ? 'radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(37, 99, 235, 0.06) 0%, transparent 50%)'
+              : 'radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(106, 27, 154, 0.06) 0%, transparent 50%)',
+            pointerEvents: 'none',
+            zIndex: 0
+          }} />
+          
+          {/* Decorative top gradient bar */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '4px',
+            background: selectedNode.type === 'ending' 
+              ? 'linear-gradient(90deg, #10b981, #34d399, #059669, #10b981)'
+              : selectedNode.type === 'choice'
+              ? 'linear-gradient(90deg, #3b82f6, #60a5fa, #2563eb, #3b82f6)'
+              : 'linear-gradient(90deg, #8a2be2, #a78bfa, #6a1b9a, #8a2be2)',
             backgroundSize: '200% 100%',
-            animation: 'shimmer 3s ease-in-out infinite'
+            animation: 'shimmer 3s ease-in-out infinite',
+            boxShadow: selectedNode.type === 'ending' 
+              ? '0 2px 8px rgba(16, 185, 129, 0.4)'
+              : selectedNode.type === 'choice'
+              ? '0 2px 8px rgba(59, 130, 246, 0.4)'
+              : '0 2px 8px rgba(138, 43, 226, 0.4)'
           }} />
           
           {/* Close button */}
-          <button
+          <motion.button
             onClick={() => setSelectedNode(null)}
+            whileHover={{ scale: 1.1, rotate: 90 }}
+            whileTap={{ scale: 0.95 }}
             style={{
               position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              background: 'rgba(138, 43, 226, 0.1)',
-              border: '1px solid rgba(138, 43, 226, 0.3)',
+              top: '1.5rem',
+              right: '1.5rem',
+              background: 'rgba(138, 43, 226, 0.12)',
+              border: '1.5px solid rgba(138, 43, 226, 0.25)',
               borderRadius: '50%',
-              width: '28px',
-              height: '28px',
+              width: '32px',
+              height: '32px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
               color: 'var(--accent)',
-              fontSize: '18px',
+              fontSize: '20px',
               lineHeight: 1,
-              transition: 'all 0.2s ease',
-              zIndex: 1
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(138, 43, 226, 0.2)';
-              e.currentTarget.style.transform = 'scale(1.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(138, 43, 226, 0.1)';
-              e.currentTarget.style.transform = 'scale(1)';
+              transition: 'all 0.3s ease',
+              zIndex: 10,
+              boxShadow: '0 2px 8px rgba(138, 43, 226, 0.2)'
             }}
           >
             ×
-          </button>
+          </motion.button>
           
-          <h3 style={{
-            marginTop: 0,
-            marginBottom: '0.75rem',
-            paddingRight: '2.5rem',
-            background: selectedNode.type === 'ending' 
-              ? 'linear-gradient(135deg, #10b981, #34d399)'
-              : selectedNode.type === 'choice'
-              ? 'linear-gradient(135deg, #3b82f6, #60a5fa)'
-              : 'linear-gradient(135deg, #8a2be2, #a78bfa)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            fontSize: '1.5rem',
-            fontWeight: '700',
-            letterSpacing: '0.5px'
-          }}>
-            {selectedNode.title}
-          </h3>
-          
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            marginBottom: '1rem',
-            flexWrap: 'wrap'
-          }}>
-            <span style={{
-              padding: '0.35rem 0.75rem',
-              background: selectedNode.type === 'ending' 
-                ? 'rgba(16, 185, 129, 0.15)'
-                : selectedNode.type === 'choice'
-                ? 'rgba(59, 130, 246, 0.15)'
-                : 'rgba(138, 43, 226, 0.15)',
-              border: `1px solid ${selectedNode.type === 'ending' 
-                ? 'rgba(16, 185, 129, 0.3)'
-                : selectedNode.type === 'choice'
-                ? 'rgba(59, 130, 246, 0.3)'
-                : 'rgba(138, 43, 226, 0.3)'}`,
-              borderRadius: '8px',
-              fontSize: '0.85rem',
-              fontWeight: '600',
-              color: selectedNode.type === 'ending' 
-                ? '#10b981'
-                : selectedNode.type === 'choice'
-                ? '#3b82f6'
-                : '#c084fc',
-              textTransform: 'capitalize'
-            }}>
-              {selectedNode.type}
-            </span>
-            {selectedNode.act && (
+          {/* Content wrapper */}
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            {/* Title */}
+            <motion.h3 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              style={{
+                marginTop: 0,
+                marginBottom: '1.25rem',
+                paddingRight: '3rem',
+                background: selectedNode.type === 'ending' 
+                  ? 'linear-gradient(135deg, #10b981, #34d399, #6ee7b7)'
+                  : selectedNode.type === 'choice'
+                  ? 'linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd)'
+                  : 'linear-gradient(135deg, #8a2be2, #a78bfa, #c4b5fd)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                fontSize: '2rem',
+                fontWeight: '800',
+                letterSpacing: '0.02em',
+                lineHeight: '1.2',
+                textShadow: '0 0 30px rgba(138, 43, 226, 0.3)',
+                fontFamily: "'Iceberg', sans-serif"
+              }}
+            >
+              {selectedNode.title}
+            </motion.h3>
+            
+            {/* Badges */}
+            <motion.div 
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              style={{
+                display: 'flex',
+                gap: '0.875rem',
+                marginBottom: '1.75rem',
+                flexWrap: 'wrap'
+              }}
+            >
               <span style={{
-                padding: '0.35rem 0.75rem',
-                background: 'rgba(245, 158, 11, 0.15)',
-                border: '1px solid rgba(245, 158, 11, 0.3)',
-                borderRadius: '8px',
-                fontSize: '0.85rem',
-                fontWeight: '600',
-                color: '#f59e0b'
+                padding: '0.5rem 1rem',
+                background: selectedNode.type === 'ending' 
+                  ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.15))'
+                  : selectedNode.type === 'choice'
+                  ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.15))'
+                  : 'linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(106, 27, 154, 0.15))',
+                border: `1.5px solid ${selectedNode.type === 'ending' 
+                  ? 'rgba(16, 185, 129, 0.4)'
+                  : selectedNode.type === 'choice'
+                  ? 'rgba(59, 130, 246, 0.4)'
+                  : 'rgba(138, 43, 226, 0.4)'}`,
+                borderRadius: '12px',
+                fontSize: '0.875rem',
+                fontWeight: '700',
+                color: selectedNode.type === 'ending' 
+                  ? '#10b981'
+                  : selectedNode.type === 'choice'
+                  ? '#3b82f6'
+                  : '#c084fc',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                boxShadow: selectedNode.type === 'ending' 
+                  ? '0 2px 8px rgba(16, 185, 129, 0.2)'
+                  : selectedNode.type === 'choice'
+                  ? '0 2px 8px rgba(59, 130, 246, 0.2)'
+                  : '0 2px 8px rgba(138, 43, 226, 0.2)'
               }}>
-                Act {selectedNode.act}
+                {selectedNode.type}
               </span>
-            )}
+              {selectedNode.act && (
+                <span style={{
+                  padding: '0.5rem 1rem',
+                  background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.15))',
+                  border: '1.5px solid rgba(245, 158, 11, 0.4)',
+                  borderRadius: '12px',
+                  fontSize: '0.875rem',
+                  fontWeight: '700',
+                  color: '#f59e0b',
+                  letterSpacing: '0.05em',
+                  boxShadow: '0 2px 8px rgba(245, 158, 11, 0.2)'
+                }}>
+                  Act {selectedNode.act}
+                </span>
+              )}
+            </motion.div>
+            
+            {/* Description */}
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              style={{
+                margin: 0,
+                lineHeight: '1.85',
+                fontSize: '1.05rem',
+                color: 'var(--ink)',
+                padding: '1.5rem',
+                background: selectedNode.type === 'ending' 
+                  ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.05))'
+                  : selectedNode.type === 'choice'
+                  ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(37, 99, 235, 0.05))'
+                  : 'linear-gradient(135deg, rgba(138, 43, 226, 0.08), rgba(106, 27, 154, 0.05))',
+                borderRadius: '14px',
+                border: `1.5px solid ${selectedNode.type === 'ending' 
+                  ? 'rgba(16, 185, 129, 0.15)'
+                  : selectedNode.type === 'choice'
+                  ? 'rgba(59, 130, 246, 0.15)'
+                  : 'rgba(138, 43, 226, 0.15)'}`,
+                boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.1)',
+                position: 'relative'
+              }}
+            >
+              {/* Decorative corner accent */}
+              <div style={{
+                position: 'absolute',
+                top: '-1px',
+                left: '-1px',
+                width: '20px',
+                height: '20px',
+                borderTop: `2px solid ${selectedNode.type === 'ending' 
+                  ? 'rgba(16, 185, 129, 0.4)'
+                  : selectedNode.type === 'choice'
+                  ? 'rgba(59, 130, 246, 0.4)'
+                  : 'rgba(138, 43, 226, 0.4)'}`,
+                borderLeft: `2px solid ${selectedNode.type === 'ending' 
+                  ? 'rgba(16, 185, 129, 0.4)'
+                  : selectedNode.type === 'choice'
+                  ? 'rgba(59, 130, 246, 0.4)'
+                  : 'rgba(138, 43, 226, 0.4)'}`,
+                borderTopLeftRadius: '14px'
+              }} />
+              <div style={{
+                position: 'absolute',
+                bottom: '-1px',
+                right: '-1px',
+                width: '20px',
+                height: '20px',
+                borderBottom: `2px solid ${selectedNode.type === 'ending' 
+                  ? 'rgba(16, 185, 129, 0.4)'
+                  : selectedNode.type === 'choice'
+                  ? 'rgba(59, 130, 246, 0.4)'
+                  : 'rgba(138, 43, 226, 0.4)'}`,
+                borderRight: `2px solid ${selectedNode.type === 'ending' 
+                  ? 'rgba(16, 185, 129, 0.4)'
+                  : selectedNode.type === 'choice'
+                  ? 'rgba(59, 130, 246, 0.4)'
+                  : 'rgba(138, 43, 226, 0.4)'}`,
+                borderBottomRightRadius: '14px'
+              }} />
+              <p style={{ margin: 0, position: 'relative', zIndex: 1 }}>
+                {selectedNode.summary}
+              </p>
+            </motion.div>
           </div>
-          
-          <p className="node-description" style={{
-            margin: 0,
-            lineHeight: '1.7',
-            fontSize: '1rem',
-            color: 'var(--text)',
-            padding: '1rem',
-            background: 'rgba(138, 43, 226, 0.05)',
-            borderRadius: '10px',
-            border: '1px solid rgba(138, 43, 226, 0.1)'
-          }}>
-            {selectedNode.summary}
-          </p>
         </motion.div>
       )}
     </div>
