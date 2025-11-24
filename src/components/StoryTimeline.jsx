@@ -418,8 +418,8 @@ const StoryTimeline = () => {
           const p = layout.pos[node.id];
           if (!p) return null;
           
-          // Center the stage: start is at x=0, so position relative to stage center
-          const stageCenterX = layout.stageWidth / 2;
+          // Shift left by 20%: position at 30% from left edge (50% - 20% = 30%)
+          const stageCenterX = layout.stageWidth * 0.3;
           const x = stageCenterX + p.x;
           const y = p.y;
           
