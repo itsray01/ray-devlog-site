@@ -169,7 +169,21 @@ const StoryTimeline = () => {
     return { pos, minX: newMinX, maxX: newMaxX, maxY, stageWidth, stageHeight, marginX, NODE_R };
   };
 
-  const layout = computeLayout();
+  // Safely compute layout with error handling
+  let layout = null;
+  try {
+    layout = computeLayout();
+  } catch (error) {
+    console.error('Error computing layout:', error);
+    return (
+      <div className="simple-timeline">
+        <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--error)' }}>
+          Error rendering timeline: {error.message}
+        </div>
+      </div>
+    );
+  }
+
   if (!layout) {
     if (loading) {
       return (
@@ -256,7 +270,8 @@ const StoryTimeline = () => {
 
   // Generate SVG connectors based on edges
   const renderConnectors = (layout) => {
-    if (!storyData?.edges) return null;
+    if (!storyData?.edges || !Array.isArray(storyData.edges)) return null;
+    if (!layout || !layout.pos) return null;
     const { pos, stageWidth, stageHeight, NODE_R } = layout;
     const edges = storyData.edges;
     
@@ -414,7 +429,8 @@ const StoryTimeline = () => {
         {renderConnectors(layout)}
 
         {/* Dynamic Nodes from JSON */}
-        {storyData.nodes.map((node, index) => {
+        {storyData?.nodes?.map((node, index) => {
+          if (!node || !node.id) return null;
           const p = layout.pos[node.id];
           if (!p) return null;
           
