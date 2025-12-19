@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IconSearch, IconX } from '@tabler/icons-react';
+import { Search, X } from 'lucide-react';
 
 /**
  * Search bar component - searches across all content
@@ -81,7 +81,7 @@ const SearchBar = ({ searchableContent }) => {
         aria-label="Open search"
         title="Search (Ctrl+K)"
       >
-        <IconSearch size={20} />
+        <Search size={20} />
         <span>Search</span>
         <kbd>Ctrl+K</kbd>
       </motion.button>
@@ -104,7 +104,7 @@ const SearchBar = ({ searchableContent }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="search-input-wrapper">
-                <IconSearch size={20} className="search-icon" />
+                <Search size={20} className="search-icon" />
                 <input
                   type="text"
                   className="search-input"
@@ -120,7 +120,7 @@ const SearchBar = ({ searchableContent }) => {
                     onClick={handleClear}
                     aria-label="Clear search"
                   >
-                    <IconX size={18} />
+                    <X size={18} />
                   </button>
                 )}
               </div>

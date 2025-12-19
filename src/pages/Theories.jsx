@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaBrain, FaBalanceScale, FaGamepad, FaFilm, FaGraduationCap, FaRobot, FaFeatherAlt, FaBook } from 'react-icons/fa';
+import { Brain, Scale, Gamepad2, Film, GraduationCap, Bot, Feather, Book } from 'lucide-react';
 import ReadingProgress from '../components/ReadingProgress';
 import TableOfContents from '../components/TableOfContents';
 import { pageVariants, pageTransition } from '../constants/animations';
@@ -80,13 +80,13 @@ const Theories = () => {
           transition={{ delay: 0.2 }}
         >
           <div className="theory-header" id="research-framework">
-            <FaBrain className="theory-icon" />
+            <Brain className="theory-icon" />
             <h2>Research Methodology: Practice as Research</h2>
           </div>
 
           <div className="theory-content">
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Robin Nelson (2013)</h3>
                 <p className="citation"><em>Practice as Research in the Arts</em></p>
@@ -99,7 +99,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Donald Schön (1983)</h3>
                 <p className="citation"><em>The Reflective Practitioner</em></p>
@@ -111,7 +111,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Barrett & Bolt (2010)</h3>
                 <p className="citation"><em>Practice as Research: Creative Arts Enquiry</em></p>
@@ -133,17 +133,17 @@ const Theories = () => {
           transition={{ delay: 0.2 }}
         >
           <div className="theory-header" id="ai-ethics">
-            <FaRobot className="theory-icon" />
+            <Bot className="theory-icon" />
             <h2>AI & Ethics</h2>
           </div>
 
           <div className="theory-content">
             <h3 className="subsection-title">
-              <FaBalanceScale className="subsection-icon" /> AI Ethics & Philosophy
+              <Scale className="subsection-icon" /> AI Ethics & Philosophy
             </h3>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Nick Bostrom (2014)</h3>
                 <p className="citation"><em>Superintelligence: Paths, Dangers, Strategies</em></p>
@@ -156,7 +156,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Kate Crawford (2021)</h3>
                 <p className="citation"><em>Atlas of AI: Power, Politics, and Planetary Costs</em></p>
@@ -169,11 +169,11 @@ const Theories = () => {
             </div>
 
             <h3 className="subsection-title">
-              <FaFeatherAlt className="subsection-icon" /> Authorship & AI-Assisted Creation
+              <Feather className="subsection-icon" /> Authorship & AI-Assisted Creation
             </h3>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Roland Barthes (1977)</h3>
                 <p className="citation">"The Death of the Author" in <em>Image-Music-Text</em></p>
@@ -185,7 +185,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Lev Manovich (2018)</h3>
                 <p className="citation"><em>AI Aesthetics</em></p>
@@ -208,7 +208,7 @@ const Theories = () => {
           transition={{ delay: 0.2 }}
         >
           <div className="theory-header" id="interactive-media">
-            <FaGamepad className="theory-icon" />
+            <Gamepad2 className="theory-icon" />
             <h2>Interactive Media Theory</h2>
           </div>
 
@@ -216,7 +216,7 @@ const Theories = () => {
             <h3 className="subsection-title">Horror in Interactive Media</h3>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Bernard Perron (2012)</h3>
                 <p className="citation"><em>The World of Scary Video Games</em></p>
@@ -229,7 +229,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Ewan Kirkland (2009)</h3>
                 <p className="citation">"Horror Videogames and the Uncanny"</p>
@@ -242,7 +242,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Tanya Krzywinska (2002)</h3>
                 <p className="citation">"Hands-On Horror" in <em>ScreenPlay</em></p>
@@ -257,7 +257,7 @@ const Theories = () => {
             <h3 className="subsection-title">Interactive Storytelling</h3>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Janet Murray (1997)</h3>
                 <p className="citation"><em>Hamlet on the Holodeck</em></p>
@@ -269,7 +269,7 @@ const Theories = () => {
             </div>
 
             <div className="author-card">
-              <FaBook className="author-icon" />
+              <Book className="author-icon" />
               <div>
                 <h3>Espen Aarseth (1997)</h3>
                 <p className="citation"><em>Cybertext: Ergodic Literature</em></p>
@@ -291,7 +291,7 @@ const Theories = () => {
           transition={{ delay: 0.2 }}
         >
           <div className="theory-header" id="influences">
-            <FaFilm className="theory-icon" />
+            <Film className="theory-icon" />
             <h2>Film & Media Influences</h2>
           </div>
 
@@ -319,7 +319,7 @@ const Theories = () => {
           transition={{ delay: 0.2 }}
         >
           <div className="theory-header" id="course-connection">
-            <FaGraduationCap className="theory-icon" />
+            <GraduationCap className="theory-icon" />
             <h2>Connection to Course Objectives</h2>
           </div>
 

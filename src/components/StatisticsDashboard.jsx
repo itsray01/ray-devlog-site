@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import StatisticsCard from './StatisticsCard';
 import StatisticsCardChartJS from './StatisticsCardChartJS';
-import { IconVideo, IconCurrencyDollar, IconRefresh, IconBrain } from '@tabler/icons-react';
+import { Video, DollarSign, RefreshCw, Brain } from 'lucide-react';
 
 // Toggle between SVG charts and Chart.js
 // Enabled: Beautiful Chart.js with gradients and glow effects!
@@ -19,7 +19,7 @@ const StatisticsDashboard = () => {
       title: 'Total Clips Generated',
       value: '247',
       subtitle: 'AI-generated videos',
-      icon: IconVideo,
+      icon: Video,
       trend: null,
       chartData: [180, 190, 195, 210, 220, 230, 247],
       chartType: 'line'
@@ -29,7 +29,7 @@ const StatisticsDashboard = () => {
       title: 'Project Investment',
       value: '$500',
       subtitle: 'AI platforms + infrastructure',
-      icon: IconCurrencyDollar,
+      icon: DollarSign,
       trend: null,
       chartData: [
         { label: 'Sora 2', value: 30, color: '#8b5cf6' },
@@ -43,7 +43,7 @@ const StatisticsDashboard = () => {
       title: 'Development Iterations',
       value: '156',
       subtitle: 'Script revisions',
-      icon: IconRefresh,
+      icon: RefreshCw,
       trend: null,
       chartData: [12, 28, 45, 72, 98, 130, 156], // iterations over time
       chartType: 'line'
@@ -52,7 +52,7 @@ const StatisticsDashboard = () => {
       id: 4,
       title: 'AI Models Used',
       subtitle: 'Platforms tested',
-      icon: IconBrain,
+      icon: Brain,
       trend: null,
       chartData: [
         { label: 'Veo 3.1', value: 150, color: '#8b5cf6' },

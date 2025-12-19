@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IconChevronDown } from '@tabler/icons-react';
+import { ChevronDown } from 'lucide-react';
 
 // Offset in pixels from top of viewport for scroll positioning
 const SCROLL_OFFSET = 140;
@@ -17,8 +17,6 @@ function getScrollContainer() {
  * Scroll to an element by ID with offset
  */
 function scrollToId(id, options = {}) {
-  console.log('[TOC] scrollToId', id);
-
   if (!id) return;
   const target = document.getElementById(id);
   if (!target) {
@@ -30,14 +28,10 @@ function scrollToId(id, options = {}) {
   const rect = target.getBoundingClientRect();
 
   // Use scrollIntoView (which works in this codebase) then adjust for offset
-  console.log('[TOC] using scrollIntoView then adjusting by', -SCROLL_OFFSET);
-
   target.scrollIntoView({ behavior: 'instant', block: 'start' });
 
   // Adjust for the offset after scrollIntoView completes
   window.scrollBy(0, -SCROLL_OFFSET);
-
-  console.log('[TOC] final scrollY:', window.scrollY);
 }
 
 /**
@@ -53,7 +47,6 @@ const TableOfContents = ({ sections }) => {
   useEffect(() => {
     const initialHash = window.location.hash?.slice(1);
     if (initialHash) {
-      console.log('[TOC] initial hash detected:', initialHash);
       // Wait for content to render
       const timer = setTimeout(() => {
         scrollToId(initialHash, { smooth: false });
@@ -66,7 +59,6 @@ const TableOfContents = ({ sections }) => {
   useEffect(() => {
     const onHashChange = () => {
       const id = window.location.hash?.slice(1);
-      console.log('[TOC] hash changed to:', id);
       scrollToId(id);
     };
     window.addEventListener('hashchange', onHashChange);
@@ -99,8 +91,6 @@ const TableOfContents = ({ sections }) => {
   }, [sections]);
 
   const handleItemClick = (id) => {
-    console.log('[TOC] click', id);
-
     // Update URL hash first
     const { pathname, search } = window.location;
     const newUrl = `${pathname}${search}#${id}`;
@@ -134,7 +124,7 @@ const TableOfContents = ({ sections }) => {
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          <IconChevronDown size={20} />
+          <ChevronDown size={20} />
         </motion.span>
       </button>
 

@@ -1,32 +1,14 @@
-import { useMemo, useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import Lightbox from '../Lightbox';
+import { handleImageError } from '../../utils/imageUtils';
 import inspirationData from '../../../data/inspiration.json';
-
-// Image error handler - optimized to prevent recreation
-const handleImageError = (e) => {
-  e.target.style.border = '2px solid red';
-  e.target.style.backgroundColor = '#ff000020';
-};
 
 /**
  * Inspiration section component - Reference works and influences
  */
 const InspirationSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
-
-  // Lock body scroll when lightbox is open
-  useEffect(() => {
-    if (lightboxImage) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [lightboxImage]);
 
   // Memoize combined visual data to prevent recalculation
   const visualReferenceData = useMemo(() =>
@@ -171,36 +153,7 @@ const InspirationSection = () => {
         </div>
       </motion.section>
 
-      {/* Lightbox */}
-      {lightboxImage && createPortal(
-        <div
-          className="lightbox"
-          onClick={() => setLightboxImage(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image lightbox"
-        >
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="lightbox-close"
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxImage(null);
-              }}
-              aria-label="Close lightbox"
-            >
-              <X size={20} strokeWidth={2} />
-            </button>
-            <img src={lightboxImage.src} alt={lightboxImage.title} />
-          </div>
-          <div className="lightbox-caption">
-            <strong>{lightboxImage.title}</strong>
-            <br />
-            <span className="muted">{lightboxImage.year}</span>
-          </div>
-        </div>,
-        document.body
-      )}
+      <Lightbox lightboxImage={lightboxImage} onClose={() => setLightboxImage(null)} />
     </>
   );
 };

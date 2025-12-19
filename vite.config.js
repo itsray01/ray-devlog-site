@@ -32,9 +32,6 @@ export default defineConfig({
             if (id.includes('framer-motion')) {
               return 'animation-vendor';
             }
-            if (id.includes('simplebar')) {
-              return 'utils';
-            }
             // Other node_modules
             return 'vendor';
           }
