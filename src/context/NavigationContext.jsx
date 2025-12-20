@@ -42,8 +42,7 @@ export const NavigationProvider = ({ children }) => {
         return 'docked';
       }
     }
-    // TEMPORARY: Skip intro for debugging - start at 'toc' phase
-    return 'toc'; // Changed from 'preload' for debugging
+    return 'preload'; // Start with preload intro sequence
   });
   
   // Pending target section to scroll to after docking completes

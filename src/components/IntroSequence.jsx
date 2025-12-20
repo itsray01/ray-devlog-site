@@ -60,30 +60,30 @@ const IntroSequence = ({ onDone }) => {
 
     // Animation sequence
     tl
-      // 1. Grid lines fade in
+      // 1. Grid lines fade in - more visible like Shopify
       .to([grid, arcs], {
-        opacity: 0.08,
-        duration: 0.4,
+        opacity: 0.15, // Increased from 0.08 to 0.15 for more visibility
+        duration: 0.6,
         ease: 'power2.out'
       })
       // 2. Rectangle stroke draws
       .to(rectElement, {
         strokeDashoffset: 0,
-        duration: 0.8,
+        duration: 1.2, // Increased from 0.8 to 1.2 for slower draw
         ease: 'power2.inOut'
-      }, '-=0.1')
+      }, '-=0.2')
       // 3. Title fades in (starts 0.3s after rect begins)
       .to(title, {
         opacity: 1,
-        duration: 0.4,
+        duration: 0.6,
         ease: 'power2.out'
-      }, '-=0.5')
-      // 4. Hold for 0.3s
-      .to({}, { duration: 0.3 })
+      }, '-=0.6')
+      // 4. Hold for 0.4s
+      .to({}, { duration: 0.4 })
       // 5. Fade out entire overlay
       .to(container, {
         opacity: 0,
-        duration: 0.4,
+        duration: 0.5,
         ease: 'power2.in'
       });
 
@@ -92,11 +92,11 @@ const IntroSequence = ({ onDone }) => {
     };
   }, [onDone]);
 
-  // Calculate grid lines
+  // Calculate grid lines - MORE LINES spanning entire screen
   const gridLines = [];
-  // Horizontal lines
-  for (let i = 1; i <= 6; i++) {
-    const y = (i / 7) * 100;
+  // Horizontal lines - increase count for more coverage
+  for (let i = 1; i <= 12; i++) {
+    const y = (i / 13) * 100;
     gridLines.push(
       <line
         key={`h-${i}`}
@@ -106,12 +106,13 @@ const IntroSequence = ({ onDone }) => {
         y2={`${y}%`}
         stroke="white"
         strokeWidth="0.5"
+        opacity="0.15"
       />
     );
   }
-  // Vertical lines
-  for (let i = 1; i <= 8; i++) {
-    const x = (i / 9) * 100;
+  // Vertical lines - increase count for more coverage
+  for (let i = 1; i <= 16; i++) {
+    const x = (i / 17) * 100;
     gridLines.push(
       <line
         key={`v-${i}`}
@@ -121,6 +122,7 @@ const IntroSequence = ({ onDone }) => {
         y2="100%"
         stroke="white"
         strokeWidth="0.5"
+        opacity="0.15"
       />
     );
   }

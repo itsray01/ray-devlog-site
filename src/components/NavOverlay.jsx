@@ -150,15 +150,15 @@ const NavOverlay = () => {
     }
   };
 
-  // SVG frame draw animation
+  // SVG frame draw animation - SLOWER like Shopify
   const frameVariants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: { 
       pathLength: 1, 
       opacity: 1,
       transition: { 
-        pathLength: { duration: 0.8, ease: 'easeInOut' },
-        opacity: { duration: 0.2 }
+        pathLength: { duration: 1.5, ease: 'easeInOut' }, // Increased from 0.8 to 1.5
+        opacity: { duration: 0.3 }
       }
     }
   };

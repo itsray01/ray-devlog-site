@@ -3058,6 +3058,11 @@ html.has-scroll-smooth body {
   pointer-events: none;
 }
 
+/* Ensure grid lines are visible and crisp */
+.intro-sequence__grid line {
+  shape-rendering: crispEdges;
+}
+
 .intro-sequence__center {
   position: relative;
   display: flex;
