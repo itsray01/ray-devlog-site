@@ -34,7 +34,7 @@ export const NavigationProvider = ({ children }) => {
     typeof window !== 'undefined' && window.location.hash.length > 1
   );
   
-  // 4-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
+  // 3-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
   const [introPhase, setIntroPhase] = useState(() => {
     if (typeof window !== 'undefined') {
       // If localStorage has docked OR URL has hash, start docked (skip intro entirely)
@@ -42,7 +42,8 @@ export const NavigationProvider = ({ children }) => {
         return 'docked';
       }
     }
-    return 'preload'; // Start with preload intro sequence
+    // TEMPORARY: Skip intro for debugging - start at 'toc' phase
+    return 'toc'; // Changed from 'preload' for debugging
   });
   
   // Pending target section to scroll to after docking completes
