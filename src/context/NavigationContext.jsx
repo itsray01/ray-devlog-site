@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import useScrollSpy from '../hooks/useScrollSpy';
 
@@ -14,8 +14,13 @@ const OVERLAY_PAGES = ['/', '/my-journey'];
  * NavigationProvider - Manages navigation state for TOC overlay/dock behavior
  * 
  * Provides:
- * - isDocked: whether the nav has been docked to sidebar
+ * - isDocked: whether the nav has been docked to sidebar (legacy compatibility)
+ * - introPhase: "preload" | "toc" | "transitioning" | "docked" - 4-state flow
  * - setDocked: function to dock/undock the nav
+ * - finishIntro: transition from preload to toc phase
+ * - beginDockTransition: start the fly-out animation
+ * - finishDock: complete the docking after animation
+ * - pendingTargetId: section to scroll to after docking
  * - activeSectionId: currently visible section
  * - scrollToSection: function to scroll to a section
  * - sections: current page's sections
@@ -23,13 +28,31 @@ const OVERLAY_PAGES = ['/', '/my-journey'];
  */
 export const NavigationProvider = ({ children }) => {
   const location = useLocation();
-  const [isDocked, setIsDocked] = useState(() => {
-    // Initialize from localStorage
+  
+  // Check if URL has hash on initial load - if so, start docked
+  const hasHashOnLoad = useRef(
+    typeof window !== 'undefined' && window.location.hash.length > 1
+  );
+  
+  // 4-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
+  const [introPhase, setIntroPhase] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem(STORAGE_KEY) === '1';
+      // If localStorage has docked OR URL has hash, start docked (skip intro entirely)
+      if (localStorage.getItem(STORAGE_KEY) === '1' || hasHashOnLoad.current) {
+        return 'docked';
+      }
     }
-    return false;
+    return 'preload'; // Start with preload intro sequence
   });
+  
+  // Pending target section to scroll to after docking completes
+  const [pendingTargetId, setPendingTargetId] = useState(null);
+
+  // Legacy isDocked computed from introPhase for backward compatibility
+  const isDocked = introPhase === 'docked';
+  
+  // Legacy navState alias for backward compatibility (maps to introPhase)
+  const navState = introPhase;
 
   const [sections, setSections] = useState([]);
 
@@ -48,25 +71,68 @@ export const NavigationProvider = ({ children }) => {
   // Use scroll spy hook
   const { activeSectionId, scrollToSection, setActiveSectionId } = useScrollSpy(sectionIds);
 
-  // Persist docked state
+  // Persist docked state (legacy API - still works)
   const setDocked = useCallback((value) => {
-    setIsDocked(value);
-    if (typeof window !== 'undefined') {
-      if (value) {
+    if (value) {
+      setIntroPhase('docked');
+      if (typeof window !== 'undefined') {
         localStorage.setItem(STORAGE_KEY, '1');
-      } else {
+      }
+    } else {
+      setIntroPhase('preload');
+      if (typeof window !== 'undefined') {
         localStorage.removeItem(STORAGE_KEY);
       }
     }
   }, []);
 
-  // Handle section selection (dock + scroll)
+  // Finish intro sequence - transition from preload to toc phase
+  const finishIntro = useCallback(() => {
+    if (introPhase === 'preload') {
+      setIntroPhase('toc');
+    }
+  }, [introPhase]);
+
+  // Begin the dock transition (fly-out animation)
+  // Only works when user clicks a TOC item during toc phase
+  const beginDockTransition = useCallback((targetId = null) => {
+    // Only transition if currently in toc state (user must click TOC item)
+    if (introPhase !== 'toc') return;
+    
+    setPendingTargetId(targetId);
+    setIntroPhase('transitioning');
+  }, [introPhase]);
+
+  // Finish docking after animation completes
+  const finishDock = useCallback(() => {
+    setIntroPhase('docked');
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, '1');
+    }
+  }, []);
+
+  // Handle section selection (scroll only - docking is handled separately now)
   const handleSelectSection = useCallback((id) => {
     scrollToSection(id);
-    if (!isDocked && supportsOverlay) {
-      setDocked(true);
+    // Clear pending target after scrolling
+    if (pendingTargetId === id) {
+      setPendingTargetId(null);
     }
-  }, [scrollToSection, isDocked, supportsOverlay, setDocked]);
+  }, [scrollToSection, pendingTargetId]);
+
+  // Handle hash scrolling on initial load
+  useEffect(() => {
+    if (hasHashOnLoad.current && sections.length > 0) {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        // Small delay to ensure DOM is ready
+        const timer = setTimeout(() => {
+          scrollToSection(hash);
+        }, 100);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [sections, scrollToSection]);
 
   // Reset docked state when navigating away from overlay pages
   useEffect(() => {
@@ -76,15 +142,24 @@ export const NavigationProvider = ({ children }) => {
   }, [supportsOverlay]);
 
   const value = useMemo(() => ({
+    // Legacy API (kept for backward compatibility)
     isDocked,
     setDocked,
+    navState, // Alias for introPhase
+    // New 4-state flow
+    introPhase,
+    finishIntro,
+    beginDockTransition,
+    finishDock,
+    pendingTargetId,
+    // Sections and scroll
     activeSectionId,
     scrollToSection: handleSelectSection,
     setActiveSectionId,
     sections,
     setSections,
     supportsOverlay
-  }), [isDocked, setDocked, activeSectionId, handleSelectSection, setActiveSectionId, sections, supportsOverlay]);
+  }), [isDocked, setDocked, navState, introPhase, finishIntro, beginDockTransition, finishDock, pendingTargetId, activeSectionId, handleSelectSection, setActiveSectionId, sections, supportsOverlay]);
 
   return (
     <NavigationContext.Provider value={value}>

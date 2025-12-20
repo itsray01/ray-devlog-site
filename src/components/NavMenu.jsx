@@ -121,6 +121,9 @@ const NavMenu = ({
             role="menuitem"
             aria-current={activeSectionId === section.id ? 'location' : undefined}
             tabIndex={0}
+            data-nav-item
+            data-nav-key={section.id}
+            data-nav-index={index}
           >
             <span className="nav-menu__indicator" aria-hidden="true" />
             <span className="nav-menu__text">{section.title}</span>
