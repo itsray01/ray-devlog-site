@@ -1,33 +1,40 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import ScrollSection, { ScrollReveal } from '../ScrollSection';
+import TextReveal from '../TextReveal';
 import Lightbox from '../Lightbox';
 import { handleImageError } from '../../utils/imageUtils';
 import moodboardData from '../../../data/moodboard.json';
 
 /**
  * Moodboard section component - Visual tone references
+ * Now uses GSAP ScrollTrigger for animations
  */
 const MoodboardSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
 
   return (
     <>
-      <motion.section
+      <ScrollSection
         id="moodboard"
         className="content-section"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        preset="fadeUp"
+        duration={0.8}
       >
-        <div className="card">
-          <h2>Moodboard</h2>
+        <ScrollReveal className="card" preset="fadeUp">
+          <TextReveal
+            text="Moodboard"
+            as="h2"
+            splitBy="words"
+            preset="fadeUp"
+            stagger={0.08}
+          />
           <p className="muted">
             Visual tone-setter for Echo Maze Protocol — cold, industrial labyrinth lit by emergency amber and server blues.
             Palette, textures, and lighting references that guide shots, UI, and VFX.
           </p>
-        </div>
-        <div className="card">
+        </ScrollReveal>
+        
+        <ScrollReveal className="card" preset="scaleIn" delay={0.15}>
           <div className="grid-2x3">
             {moodboardData.map(item => (
               <figure
@@ -46,8 +53,8 @@ const MoodboardSection = () => {
               </figure>
             ))}
           </div>
-        </div>
-      </motion.section>
+        </ScrollReveal>
+      </ScrollSection>
 
       <Lightbox lightboxImage={lightboxImage} onClose={() => setLightboxImage(null)} />
     </>

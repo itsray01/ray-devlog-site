@@ -1,20 +1,28 @@
-import { motion } from 'framer-motion';
+import ScrollSection from '../ScrollSection';
+import TextReveal from '../TextReveal';
 
 /**
  * Overview section component - Project introduction and description
+ * Now uses GSAP ScrollTrigger for animations
  */
 const OverviewSection = () => {
   return (
-    <motion.section
+    <ScrollSection
       id="overview"
       className="content-section"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
+      preset="fadeUp"
+      duration={0.8}
+      staggerChildren=".card, p, h3"
+      staggerDelay={0.15}
     >
       <div className="card">
-        <h2>Project Overview</h2>
+        <TextReveal
+          text="Project Overview"
+          as="h2"
+          splitBy="words"
+          preset="fadeUp"
+          stagger={0.08}
+        />
         <p>
           This digital logbook chronicles the development of "Echoes of Control," an interactive
           dystopian film exploring themes of AI dominance, human agency, and moral choice.
@@ -53,7 +61,7 @@ const OverviewSection = () => {
           treating computer voices as social actors.
         </p>
       </div>
-    </motion.section>
+    </ScrollSection>
   );
 };
 

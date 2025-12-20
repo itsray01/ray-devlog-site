@@ -1,10 +1,12 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import ReadingProgress from '../components/ReadingProgress';
 import TableOfContents from '../components/TableOfContents';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { pageVariants, pageTransition } from '../constants/animations';
+import ScrollSection, { ScrollReveal } from '../components/ScrollSection';
+import TextReveal, { GlowText } from '../components/TextReveal';
+import { ScrollProgress } from '../components/ParallaxBackground';
+import { refreshScrollTrigger } from '../utils/gsap';
 
 // Table of Contents sections
 const TOC_SECTIONS = [
@@ -24,8 +26,6 @@ const MoodboardSection = lazy(() => import('../components/sections/MoodboardSect
 const StoryboardSection = lazy(() => import('../components/sections/StoryboardSection'));
 const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryDevelopmentSection'));
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
-
-// Lazy load remaining sections too
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
 
 // Loading fallback component
@@ -56,10 +56,18 @@ const SectionLoader = () => (
 );
 
 /**
- * Home page - main devlog content with lazy-loaded sections
- * Optimized for performance with code splitting
+ * Home page - main devlog content with GSAP scroll animations
+ * Features parallax background, scroll-triggered reveals, and cinematic text effects
  */
 const Home = () => {
+  // Refresh ScrollTrigger when component mounts (for lazy-loaded content)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      refreshScrollTrigger();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       {/* Skip Link for Accessibility */}
@@ -67,38 +75,47 @@ const Home = () => {
         Skip to main content
       </a>
 
+      {/* GSAP Scroll Progress Bar */}
+      <ScrollProgress color="var(--accent-primary)" height={3} />
+
       {/* Reading Progress Indicator */}
       <ReadingProgress />
 
-      <motion.div
-        initial="initial"
-        animate="in"
-        exit="out"
-        variants={pageVariants}
-        transition={pageTransition}
+      <div
         className="page-container"
         id="home"
         role="main"
         aria-label="Main content"
       >
         <div id="main-content"></div>
-        {/* Page Header with Search */}
-        <motion.header
-          className="page-header"
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
+        
+        {/* Cinematic Page Header with Text Reveal */}
+        <header className="page-header gsap-header">
           <div>
-            <h1>Digital Project Logbook</h1>
-            <p className="page-subtitle">Documenting the journey of creating an interactive dystopian film</p>
+            <TextReveal
+              text="Digital Project Logbook"
+              as="h1"
+              splitBy="words"
+              preset="fadeUp"
+              duration={0.8}
+              stagger={0.1}
+            />
+            <ScrollReveal preset="fadeUp" delay={0.3} duration={0.8}>
+              <p className="page-subtitle">
+                <GlowText glowColor="rgba(139, 92, 246, 0.6)" intensity={0.5}>
+                  Documenting the journey of creating an interactive dystopian film
+                </GlowText>
+              </p>
+            </ScrollReveal>
           </div>
-        </motion.header>
+        </header>
 
         {/* Table of Contents */}
-        <TableOfContents sections={TOC_SECTIONS} />
+        <ScrollReveal preset="fadeUp" delay={0.2}>
+          <TableOfContents sections={TOC_SECTIONS} />
+        </ScrollReveal>
 
-        {/* Lazy-loaded sections */}
+        {/* Lazy-loaded sections with GSAP animations */}
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
             <OverviewSection />
@@ -135,21 +152,19 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        {/* AI Video Generation Journey - Link to dedicated page */}
-        <motion.section
+        {/* AI Video Generation Journey - Link Card with GSAP animation */}
+        <ScrollSection
           className="content-section"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          preset="scaleIn"
+          duration={0.8}
           aria-label="AI video generation journey section"
         >
           <Link
             to="/my-journey"
             style={{ textDecoration: 'none', color: 'inherit' }}
-            aria-label="Read my journey through AI video generation - detailed documentation of testing 5 different AI models"
-            onMouseEnter={(e) => {
-              import('../pages/MyJourney'); // Prefetch on hover
+            aria-label="Read my journey through AI video generation"
+            onMouseEnter={() => {
+              import('../pages/MyJourney');
             }}
           >
             <div className="card journey-card">
@@ -164,7 +179,7 @@ const Home = () => {
               </div>
             </div>
           </Link>
-        </motion.section>
+        </ScrollSection>
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -172,21 +187,19 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        {/* Theoretical Foundations - Link to dedicated page */}
-        <motion.section
+        {/* Theoretical Foundations - Link Card with GSAP animation */}
+        <ScrollSection
           className="content-section"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          preset="scaleIn"
+          duration={0.8}
           aria-label="Theoretical foundations section"
         >
           <Link
             to="/theories"
             style={{ textDecoration: 'none', color: 'inherit' }}
-            aria-label="Explore theoretical foundations - academic frameworks and research methodologies"
-            onMouseEnter={(e) => {
-              import('../pages/Theories'); // Prefetch on hover
+            aria-label="Explore theoretical foundations"
+            onMouseEnter={() => {
+              import('../pages/Theories');
             }}
           >
             <div className="card journey-card">
@@ -201,21 +214,17 @@ const Home = () => {
               </div>
             </div>
           </Link>
-        </motion.section>
+        </ScrollSection>
 
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.0 }}
-        >
+        {/* Footer with fade-in */}
+        <ScrollReveal as="footer" preset="fadeIn" duration={1}>
           <p>
             This logbook documents the ongoing development of an interactive dystopian film project
             as of November 2025. It serves as both a creative diary and technical reference for
             AI-assisted filmmaking.
           </p>
-        </motion.footer>
-      </motion.div>
+        </ScrollReveal>
+      </div>
     </>
   );
 };

@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import ScrollSection, { ScrollReveal } from '../ScrollSection';
+import TextReveal from '../TextReveal';
 import Lightbox from '../Lightbox';
 import { handleImageError } from '../../utils/imageUtils';
 import inspirationData from '../../../data/inspiration.json';
 
 /**
  * Inspiration section component - Reference works and influences
+ * Now uses GSAP ScrollTrigger for animations
  */
 const InspirationSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -18,25 +20,29 @@ const InspirationSection = () => {
 
   return (
     <>
-      <motion.section
+      <ScrollSection
         id="inspiration"
         className="content-section"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        preset="fadeUp"
+        duration={0.8}
       >
         {/* Header Card */}
-        <div className="card">
-          <h2>Inspiration</h2>
+        <ScrollReveal className="card" preset="fadeUp">
+          <TextReveal
+            text="Inspiration"
+            as="h2"
+            splitBy="words"
+            preset="fadeUp"
+            stagger={0.08}
+          />
           <p className="muted">
             Reference works that shape the mood, interface language, and ethics of the maze-horror AI escape.
             Logged for tone, pacing, and systems aesthetics.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Interactive Films & Series */}
-        <div className="card">
+        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
           <h3>Interactive Films & Series</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -58,10 +64,10 @@ const InspirationSection = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Games & System Narratives */}
-        <div className="card">
+        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
           <h3>Games & System Narratives</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -83,10 +89,10 @@ const InspirationSection = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Visual Grammar & Design Influence */}
-        <div className="card">
+        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
           <h3>Visual Grammar & Design Influence</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -108,10 +114,10 @@ const InspirationSection = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Visual Grid */}
-        <div className="card">
+        <ScrollReveal className="card" preset="scaleIn" delay={0.1}>
           <h3>Visual Reference Grid</h3>
           <div className="grid-2x3">
             {visualReferenceData.map((item, idx) => (
@@ -135,10 +141,10 @@ const InspirationSection = () => {
               </figure>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Thematic Core */}
-        <div className="card">
+        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
           <h3>Thematic Core</h3>
           <p className="muted">
             All references converge on exploring:
@@ -150,8 +156,8 @@ const InspirationSection = () => {
             <li>Choice as illusion or genuine freedom</li>
             <li>Dark humor and existential dread in technological dystopias</li>
           </ul>
-        </div>
-      </motion.section>
+        </ScrollReveal>
+      </ScrollSection>
 
       <Lightbox lightboxImage={lightboxImage} onClose={() => setLightboxImage(null)} />
     </>

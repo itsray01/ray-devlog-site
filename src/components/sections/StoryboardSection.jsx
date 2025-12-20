@@ -1,33 +1,40 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import ScrollSection, { ScrollReveal } from '../ScrollSection';
+import TextReveal from '../TextReveal';
 import Lightbox from '../Lightbox';
 import { handleImageError } from '../../utils/imageUtils';
 import storyboardData from '../../../data/storyboard.json';
 
 /**
  * Storyboard section component - Shot planning frames
+ * Now uses GSAP ScrollTrigger for animations
  */
 const StoryboardSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
 
   return (
     <>
-      <motion.section
+      <ScrollSection
         id="storyboard"
         className="content-section"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        preset="fadeUp"
+        duration={0.8}
       >
-        <div className="card">
-          <h2>Storyboard</h2>
+        <ScrollReveal className="card" preset="fadeUp">
+          <TextReveal
+            text="Storyboard"
+            as="h2"
+            splitBy="words"
+            preset="fadeUp"
+            stagger={0.08}
+          />
           <p className="muted">
             Shot planning frames for key beats in the maze. Rough compositions that define blocking,
             lighting direction, and emotional pacing across the path.
           </p>
-        </div>
-        <div className="card">
+        </ScrollReveal>
+        
+        <ScrollReveal className="card" preset="scaleIn" delay={0.15}>
           <div className="grid-2x3">
             {storyboardData.map(item => (
               <figure
@@ -46,8 +53,8 @@ const StoryboardSection = () => {
               </figure>
             ))}
           </div>
-        </div>
-      </motion.section>
+        </ScrollReveal>
+      </ScrollSection>
 
       <Lightbox lightboxImage={lightboxImage} onClose={() => setLightboxImage(null)} />
     </>

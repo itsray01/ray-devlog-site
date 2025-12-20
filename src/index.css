@@ -2847,3 +2847,169 @@ html {
     transform: translateY(0);
   }
 }
+
+/* ===========================
+   GSAP Scroll Animation Styles
+   =========================== */
+
+/* Scroll Section Base Styles */
+.scroll-section {
+  will-change: transform, opacity;
+}
+
+/* GSAP Header with Text Reveal */
+.gsap-header {
+  overflow: visible;
+}
+
+.gsap-header h1 {
+  perspective: 1000px;
+}
+
+/* Text Reveal Styles */
+.text-reveal {
+  overflow: visible;
+}
+
+.text-reveal-item {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* Split Text Animation Styles */
+.split-word,
+.split-char,
+.split-line {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Line Reveal Animation */
+.line-reveal {
+  overflow: hidden;
+}
+
+.line-reveal-wrapper {
+  overflow: hidden;
+}
+
+.line-reveal-content {
+  will-change: transform;
+}
+
+/* Glow Text Effect */
+.glow-text {
+  transition: text-shadow 0.3s ease;
+}
+
+/* Parallax Container */
+.parallax-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-background {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.parallax-layer {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Floating Element Animation */
+.floating-element {
+  will-change: transform;
+}
+
+/* Pinned Section Styles */
+.pinned-section {
+  position: relative;
+}
+
+/* ScrollReveal Component Styles */
+.scroll-reveal {
+  will-change: transform, opacity;
+}
+
+/* Smooth Transform Performance */
+.gsap-transform {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Card animations with GSAP */
+.card.gsap-animated {
+  will-change: transform, opacity;
+}
+
+/* Stagger animation children */
+.stagger-children > * {
+  will-change: transform, opacity;
+}
+
+/* CountUp number animation */
+.count-up {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Typewriter effect */
+.typewriter {
+  font-family: 'Rajdhani', monospace;
+}
+
+.typewriter-cursor {
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Smooth scroll for GSAP */
+html.has-scroll-smooth {
+  overflow: hidden;
+}
+
+html.has-scroll-smooth body {
+  overflow: hidden;
+}
+
+/* GPU acceleration for animations */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-section,
+  .text-reveal,
+  .text-reveal-item,
+  .parallax-background,
+  .parallax-layer,
+  .floating-element,
+  .scroll-reveal,
+  .gsap-transform,
+  .card.gsap-animated,
+  .stagger-children > * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+  
+  .scroll-progress {
+    display: none;
+  }
+}

@@ -1,21 +1,26 @@
-import { motion } from 'framer-motion';
+import ScrollSection, { ScrollReveal } from '../ScrollSection';
+import TextReveal from '../TextReveal';
 
 /**
  * Production & Reflection section - Milestones and learnings
- * TODO: This section is large and contains multiple articles that could be split
+ * Now uses GSAP ScrollTrigger for animations
  */
 const ProductionSection = () => {
   return (
-    <motion.section
+    <ScrollSection
       id="production"
       className="content-section"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
+      preset="fadeUp"
+      duration={0.8}
     >
-      <div className="card">
-        <h2>Production & Reflection: The Real Story</h2>
+      <ScrollReveal className="card" preset="fadeUp">
+        <TextReveal
+          text="Production & Reflection: The Real Story"
+          as="h2"
+          splitBy="words"
+          preset="fadeUp"
+          stagger={0.06}
+        />
         <p>
           This isn't a polished success story. It's the messy reality of trying to create something
           ambitious with AI tools that aren't quite ready for narrative filmmaking yet.
@@ -24,15 +29,9 @@ const ProductionSection = () => {
           Here's what actually happened—the false starts, the tool failures, the pivot points, and 
           what I learned along the way.
         </p>
-      </div>
+      </ScrollReveal>
 
-      <motion.article
-        className="card note"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-      >
+      <ScrollReveal as="article" className="card note" preset="fadeLeft" delay={0.1}>
         <h3>Starting Too Big: My First Mistake</h3>
         <small className="meta">October 2025</small>
 
@@ -48,10 +47,10 @@ const ProductionSection = () => {
           strategic convergence points. This wasn't a compromise on my creative vision; it was a
           necessary reality check.
         </p>
-      </motion.article>
+      </ScrollReveal>
 
       {/* Key Learnings Summary */}
-      <div className="card">
+      <ScrollReveal className="card" preset="fadeUp" delay={0.15}>
         <h3>Key Learnings & Course Connections</h3>
         <div className="grid-2">
           <div className="mini">
@@ -73,8 +72,8 @@ const ProductionSection = () => {
             </ul>
           </div>
         </div>
-      </div>
-    </motion.section>
+      </ScrollReveal>
+    </ScrollSection>
   );
 };
 
