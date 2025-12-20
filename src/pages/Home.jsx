@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import ReadingProgress from '../components/ReadingProgress';
 import TableOfContents from '../components/TableOfContents';
 import ErrorBoundary from '../components/ErrorBoundary';
-import useDevlog from '../hooks/useDevlog';
 import { pageVariants, pageTransition } from '../constants/animations';
 
 // Table of Contents sections
@@ -61,90 +60,6 @@ const SectionLoader = () => (
  * Optimized for performance with code splitting
  */
 const Home = () => {
-  const { entries, loading, error } = useDevlog();
-
-  if (loading) {
-    return (
-      <motion.div
-        className="page-container"
-        initial="initial"
-        animate="in"
-        variants={pageVariants}
-        transition={pageTransition}
-        role="main"
-        aria-label="Main content"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-          width: '100%'
-        }}
-      >
-        <div className="loading-container" role="status" aria-live="polite" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center'
-        }}>
-          <div className="loading-spinner" aria-hidden="true" style={{
-            width: '80px',
-            height: '80px',
-            border: '6px solid rgba(138, 43, 226, 0.2)',
-            borderTop: '6px solid #8a2be2',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-            marginBottom: '2rem'
-          }} />
-          <motion.h1
-            animate={{ opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            style={{ fontSize: '3rem', marginBottom: '1rem' }}
-          >
-            Loading Devlog...
-          </motion.h1>
-          <motion.p style={{ fontSize: '1.3rem' }}>
-            Fetching latest entries from development log
-            <motion.span
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, times: [0, 0.5, 1] }}
-              aria-hidden="true"
-            >...</motion.span>
-          </motion.p>
-        </div>
-      </motion.div>
-    );
-  }
-
-  if (error) {
-    return (
-      <motion.div
-        className="page-container"
-        initial="initial"
-        animate="in"
-        variants={pageVariants}
-        transition={pageTransition}
-        role="main"
-        aria-label="Main content"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-          width: '100%'
-        }}
-      >
-        <div className="error-container" role="alert" aria-live="assertive" style={{
-          textAlign: 'center'
-        }}>
-          <h1>Error Loading Devlog</h1>
-          <p>{error}</p>
-        </div>
-      </motion.div>
-    );
-  }
-
   return (
     <>
       {/* Skip Link for Accessibility */}
