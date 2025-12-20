@@ -4,7 +4,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import ScrollSection, { ScrollReveal } from '../components/ScrollSection';
 import TextReveal, { GlowText } from '../components/TextReveal';
 import { ScrollProgress } from '../components/ParallaxBackground';
-import TearDivider from '../components/TearDivider';
+import TearDividerGL from '../components/TearDividerGL';
 import FeatureCard from '../components/FeatureCard';
 import FeatureGrid from '../components/FeatureGrid';
 import { Map, BookOpen } from 'lucide-react';
@@ -131,7 +131,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDivider variant="default" />
+        <TearDividerGL nextSectionId="inspiration" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -139,7 +139,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDivider variant="scanline" />
+        <TearDividerGL nextSectionId="moodboard" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -147,7 +147,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDivider variant="glitch" />
+        <TearDividerGL nextSectionId="storyboard" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -155,7 +155,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDivider variant="default" />
+        <TearDividerGL nextSectionId="story-development" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -163,7 +163,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDivider variant="scanline" />
+        <TearDividerGL nextSectionId="branching" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -198,7 +198,7 @@ const Home = () => {
           </FeatureGrid>
         </section>
 
-        <TearDivider variant="glitch" />
+        <TearDividerGL nextSectionId="production" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>

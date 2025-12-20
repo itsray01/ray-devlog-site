@@ -3588,6 +3588,45 @@ html.has-scroll-smooth body {
 }
 
 /* ============================================
+   TEAR DIVIDER GL (WebGL) STYLES
+   ============================================ */
+
+.tear-divider-gl {
+  margin: 1.5rem 0;
+  z-index: 1;
+}
+
+/* Fallback divider when WebGL fails or reduced motion */
+.tear-divider-fallback {
+  margin: 2rem 0;
+  opacity: 0.6;
+}
+
+/* Reduced motion - show static fallback */
+@media (prefers-reduced-motion: reduce) {
+  .tear-divider-gl canvas {
+    display: none;
+  }
+  
+  .tear-divider-gl::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent-primary) 20%,
+      var(--accent-secondary) 50%,
+      var(--accent-primary) 80%,
+      transparent 100%
+    );
+    opacity: 0.4;
+  }
+}
+
+/* ============================================
    FEATURE CARD STYLES
    ============================================ */
 
