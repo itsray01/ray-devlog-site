@@ -126,7 +126,7 @@ const IntroSequence = ({ onDone }) => {
   }
 
   return (
-    <div ref={containerRef} className="intro-sequence">
+    <div ref={containerRef} className="intro-sequence is-animating">
       {/* Background geometric layer */}
       <svg 
         ref={gridRef}

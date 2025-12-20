@@ -3032,6 +3032,12 @@ html.has-scroll-smooth body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  pointer-events: none; /* Allow clicks through if animation completes */
+}
+
+/* During animation, block all interaction */
+.intro-sequence.is-animating {
+  pointer-events: all;
 }
 
 .intro-sequence__grid {

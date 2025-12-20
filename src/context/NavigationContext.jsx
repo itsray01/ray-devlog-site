@@ -87,11 +87,22 @@ export const NavigationProvider = ({ children }) => {
   }, []);
 
   // Finish intro sequence - transition from preload to toc phase
+  // Only transition if sections are ready
   const finishIntro = useCallback(() => {
     if (introPhase === 'preload') {
-      setIntroPhase('toc');
+      // Check if sections are populated, if not wait a bit
+      const checkAndTransition = () => {
+        if (sections.length > 0) {
+          setIntroPhase('toc');
+        } else {
+          // Wait for sections to be populated
+          setTimeout(checkAndTransition, 50);
+        }
+      };
+      
+      setTimeout(checkAndTransition, 100);
     }
-  }, [introPhase]);
+  }, [introPhase, sections.length]);
 
   // Begin the dock transition (fly-out animation)
   // Only works when user clicks a TOC item during toc phase

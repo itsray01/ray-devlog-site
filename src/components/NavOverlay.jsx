@@ -61,11 +61,19 @@ const NavOverlay = () => {
 
   // Lock body scroll when overlay is open (preload, toc, or transitioning)
   useEffect(() => {
-    if ((introPhase === 'preload' || introPhase === 'toc' || introPhase === 'transitioning') && supportsOverlay) {
+    const shouldLock = (introPhase === 'preload' || introPhase === 'toc' || introPhase === 'transitioning') && supportsOverlay;
+    
+    if (shouldLock) {
+      // Store original overflow value
+      const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
+      
       return () => {
-        document.body.style.overflow = '';
+        document.body.style.overflow = originalOverflow || '';
       };
+    } else {
+      // Ensure scroll is unlocked when not in these phases
+      document.body.style.overflow = '';
     }
   }, [introPhase, supportsOverlay]);
 
@@ -85,8 +93,28 @@ const NavOverlay = () => {
   }, [introPhase]);
 
   // Don't render if not on a supported page or not in toc/transitioning phase
-  if (!supportsOverlay || (introPhase !== 'toc' && introPhase !== 'transitioning') || sections.length === 0) {
+  // FALLBACK: If sections haven't loaded yet but we're in toc phase, show a loading state
+  if (!supportsOverlay || (introPhase !== 'toc' && introPhase !== 'transitioning')) {
     return null;
+  }
+
+  // If no sections yet, show loading overlay
+  if (sections.length === 0) {
+    return (
+      <div 
+        className="nav-overlay" 
+        style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          background: 'rgba(10, 12, 16, 0.95)'
+        }}
+      >
+        <div style={{ textAlign: 'center', color: 'white' }}>
+          <p>Loading sections...</p>
+        </div>
+      </div>
+    );
   }
 
   // Check for reduced motion
