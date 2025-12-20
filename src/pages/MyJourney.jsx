@@ -1,12 +1,14 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
 import StatisticsDashboard from '../components/StatisticsDashboard';
-import TableOfContents from '../components/TableOfContents';
+import TearDivider from '../components/TearDivider';
 import { pageVariants, pageTransition } from '../constants/animations';
+import { useNavigation } from '../context/NavigationContext';
 
-// Table of Contents sections
-const TOC_SECTIONS = [
+// Table of Contents sections - exported for use by navigation components
+export const JOURNEY_SECTIONS = [
   { id: 'statistics', title: 'Statistics' },
   { id: 'introduction', title: 'Introduction' },
   { id: 'practice-as-research', title: 'Practice as Research' },
@@ -19,11 +21,22 @@ const TOC_SECTIONS = [
   { id: 'reflections', title: 'Reflections' }
 ];
 
+// Alias for backward compatibility
+const TOC_SECTIONS = JOURNEY_SECTIONS;
+
 /**
  * My Journey So Far - Dedicated page for AI video generation experiments
  * Comprehensive documentation of tools, failures, and lessons learned
  */
 const MyJourney = () => {
+  const { setSections } = useNavigation();
+
+  // Register sections with navigation context
+  useEffect(() => {
+    setSections(JOURNEY_SECTIONS);
+    return () => setSections([]);
+  }, [setSections]);
+
   return (
     <>
       {/* Skip Link for Accessibility */}
@@ -60,13 +73,12 @@ const MyJourney = () => {
           </p>
         </motion.header>
 
-        {/* Table of Contents */}
-        <TableOfContents sections={TOC_SECTIONS} />
-
         {/* Statistics Dashboard */}
         <div id="statistics">
           <StatisticsDashboard />
         </div>
+
+        <TearDivider variant="default" />
 
         {/* Introduction */}
         <motion.article
@@ -116,6 +128,8 @@ const MyJourney = () => {
           </p>
         </motion.article>
 
+        <TearDivider variant="scanline" />
+
         {/* The Tool Graveyard */}
         <motion.article
           id="tool-graveyard"
@@ -144,6 +158,8 @@ const MyJourney = () => {
             opinion, the best models currently available.
           </p>
         </motion.article>
+
+        <TearDivider variant="glitch" />
 
         {/* Tool Cards Section */}
         <section style={{ marginTop: '2rem' }} aria-label="AI tool reviews">
@@ -326,6 +342,8 @@ const MyJourney = () => {
             </ToolLessonCard>
           </div>
         </section>
+
+        <TearDivider variant="default" />
 
         {/* Reflection Section */}
         <motion.article

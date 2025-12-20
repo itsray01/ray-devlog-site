@@ -1,22 +1,12 @@
 import { useMemo, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { sidebarVariants, dropdownVariants } from '../constants/animations';
+import { motion } from 'framer-motion';
+import { sidebarVariants } from '../constants/animations';
 import useViewport from '../hooks/useViewport';
+import NavMenu from './NavMenu';
+import { useNavigation } from '../context/NavigationContext';
 
-// Fixed import error - useMemo and useCallback must come from 'react', not 'react-router-dom'
-
-// Static data - moved outside component to prevent recreation
-const homeSections = [
-  { id: 'overview', title: 'Project Overview' },
-  { id: 'inspiration', title: 'Inspiration' },
-  { id: 'moodboard', title: 'Moodboard' },
-  { id: 'storyboard', title: 'Storyboard' },
-  { id: 'story-development', title: 'Story Development' },
-  { id: 'branching', title: 'Branching Narrative' },
-  { id: 'production', title: 'Production & Reflection' }
-];
-
+// Static data for theories sections (not part of overlay system)
 const theoriesSections = [
   { id: 'research-framework', title: 'Research Framework' },
   { id: 'ai-ethics', title: 'AI & Ethics' },
@@ -32,49 +22,37 @@ const otherPages = [
 ];
 
 /**
- * Sidebar component with hover dropdown navigation
- * Shows page links with hover dropdown for Home sections
- * Auto-hides on mobile devices (handled by Layout)
- * Optimized with useMemo and useCallback
+ * Sidebar component with navigation
+ * When on Home/MyJourney and docked, shows the section navigation
+ * Otherwise shows hover dropdown navigation
  */
 const Sidebar = () => {
   const location = useLocation();
   const { isMobile } = useViewport();
+  const { 
+    isDocked, 
+    sections, 
+    activeSectionId, 
+    scrollToSection,
+    supportsOverlay 
+  } = useNavigation();
   
   // Don't render sidebar on mobile (Layout handles mobile navigation)
   if (isMobile) return null;
 
   // Memoize page checks
   const isHomePage = useMemo(() => location.pathname === '/', [location.pathname]);
+  const isJourneyPage = useMemo(() => location.pathname === '/my-journey', [location.pathname]);
   const isTheoriesPage = useMemo(() => location.pathname === '/theories', [location.pathname]);
 
-  // Memoize section click handler for Home sections
-  const handleSectionClick = useCallback((sectionId) => {
-    if (!isHomePage) {
-      // Navigate to home first, then scroll
-      window.location.href = '/';
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    } else {
-      // Just scroll
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  }, [isHomePage]);
+  // Show docked section nav when on overlay pages and docked
+  const showDockedNav = isDocked && supportsOverlay && sections.length > 0;
 
-  // Memoize section click handler for Theories sections
+  // Handler for theories sections (not part of overlay system)
   const handleTheoriesSectionClick = useCallback((sectionId) => {
     if (!isTheoriesPage) {
-      // Navigate to theories first, then scroll
       window.location.href = `/theories#${sectionId}`;
     } else {
-      // Just scroll
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -100,50 +78,42 @@ const Sidebar = () => {
           </motion.div>
         </Link>
 
-        {/* Navigation */}
+        {/* Docked Section Navigation (when on Home/MyJourney and docked) */}
+        {showDockedNav && (
+          <div className="sidebar-docked-nav">
+            <div className="sidebar-docked-label">
+              {isHomePage ? 'Home' : isJourneyPage ? 'My Journey' : 'Sections'}
+            </div>
+            <NavMenu
+              sections={sections}
+              activeSectionId={activeSectionId}
+              onSelect={scrollToSection}
+              mode="docked"
+            />
+          </div>
+        )}
+
+        {/* Main Navigation */}
         <nav className="sidebar-nav">
           <div className="nav-section">
-            {/* Home with hover dropdown */}
-            <div className="nav-item-container">
-              <Link
-                to="/"
-                className={`nav-item nav-item-main ${isHomePage ? 'active' : ''}`}
+            {/* Home Link */}
+            <Link
+              to="/"
+              className={`nav-item nav-item-main ${isHomePage ? 'active' : ''}`}
+            >
+              <motion.div
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
+                style={{ width: '100%' }}
               >
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.98 }}
-                  style={{ width: '100%' }}
-                >
-                  <span className="nav-item-text">Home</span>
-                </motion.div>
-              </Link>
-              
-              {/* Hover dropdown */}
-              <div className="nav-dropdown">
-                <div className="dropdown-content">
-                  {homeSections.map((section, index) => (
-                    <motion.button
-                      key={section.id}
-                      className="dropdown-item"
-                      onClick={() => handleSectionClick(section.id)}
-                      whileHover={{ x: 5, scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <span className="dropdown-bullet">•</span>
-                      <span className="dropdown-text">{section.title}</span>
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-            </div>
+                <span className="nav-item-text">Home</span>
+              </motion.div>
+            </Link>
 
-            {/* My Journey Page */}
+            {/* My Journey Link */}
             <Link
               to="/my-journey"
-              className={`nav-item nav-item-main ${location.pathname === '/my-journey' ? 'active' : ''}`}
+              className={`nav-item nav-item-main ${isJourneyPage ? 'active' : ''}`}
             >
               <motion.div
                 whileHover={{ x: 5 }}
@@ -229,4 +199,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

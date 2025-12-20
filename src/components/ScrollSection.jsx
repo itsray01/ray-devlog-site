@@ -106,12 +106,18 @@ const ScrollSection = ({
     };
   }, { scope: sectionRef, dependencies: [preset, duration, delay, staggerChildren, staggerDelay, scrub, pin] });
 
+  // Merge scroll-margin-top into style for proper anchor scroll offset
+  const mergedStyle = {
+    scrollMarginTop: '100px',
+    ...style
+  };
+
   return (
     <Component
       ref={sectionRef}
       id={id}
       className={`scroll-section ${className}`}
-      style={style}
+      style={mergedStyle}
       {...props}
     >
       {children}
@@ -156,7 +162,12 @@ export const ScrollReveal = ({
   }, { scope: elementRef });
 
   return (
-    <Component ref={elementRef} className={className} {...props}>
+    <Component 
+      ref={elementRef} 
+      className={className} 
+      style={{ scrollMarginTop: '100px', ...props.style }}
+      {...props}
+    >
       {children}
     </Component>
   );
