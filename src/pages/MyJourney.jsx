@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
 import StatisticsDashboard from '../components/StatisticsDashboard';
-import TearDividerGL from '../components/TearDividerGL';
+import TearDividerAnimated from '../components/TearDividerAnimated';
 import { pageVariants, pageTransition } from '../constants/animations';
 import { useNavigation } from '../context/NavigationContext';
 
@@ -78,7 +78,7 @@ const MyJourney = () => {
           <StatisticsDashboard />
         </div>
 
-        <TearDividerGL nextSectionId="introduction" />
+        <TearDividerAnimated nextSectionId="introduction" />
 
         {/* Introduction */}
         <motion.article
@@ -128,7 +128,7 @@ const MyJourney = () => {
           </p>
         </motion.article>
 
-        <TearDividerGL nextSectionId="tool-graveyard" />
+        <TearDividerAnimated nextSectionId="tool-graveyard" />
 
         {/* The Tool Graveyard */}
         <motion.article
@@ -159,7 +159,7 @@ const MyJourney = () => {
           </p>
         </motion.article>
 
-        <TearDividerGL nextSectionId="sora2" />
+        <TearDividerAnimated nextSectionId="sora2" />
 
         {/* Tool Cards Section */}
         <section style={{ marginTop: '2rem' }} aria-label="AI tool reviews">
@@ -343,7 +343,7 @@ const MyJourney = () => {
           </div>
         </section>
 
-        <TearDividerGL nextSectionId="reflections" />
+        <TearDividerAnimated nextSectionId="reflections" />
 
         {/* Reflection Section */}
         <motion.article

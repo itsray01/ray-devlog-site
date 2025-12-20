@@ -20,7 +20,8 @@
       "Bash(del \"c:\\\\Users\\\\admin\\\\Documents\\\\Digital Project\\\\devlog-site\\\\commit-and-push.ps1\")",
       "Bash(del \"c:\\\\Users\\\\admin\\\\Documents\\\\Digital Project\\\\devlog-site\\\\undo-changes.ps1\")",
       "Bash(wc:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(npm run lint:*)"
     ],
     "deny": [],
     "ask": []

@@ -4,8 +4,8 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import ScrollSection, { ScrollReveal } from '../components/ScrollSection';
 import TextReveal, { GlowText } from '../components/TextReveal';
 import { ScrollProgress } from '../components/ParallaxBackground';
-import TearDividerGL from '../components/TearDividerGL';
 import FeatureCard from '../components/FeatureCard';
+import TearDividerAnimated from '../components/TearDividerAnimated';
 import FeatureGrid from '../components/FeatureGrid';
 import { Map, BookOpen } from 'lucide-react';
 import { refreshScrollTrigger } from '../utils/gsap';
@@ -131,7 +131,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerGL nextSectionId="inspiration" />
+        <TearDividerAnimated nextSectionId="inspiration" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -139,7 +139,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerGL nextSectionId="moodboard" />
+        <TearDividerAnimated nextSectionId="moodboard" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -147,7 +147,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerGL nextSectionId="storyboard" />
+        <TearDividerAnimated nextSectionId="storyboard" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -155,7 +155,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerGL nextSectionId="story-development" />
+        <TearDividerAnimated nextSectionId="story-development" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -163,7 +163,7 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerGL nextSectionId="branching" />
+        <TearDividerAnimated nextSectionId="branching" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -198,7 +198,7 @@ const Home = () => {
           </FeatureGrid>
         </section>
 
-        <TearDividerGL nextSectionId="production" />
+        <TearDividerAnimated nextSectionId="production" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>

@@ -3030,9 +3030,8 @@ html.has-scroll-smooth body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(13, 15, 18, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Solid dark overlay - no blur, lets background image show through subtly */
+  background: rgba(10, 12, 16, 0.95);
 }
 
 .nav-overlay__panel {
