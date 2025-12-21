@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 /**
@@ -8,87 +8,94 @@ import gsap from 'gsap';
  */
 const IntroSequence = ({ onDone }) => {
   const containerRef = useRef(null);
-  const rectRef = useRef(null);
   const titleRef = useRef(null);
   const gridRef = useRef(null);
   const arcsRef = useRef(null);
   const hasAnimated = useRef(false);
+  const onDoneRef = useRef(onDone);
 
-  useEffect(() => {
+  // Keep onDone ref up to date
+  useLayoutEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
+
+  useLayoutEffect(() => {
     if (hasAnimated.current) return;
     hasAnimated.current = true;
 
+    // Safety timeout - if animation fails for any reason, still call onDone
+    const safetyTimeout = setTimeout(() => {
+      console.warn('[IntroSequence] Safety timeout triggered - forcing transition');
+      onDoneRef.current?.();
+    }, 5000); // 5 second fallback
+
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
+
     if (prefersReducedMotion) {
       // Skip animation, show title briefly then exit
       if (titleRef.current) {
         titleRef.current.style.opacity = '1';
       }
-      setTimeout(() => onDone?.(), 100);
+      clearTimeout(safetyTimeout);
+      setTimeout(() => onDoneRef.current?.(), 100);
       return;
     }
 
-    const container = containerRef.current;
-    const rect = rectRef.current;
-    const title = titleRef.current;
-    const grid = gridRef.current;
-    const arcs = arcsRef.current;
+    // Use requestAnimationFrame to ensure refs are ready
+    requestAnimationFrame(() => {
+      const container = containerRef.current;
+      const title = titleRef.current;
+      const grid = gridRef.current;
+      const arcs = arcsRef.current;
 
-    if (!container || !rect || !title) return;
-
-    // Get the rect's perimeter for stroke animation
-    const rectElement = rect;
-    const perimeter = 2 * (280 + 120); // width + height of rect
-    
-    // Set initial states
-    gsap.set(rectElement, {
-      strokeDasharray: perimeter,
-      strokeDashoffset: perimeter
-    });
-    gsap.set(title, { opacity: 0 });
-    gsap.set(grid, { opacity: 0 });
-    gsap.set(arcs, { opacity: 0 });
-
-    // Create animation timeline
-    const tl = gsap.timeline({
-      onComplete: () => {
-        onDone?.();
+      if (!container || !title) {
+        console.error('[IntroSequence] Refs not ready:', { container, title });
+        clearTimeout(safetyTimeout);
+        onDoneRef.current?.(); // Call onDone even if refs failed
+        return;
       }
-    });
 
-    // Animation sequence
-    tl
-      // 1. Grid lines fade in - more visible like Shopify
-      .to([grid, arcs], {
-        opacity: 0.15, // Increased from 0.08 to 0.15 for more visibility
-        duration: 0.6,
-        ease: 'power2.out'
-      })
-      // 2. Rectangle stroke draws
-      .to(rectElement, {
-        strokeDashoffset: 0,
-        duration: 1.2, // Increased from 0.8 to 1.2 for slower draw
-        ease: 'power2.inOut'
-      }, '-=0.2')
-      // 3. Title fades in (starts 0.3s after rect begins)
-      .to(title, {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power2.out'
-      }, '-=0.6')
-      // 4. Hold for 0.4s
-      .to({}, { duration: 0.4 })
-      // 5. Fade out entire overlay
-      .to(container, {
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.in'
+      // Set initial states
+      gsap.set(title, { opacity: 0 });
+      gsap.set(grid, { opacity: 0 });
+      gsap.set(arcs, { opacity: 0 });
+
+      // Create animation timeline
+      const tl = gsap.timeline({
+        onComplete: () => {
+          console.log('[IntroSequence] Animation complete, calling onDone');
+          clearTimeout(safetyTimeout); // Clear safety timeout on success
+          onDoneRef.current?.();
+        }
       });
 
+      // Animation sequence (no rectangle, just grid and title)
+      tl
+        // 1. Grid lines fade in - more visible like Shopify
+        .to([grid, arcs], {
+          opacity: 0.15,
+          duration: 0.8,
+          ease: 'power2.out'
+        })
+        // 2. Title fades in
+        .to(title, {
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power2.out'
+        }, '-=0.4')
+        // 3. Hold for 0.6s
+        .to({}, { duration: 0.6 })
+        // 4. Fade out entire overlay
+        .to(container, {
+          opacity: 0,
+          duration: 0.6,
+          ease: 'power2.in'
+        });
+    }); // Close requestAnimationFrame
+
     return () => {
-      tl.kill();
+      clearTimeout(safetyTimeout);
     };
   }, [onDone]);
 
@@ -186,27 +193,8 @@ const IntroSequence = ({ onDone }) => {
         />
       </svg>
 
-      {/* Center frame with title */}
+      {/* Center title (no frame) */}
       <div className="intro-sequence__center">
-        <svg 
-          className="intro-sequence__frame" 
-          width="280" 
-          height="120"
-          viewBox="0 0 280 120"
-        >
-          <rect
-            ref={rectRef}
-            x="1"
-            y="1"
-            width="278"
-            height="118"
-            fill="none"
-            stroke="white"
-            strokeWidth="1"
-            rx="2"
-            ry="2"
-          />
-        </svg>
         <h1 ref={titleRef} className="intro-sequence__title">
           Digital Project Logbook
         </h1>

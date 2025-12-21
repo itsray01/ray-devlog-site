@@ -37,8 +37,14 @@ export const NavigationProvider = ({ children }) => {
   // 3-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
   const [introPhase, setIntroPhase] = useState(() => {
     if (typeof window !== 'undefined') {
+      const storedDocked = localStorage.getItem(STORAGE_KEY);
+      console.log('[NavigationContext] Initial state check:', {
+        storedDocked,
+        hasHashOnLoad: hasHashOnLoad.current,
+        willStartDocked: storedDocked === '1' || hasHashOnLoad.current
+      });
       // If localStorage has docked OR URL has hash, start docked (skip intro entirely)
-      if (localStorage.getItem(STORAGE_KEY) === '1' || hasHashOnLoad.current) {
+      if (storedDocked === '1' || hasHashOnLoad.current) {
         return 'docked';
       }
     }
@@ -87,22 +93,16 @@ export const NavigationProvider = ({ children }) => {
   }, []);
 
   // Finish intro sequence - transition from preload to toc phase
-  // Only transition if sections are ready
+  // Transitions immediately - NavOverlay will wait for sections if needed
   const finishIntro = useCallback(() => {
+    console.log('[NavigationContext] finishIntro called, current phase:', introPhase);
     if (introPhase === 'preload') {
-      // Check if sections are populated, if not wait a bit
-      const checkAndTransition = () => {
-        if (sections.length > 0) {
-          setIntroPhase('toc');
-        } else {
-          // Wait for sections to be populated
-          setTimeout(checkAndTransition, 50);
-        }
-      };
-      
-      setTimeout(checkAndTransition, 100);
+      console.log('[NavigationContext] Transitioning to toc phase');
+      setIntroPhase('toc');
+    } else {
+      console.warn('[NavigationContext] finishIntro called but phase is not preload:', introPhase);
     }
-  }, [introPhase, sections.length]);
+  }, [introPhase]);
 
   // Begin the dock transition (fly-out animation)
   // Only works when user clicks a TOC item during toc phase

@@ -21,7 +21,8 @@
       "Bash(del \"c:\\\\Users\\\\admin\\\\Documents\\\\Digital Project\\\\devlog-site\\\\undo-changes.ps1\")",
       "Bash(wc:*)",
       "Bash(ls:*)",
-      "Bash(npm run lint:*)"
+      "Bash(npm run lint:*)",
+      "Bash(npx vite:*)"
     ],
     "deny": [],
     "ask": []

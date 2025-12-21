@@ -19,7 +19,10 @@ export const HOME_SECTIONS = [
   { id: 'storyboard', title: 'Storyboard' },
   { id: 'story-development', title: 'Story Development' },
   { id: 'branching', title: 'Branching' },
-  { id: 'production', title: 'Production' }
+  { id: 'production', title: 'Production' },
+  { id: 'about', title: 'About' },
+  { id: 'assets', title: 'Assets' },
+  { id: 'extras', title: 'Extras' }
 ];
 
 // Alias for backward compatibility
@@ -33,6 +36,9 @@ const StoryboardSection = lazy(() => import('../components/sections/StoryboardSe
 const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryDevelopmentSection'));
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
+const AboutSection = lazy(() => import('../components/sections/AboutSection'));
+const AssetsSection = lazy(() => import('../components/sections/AssetsSection'));
+const ExtrasSection = lazy(() => import('../components/sections/ExtrasSection'));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -203,6 +209,30 @@ const Home = () => {
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
             <ProductionSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <TearDividerAnimated nextSectionId="about" />
+
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <AboutSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <TearDividerAnimated nextSectionId="assets" />
+
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <AssetsSection />
+          </Suspense>
+        </ErrorBoundary>
+
+        <TearDividerAnimated nextSectionId="extras" />
+
+        <ErrorBoundary>
+          <Suspense fallback={<SectionLoader />}>
+            <ExtrasSection />
           </Suspense>
         </ErrorBoundary>
 

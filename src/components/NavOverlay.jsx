@@ -94,7 +94,15 @@ const NavOverlay = () => {
 
   // Don't render if not on a supported page or not in toc/transitioning phase
   // FALLBACK: If sections haven't loaded yet but we're in toc phase, show a loading state
+  console.log('[NavOverlay] Render check:', {
+    supportsOverlay,
+    introPhase,
+    sectionsLength: sections.length,
+    willRender: supportsOverlay && (introPhase === 'toc' || introPhase === 'transitioning')
+  });
+
   if (!supportsOverlay || (introPhase !== 'toc' && introPhase !== 'transitioning')) {
+    console.log('[NavOverlay] Returning null - not rendering');
     return null;
   }
 
@@ -150,15 +158,15 @@ const NavOverlay = () => {
     }
   };
 
-  // SVG frame draw animation - SLOWER like Shopify
+  // SVG frame draw animation - VERY SLOW and clear like Shopify
   const frameVariants = {
     hidden: { pathLength: 0, opacity: 0 },
-    visible: { 
-      pathLength: 1, 
+    visible: {
+      pathLength: 1,
       opacity: 1,
-      transition: { 
-        pathLength: { duration: 1.5, ease: 'easeInOut' }, // Increased from 0.8 to 1.5
-        opacity: { duration: 0.3 }
+      transition: {
+        pathLength: { duration: 2.5, ease: 'easeInOut' }, // Slow and smooth
+        opacity: { duration: 0.5 }
       }
     }
   };
@@ -183,7 +191,7 @@ const NavOverlay = () => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* SVG Drawing Frame */}
-            <svg 
+            <svg
               className="nav-overlay__frame"
               preserveAspectRatio="none"
             >
@@ -192,11 +200,11 @@ const NavOverlay = () => {
                 y="0.5"
                 width="calc(100% - 1px)"
                 height="calc(100% - 1px)"
-                rx="12"
-                ry="12"
+                rx="0"
+                ry="0"
                 fill="none"
                 stroke="white"
-                strokeWidth="1"
+                strokeWidth="1.5"
                 variants={prefersReducedMotion ? undefined : frameVariants}
                 initial={prefersReducedMotion ? { pathLength: 1, opacity: 1 } : 'hidden'}
                 animate={frameReady ? 'visible' : 'hidden'}

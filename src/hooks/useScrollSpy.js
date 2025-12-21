@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
  * Custom hook for scroll-spy functionality
@@ -27,7 +28,7 @@ const useScrollSpy = (sectionIds = [], options = {}) => {
   // Scroll to a section by ID
   const scrollToSection = useCallback((id) => {
     if (!id) return;
-    
+
     const element = document.getElementById(id);
     if (!element) {
       console.warn('[useScrollSpy] No element found with id:', id);
@@ -47,6 +48,23 @@ const useScrollSpy = (sectionIds = [], options = {}) => {
 
     // Update active section immediately for responsive UI
     setActiveSectionId(id);
+
+    // Refresh ScrollTrigger and progress animations after scrolling
+    // Use a small delay to allow scroll to complete
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+
+      // Get all ScrollTriggers and check if they should be active
+      ScrollTrigger.getAll().forEach(trigger => {
+        // If the trigger's element is now in view but animation hasn't played,
+        // force it to progress to completion
+        if (trigger.isActive && trigger.animation) {
+          trigger.animation.progress(1);
+        }
+      });
+
+      console.log('[useScrollSpy] ScrollTrigger refreshed and animations progressed for:', id);
+    }, prefersReducedMotion ? 50 : 500);
   }, [prefersReducedMotion]);
 
   // Set up IntersectionObserver
