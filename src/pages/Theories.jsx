@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Scale, Gamepad2, Film, GraduationCap, Bot, Feather, Book } from 'lucide-react';
 import ReadingProgress from '../components/ReadingProgress';
-import TableOfContents from '../components/TableOfContents';
 import { pageVariants, pageTransition } from '../constants/animations';
+import { useNavigation } from '../context/NavigationContext';
 
 // Table of Contents sections - grouped by category
-const TOC_SECTIONS = [
+export const THEORIES_SECTIONS = [
   { id: 'research-framework', title: 'Research Framework' },
   { id: 'ai-ethics', title: 'AI & Ethics' },
   { id: 'interactive-media', title: 'Interactive Media Theory' },
@@ -18,6 +19,14 @@ const TOC_SECTIONS = [
  * Comprehensive documentation of theories, citations, and their application to the project
  */
 const Theories = () => {
+  const { setSections } = useNavigation();
+
+  // Register sections with navigation context
+  useEffect(() => {
+    setSections(THEORIES_SECTIONS);
+    return () => setSections([]);
+  }, [setSections]);
+
   return (
     <>
       {/* Skip Link for Accessibility */}
@@ -53,9 +62,6 @@ const Theories = () => {
             Academic frameworks and research methodologies informing this project
           </p>
         </motion.header>
-
-        {/* Table of Contents */}
-        <TableOfContents sections={TOC_SECTIONS} />
 
         {/* Introduction Card */}
         <motion.article

@@ -1,49 +1,44 @@
 import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { lazy, Suspense } from 'react';
-import { useGSAP } from '@gsap/react';
-import { gsap, ScrollTrigger } from '../../utils/gsap';
 
 // Lazy load the heavy StoryTimeline component
 const StoryTimeline = lazy(() => import('../StoryTimeline'));
 
 /**
  * Branching Narrative section - Interactive story flow
- * Uses hybrid GSAP/Framer Motion approach for scroll + interactive animations
+ * Using Framer Motion for interactive animations
  */
 const BranchingSection = () => {
   const [branchingExpanded, setBranchingExpanded] = useState(false);
   const sectionRef = useRef(null);
 
-  // GSAP scroll animation for the section
-  useGSAP(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    gsap.set(section, { opacity: 0, y: 40 });
-    
-    gsap.to(section, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse'
-      }
-    });
-  }, { scope: sectionRef });
-
   const toggleBranching = useCallback(() => {
     setBranchingExpanded(prev => !prev);
   }, []);
 
+  // Section animation variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
+
   return (
-    <section
+    <motion.section
       ref={sectionRef}
       id="branching"
       className="content-section scroll-section"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
     >
       <div className="card">
         <div
@@ -157,7 +152,7 @@ const BranchingSection = () => {
           )}
         </AnimatePresence>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

@@ -4,6 +4,7 @@ import NavOverlay from './NavOverlay';
 import NavDock from './NavDock';
 import IntroSequence from './IntroSequence';
 import MobileNav from './MobileNav';
+import TopNavBar from './TopNavBar';
 import { NavigationProvider, useNavigation } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
 
@@ -23,25 +24,30 @@ const LayoutContent = () => {
 
   return (
     <div className="app-container">
+      {/* Top Navigation Bar - always visible on desktop */}
+      {!isMobile && <TopNavBar />}
+
       {/* Stage 1: Preload intro sequence - fullscreen black with geometric animation */}
       {supportsOverlay && introPhase === 'preload' && (
         <IntroSequence onDone={finishIntro} />
       )}
-      
+
       {/* Traditional Sidebar - only shown on non-overlay pages */}
       {!isMobile && !supportsOverlay && <Sidebar />}
-      
+
       {/* Stage 2: TOC Overlay - shows after intro, before docking */}
       {supportsOverlay && <NavOverlay />}
-      
+
       {/* Stage 3: Nav Dock - always mounted on overlay pages for GSAP targeting */}
       {supportsOverlay && <NavDock />}
-      
-      <div 
+
+      <div
         className="main-content"
         style={{
           marginLeft: isMobile ? 0 : `${sidebarWidth}px`,
+          marginTop: isMobile ? 0 : '60px', // Account for top nav bar height
           width: isMobile ? '100%' : `calc(100% - ${sidebarWidth}px)`,
+          minHeight: isMobile ? '100vh' : 'calc(100vh - 60px)',
           padding: contentPadding,
           display: 'flex',
           justifyContent: 'center',
@@ -58,7 +64,7 @@ const LayoutContent = () => {
           <Outlet />
         </main>
       </div>
-      
+
       {/* Mobile Navigation */}
       {isMobile && <MobileNav />}
     </div>

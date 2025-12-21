@@ -1,11 +1,51 @@
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 /**
+ * SimpleButton - Button/Link without magnetic effect
+ */
+const SimpleButton = ({ children, className, onClick, href, isLink, external }) => {
+  const buttonRef = useRef(null);
+
+  if (isLink) {
+    if (external) {
+      return (
+        <a
+          ref={buttonRef}
+          href={href}
+          className={className}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      );
+    }
+    return (
+      <Link ref={buttonRef} to={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      ref={buttonRef}
+      type="button"
+      className={className}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+/**
  * FeatureCard - Shopify-style feature card with cyberpunk aesthetics
- * 
+ * Now without tilt effect and magnetic CTA
+ *
  * @param {string} eyebrow - Optional small label above title
  * @param {string} title - Required heading
  * @param {string} body - Short description
@@ -29,14 +69,16 @@ const FeatureCard = forwardRef(({
   children,
   ...props
 }, ref) => {
+  // Removed tilt effect - keeping card simple
+
   // Animation variants
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20 
+    hidden: {
+      opacity: 0,
+      y: 20
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
@@ -58,37 +100,27 @@ const FeatureCard = forwardRef(({
     );
 
     if (cta.href) {
-      // Internal link
-      if (cta.href.startsWith('/')) {
-        return (
-          <Link to={cta.href} className="feature-card__cta">
-            {ctaContent}
-          </Link>
-        );
-      }
-      // External link
+      const isExternal = !cta.href.startsWith('/');
       return (
-        <a 
-          href={cta.href} 
+        <SimpleButton
+          href={cta.href}
           className="feature-card__cta"
-          target="_blank"
-          rel="noopener noreferrer"
+          isLink
+          external={isExternal}
         >
           {ctaContent}
-        </a>
+        </SimpleButton>
       );
     }
 
-    // Button with onClick
     if (cta.onClick) {
       return (
-        <button 
-          type="button" 
+        <SimpleButton
           className="feature-card__cta"
           onClick={cta.onClick}
         >
           {ctaContent}
-        </button>
+        </SimpleButton>
       );
     }
 
@@ -136,27 +168,36 @@ const FeatureCard = forwardRef(({
         {renderCTA()}
       </div>
 
-      {/* Glow effect overlay */}
+      {/* Glow effect overlay (original) */}
       <div className="feature-card__glow" aria-hidden="true" />
     </>
   );
 
+  // Handle forwarded ref
+  const setRefs = (el) => {
+    if (typeof ref === 'function') {
+      ref(el);
+    } else if (ref) {
+      ref.current = el;
+    }
+  };
+
   // If CTA has href and covers the whole card
   if (cta?.href && !children) {
     const CardWrapper = cta.href.startsWith('/') ? Link : 'a';
-    const linkProps = cta.href.startsWith('/') 
+    const linkProps = cta.href.startsWith('/')
       ? { to: cta.href }
       : { href: cta.href, target: '_blank', rel: 'noopener noreferrer' };
 
     return (
       <motion.div
-        ref={ref}
+        ref={setRefs}
         className={`feature-card feature-card--${variant} feature-card--linked ${className}`}
         variants={cardVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-50px' }}
-        whileHover={{ y: -4 }}
+        style={{ position: 'relative', overflow: 'hidden' }}
         {...props}
       >
         <CardWrapper {...linkProps} className="feature-card__link-overlay">
@@ -169,13 +210,13 @@ const FeatureCard = forwardRef(({
 
   return (
     <motion.div
-      ref={ref}
+      ref={setRefs}
       className={`feature-card feature-card--${variant} ${className}`}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
-      whileHover={{ y: -4 }}
+      style={{ position: 'relative', overflow: 'hidden' }}
       {...props}
     >
       {cardContent}

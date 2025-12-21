@@ -8,7 +8,7 @@ const NavigationContext = createContext(null);
 const STORAGE_KEY = 'devlog_nav_docked';
 
 // Pages that support the TOC overlay behavior
-const OVERLAY_PAGES = ['/', '/my-journey'];
+const OVERLAY_PAGES = ['/', '/my-journey', '/theories', '/assets', '/about', '/extras'];
 
 /**
  * NavigationProvider - Manages navigation state for TOC overlay/dock behavior

@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
+import { useLayoutEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 /**
  * IntroSequence - Shopify Editions-style fullscreen intro
@@ -8,11 +8,10 @@ import gsap from 'gsap';
  */
 const IntroSequence = ({ onDone }) => {
   const containerRef = useRef(null);
-  const titleRef = useRef(null);
-  const gridRef = useRef(null);
-  const arcsRef = useRef(null);
   const hasAnimated = useRef(false);
   const onDoneRef = useRef(onDone);
+  const [showGrid, setShowGrid] = useState(false);
+  const [showTitle, setShowTitle] = useState(false);
 
   // Keep onDone ref up to date
   useLayoutEffect(() => {
@@ -34,67 +33,31 @@ const IntroSequence = ({ onDone }) => {
 
     if (prefersReducedMotion) {
       // Skip animation, show title briefly then exit
-      if (titleRef.current) {
-        titleRef.current.style.opacity = '1';
-      }
+      setShowTitle(true);
       clearTimeout(safetyTimeout);
       setTimeout(() => onDoneRef.current?.(), 100);
       return;
     }
 
-    // Use requestAnimationFrame to ensure refs are ready
-    requestAnimationFrame(() => {
-      const container = containerRef.current;
-      const title = titleRef.current;
-      const grid = gridRef.current;
-      const arcs = arcsRef.current;
+    // Sequence the animations using timeouts
+    const timers = [];
 
-      if (!container || !title) {
-        console.error('[IntroSequence] Refs not ready:', { container, title });
-        clearTimeout(safetyTimeout);
-        onDoneRef.current?.(); // Call onDone even if refs failed
-        return;
-      }
+    // 1. Show grid lines after short delay
+    timers.push(setTimeout(() => setShowGrid(true), 200));
 
-      // Set initial states
-      gsap.set(title, { opacity: 0 });
-      gsap.set(grid, { opacity: 0 });
-      gsap.set(arcs, { opacity: 0 });
+    // 2. Show title after grid
+    timers.push(setTimeout(() => setShowTitle(true), 1000));
 
-      // Create animation timeline
-      const tl = gsap.timeline({
-        onComplete: () => {
-          console.log('[IntroSequence] Animation complete, calling onDone');
-          clearTimeout(safetyTimeout); // Clear safety timeout on success
-          onDoneRef.current?.();
-        }
-      });
-
-      // Animation sequence (no rectangle, just grid and title)
-      tl
-        // 1. Grid lines fade in - more visible like Shopify
-        .to([grid, arcs], {
-          opacity: 0.15,
-          duration: 0.8,
-          ease: 'power2.out'
-        })
-        // 2. Title fades in
-        .to(title, {
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out'
-        }, '-=0.4')
-        // 3. Hold for 0.6s
-        .to({}, { duration: 0.6 })
-        // 4. Fade out entire overlay
-        .to(container, {
-          opacity: 0,
-          duration: 0.6,
-          ease: 'power2.in'
-        });
-    }); // Close requestAnimationFrame
+    // 3. Hold for a moment
+    // 4. Fade out and call onDone
+    timers.push(setTimeout(() => {
+      console.log('[IntroSequence] Animation complete, calling onDone');
+      clearTimeout(safetyTimeout);
+      onDoneRef.current?.();
+    }, 2800));
 
     return () => {
+      timers.forEach(timer => clearTimeout(timer));
       clearTimeout(safetyTimeout);
     };
   }, [onDone]);
@@ -137,21 +100,25 @@ const IntroSequence = ({ onDone }) => {
   return (
     <div ref={containerRef} className="intro-sequence is-animating">
       {/* Background geometric layer */}
-      <svg 
-        ref={gridRef}
-        className="intro-sequence__grid" 
-        viewBox="0 0 100 100" 
+      <motion.svg
+        className="intro-sequence__grid"
+        viewBox="0 0 100 100"
         preserveAspectRatio="none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showGrid ? 0.15 : 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         {gridLines}
-      </svg>
+      </motion.svg>
 
       {/* Curved arcs at corners */}
-      <svg 
-        ref={arcsRef}
+      <motion.svg
         className="intro-sequence__arcs"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showGrid ? 0.15 : 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         {/* Top-left arc */}
         <path
@@ -191,13 +158,18 @@ const IntroSequence = ({ onDone }) => {
           strokeWidth="0.2"
           strokeDasharray="5 10"
         />
-      </svg>
+      </motion.svg>
 
       {/* Center title (no frame) */}
       <div className="intro-sequence__center">
-        <h1 ref={titleRef} className="intro-sequence__title">
+        <motion.h1
+          className="intro-sequence__title"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showTitle ? 1 : 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
           Digital Project Logbook
-        </h1>
+        </motion.h1>
       </div>
     </div>
   );

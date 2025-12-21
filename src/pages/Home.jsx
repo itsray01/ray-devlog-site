@@ -1,14 +1,9 @@
 import { lazy, Suspense, useEffect } from 'react';
 import ReadingProgress from '../components/ReadingProgress';
 import ErrorBoundary from '../components/ErrorBoundary';
-import ScrollSection, { ScrollReveal } from '../components/ScrollSection';
-import TextReveal, { GlowText } from '../components/TextReveal';
-import { ScrollProgress } from '../components/ParallaxBackground';
 import FeatureCard from '../components/FeatureCard';
-import TearDividerAnimated from '../components/TearDividerAnimated';
 import FeatureGrid from '../components/FeatureGrid';
 import { Map, BookOpen } from 'lucide-react';
-import { refreshScrollTrigger } from '../utils/gsap';
 import { useNavigation } from '../context/NavigationContext';
 
 // Table of Contents sections - exported for use by navigation components
@@ -19,10 +14,7 @@ export const HOME_SECTIONS = [
   { id: 'storyboard', title: 'Storyboard' },
   { id: 'story-development', title: 'Story Development' },
   { id: 'branching', title: 'Branching' },
-  { id: 'production', title: 'Production' },
-  { id: 'about', title: 'About' },
-  { id: 'assets', title: 'Assets' },
-  { id: 'extras', title: 'Extras' }
+  { id: 'production', title: 'Production' }
 ];
 
 // Alias for backward compatibility
@@ -36,14 +28,11 @@ const StoryboardSection = lazy(() => import('../components/sections/StoryboardSe
 const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryDevelopmentSection'));
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
-const AboutSection = lazy(() => import('../components/sections/AboutSection'));
-const AssetsSection = lazy(() => import('../components/sections/AssetsSection'));
-const ExtrasSection = lazy(() => import('../components/sections/ExtrasSection'));
 
 // Loading fallback component
 const SectionLoader = () => (
-  <div 
-    role="status" 
+  <div
+    role="status"
     aria-label="Loading section"
     style={{
       padding: '3rem 0',
@@ -51,7 +40,7 @@ const SectionLoader = () => (
       color: 'var(--muted)'
     }}
   >
-    <div 
+    <div
       aria-hidden="true"
       style={{
         width: '40px',
@@ -61,15 +50,14 @@ const SectionLoader = () => (
         borderRadius: '50%',
         animation: 'spin 1s linear infinite',
         margin: '0 auto 1rem'
-      }} 
+      }}
     />
     <p>Loading section...</p>
   </div>
 );
 
 /**
- * Home page - main devlog content with GSAP scroll animations
- * Features parallax background, scroll-triggered reveals, and cinematic text effects
+ * Home page - main devlog content
  */
 const Home = () => {
   const { setSections } = useNavigation();
@@ -80,23 +68,12 @@ const Home = () => {
     return () => setSections([]);
   }, [setSections]);
 
-  // Refresh ScrollTrigger when component mounts (for lazy-loaded content)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      refreshScrollTrigger();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
       {/* Skip Link for Accessibility */}
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
-
-      {/* GSAP Scroll Progress Bar */}
-      <ScrollProgress color="var(--accent-primary)" height={3} />
 
       {/* Reading Progress Indicator */}
       <ReadingProgress />
@@ -108,36 +85,21 @@ const Home = () => {
         aria-label="Main content"
       >
         <div id="main-content"></div>
-        
-        {/* Cinematic Page Header with Text Reveal */}
-        <header className="page-header gsap-header">
-          <div>
-            <TextReveal
-              text="Digital Project Logbook"
-              as="h1"
-              splitBy="words"
-              preset="fadeUp"
-              duration={0.8}
-              stagger={0.1}
-            />
-            <ScrollReveal preset="fadeUp" delay={0.3} duration={0.8}>
-              <p className="page-subtitle">
-                <GlowText glowColor="rgba(139, 92, 246, 0.6)" intensity={0.5}>
-                  Documenting the journey of creating an interactive dystopian film
-                </GlowText>
-              </p>
-            </ScrollReveal>
-          </div>
+
+        {/* Page Header */}
+        <header className="page-header">
+          <h1>Digital Project Logbook</h1>
+          <p className="page-subtitle">
+            Documenting the journey of creating an interactive dystopian film
+          </p>
         </header>
 
-        {/* Lazy-loaded sections with GSAP animations */}
+        {/* Lazy-loaded sections */}
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
             <OverviewSection />
           </Suspense>
         </ErrorBoundary>
-
-        <TearDividerAnimated nextSectionId="inspiration" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -145,15 +107,11 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerAnimated nextSectionId="moodboard" />
-
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
             <MoodboardSection />
           </Suspense>
         </ErrorBoundary>
-
-        <TearDividerAnimated nextSectionId="storyboard" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -161,15 +119,11 @@ const Home = () => {
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerAnimated nextSectionId="story-development" />
-
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
             <StoryDevelopmentSection />
           </Suspense>
         </ErrorBoundary>
-
-        <TearDividerAnimated nextSectionId="branching" />
 
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
@@ -190,7 +144,7 @@ const Home = () => {
               delay={0.1}
               onMouseEnter={() => import('../pages/MyJourney')}
             />
-            
+
             <FeatureCard
               eyebrow="Academic Framework"
               title="Theoretical Foundations"
@@ -204,46 +158,20 @@ const Home = () => {
           </FeatureGrid>
         </section>
 
-        <TearDividerAnimated nextSectionId="production" />
-
         <ErrorBoundary>
           <Suspense fallback={<SectionLoader />}>
             <ProductionSection />
           </Suspense>
         </ErrorBoundary>
 
-        <TearDividerAnimated nextSectionId="about" />
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <AboutSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <TearDividerAnimated nextSectionId="assets" />
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <AssetsSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        <TearDividerAnimated nextSectionId="extras" />
-
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <ExtrasSection />
-          </Suspense>
-        </ErrorBoundary>
-
-        {/* Footer with fade-in */}
-        <ScrollReveal as="footer" preset="fadeIn" duration={1}>
+        {/* Footer */}
+        <footer>
           <p>
             This logbook documents the ongoing development of an interactive dystopian film project
             as of November 2025. It serves as both a creative diary and technical reference for
             AI-assisted filmmaking.
           </p>
-        </ScrollReveal>
+        </footer>
       </div>
     </>
   );

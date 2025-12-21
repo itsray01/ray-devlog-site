@@ -22,7 +22,9 @@
       "Bash(wc:*)",
       "Bash(ls:*)",
       "Bash(npm run lint:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(del:*)",
+      "Bash(cd:*)"
     ],
     "deny": [],
     "ask": []

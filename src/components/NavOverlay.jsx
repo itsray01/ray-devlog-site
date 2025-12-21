@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import NavMenu from './NavMenu';
 import { useNavigation } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
-import { flyNavItemsToDock } from '../utils/gsap';
 
 /**
  * NavOverlay - Centered TOC overlay (Stage 2)
@@ -11,63 +10,59 @@ import { flyNavItemsToDock } from '../utils/gsap';
  * User MUST click a TOC item to trigger docking - no auto-dock
  */
 const NavOverlay = () => {
-  const { 
+  const {
     introPhase,
     beginDockTransition,
     finishDock,
     pendingTargetId,
-    sections, 
-    activeSectionId, 
+    sections,
+    activeSectionId,
     scrollToSection,
-    supportsOverlay 
+    supportsOverlay
   } = useNavigation();
-  
+
   const { isMobile } = useViewport();
   const overlayMenuRef = useRef(null);
   const panelRef = useRef(null);
   const hasTriggeredRef = useRef(false);
   const [frameReady, setFrameReady] = useState(false);
 
-  // Handle triggering the dock transition with GSAP flight
+  // Handle triggering the dock transition
   const triggerDockTransition = useCallback((targetId) => {
     // Only allow docking when user clicks a TOC item (targetId must be provided)
     if (!targetId || hasTriggeredRef.current || introPhase !== 'toc') return;
     hasTriggeredRef.current = true;
-    
+
     beginDockTransition(targetId);
   }, [introPhase, beginDockTransition]);
 
-  // Run GSAP flight animation when transitioning
+  // Complete transition without GSAP animation
   useEffect(() => {
     if (introPhase !== 'transitioning') return;
 
-    const overlayRootEl = overlayMenuRef.current;
-    const dockRootEl = document.querySelector('[data-nav-dock-root]');
-
-    flyNavItemsToDock({
-      overlayRootEl,
-      dockRootEl,
-      onComplete: () => {
-        finishDock();
-        // Scroll to pending target if any
-        if (pendingTargetId) {
-          setTimeout(() => {
-            scrollToSection(pendingTargetId);
-          }, 50);
-        }
+    // Simple timeout to simulate transition
+    const timer = setTimeout(() => {
+      finishDock();
+      // Scroll to pending target if any
+      if (pendingTargetId) {
+        setTimeout(() => {
+          scrollToSection(pendingTargetId);
+        }, 50);
       }
-    });
+    }, 300); // Short delay for visual continuity
+
+    return () => clearTimeout(timer);
   }, [introPhase, finishDock, pendingTargetId, scrollToSection]);
 
   // Lock body scroll when overlay is open (preload, toc, or transitioning)
   useEffect(() => {
     const shouldLock = (introPhase === 'preload' || introPhase === 'toc' || introPhase === 'transitioning') && supportsOverlay;
-    
+
     if (shouldLock) {
       // Store original overflow value
       const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-      
+
       return () => {
         document.body.style.overflow = originalOverflow || '';
       };
@@ -109,11 +104,11 @@ const NavOverlay = () => {
   // If no sections yet, show loading overlay
   if (sections.length === 0) {
     return (
-      <div 
-        className="nav-overlay" 
-        style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
+      <div
+        className="nav-overlay"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
           justifyContent: 'center',
           background: 'rgba(10, 12, 16, 0.95)'
         }}
@@ -126,8 +121,8 @@ const NavOverlay = () => {
   }
 
   // Check for reduced motion
-  const prefersReducedMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
 
   // Animation variants
@@ -138,12 +133,12 @@ const NavOverlay = () => {
   };
 
   const panelVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       scale: 0.95
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
       transition: {
         type: 'spring',
@@ -151,8 +146,8 @@ const NavOverlay = () => {
         stiffness: 300
       }
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       scale: 0.9,
       transition: { duration: 0.3 }
     }
@@ -216,7 +211,7 @@ const NavOverlay = () => {
               <h2 className="nav-overlay__title">Contents</h2>
             </div>
 
-            {/* Navigation Menu - wrapped with ref for GSAP */}
+            {/* Navigation Menu - wrapped with ref for potential future use */}
             <div ref={overlayMenuRef}>
               <NavMenu
                 sections={sections}

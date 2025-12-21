@@ -1,22 +1,22 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * NavMenu - Shared navigation menu component
- * Used in both overlay (TOC) and docked (Sidebar) modes
- * 
+ * Used in both overlay (TOC) and docked (Sidebar/NavDock/Mobile) modes
+ *
  * @param {Array} sections - Array of { id, title } objects
  * @param {string} activeSectionId - Currently active section ID
  * @param {function} onSelect - Callback when a section is selected
  * @param {string} mode - 'overlay' | 'docked'
  * @param {string} className - Additional CSS classes
  */
-const NavMenu = ({ 
-  sections = [], 
-  activeSectionId = '', 
-  onSelect, 
+const NavMenu = ({
+  sections = [],
+  activeSectionId = '',
+  onSelect,
   mode = 'overlay',
-  className = '' 
+  className = ''
 }) => {
   const listRef = useRef(null);
   const itemRefs = useRef([]);
@@ -24,7 +24,7 @@ const NavMenu = ({
   // Handle keyboard navigation
   const handleKeyDown = useCallback((e, index) => {
     const items = itemRefs.current.filter(Boolean);
-    
+
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
@@ -82,13 +82,13 @@ const NavMenu = ({
   };
 
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: mode === 'overlay' ? 0 : -10,
       y: mode === 'overlay' ? 10 : 0
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       y: 0,
       transition: { duration: 0.3, ease: 'easeOut' }
@@ -107,8 +107,8 @@ const NavMenu = ({
       aria-label="Page sections"
     >
       {sections.map((section, index) => (
-        <motion.li 
-          key={section.id} 
+        <motion.li
+          key={section.id}
           variants={itemVariants}
           role="none"
         >

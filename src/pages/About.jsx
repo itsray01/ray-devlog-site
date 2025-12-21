@@ -1,13 +1,13 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition } from '../constants/animations';
 import Timeline from '../components/Timeline';
-import TableOfContents from '../components/TableOfContents';
 import ReadingProgress from '../components/ReadingProgress';
 import timelineData from '../../data/timeline.json';
+import { useNavigation } from '../context/NavigationContext';
 
 // Table of Contents sections
-const TOC_SECTIONS = [
+export const ABOUT_SECTIONS = [
   { id: 'timeline', title: 'Project Timeline' },
   { id: 'vision', title: 'The Vision' },
   { id: 'process', title: 'The Process' },
@@ -19,6 +19,13 @@ const TOC_SECTIONS = [
  * Optimized with React.memo and static animation variants
  */
 const About = () => {
+  const { setSections } = useNavigation();
+
+  // Register sections with navigation context
+  useEffect(() => {
+    setSections(ABOUT_SECTIONS);
+    return () => setSections([]);
+  }, [setSections]);
 
   return (
     <>
@@ -52,9 +59,6 @@ const About = () => {
           <h1>About This Project</h1>
           <p className="page-subtitle">The story behind the logbook</p>
         </motion.header>
-
-        {/* Table of Contents */}
-        <TableOfContents sections={TOC_SECTIONS} />
 
       {/* Project Timeline Section */}
       <motion.section

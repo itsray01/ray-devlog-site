@@ -1,13 +1,10 @@
 import { useMemo, useState } from 'react';
-import ScrollSection, { ScrollReveal } from '../ScrollSection';
-import TextReveal from '../TextReveal';
 import Lightbox from '../Lightbox';
 import { handleImageError } from '../../utils/imageUtils';
 import inspirationData from '../../../data/inspiration.json';
 
 /**
  * Inspiration section component - Reference works and influences
- * Now uses GSAP ScrollTrigger for animations
  */
 const InspirationSection = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -20,29 +17,18 @@ const InspirationSection = () => {
 
   return (
     <>
-      <ScrollSection
-        id="inspiration"
-        className="content-section"
-        preset="fadeUp"
-        duration={0.8}
-      >
+      <section id="inspiration" className="content-section">
         {/* Header Card */}
-        <ScrollReveal className="card" preset="fadeUp">
-          <TextReveal
-            text="Inspiration"
-            as="h2"
-            splitBy="words"
-            preset="fadeUp"
-            stagger={0.08}
-          />
+        <div className="card">
+          <h2>Inspiration</h2>
           <p className="muted">
             Reference works that shape the mood, interface language, and ethics of the maze-horror AI escape.
             Logged for tone, pacing, and systems aesthetics.
           </p>
-        </ScrollReveal>
+        </div>
 
         {/* Interactive Films & Series */}
-        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+        <div className="card">
           <h3>Interactive Films & Series</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -64,10 +50,10 @@ const InspirationSection = () => {
               </tbody>
             </table>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Games & System Narratives */}
-        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+        <div className="card">
           <h3>Games & System Narratives</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -89,10 +75,10 @@ const InspirationSection = () => {
               </tbody>
             </table>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Visual Grammar & Design Influence */}
-        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+        <div className="card">
           <h3>Visual Grammar & Design Influence</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -114,10 +100,10 @@ const InspirationSection = () => {
               </tbody>
             </table>
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Visual Grid */}
-        <ScrollReveal className="card" preset="scaleIn" delay={0.1}>
+        <div className="card">
           <h3>Visual Reference Grid</h3>
           <div className="grid-2x3">
             {visualReferenceData.map((item, idx) => (
@@ -141,10 +127,10 @@ const InspirationSection = () => {
               </figure>
             ))}
           </div>
-        </ScrollReveal>
+        </div>
 
         {/* Thematic Core */}
-        <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+        <div className="card">
           <h3>Thematic Core</h3>
           <p className="muted">
             All references converge on exploring:
@@ -156,8 +142,8 @@ const InspirationSection = () => {
             <li>Choice as illusion or genuine freedom</li>
             <li>Dark humor and existential dread in technological dystopias</li>
           </ul>
-        </ScrollReveal>
-      </ScrollSection>
+        </div>
+      </section>
 
       <Lightbox lightboxImage={lightboxImage} onClose={() => setLightboxImage(null)} />
     </>

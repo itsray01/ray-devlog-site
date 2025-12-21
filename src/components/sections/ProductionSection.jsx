@@ -1,37 +1,22 @@
-import ScrollSection, { ScrollReveal } from '../ScrollSection';
-import TextReveal from '../TextReveal';
-
 /**
  * Production & Reflection section - Milestones and learnings
- * Now uses GSAP ScrollTrigger for animations
  */
 const ProductionSection = () => {
   return (
-    <ScrollSection
-      id="production"
-      className="content-section"
-      preset="fadeUp"
-      duration={0.8}
-    >
-      <ScrollReveal className="card" preset="fadeUp">
-        <TextReveal
-          text="Production & Reflection: The Real Story"
-          as="h2"
-          splitBy="words"
-          preset="fadeUp"
-          stagger={0.06}
-        />
+    <section id="production" className="content-section">
+      <div className="card">
+        <h2>Production & Reflection: The Real Story</h2>
         <p>
           This isn't a polished success story. It's the messy reality of trying to create something
           ambitious with AI tools that aren't quite ready for narrative filmmaking yet.
         </p>
         <p>
-          Here's what actually happened—the false starts, the tool failures, the pivot points, and 
+          Here's what actually happened—the false starts, the tool failures, the pivot points, and
           what I learned along the way.
         </p>
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal as="article" className="card note" preset="fadeLeft" delay={0.1}>
+      <article className="card note">
         <h3>Starting Too Big: My First Mistake</h3>
         <small className="meta">October 2025</small>
 
@@ -47,10 +32,10 @@ const ProductionSection = () => {
           strategic convergence points. This wasn't a compromise on my creative vision; it was a
           necessary reality check.
         </p>
-      </ScrollReveal>
+      </article>
 
       {/* Key Learnings Summary */}
-      <ScrollReveal className="card" preset="fadeUp" delay={0.15}>
+      <div className="card">
         <h3>Key Learnings & Course Connections</h3>
         <div className="grid-2">
           <div className="mini">
@@ -72,8 +57,8 @@ const ProductionSection = () => {
             </ul>
           </div>
         </div>
-      </ScrollReveal>
-    </ScrollSection>
+      </div>
+    </section>
   );
 };
 

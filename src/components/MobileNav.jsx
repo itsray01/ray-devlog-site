@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Home, Map, BookOpen, Info, Package, Sparkles } from 'lucide-react';
@@ -15,17 +15,37 @@ const navLinks = [
 ];
 
 /**
+ * SimpleMobileLink - Mobile link without magnetic effect
+ */
+const SimpleMobileLink = ({ to, isActive, icon: Icon, label, onClick, className }) => {
+  const linkRef = useRef(null);
+
+  return (
+    <Link
+      ref={linkRef}
+      to={to}
+      className={`${className} ${isActive ? 'active' : ''}`}
+      onClick={onClick}
+      aria-current={isActive ? 'page' : undefined}
+    >
+      {Icon && <Icon size={20} />}
+      {label && <span>{label}</span>}
+    </Link>
+  );
+};
+
+/**
  * MobileNav - Bottom navigation bar + slide-out menu for mobile
  */
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const { 
-    sections, 
-    activeSectionId, 
+  const {
+    sections,
+    activeSectionId,
     scrollToSection,
     supportsOverlay,
-    setDocked 
+    setDocked
   } = useNavigation();
 
   // Close menu on route change
@@ -93,23 +113,18 @@ const MobileNav = () => {
           <Menu size={24} />
           <span>Menu</span>
         </button>
-        
+
         {/* Quick links */}
         <div className="mobile-nav-quick">
-          {navLinks.slice(0, 3).map((link) => {
-            const Icon = link.icon;
-            const isActive = location.pathname === link.path;
-            return (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`mobile-nav-quick-link ${isActive ? 'active' : ''}`}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                <Icon size={20} />
-              </Link>
-            );
-          })}
+          {navLinks.slice(0, 3).map((link) => (
+            <SimpleMobileLink
+              key={link.path}
+              to={link.path}
+              isActive={location.pathname === link.path}
+              icon={link.icon}
+              className="mobile-nav-quick-link"
+            />
+          ))}
         </div>
       </nav>
 
@@ -153,21 +168,17 @@ const MobileNav = () => {
 
               {/* Page Links */}
               <div className="mobile-nav-links">
-                {navLinks.map((link) => {
-                  const Icon = link.icon;
-                  const isActive = location.pathname === link.path;
-                  return (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      className={`mobile-nav-link ${isActive ? 'active' : ''}`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Icon size={20} />
-                      <span>{link.label}</span>
-                    </Link>
-                  );
-                })}
+                {navLinks.map((link) => (
+                  <SimpleMobileLink
+                    key={link.path}
+                    to={link.path}
+                    isActive={location.pathname === link.path}
+                    icon={link.icon}
+                    label={link.label}
+                    onClick={() => setIsOpen(false)}
+                    className="mobile-nav-link"
+                  />
+                ))}
               </div>
 
               {/* Section Navigation (if on overlay page) */}

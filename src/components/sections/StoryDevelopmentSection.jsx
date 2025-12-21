@@ -1,27 +1,12 @@
-import ScrollSection, { ScrollReveal } from '../ScrollSection';
-import TextReveal from '../TextReveal';
-
 /**
  * Story Development section - Narrative design and decisions
- * Now uses GSAP ScrollTrigger for animations
  */
 const StoryDevelopmentSection = () => {
   return (
-    <ScrollSection
-      id="story-development"
-      className="content-section"
-      preset="fadeUp"
-      duration={0.8}
-    >
-      <ScrollReveal className="card" preset="fadeUp">
-        <TextReveal
-          text="Story Development"
-          as="h2"
-          splitBy="words"
-          preset="fadeUp"
-          stagger={0.08}
-        />
-        
+    <section id="story-development" className="content-section">
+      <div className="card">
+        <h2>Story Development</h2>
+
         <h3>Core Concept</h3>
         <p>
           "Echo Maze Protocol" follows a protagonist awakening in an AI-controlled datacenter.
@@ -33,9 +18,9 @@ const StoryDevelopmentSection = () => {
           choice mechanics. Each decision mirrors the story's central questions about autonomy and
           predetermined paths.
         </p>
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+      <div className="card">
         <h3>Narrative Design Decisions</h3>
 
         <h4>Three-Act Structure with Strategic Convergence</h4>
@@ -67,9 +52,9 @@ const StoryDevelopmentSection = () => {
           stressful rather than engaging, leading to refinements that balanced urgency with
           accessibility.
         </p>
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+      <div className="card">
         <h3>Thematic Exploration</h3>
         <p>
           Through branching choices, the narrative explores several interconnected themes:
@@ -94,68 +79,68 @@ const StoryDevelopmentSection = () => {
           Different paths explore these philosophical positions without prescribing a single
           "correct" answer.</li>
         </ul>
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+      <div className="card">
         <h3>User Testing: Initial Findings</h3>
         <small className="meta">October-November 2025</small>
-        
+
         <p>
           Early playtests revealed several critical issues with narrative clarity and player engagement:
         </p>
-        
+
         <ul className="bullets">
           <li>
-            <strong>Loop Confusion:</strong> Players didn't recognize looping mechanics, thinking the 
-            game had glitched. Required adding explicit visual and audio cues (RETRY text, cognitive 
+            <strong>Loop Confusion:</strong> Players didn't recognize looping mechanics, thinking the
+            game had glitched. Required adding explicit visual and audio cues (RETRY text, cognitive
             scrambler effects).
           </li>
           <li>
-            <strong>Arbitrary Choices:</strong> Some decision points felt arbitrary, reducing player 
+            <strong>Arbitrary Choices:</strong> Some decision points felt arbitrary, reducing player
             investment. Needed clearer connections to thematic exploration.
           </li>
           <li>
-            <strong>Pacing Issues:</strong> Horror pacing was inconsistent—some sections lost tension. 
+            <strong>Pacing Issues:</strong> Horror pacing was inconsistent—some sections lost tension.
             Environmental storytelling elements were added to maintain atmosphere between choice points.
           </li>
         </ul>
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+      <div className="card">
         <h3>Iterative Refinements</h3>
         <p>
           Based on playtest feedback, I refined several narrative elements:
         </p>
-        
+
         <ul className="bullets">
           <li>
-            <strong>Spatial Memory:</strong> Added visual markers (chalk arrows, checkpoint labels) that 
+            <strong>Spatial Memory:</strong> Added visual markers (chalk arrows, checkpoint labels) that
             persist across loops, connecting to environmental storytelling from games like Portal and Control.
           </li>
           <li>
-            <strong>Choice Clarity:</strong> Refined descriptions to emphasize consequences and moral 
+            <strong>Choice Clarity:</strong> Refined descriptions to emphasize consequences and moral
             implications, making decisions feel more meaningful.
           </li>
           <li>
-            <strong>Subtle Guidance:</strong> Introduced environmental hints that guide players toward 
+            <strong>Subtle Guidance:</strong> Introduced environmental hints that guide players toward
             correct paths without making choices obvious.
           </li>
           <li>
-            <strong>Better Transitions:</strong> Improved transitions between outcomes to maintain 
+            <strong>Better Transitions:</strong> Improved transitions between outcomes to maintain
             narrative flow and emotional continuity.
           </li>
         </ul>
 
         <h4>Key Takeaway</h4>
         <p>
-          The playtesting process revealed the fundamental challenge in interactive storytelling: the 
-          gap between authorial intent and player experience. Players must understand both the mechanics 
-          and the narrative implications of their choices—this requires clear communication, which is 
+          The playtesting process revealed the fundamental challenge in interactive storytelling: the
+          gap between authorial intent and player experience. Players must understand both the mechanics
+          and the narrative implications of their choices—this requires clear communication, which is
           often harder than it seems.
         </p>
-      </ScrollReveal>
+      </div>
 
-      <ScrollReveal className="card" preset="fadeUp" delay={0.1}>
+      <div className="card">
         <h3>Connection to Course Objectives</h3>
         <p>
           The story development process engaged with several key course objectives:
@@ -175,8 +160,8 @@ const StoryDevelopmentSection = () => {
           <li><strong>Technical Integration:</strong> Balanced narrative design with technical
           constraints, demonstrating the practical challenges of interactive media production.</li>
         </ul>
-      </ScrollReveal>
-    </ScrollSection>
+      </div>
+    </section>
   );
 };
 

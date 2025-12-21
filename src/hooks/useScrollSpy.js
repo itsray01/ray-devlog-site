@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
  * Custom hook for scroll-spy functionality
  * Uses IntersectionObserver to track which section is currently in view
- * 
+ *
  * @param {Array} sectionIds - Array of section IDs to observe
  * @param {Object} options - Configuration options
  * @param {number} options.rootMargin - IntersectionObserver root margin (default: '-20% 0px -60% 0px')
@@ -14,15 +13,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const useScrollSpy = (sectionIds = [], options = {}) => {
   const [activeSectionId, setActiveSectionId] = useState('');
   const observerRef = useRef(null);
-  
+
   const {
     rootMargin = '-20% 0px -60% 0px',
     threshold = 0
   } = options;
 
   // Check for reduced motion preference
-  const prefersReducedMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
 
   // Scroll to a section by ID
@@ -48,23 +47,6 @@ const useScrollSpy = (sectionIds = [], options = {}) => {
 
     // Update active section immediately for responsive UI
     setActiveSectionId(id);
-
-    // Refresh ScrollTrigger and progress animations after scrolling
-    // Use a small delay to allow scroll to complete
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-
-      // Get all ScrollTriggers and check if they should be active
-      ScrollTrigger.getAll().forEach(trigger => {
-        // If the trigger's element is now in view but animation hasn't played,
-        // force it to progress to completion
-        if (trigger.isActive && trigger.animation) {
-          trigger.animation.progress(1);
-        }
-      });
-
-      console.log('[useScrollSpy] ScrollTrigger refreshed and animations progressed for:', id);
-    }, prefersReducedMotion ? 50 : 500);
   }, [prefersReducedMotion]);
 
   // Set up IntersectionObserver
@@ -81,7 +63,7 @@ const useScrollSpy = (sectionIds = [], options = {}) => {
       (entries) => {
         // Find the first intersecting entry
         const intersectingEntry = entries.find(entry => entry.isIntersecting);
-        
+
         if (intersectingEntry) {
           setActiveSectionId(intersectingEntry.target.id);
         }
