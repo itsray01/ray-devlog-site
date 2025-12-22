@@ -12,14 +12,9 @@ const MoodboardSection = () => {
 
   return (
     <>
-      <div className="brutalist-section-intro">
-        <p className="brutalist-intro-text">
-          Visual tone-setter for Echo Maze Protocol — cold, industrial labyrinth lit by emergency amber and server blues.
-        </p>
-      </div>
-
       <ScrollDrivenFilmstrip
         title="MOODBOARD"
+        description="Visual tone-setter for Echo Maze Protocol — cold, industrial labyrinth lit by emergency amber and server blues."
         items={moodboardData}
         id="moodboard"
         renderItem={(item) => (

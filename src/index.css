@@ -4625,39 +4625,89 @@ html {
   }
 }
 
-.scroll-driven-filmstrip__header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.scroll-driven-filmstrip__header h2 {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin: 0;
-  text-transform: uppercase;
-}
-
 /* Desktop: sticky viewport */
-.scroll-driven-filmstrip__viewport {
+.scroll-driven-filmstrip__sticky {
   position: sticky;
   top: 10vh;
   height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   overflow: hidden;
   margin: 0 auto;
 }
 
+.scroll-driven-filmstrip__headerArea {
+  width: min(1100px, 92vw);
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 767px) {
+  .scroll-driven-filmstrip__sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.scroll-driven-filmstrip__viewport {
+  width: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+  /* Do NOT use justify-content: center here — it causes the scroller to overflow
+     equally on both sides, breaking translateX calculations. The dynamic padding
+     handles centering of the first/last frames. */
+}
+
 @media (max-width: 767px) {
   .scroll-driven-filmstrip__viewport {
-    position: static;
     height: auto;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
     padding: 0 2rem;
+    display: block;
+  }
+}
+
+.scroll-driven-filmstrip__title {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.scroll-driven-filmstrip__caption {
+  margin: 0;
+  max-width: 900px;
+  text-align: center;
+
+  /* “glass” look consistent with site */
+  background: rgba(26, 31, 62, 0.55);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  backdrop-filter: blur(16px) saturate(160%);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.scroll-driven-filmstrip__caption {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--ink-secondary);
+}
+
+@media (max-width: 768px) {
+  .scroll-driven-filmstrip__caption {
+    font-size: 1rem;
   }
 }
 
@@ -4665,7 +4715,8 @@ html {
   display: flex;
   gap: 4rem;
   height: 100%;
-  padding: 0 10vw;
+  padding-left: var(--filmstrip-pad-left, 0px);
+  padding-right: var(--filmstrip-pad-right, 0px);
 }
 
 @media (max-width: 767px) {
@@ -4678,7 +4729,7 @@ html {
 .scroll-driven-filmstrip__frame {
   flex-shrink: 0;
   width: clamp(520px, 85vw, 1100px);
-  height: min(70vh, 620px);
+  height: 100%;
   scroll-snap-align: center;
 }
 
@@ -4739,8 +4790,13 @@ html {
     min-height: auto;
   }
   
-  .scroll-driven-filmstrip__viewport {
+  .scroll-driven-filmstrip__sticky {
     position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .scroll-driven-filmstrip__viewport {
     height: auto;
     overflow-x: auto;
     overflow-y: hidden;

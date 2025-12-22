@@ -1,5 +1,25 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+const cssLengthToPx = (value, { rootFontSizePx, viewportWidthPx, viewportHeightPx }) => {
+  if (value == null) return 0;
+  const raw = String(value).trim();
+  if (!raw) return 0;
+
+  // Handle plain number (assume px)
+  if (/^-?\d+(\.\d+)?$/.test(raw)) return Number(raw);
+
+  // Quick path for px
+  if (raw.endsWith('px')) return parseFloat(raw) || 0;
+  if (raw.endsWith('vh')) return ((parseFloat(raw) || 0) / 100) * viewportHeightPx;
+  if (raw.endsWith('vw')) return ((parseFloat(raw) || 0) / 100) * viewportWidthPx;
+  if (raw.endsWith('rem')) return (parseFloat(raw) || 0) * rootFontSizePx;
+
+  // Unsupported / complex values like calc(): best-effort fallback to 0
+  return 0;
+};
+
 /**
  * ScrollDrivenFilmstrip - Vertical scroll drives horizontal movement (pinned)
  * 
@@ -10,13 +30,15 @@ import { useRef, useEffect, useState, useCallback } from 'react';
  * exactly matches the horizontal scroll distance, allowing progress to reach 1.0.
  * 
  * @param {string} title - Section title
+ * @param {string} description - Description text to display above frames
  * @param {Array} items - Array of items to render
  * @param {Function} renderItem - Function to render each item
  * @param {string} id - Section ID for anchoring
  */
-const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
+const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id }) => {
   const containerRef = useRef(null);
   const scrollerRef = useRef(null);
+  const stickyRef = useRef(null);
   const viewportRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -25,23 +47,54 @@ const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
   // Compute the required section height based on horizontal scroll distance
   const computeHeight = useCallback(() => {
     const scroller = scrollerRef.current;
+    const sticky = stickyRef.current;
     const viewport = viewportRef.current;
-    if (!scroller || !viewport) return;
+    if (!scroller || !viewport || !sticky) return;
 
     // Skip dynamic height on mobile or reduced motion
     if (isMobile || isReducedMotion) {
       setSectionHeight(null);
+      scroller.style.removeProperty('--filmstrip-pad-left');
+      scroller.style.removeProperty('--filmstrip-pad-right');
       return;
     }
 
-    // Measure horizontal travel distance
-    // Use viewport.clientWidth for the visible area, scroller.scrollWidth for total content
-    const horizontalDistance = scroller.scrollWidth - viewport.clientWidth;
+    // Calculate side padding to center first/last frames.
+    // Frames can have different widths, so compute left/right separately.
+    const frames = scroller.querySelectorAll('.scroll-driven-filmstrip__frame');
+    const firstFrame = frames?.[0];
+    const lastFrame = frames?.[frames.length - 1];
+    if (!firstFrame || !lastFrame) return;
+
+    // Use the visible filmstrip viewport width (NOT the sticky wrapper)
+    const viewportWidth = viewport.clientWidth;
+    const firstFrameWidth = firstFrame.offsetWidth;
+    const lastFrameWidth = lastFrame.offsetWidth;
+
+    const padLeft = Math.max(0, (viewportWidth - firstFrameWidth) / 2);
+    const padRight = Math.max(0, (viewportWidth - lastFrameWidth) / 2);
+    scroller.style.setProperty('--filmstrip-pad-left', `${padLeft}px`);
+    scroller.style.setProperty('--filmstrip-pad-right', `${padRight}px`);
+
+    // Force a reflow before measuring scrollWidth (padding affects scrollWidth)
+    scroller.getBoundingClientRect();
+
+    // Measure horizontal travel distance AFTER padding is applied (padding changes scrollWidth)
+    const maxScroll = scroller.scrollWidth - viewportWidth;
     
-    // Set section height so vertical scroll budget matches horizontal distance
-    // Formula: sectionHeight = horizontalDistance + window.innerHeight
-    // This ensures: scrollRange (containerHeight - windowHeight) == horizontalDistance
-    const newHeight = horizontalDistance + window.innerHeight;
+    // Height math: keep pinned until last frame
+    // stickyRange = sectionHeight - stickyHeight - stickyTopPx
+    // We need: stickyRange == maxScroll  => sectionHeight = maxScroll + stickyHeight + stickyTopPx
+    const rootFontSizePx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    const stickyTop = getComputedStyle(sticky).top;
+    const stickyTopPx = cssLengthToPx(stickyTop, {
+      rootFontSizePx,
+      viewportWidthPx: window.innerWidth,
+      viewportHeightPx: window.innerHeight,
+    });
+    const stickyHeightPx = sticky.getBoundingClientRect().height;
+
+    const newHeight = maxScroll + stickyHeightPx + stickyTopPx;
     
     setSectionHeight(newHeight > window.innerHeight ? newHeight : null);
   }, [isMobile, isReducedMotion]);
@@ -69,7 +122,9 @@ const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
   // Compute height on mount, resize, and when scroller size changes
   useEffect(() => {
     const scroller = scrollerRef.current;
-    if (!scroller) return;
+    const viewport = viewportRef.current;
+    const sticky = stickyRef.current;
+    if (!scroller || !viewport || !sticky) return;
 
     // Initial computation
     computeHeight();
@@ -87,6 +142,8 @@ const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
         computeHeight();
       });
       resizeObserver.observe(scroller);
+      resizeObserver.observe(viewport);
+      resizeObserver.observe(sticky);
     }
 
     // Also recompute after a short delay to catch late image layout
@@ -125,8 +182,9 @@ const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
 
     const container = containerRef.current;
     const scroller = scrollerRef.current;
+    const sticky = stickyRef.current;
     const viewport = viewportRef.current;
-    if (!container || !scroller || !viewport) return;
+    if (!container || !scroller || !viewport || !sticky) return;
 
     let rafId = null;
 
@@ -134,32 +192,32 @@ const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
       if (rafId) return;
 
       rafId = requestAnimationFrame(() => {
-        const rect = container.getBoundingClientRect();
-        const containerHeight = container.offsetHeight;
-        const scrollerWidth = scroller.scrollWidth;
-        const viewportWidth = viewport.clientWidth;
-        const maxScroll = scrollerWidth - viewportWidth;
-        const windowHeight = window.innerHeight;
+        const containerRect = container.getBoundingClientRect();
 
-        // The scroll "budget" is the extra height beyond the viewport
-        const scrollBudget = containerHeight - windowHeight;
-
-        // Handle edge cases
-        if (scrollBudget <= 0 || maxScroll <= 0) {
+        // Measure maxScroll AFTER padding is applied
+        const maxScroll = scroller.scrollWidth - viewport.clientWidth;
+        if (maxScroll <= 0) {
           scroller.style.transform = 'translateX(0px)';
           rafId = null;
           return;
         }
 
-        // Calculate progress based on how much the section top has scrolled past viewport top
-        // rect.top = 0 means section top is at viewport top (progress = 0)
-        // rect.top = -scrollBudget means we've scrolled through the full budget (progress = 1)
-        const rawProgress = -rect.top / scrollBudget;
-        const progress = Math.max(0, Math.min(1, rawProgress));
+        // Progress starts when container top reaches stickyTopPx (pinned start)
+        const rootFontSizePx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        const stickyTop = getComputedStyle(sticky).top;
+        const stickyTopPx = cssLengthToPx(stickyTop, {
+          rootFontSizePx,
+          viewportWidthPx: window.innerWidth,
+          viewportHeightPx: window.innerHeight,
+        });
+
+        // raw = (stickyTopPx - containerTop) / maxScroll
+        const raw = (stickyTopPx - containerRect.top) / maxScroll;
+        const progress = clamp(raw, 0, 1);
 
         // Translate scroller horizontally based on progress
-        const translateX = -(progress * maxScroll);
-        scroller.style.transform = `translateX(${translateX}px)`;
+        const clampedTranslateX = -clamp(progress * maxScroll, 0, maxScroll);
+        scroller.style.transform = `translateX(${clampedTranslateX}px)`;
 
         rafId = null;
       });
@@ -182,33 +240,32 @@ const ScrollDrivenFilmstrip = ({ title, items = [], renderItem, id }) => {
     };
   }, [isMobile, isReducedMotion]);
 
-  // Inline style for dynamic section height (overrides CSS min-height)
-  const sectionStyle = sectionHeight
-    ? { minHeight: `${sectionHeight}px` }
-    : undefined;
-
   return (
     <section
       id={id}
       className="scroll-driven-filmstrip"
       ref={containerRef}
-      style={sectionStyle}
+      style={sectionHeight ? { minHeight: `${sectionHeight}px` } : undefined}
     >
-      <div className="scroll-driven-filmstrip__header">
-        <h2>{title}</h2>
-      </div>
+      <div className="scroll-driven-filmstrip__sticky" ref={stickyRef}>
+        <div className="scroll-driven-filmstrip__headerArea">
+          <h2 className="scroll-driven-filmstrip__title">{title}</h2>
+          {description && <p className="scroll-driven-filmstrip__caption">{description}</p>}
+        </div>
 
-      <div className="scroll-driven-filmstrip__viewport" ref={viewportRef}>
-        <div
-          ref={scrollerRef}
-          className="scroll-driven-filmstrip__scroller"
-          style={isMobile || isReducedMotion ? {} : { willChange: 'transform' }}
-        >
-          {items.map((item) => (
-            <div key={item.id} className="scroll-driven-filmstrip__frame">
-              {renderItem(item)}
-            </div>
-          ))}
+        <div className="scroll-driven-filmstrip__viewport" ref={viewportRef}>
+          {/* Horizontal scroller with frames */}
+          <div
+            ref={scrollerRef}
+            className="scroll-driven-filmstrip__scroller"
+            style={isMobile || isReducedMotion ? {} : { willChange: 'transform' }}
+          >
+            {items.map((item) => (
+              <div key={item.id} className="scroll-driven-filmstrip__frame">
+                {renderItem(item)}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

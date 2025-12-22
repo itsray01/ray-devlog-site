@@ -12,14 +12,9 @@ const StoryboardSection = () => {
 
   return (
     <>
-      <div className="brutalist-section-intro">
-        <p className="brutalist-intro-text">
-          Shot planning frames for key beats in the maze. Rough compositions that define blocking and emotional pacing.
-        </p>
-      </div>
-
       <ScrollDrivenFilmstrip
         title="STORYBOARD"
+        description="Shot planning frames for key beats in the maze. Rough compositions that define blocking and emotional pacing."
         items={storyboardData}
         id="storyboard"
         renderItem={(item) => (
