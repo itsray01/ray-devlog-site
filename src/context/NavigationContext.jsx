@@ -4,6 +4,9 @@ import useScrollSpy from '../hooks/useScrollSpy';
 
 const NavigationContext = createContext(null);
 
+// DEBUG: Force intro sequence to always play (set to false in production)
+const DEBUG_FORCE_INTRO = true;
+
 // Storage key for persisting docked state
 const STORAGE_KEY = 'devlog_nav_docked';
 
@@ -34,8 +37,14 @@ export const NavigationProvider = ({ children }) => {
     typeof window !== 'undefined' && window.location.hash.length > 1
   );
   
-  // 3-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
+  // 4-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
   const [introPhase, setIntroPhase] = useState(() => {
+    // DEBUG MODE: Always start with intro
+    if (DEBUG_FORCE_INTRO) {
+      console.log('[NavigationContext] DEBUG_FORCE_INTRO enabled - starting with preload');
+      return 'preload';
+    }
+    
     if (typeof window !== 'undefined') {
       const storedDocked = localStorage.getItem(STORAGE_KEY);
       console.log('[NavigationContext] Initial state check:', {
@@ -81,12 +90,13 @@ export const NavigationProvider = ({ children }) => {
   const setDocked = useCallback((value) => {
     if (value) {
       setIntroPhase('docked');
-      if (typeof window !== 'undefined') {
+      // Don't persist to localStorage in DEBUG mode
+      if (typeof window !== 'undefined' && !DEBUG_FORCE_INTRO) {
         localStorage.setItem(STORAGE_KEY, '1');
       }
     } else {
       setIntroPhase('preload');
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && !DEBUG_FORCE_INTRO) {
         localStorage.removeItem(STORAGE_KEY);
       }
     }
@@ -117,7 +127,8 @@ export const NavigationProvider = ({ children }) => {
   // Finish docking after animation completes
   const finishDock = useCallback(() => {
     setIntroPhase('docked');
-    if (typeof window !== 'undefined') {
+    // Don't persist to localStorage in DEBUG mode
+    if (typeof window !== 'undefined' && !DEBUG_FORCE_INTRO) {
       localStorage.setItem(STORAGE_KEY, '1');
     }
   }, []);
@@ -144,6 +155,19 @@ export const NavigationProvider = ({ children }) => {
       }
     }
   }, [sections, scrollToSection]);
+
+  // Safety timeout: if stuck in preload for too long, force to toc
+  // (TOC phase has no timeout - waits for user to click)
+  useEffect(() => {
+    if (introPhase === 'preload') {
+      const safetyTimer = setTimeout(() => {
+        console.warn('[NavigationContext] Safety timeout - forcing toc phase to reveal TOC');
+        setIntroPhase('toc');
+      }, 5000); // 5 seconds max for preload
+
+      return () => clearTimeout(safetyTimer);
+    }
+  }, [introPhase]);
 
   // Reset docked state when navigating away from overlay pages
   useEffect(() => {

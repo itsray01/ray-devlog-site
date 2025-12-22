@@ -2573,8 +2573,20 @@ html {
   font-weight: 700;
 }
 
+.nice-table tbody tr {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .nice-table tbody tr:hover {
   background: rgba(148, 163, 184, 0.06);
+  transform: translateX(4px);
+}
+
+/* Respect reduced motion for table rows */
+@media (prefers-reduced-motion: reduce) {
+  .nice-table tbody tr:hover {
+    transform: none;
+  }
 }
 
 .bulletish {
@@ -3338,12 +3350,40 @@ html {
   background: rgba(10, 12, 16, 0.5);
 }
 
-/* Hide page content when overlay OR intro is visible - only show BG image */
+/* SAFE REVEAL PATTERN: Content visible by default, only hide during active intro/overlay */
 .nav-overlay ~ .main-content,
 .intro-sequence ~ .main-content {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+  /* Content is visible by default - no opacity:0 */
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Only hide content when intro is ACTIVELY animating */
+.intro-sequence.is-animating ~ .main-content {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Only hide content when overlay is ACTIVELY showing (not transitioning/docked) */
+.nav-overlay[data-phase="toc"] ~ .main-content {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Ensure content is visible when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  .nav-overlay ~ .main-content,
+  .intro-sequence ~ .main-content,
+  .intro-sequence.is-animating ~ .main-content,
+  .nav-overlay[data-phase="toc"] ~ .main-content {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
 }
 
 .nav-overlay__panel {
@@ -3351,10 +3391,11 @@ html {
   backdrop-filter: blur(10px);
   border: none;
   border-radius: 12px;
-  padding: 2.5rem 3rem;
-  min-width: 700px;
-  max-width: 800px;
-  max-height: 80vh;
+  padding: 3rem 4rem;
+  min-width: 800px;
+  max-width: 950px;
+  min-height: 550px;
+  max-height: 85vh;
   overflow-y: auto;
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.5),
@@ -3375,10 +3416,11 @@ html {
 .nav-overlay__header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+  margin-top: 2.5rem; /* Space for HUD/SFX toggle above */
 }
 
 .nav-overlay__title {
@@ -3487,8 +3529,10 @@ html {
 }
 
 .nav-menu__item:hover {
-  background: rgba(0, 0, 0, 0.04);
-  color: #000;
+  background: rgba(0, 0, 0, 0.15);
+  color: #fff;
+  transform: translateX(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .nav-menu__item:focus-visible {
@@ -3497,14 +3541,16 @@ html {
 }
 
 .nav-menu__item--active {
-  background: rgba(0, 0, 0, 0.08);
-  color: #000;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .nav-menu__item--active .nav-menu__indicator {
-  background: #000;
-  transform: scale(1.2);
+  background: #fff;
+  transform: scale(1.3);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
 }
 
 .nav-menu__indicator {
@@ -3517,7 +3563,9 @@ html {
 }
 
 .nav-menu__item:hover .nav-menu__indicator {
-  background: #666;
+  background: #fff;
+  transform: scale(1.2);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
 }
 
 .nav-menu__text {
@@ -3534,6 +3582,17 @@ html {
 /* Overlay mode specific styles */
 .nav-menu--overlay .nav-menu__item {
   padding: 0.85rem 1rem;
+}
+
+.nav-menu--overlay .nav-menu__item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-menu--overlay .nav-menu__item--active {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 /* ============================================
@@ -3826,6 +3885,90 @@ html {
   }
 }
 
+
+/* ============================================
+   ANIME.JS ANIMATION SUPPORT
+   ============================================ */
+
+/* Elements with data-animate start visible (SAFE REVEAL PATTERN) */
+[data-animate] {
+  /* Content is visible by default - NEVER set opacity: 0 here */
+  opacity: 1 !important;
+  /* Only add will-change when actually animating (handled by JS) */
+}
+
+/* Page header initial state - will be animated by pageLoadTimeline */
+.page-header h1,
+.page-subtitle {
+  /* Visible by default, pageLoadTimeline will animate if appropriate */
+  opacity: 1 !important;
+}
+
+/* Top nav links - will be animated by pageLoadTimeline on first load */
+.top-nav-link {
+  /* Visible by default */
+  opacity: 1 !important;
+}
+
+/* CRITICAL SAFETY: If anime.js fails to load, ensure all content is visible */
+/* This overrides any inline styles that might be set by animation initialization */
+body.anime-load-error [data-animate],
+body.anime-load-error .page-header h1,
+body.anime-load-error .page-subtitle,
+body.anime-load-error .top-nav-link {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+/* During animation, elements get inline opacity: 0, then anime.js animates them in */
+/* After animation completes, JS removes inline styles */
+
+/* Hover micro-interactions for cards with anime-hover class */
+.anime-hover {
+  will-change: transform;
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Grid shimmer effect (subtle cyberpunk glow) */
+@keyframes grid-shimmer {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+.grid-shimmer {
+  animation: grid-shimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Ensure animations respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .anime-hover {
+    will-change: auto;
+  }
+  
+  .grid-shimmer {
+    animation: none;
+    opacity: 0.05;
+  }
+}
+
+/* Cyber glow effect for hover states */
+.cyber-glow {
+  box-shadow: 
+    0 0 20px rgba(167, 139, 250, 0.3),
+    0 0 40px rgba(167, 139, 250, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
 
 /* ============================================
    FEATURE CARD STYLES
@@ -4854,4 +4997,493 @@ html {
     font-size: 1rem;
   }
 }
+
+/* ============================================
+   TERMINAL MAIN MENU STYLES
+   AAA Game Menu / Terminal UI Aesthetic
+   ============================================ */
+
+/* --- Terminal Overlay Modifier --- */
+.nav-overlay--terminal {
+  background: rgba(5, 8, 18, 0.85);
+}
+
+.nav-overlay__panel--terminal {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 18, 28, 0.95) 0%,
+    rgba(20, 24, 38, 0.92) 50%,
+    rgba(12, 15, 25, 0.95) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  box-shadow:
+    0 0 80px rgba(167, 139, 250, 0.15),
+    0 0 40px rgba(124, 58, 237, 0.1),
+    0 25px 80px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Scanlines Overlay --- */
+.terminal-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  opacity: 0.5;
+}
+
+/* Animated scanline sweep */
+.terminal-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(167, 139, 250, 0.03) 50%,
+    transparent 100%
+  );
+  animation: scanline-sweep 8s linear infinite;
+}
+
+@keyframes scanline-sweep {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* --- Noise Overlay --- */
+.terminal-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  animation: noise-shift 0.5s steps(10) infinite;
+}
+
+@keyframes noise-shift {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-1%, -1%); }
+  20% { transform: translate(1%, 0); }
+  30% { transform: translate(0, 1%); }
+  40% { transform: translate(-1%, 1%); }
+  50% { transform: translate(1%, -1%); }
+  60% { transform: translate(-1%, 0); }
+  70% { transform: translate(0, -1%); }
+  80% { transform: translate(1%, 1%); }
+  90% { transform: translate(-1%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* --- CRT Curvature / Vignette --- */
+.terminal-crt-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 101;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.15) 85%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  /* Subtle barrel distortion illusion */
+  border-radius: 8px;
+}
+
+/* --- HUD Metadata Block --- */
+.terminal-hud {
+  position: absolute;
+  top: 1.75rem;
+  right: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.75rem 3rem;
+  font-family: 'Rajdhani', monospace;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 10;
+  max-width: 80%;
+  justify-content: flex-end;
+}
+
+.terminal-hud__row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.terminal-hud__row--subtle {
+  opacity: 0.5;
+}
+
+.terminal-hud__label {
+  color: rgba(167, 139, 250, 0.6);
+  font-weight: 600;
+}
+
+.terminal-hud__value {
+  color: rgba(224, 231, 255, 0.8);
+  font-weight: 500;
+}
+
+.terminal-hud__status {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #10b981;
+}
+
+.terminal-hud__status-dot {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: status-blink 2s ease-in-out infinite;
+}
+
+@keyframes status-blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px #10b981; }
+  50% { opacity: 0.5; box-shadow: 0 0 4px #10b981; }
+}
+
+/* --- SFX Toggle Button --- */
+.terminal-sfx-toggle {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 6px;
+  color: rgba(224, 231, 255, 0.7);
+  font-family: 'Rajdhani', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.terminal-sfx-toggle:hover {
+  background: rgba(167, 139, 250, 0.15);
+  border-color: rgba(167, 139, 250, 0.4);
+  color: var(--ink);
+}
+
+.terminal-sfx-toggle:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.terminal-sfx-toggle__icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.terminal-sfx-toggle__label {
+  line-height: 1;
+}
+
+/* --- Terminal Title Styles --- */
+.nav-overlay__title--terminal {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: rgba(167, 139, 250, 0.9);
+  text-transform: uppercase;
+  text-shadow: 
+    0 0 20px rgba(167, 139, 250, 0.4),
+    0 0 40px rgba(167, 139, 250, 0.2);
+  transition: all 0.05s ease;
+  position: relative;
+  margin: 0;
+}
+
+/* Glitch effect layers (applied via inline style during glitch) */
+.nav-overlay__title--terminal::before,
+.nav-overlay__title--terminal::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Terminal Boot Sequence Styles --- */
+.terminal-boot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  font-family: 'Rajdhani', monospace;
+  font-size: 0.95rem;
+  color: rgba(224, 231, 255, 0.8);
+  min-height: 120px;
+}
+
+.terminal-boot__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.terminal-boot__line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.9;
+}
+
+.terminal-boot__line::before {
+  content: '>';
+  color: rgba(167, 139, 250, 0.6);
+  font-weight: bold;
+}
+
+.terminal-boot__line--success {
+  color: #10b981;
+}
+
+.terminal-boot__line--success::before {
+  color: #10b981;
+  content: '✓';
+}
+
+.terminal-boot__text--success {
+  color: #10b981;
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.terminal-boot__cursor {
+  color: rgba(167, 139, 250, 0.8);
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+/* --- Terminal Footer Hint --- */
+.nav-overlay__hint--terminal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: 'Rajdhani', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: rgba(148, 163, 184, 0.7);
+  border-top-color: rgba(167, 139, 250, 0.15);
+}
+
+.terminal-hint-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.4rem;
+  margin-left: 0.5rem;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: rgba(167, 139, 250, 0.8);
+}
+
+.terminal-hint-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.5rem;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: rgba(167, 139, 250, 0.8);
+  text-transform: uppercase;
+}
+
+.terminal-boot-hint {
+  animation: boot-hint-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes boot-hint-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.4; }
+}
+
+/* --- Nav Menu Terminal Enhancements --- */
+.nav-menu--overlay .nav-menu__item-wrapper {
+  position: relative;
+}
+
+/* Sliding Selector Highlight Bar */
+.nav-menu__selector {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(167, 139, 250, 0.12) 0%,
+    rgba(167, 139, 250, 0.08) 50%,
+    rgba(124, 58, 237, 0.06) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 8px;
+  box-shadow:
+    0 0 20px rgba(167, 139, 250, 0.15),
+    inset 0 0 20px rgba(167, 139, 250, 0.05);
+  z-index: 0;
+}
+
+/* Selector glow accent on left edge */
+.nav-menu__selector::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(167, 139, 250, 0.8),
+    transparent
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.6);
+}
+
+/* Ensure menu item content is above selector */
+.nav-menu--overlay .nav-menu__item {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border-color: transparent;
+}
+
+.nav-menu--overlay .nav-menu__item--selected {
+  color: var(--ink);
+}
+
+.nav-menu--overlay .nav-menu__item--selected .nav-menu__indicator {
+  background: rgba(167, 139, 250, 0.9);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+  transform: scale(1.3);
+}
+
+.nav-menu--overlay .nav-menu__item--selected .nav-menu__text {
+  color: var(--ink);
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
+}
+
+/* Disable default hover background since selector handles it */
+.nav-menu--overlay .nav-menu__item:hover {
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+/* --- Nav Overlay Content Area --- */
+.nav-overlay__content {
+  position: relative;
+  z-index: 2;
+  min-height: 200px;
+}
+
+/* --- Responsive Terminal Styles --- */
+@media (max-width: 900px) {
+  .nav-overlay__panel {
+    min-width: auto;
+    max-width: 95vw;
+    min-height: auto;
+    padding: 2rem 2.5rem;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .terminal-hud {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    gap: 0.25rem 1rem;
+  }
+  
+  .nav-overlay__title--terminal {
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+  }
+  
+  .terminal-boot {
+    font-size: 0.85rem;
+    padding: 1rem 0;
+  }
+  
+  .nav-overlay__hint--terminal {
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  /* Simplify effects on mobile */
+  .terminal-scanlines::after {
+    animation: none;
+  }
+  
+  .terminal-noise {
+    opacity: 0.01;
+    animation: none;
+  }
+}
+
+/* --- Reduced Motion Overrides --- */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-scanlines,
+  .terminal-scanlines::after,
+  .terminal-noise {
+    animation: none;
+  }
+  
+  .terminal-hud__status-dot {
+    animation: none;
+    opacity: 1;
+  }
+  
+  .terminal-boot-hint {
+    animation: none;
+    opacity: 0.7;
+  }
+  
+  .nav-menu__selector {
+    transition: none;
+  }
+  
+  @keyframes scanline-sweep {
+    0%, 100% { transform: none; }
+  }
+  
+  @keyframes noise-shift {
+    0%, 100% { transform: none; }
+  }
+}
+
 

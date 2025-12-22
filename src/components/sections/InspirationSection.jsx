@@ -19,7 +19,7 @@ const InspirationSection = () => {
     <>
       <section id="inspiration" className="content-section">
         {/* Header Card */}
-        <div className="card">
+        <div className="card" data-animate="reveal">
           <h2>Inspiration</h2>
           <p className="muted">
             Reference works that shape the mood, interface language, and ethics of the maze-horror AI escape.
@@ -28,7 +28,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Interactive Films & Series */}
-        <div className="card">
+        <div className="card" data-animate="reveal">
           <h3>Interactive Films & Series</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -53,7 +53,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Games & System Narratives */}
-        <div className="card">
+        <div className="card" data-animate="reveal">
           <h3>Games & System Narratives</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -78,7 +78,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Visual Grammar & Design Influence */}
-        <div className="card">
+        <div className="card" data-animate="reveal">
           <h3>Visual Grammar & Design Influence</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -103,7 +103,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Visual Grid */}
-        <div className="card">
+        <div className="card" data-animate="reveal-scale">
           <h3>Visual Reference Grid</h3>
           <div className="grid-2x3">
             {visualReferenceData.map((item, idx) => (
@@ -130,7 +130,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Thematic Core */}
-        <div className="card">
+        <div className="card" data-animate="reveal">
           <h3>Thematic Core</h3>
           <p className="muted">
             All references converge on exploring:

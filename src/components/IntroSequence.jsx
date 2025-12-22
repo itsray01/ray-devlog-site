@@ -10,8 +10,11 @@ const IntroSequence = ({ onDone }) => {
   const containerRef = useRef(null);
   const hasAnimated = useRef(false);
   const onDoneRef = useRef(onDone);
+  const timersRef = useRef([]); // STABLE REF for timers
+  const safetyTimeoutRef = useRef(null); // Track safety timeout
   const [showGrid, setShowGrid] = useState(false);
   const [showTitle, setShowTitle] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(true);
 
   // Keep onDone ref up to date
   useLayoutEffect(() => {
@@ -22,45 +25,81 @@ const IntroSequence = ({ onDone }) => {
     if (hasAnimated.current) return;
     hasAnimated.current = true;
 
-    // Safety timeout - if animation fails for any reason, still call onDone
-    const safetyTimeout = setTimeout(() => {
-      console.warn('[IntroSequence] Safety timeout triggered - forcing transition');
+    // Ensure content is visible if something goes wrong
+    const revealContentSafety = () => {
+      console.warn('[IntroSequence] Ensuring content is visible');
+      setIsAnimating(false);
+    };
+
+    // Catch any errors during animation setup
+    try {
+      // Safety timeout - if animation fails for any reason, still call onDone
+      safetyTimeoutRef.current = setTimeout(() => {
+        console.warn('[IntroSequence] Safety timeout triggered - forcing transition');
+        revealContentSafety();
+        onDoneRef.current?.();
+      }, 5000); // 5 second fallback
+
+      // Check for reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        // Skip animation, show title briefly then exit
+        setShowTitle(true);
+        setIsAnimating(false); // Ensure content is visible
+        if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
+        const reducedMotionTimer = setTimeout(() => onDoneRef.current?.(), 100);
+        timersRef.current.push(reducedMotionTimer);
+        return;
+      }
+
+      // Sequence the animations using timeouts
+      // 1. Show grid lines after short delay
+      timersRef.current.push(setTimeout(() => setShowGrid(true), 100));
+
+      // 2. Show title after grid
+      timersRef.current.push(setTimeout(() => setShowTitle(true), 300));
+
+      // 3. Hold for a moment then fade out and call onDone (total ~1.5s)
+      timersRef.current.push(setTimeout(() => {
+        console.log('[IntroSequence] Animation complete, calling onDone');
+        setIsAnimating(false); // Remove animating state to reveal content
+        if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
+        onDoneRef.current?.();
+      }, 1500));
+
+    } catch (error) {
+      console.error('[IntroSequence] Animation setup error:', error);
+      revealContentSafety();
+      if (safetyTimeoutRef.current) clearTimeout(safetyTimeoutRef.current);
       onDoneRef.current?.();
-    }, 5000); // 5 second fallback
-
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion) {
-      // Skip animation, show title briefly then exit
-      setShowTitle(true);
-      clearTimeout(safetyTimeout);
-      setTimeout(() => onDoneRef.current?.(), 100);
-      return;
     }
 
-    // Sequence the animations using timeouts
-    const timers = [];
-
-    // 1. Show grid lines after short delay
-    timers.push(setTimeout(() => setShowGrid(true), 200));
-
-    // 2. Show title after grid
-    timers.push(setTimeout(() => setShowTitle(true), 1000));
-
-    // 3. Hold for a moment
-    // 4. Fade out and call onDone
-    timers.push(setTimeout(() => {
-      console.log('[IntroSequence] Animation complete, calling onDone');
-      clearTimeout(safetyTimeout);
-      onDoneRef.current?.();
-    }, 2800));
-
+    // Cleanup function - SAFE to run even if nothing was scheduled
     return () => {
-      timers.forEach(timer => clearTimeout(timer));
-      clearTimeout(safetyTimeout);
+      // Clear all timers safely
+      if (timersRef.current && timersRef.current.length > 0) {
+        timersRef.current.forEach(timer => {
+          try {
+            clearTimeout(timer);
+          } catch (e) {
+            // Ignore cleanup errors
+          }
+        });
+        timersRef.current = [];
+      }
+      
+      // Clear safety timeout
+      if (safetyTimeoutRef.current) {
+        try {
+          clearTimeout(safetyTimeoutRef.current);
+          safetyTimeoutRef.current = null;
+        } catch (e) {
+          // Ignore cleanup errors
+        }
+      }
     };
-  }, [onDone]);
+  }, []);
 
   // Calculate grid lines - MORE LINES spanning entire screen
   const gridLines = [];
@@ -98,7 +137,7 @@ const IntroSequence = ({ onDone }) => {
   }
 
   return (
-    <div ref={containerRef} className="intro-sequence is-animating">
+    <div ref={containerRef} className={`intro-sequence ${isAnimating ? 'is-animating' : ''}`}>
       {/* Background geometric layer */}
       <motion.svg
         className="intro-sequence__grid"
@@ -164,11 +203,14 @@ const IntroSequence = ({ onDone }) => {
       <div className="intro-sequence__center">
         <motion.h1
           className="intro-sequence__title"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: showTitle ? 1 : 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ 
+            opacity: showTitle ? 1 : 0,
+            scale: showTitle ? 1 : 0.95
+          }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          Digital Project Logbook
+          Ray's Dev Log
         </motion.h1>
       </div>
     </div>

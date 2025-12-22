@@ -4,7 +4,7 @@
 const OverviewSection = () => {
   return (
     <section id="overview" className="content-section">
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h2>Project Overview</h2>
         <p>
           This digital logbook chronicles the development of "Echoes of Control," an interactive

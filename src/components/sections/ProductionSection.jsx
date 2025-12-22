@@ -4,7 +4,7 @@
 const ProductionSection = () => {
   return (
     <section id="production" className="content-section">
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h2>Production & Reflection: The Real Story</h2>
         <p>
           This isn't a polished success story. It's the messy reality of trying to create something
@@ -16,7 +16,7 @@ const ProductionSection = () => {
         </p>
       </div>
 
-      <article className="card note">
+      <article className="card note" data-animate="reveal">
         <h3>Starting Too Big: My First Mistake</h3>
         <small className="meta">October 2025</small>
 
@@ -35,7 +35,7 @@ const ProductionSection = () => {
       </article>
 
       {/* Key Learnings Summary */}
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h3>Key Learnings & Course Connections</h3>
         <div className="grid-2">
           <div className="mini">

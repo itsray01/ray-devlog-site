@@ -4,7 +4,7 @@
 const StoryDevelopmentSection = () => {
   return (
     <section id="story-development" className="content-section">
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h2>Story Development</h2>
 
         <h3>Core Concept</h3>
@@ -20,7 +20,7 @@ const StoryDevelopmentSection = () => {
         </p>
       </div>
 
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h3>Narrative Design Decisions</h3>
 
         <h4>Three-Act Structure with Strategic Convergence</h4>
@@ -54,7 +54,7 @@ const StoryDevelopmentSection = () => {
         </p>
       </div>
 
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h3>Thematic Exploration</h3>
         <p>
           Through branching choices, the narrative explores several interconnected themes:
@@ -81,7 +81,7 @@ const StoryDevelopmentSection = () => {
         </ul>
       </div>
 
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h3>User Testing: Initial Findings</h3>
         <small className="meta">October-November 2025</small>
 
@@ -106,7 +106,7 @@ const StoryDevelopmentSection = () => {
         </ul>
       </div>
 
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h3>Iterative Refinements</h3>
         <p>
           Based on playtest feedback, I refined several narrative elements:
@@ -140,7 +140,7 @@ const StoryDevelopmentSection = () => {
         </p>
       </div>
 
-      <div className="card">
+      <div className="card" data-animate="reveal">
         <h3>Connection to Course Objectives</h3>
         <p>
           The story development process engaged with several key course objectives:

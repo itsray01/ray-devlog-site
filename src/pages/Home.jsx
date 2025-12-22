@@ -5,6 +5,8 @@ import FeatureCard from '../components/FeatureCard';
 import FeatureGrid from '../components/FeatureGrid';
 import { Map, BookOpen } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
+import useScrollReveal from '../hooks/useScrollReveal';
+import useAnimeHover from '../hooks/useAnimeHover';
 
 // Table of Contents sections - exported for use by navigation components
 export const HOME_SECTIONS = [
@@ -61,6 +63,15 @@ const SectionLoader = () => (
  */
 const Home = () => {
   const { setSections } = useNavigation();
+  
+  // Enable scroll-reveal animations
+  const scrollRevealRef = useScrollReveal({
+    threshold: 0.1,
+    rootMargin: '0px 0px -80px 0px',
+  });
+  
+  // Enable hover micro-interactions
+  const hoverRef = useAnimeHover();
 
   // Register sections with navigation context
   useEffect(() => {
@@ -83,11 +94,15 @@ const Home = () => {
         id="home"
         role="main"
         aria-label="Main content"
+        ref={(el) => {
+          scrollRevealRef(el);
+          hoverRef(el);
+        }}
       >
         <div id="main-content"></div>
 
         {/* Page Header */}
-        <header className="page-header">
+        <header className="page-header" data-animate="reveal">
           <h1>Digital Project Logbook</h1>
           <p className="page-subtitle">
             Documenting the journey of creating an interactive dystopian film
@@ -132,7 +147,7 @@ const Home = () => {
         </ErrorBoundary>
 
         {/* Featured Links Section */}
-        <section className="content-section" aria-label="Featured pages">
+        <section className="content-section" aria-label="Featured pages" data-animate="reveal">
           <FeatureGrid columns={2} gap="lg">
             <FeatureCard
               eyebrow="AI Experiments"

@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import NavOverlay from './NavOverlay';
 import NavDock from './NavDock';
 import IntroSequence from './IntroSequence';
+import IntroErrorBoundary from './IntroErrorBoundary';
 import MobileNav from './MobileNav';
 import TopNavBar from './TopNavBar';
+import PageLoadAnimation from './PageLoadAnimation';
 import { NavigationProvider, useNavigation } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
 
@@ -16,6 +19,46 @@ const LayoutContent = () => {
   const { isMobile, isTablet, isDesktop } = useViewport();
   const { supportsOverlay, introPhase, finishIntro } = useNavigation();
 
+  // Log introPhase changes for debugging
+  useEffect(() => {
+    console.log('[Layout] introPhase changed to:', introPhase);
+  }, [introPhase]);
+
+  // Fallback: If stuck in preload phase, force transition to toc
+  useEffect(() => {
+    if (supportsOverlay && introPhase === 'preload') {
+      const fallbackTimer = setTimeout(() => {
+        if (introPhase === 'preload') {
+          console.warn('[Layout] Fallback: Still in preload after 400ms, forcing finishIntro()');
+          finishIntro();
+        }
+      }, 400);
+
+      return () => clearTimeout(fallbackTimer);
+    }
+  }, [supportsOverlay, introPhase, finishIntro]);
+
+  // Global safety: ensure content is visible on mount (fallback for animation failures)
+  useEffect(() => {
+    // Wait a moment for animations to initialize
+    const revealTimer = setTimeout(() => {
+      const mainContent = document.querySelector('.main-content');
+      if (mainContent) {
+        const isHidden = window.getComputedStyle(mainContent).opacity === '0';
+        const isIntroPhase = introPhase === 'preload' || introPhase === 'toc';
+        
+        if (isHidden && !isIntroPhase) {
+          console.warn('[Layout] Content hidden but not in intro phase - forcing visibility');
+          mainContent.style.opacity = '1';
+          mainContent.style.visibility = 'visible';
+          mainContent.style.pointerEvents = 'auto';
+        }
+      }
+    }, 100);
+
+    return () => clearTimeout(revealTimer);
+  }, [introPhase]);
+
   // Calculate dynamic dimensions based on viewport
   // When on overlay pages, hide sidebar to make room for dock
   const sidebarWidth = isMobile || supportsOverlay ? 0 : 260;
@@ -24,12 +67,23 @@ const LayoutContent = () => {
 
   return (
     <div className="app-container">
+      {/* Page load animation controller */}
+      <PageLoadAnimation />
+      
       {/* Top Navigation Bar - always visible on desktop */}
       {!isMobile && <TopNavBar />}
 
       {/* Stage 1: Preload intro sequence - fullscreen black with geometric animation */}
       {supportsOverlay && introPhase === 'preload' && (
-        <IntroSequence onDone={finishIntro} />
+        <IntroErrorBoundary 
+          onError={(error) => {
+            console.error('[Layout] IntroSequence crashed, forcing content visible:', error);
+            // Force intro to finish and show content
+            finishIntro();
+          }}
+        >
+          <IntroSequence onDone={finishIntro} />
+        </IntroErrorBoundary>
       )}
 
       {/* Traditional Sidebar - only shown on non-overlay pages */}
