@@ -3,89 +3,20 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      // Use automatic JSX runtime
-      jsxRuntime: 'automatic',
-      // Ensure React is available
-      jsxImportSource: 'react'
-    })
-  ],
+  plugins: [react()],
   base: '/',
   server: {
-    host: '0.0.0.0', // Listen on all interfaces (IPv4 + IPv6)
+    host: '0.0.0.0',
     port: 3000,
     open: true
   },
   build: {
-    // Use more compatible target for production
-    target: 'es2015',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: false, // Keep console.logs for debugging
-        drop_debugger: true
-      },
-      format: {
-        comments: false
-      }
-    },
-    sourcemap: false,
-    // Enable gzip compression
-    reportCompressedSize: true,
-    // Chunk splitting for better caching
-    rollupOptions: {
-      output: {
-        manualChunks: (id) => {
-          // Split vendor chunks - be more specific with paths
-          if (id.includes('node_modules')) {
-            // CRITICAL: Keep React and ReactDOM together in one chunk
-            // Also include React-dependent chart libraries to ensure they share React instance
-            if (id.includes('react/') || id.includes('react-dom/') || 
-                id.includes('react-chartjs-2') || id.includes('recharts')) {
-              return 'react-core';
-            }
-            if (id.includes('react-router')) {
-              return 'react-router-vendor';
-            }
-            if (id.includes('framer-motion')) {
-              return 'animation-vendor';
-            }
-            if (id.includes('chart.js')) {
-              return 'chart-vendor';
-            }
-            if (id.includes('lucide-react')) {
-              return 'icons-vendor';
-            }
-            // Other node_modules
-            return 'vendor';
-          }
-        }
-      }
-    },
-    // Increase chunk size warning limit (optional)
-    chunkSizeWarningLimit: 1000
-  },
-  // Optimize dependencies - ensure React is pre-bundled
-  optimizeDeps: {
-    include: [
-      'react',
-      'react/jsx-runtime',
-      'react/jsx-dev-runtime', 
-      'react-dom',
-      'react-dom/client',
-      'react-router-dom',
-      'framer-motion'
-    ],
-    esbuildOptions: {
-      target: 'es2015'
-    }
+    reportCompressedSize: true
   },
   resolve: {
+    // CRITICAL: Dedupe React to prevent multiple instances
+    // This ensures all chunks share the same React instance,
+    // preventing "Cannot read properties of undefined" errors
     dedupe: ['react', 'react-dom']
-  },
-  // Ensure proper module format for production
-  esbuild: {
-    target: 'es2015'
   }
 })
