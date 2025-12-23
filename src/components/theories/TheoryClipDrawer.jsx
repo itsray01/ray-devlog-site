@@ -23,9 +23,18 @@ const TheoryClipDrawer = ({ connection, isOpen, onClose, onOpenClip }) => {
     }
   }, [isOpen, playConfirm]);
 
+  const handleClose = useCallback(() => {
+    playDown();
+    onClose();
+  }, [onClose, playDown]);
+
   // Handle escape key, focus trap, and body scroll lock
   useEffect(() => {
     if (!isOpen) return;
+
+    // Store scroll position before opening
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
@@ -35,22 +44,42 @@ const TheoryClipDrawer = ({ connection, isOpen, onClose, onOpenClip }) => {
 
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
+    
+    // Lock scroll position
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = `-${scrollX}px`;
+    document.body.style.width = '100%';
 
-    // Focus the drawer
+    // Focus the drawer without scrolling
     if (drawerRef.current) {
-      drawerRef.current.focus();
+      drawerRef.current.focus({ preventScroll: true });
     }
+
+    // Prevent any scroll events
+    const preventScroll = (e) => {
+      if (e.target.closest('.drawer__panel') || e.target.closest('.drawer__content')) {
+        return; // Allow scroll inside drawer
+      }
+      e.preventDefault();
+      window.scrollTo(scrollX, scrollY);
+    };
+
+    window.addEventListener('scroll', preventScroll, { passive: false });
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('scroll', preventScroll);
+      
+      // Restore scroll position
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.width = '';
+      window.scrollTo(scrollX, scrollY);
     };
-  }, [isOpen]);
-
-  const handleClose = useCallback(() => {
-    playDown();
-    onClose();
-  }, [onClose, playDown]);
+  }, [isOpen, handleClose]);
 
   const scrollToLibrary = (e) => {
     e.preventDefault();
@@ -127,8 +156,11 @@ const TheoryClipDrawer = ({ connection, isOpen, onClose, onOpenClip }) => {
               </button>
             </header>
 
-            {/* Content */}
-            <div className="drawer__content">
+            {/* Content - scrollable */}
+            <div className="drawer__content" onScroll={(e) => {
+              // Prevent scroll from bubbling to page
+              e.stopPropagation();
+            }}>
               {/* Clip Preview */}
               <section className="drawer__clip-section">
                 <div className="drawer__clip-header">
@@ -144,6 +176,7 @@ const TheoryClipDrawer = ({ connection, isOpen, onClose, onOpenClip }) => {
                     playsInline
                     poster={connection.clip.poster}
                     preload="metadata"
+                    tabIndex={-1}
                   >
                     <source src={connection.clip.srcMp4} type="video/mp4" />
                     Your browser does not support the video tag.
