@@ -4,7 +4,7 @@ import { Brain, Scale, Gamepad2, Film, GraduationCap, Bot, Feather, Book, ArrowU
 import ReadingProgress from '../components/ReadingProgress';
 import { pageVariants, pageTransition } from '../constants/animations';
 import { useNavigation } from '../context/NavigationContext';
-import { TheoryConnections, TheoriesHud, SfxProvider } from '../components/theories';
+import { TheoryClipGrid, TheoriesHud, SfxProvider } from '../components/theories';
 import { getConnectionsByLibraryId } from '../data/theoryConnections';
 import '../styles/theories.css';
 
@@ -137,7 +137,7 @@ const Theories = () => {
           </p>
         </motion.article>
 
-        {/* NEW: Theory-to-Clip Connections Section */}
+        {/* Theory-to-Clip Connections Section - Premium Card Grid + Drawer */}
         <motion.section
           id="connections"
           initial={{ opacity: 0, y: 20 }}
@@ -145,7 +145,7 @@ const Theories = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <TheoryConnections />
+          <TheoryClipGrid />
         </motion.section>
 
         {/* Research Framework Section (Library) */}
