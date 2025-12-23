@@ -2832,27 +2832,6 @@ html {
   gap: 0.75rem;
 }
 
-/* --- Skip Link for Accessibility --- */
-.skip-link {
-  position: absolute;
-  top: -100px;
-  left: 20px;
-  background: var(--accent);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  border-radius: 8px;
-  z-index: 10000;
-  font-weight: 600;
-  transition: top 0.3s ease;
-  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
-}
-
-.skip-link:focus {
-  top: 20px;
-  outline: 3px solid var(--accent-secondary);
-  outline-offset: 2px;
-}
 
 /* --- Table of Contents Dropdown Styles --- */
 .table-of-contents.toc-dropdown {

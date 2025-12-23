@@ -50,9 +50,6 @@ const Extras = () => {
   return (
     <>
       {/* Skip Link for Accessibility */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
 
       <motion.div
         initial="initial"

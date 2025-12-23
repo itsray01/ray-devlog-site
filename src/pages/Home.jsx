@@ -82,10 +82,6 @@ const Home = () => {
 
   return (
     <>
-      {/* Skip Link for Accessibility */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
 
       {/* Reading Progress Indicator */}
       <ReadingProgress />
