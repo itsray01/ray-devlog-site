@@ -33,6 +33,10 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
   useEffect(() => {
     if (!isOpen) return;
 
+    // Store scroll position before opening
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
+
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         handleClose();
@@ -41,17 +45,42 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
 
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
+    
+    // Lock scroll position
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = `-${scrollX}px`;
+    document.body.style.width = '100%';
 
-    // Focus the modal
+    // Focus the modal without scrolling
     if (modalRef.current) {
-      modalRef.current.focus();
+      modalRef.current.focus({ preventScroll: true });
     }
+
+    // Prevent any scroll events
+    const preventScroll = (e) => {
+      if (e.target.closest('.modal__overlay') || e.target.closest('.modal__container')) {
+        return; // Allow interaction with modal
+      }
+      e.preventDefault();
+      window.scrollTo(scrollX, scrollY);
+    };
+
+    window.addEventListener('scroll', preventScroll, { passive: false });
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('scroll', preventScroll);
+      
+      // Restore scroll position
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.width = '';
+      window.scrollTo(scrollX, scrollY);
     };
-  }, [isOpen]);
+  }, [isOpen, handleClose]);
 
   const handleClose = useCallback(() => {
     playDown();

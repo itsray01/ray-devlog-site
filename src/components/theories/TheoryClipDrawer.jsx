@@ -184,7 +184,23 @@ const TheoryClipDrawer = ({ connection, isOpen, onClose, onOpenClip }) => {
                 </div>
                 <button
                   className="drawer__fullscreen-btn"
-                  onClick={() => onOpenClip(connection)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Store current scroll position before opening modal
+                    const scrollY = window.scrollY;
+                    const scrollX = window.scrollX;
+                    
+                    // Open modal
+                    onOpenClip(connection);
+                    
+                    // Ensure scroll position stays locked
+                    setTimeout(() => {
+                      if (window.scrollY !== scrollY) {
+                        window.scrollTo(scrollX, scrollY);
+                      }
+                    }, 0);
+                  }}
                 >
                   <Play size={14} />
                   Open Full Player

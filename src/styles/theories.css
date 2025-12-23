@@ -1343,6 +1343,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
+  padding-bottom: 2.5rem; /* Extra padding at bottom so footer isn't hidden */
   position: relative;
   z-index: 1;
 }
