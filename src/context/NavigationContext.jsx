@@ -4,8 +4,12 @@ import useScrollSpy from '../hooks/useScrollSpy';
 
 const NavigationContext = createContext(null);
 
-// DEBUG: Force intro sequence to always play on HOME (set to false in production)
-const DEBUG_FORCE_INTRO = true;
+// DEBUG: Force intro sequence to always play on HOME
+// Only enabled in development or if VITE_DEBUG_FORCE_INTRO env var is set
+const DEBUG_FORCE_INTRO = import.meta.env.DEV || import.meta.env.VITE_DEBUG_FORCE_INTRO === 'true';
+
+// Helper to check if we're in development mode
+const isDev = import.meta.env.DEV;
 
 // Storage key for persisting docked state
 const STORAGE_KEY = 'devlog_nav_docked';
@@ -54,17 +58,21 @@ export const NavigationProvider = ({ children }) => {
     // HOME PAGE: Apply intro logic
     // DEBUG MODE: Always start with intro on home
     if (DEBUG_FORCE_INTRO) {
-      console.log('[NavigationContext] DEBUG_FORCE_INTRO enabled - starting with preload (home)');
+      if (isDev) {
+        console.log('[NavigationContext] DEBUG_FORCE_INTRO enabled - starting with preload (home)');
+      }
       return 'preload';
     }
     
     if (typeof window !== 'undefined') {
       const storedDocked = localStorage.getItem(STORAGE_KEY);
-      console.log('[NavigationContext] Initial state check:', {
-        storedDocked,
-        hasHashOnLoad: hasHashOnLoad.current,
-        willStartDocked: storedDocked === '1' || hasHashOnLoad.current
-      });
+      if (isDev) {
+        console.log('[NavigationContext] Initial state check:', {
+          storedDocked,
+          hasHashOnLoad: hasHashOnLoad.current,
+          willStartDocked: storedDocked === '1' || hasHashOnLoad.current
+        });
+      }
       // If localStorage has docked OR URL has hash, start docked (skip intro entirely)
       if (storedDocked === '1' || hasHashOnLoad.current) {
         return 'docked';
@@ -99,7 +107,9 @@ export const NavigationProvider = ({ children }) => {
   // When navigating to a non-home page, force docked state immediately
   useEffect(() => {
     if (!isHomePage && introPhase !== 'docked') {
-      console.log('[NavigationContext] Non-home page detected, forcing docked state');
+      if (isDev) {
+        console.log('[NavigationContext] Non-home page detected, forcing docked state');
+      }
       setIntroPhase('docked');
     }
   }, [isHomePage, introPhase]);
@@ -132,12 +142,18 @@ export const NavigationProvider = ({ children }) => {
   // Finish intro sequence - transition from preload to toc phase
   // Transitions immediately - NavOverlay will wait for sections if needed
   const finishIntro = useCallback(() => {
-    console.log('[NavigationContext] finishIntro called, current phase:', introPhase);
+    if (isDev) {
+      console.log('[NavigationContext] finishIntro called, current phase:', introPhase);
+    }
     if (introPhase === 'preload') {
-      console.log('[NavigationContext] Transitioning to toc phase');
+      if (isDev) {
+        console.log('[NavigationContext] Transitioning to toc phase');
+      }
       setIntroPhase('toc');
     } else {
-      console.warn('[NavigationContext] finishIntro called but phase is not preload:', introPhase);
+      if (isDev) {
+        console.warn('[NavigationContext] finishIntro called but phase is not preload:', introPhase);
+      }
     }
   }, [introPhase]);
 
@@ -185,16 +201,19 @@ export const NavigationProvider = ({ children }) => {
 
   // Safety timeout: if stuck in preload for too long, force to toc
   // (TOC phase has no timeout - waits for user to click)
+  // Only triggers if actually in preload phase (intro overlay is mounted)
   useEffect(() => {
-    if (introPhase === 'preload') {
+    if (introPhase === 'preload' && isHomePage) {
       const safetyTimer = setTimeout(() => {
-        console.warn('[NavigationContext] Safety timeout - forcing toc phase to reveal TOC');
+        if (isDev) {
+          console.warn('[NavigationContext] Safety timeout (7s) - forcing toc phase to reveal TOC');
+        }
         setIntroPhase('toc');
-      }, 5000); // 5 seconds max for preload
+      }, 7000); // 7 seconds max for preload - only if intro overlay is actually mounted
 
       return () => clearTimeout(safetyTimer);
     }
-  }, [introPhase]);
+  }, [introPhase, isHomePage]);
 
   // Reset docked state when navigating away from overlay pages
   useEffect(() => {

@@ -20,24 +20,12 @@ const LayoutContent = () => {
   const { isMobile, isTablet, isDesktop } = useViewport();
   const { supportsOverlay, supportsHomeIntro, introPhase, finishIntro } = useNavigation();
 
-  // Log introPhase changes for debugging
+  // Log introPhase changes for debugging (dev only)
   useEffect(() => {
-    console.log('[Layout] introPhase changed to:', introPhase);
-  }, [introPhase]);
-
-  // Fallback: If stuck in preload phase on HOME, force transition to toc
-  useEffect(() => {
-    if (supportsHomeIntro && introPhase === 'preload') {
-      const fallbackTimer = setTimeout(() => {
-        if (introPhase === 'preload') {
-          console.warn('[Layout] Fallback: Still in preload after 400ms, forcing finishIntro()');
-          finishIntro();
-        }
-      }, 400);
-
-      return () => clearTimeout(fallbackTimer);
+    if (import.meta.env.DEV) {
+      console.log('[Layout] introPhase changed to:', introPhase);
     }
-  }, [supportsHomeIntro, introPhase, finishIntro]);
+  }, [introPhase]);
 
   // Global safety: ensure content is visible on mount (fallback for animation failures)
   useEffect(() => {
@@ -49,7 +37,9 @@ const LayoutContent = () => {
         const isIntroPhase = introPhase === 'preload' || introPhase === 'toc';
         
         if (isHidden && !isIntroPhase) {
-          console.warn('[Layout] Content hidden but not in intro phase - forcing visibility');
+          if (import.meta.env.DEV) {
+            console.warn('[Layout] Content hidden but not in intro phase - forcing visibility');
+          }
           mainContent.style.opacity = '1';
           mainContent.style.visibility = 'visible';
           mainContent.style.pointerEvents = 'auto';
@@ -81,7 +71,9 @@ const LayoutContent = () => {
       {supportsHomeIntro && introPhase === 'preload' && (
         <IntroErrorBoundary 
           onError={(error) => {
-            console.error('[Layout] IntroSequence crashed, forcing content visible:', error);
+            if (import.meta.env.DEV) {
+              console.error('[Layout] IntroSequence crashed, forcing content visible:', error);
+            }
             // Force intro to finish and show content
             finishIntro();
           }}
