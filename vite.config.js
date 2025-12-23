@@ -3,7 +3,14 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      // Use automatic JSX runtime
+      jsxRuntime: 'automatic',
+      // Ensure React is available
+      jsxImportSource: 'react'
+    })
+  ],
   base: '/',
   server: {
     host: '0.0.0.0', // Listen on all interfaces (IPv4 + IPv6)
@@ -18,6 +25,9 @@ export default defineConfig({
       compress: {
         drop_console: false, // Keep console.logs for debugging
         drop_debugger: true
+      },
+      format: {
+        comments: false
       }
     },
     sourcemap: false,
@@ -27,11 +37,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Split vendor chunks
+          // Split vendor chunks - be more specific with paths
           if (id.includes('node_modules')) {
-            // Keep React core together
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
+            // CRITICAL: Keep React and ReactDOM together in one chunk
+            if (id.includes('react/') || id.includes('react-dom/')) {
+              return 'react-core';
             }
             if (id.includes('react-router')) {
               return 'react-router-vendor';
@@ -42,12 +52,11 @@ export default defineConfig({
             if (id.includes('chart.js') || id.includes('recharts')) {
               return 'chart-vendor';
             }
+            if (id.includes('lucide-react')) {
+              return 'icons-vendor';
+            }
             // Other node_modules
             return 'vendor';
-          }
-          // Split large pages into separate chunks
-          if (id.includes('pages/Home')) {
-            return 'home-page';
           }
         }
       }
@@ -55,8 +64,22 @@ export default defineConfig({
     // Increase chunk size warning limit (optional)
     chunkSizeWarningLimit: 1000
   },
-  // Optimize dependencies
+  // Optimize dependencies - ensure React is pre-bundled
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
+    include: [
+      'react',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime', 
+      'react-dom',
+      'react-dom/client',
+      'react-router-dom',
+      'framer-motion'
+    ],
+    esbuildOptions: {
+      target: 'es2015'
+    }
+  },
+  resolve: {
+    dedupe: ['react', 'react-dom']
   }
 })
