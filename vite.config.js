@@ -40,7 +40,9 @@ export default defineConfig({
           // Split vendor chunks - be more specific with paths
           if (id.includes('node_modules')) {
             // CRITICAL: Keep React and ReactDOM together in one chunk
-            if (id.includes('react/') || id.includes('react-dom/')) {
+            // Also include React-dependent chart libraries to ensure they share React instance
+            if (id.includes('react/') || id.includes('react-dom/') || 
+                id.includes('react-chartjs-2') || id.includes('recharts')) {
               return 'react-core';
             }
             if (id.includes('react-router')) {
@@ -49,7 +51,7 @@ export default defineConfig({
             if (id.includes('framer-motion')) {
               return 'animation-vendor';
             }
-            if (id.includes('chart.js') || id.includes('recharts')) {
+            if (id.includes('chart.js')) {
               return 'chart-vendor';
             }
             if (id.includes('lucide-react')) {
@@ -81,5 +83,9 @@ export default defineConfig({
   },
   resolve: {
     dedupe: ['react', 'react-dom']
+  },
+  // Ensure proper module format for production
+  esbuild: {
+    target: 'es2015'
   }
 })
