@@ -1,6 +1,10 @@
 /* --- Fonts --- */
 @import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Rajdhani:wght@400;500;600&display=swap');
 
+/* --- Component Styles --- */
+@import './styles/homeHub.css';
+@import './styles/journeyPage.css';
+
 /* --- Color Palette & Global Variables --- */
 :root {
   /* Cyberpunk Purple/Blue Theme - Matches bg.png aesthetic */
@@ -3597,6 +3601,7 @@ html {
 
 /* ============================================
    NAV DOCK (Bottom-Left Docked Navigation)
+   Hybrid Style: Terminal structure + Sliding selector bar
    ============================================ */
 
 .nav-dock {
@@ -3604,8 +3609,13 @@ html {
   bottom: 1.5rem;
   left: 1.5rem;
   z-index: 90;
-  max-width: 240px;
+  max-width: 180px;
+  min-width: 160px;
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nav-dock--terminal {
+  /* Terminal-specific modifiers applied via this class */
 }
 
 .nav-dock--hidden {
@@ -3621,73 +3631,187 @@ html {
 }
 
 .nav-dock__inner {
-  background: linear-gradient(135deg, rgba(22, 26, 35, 0.92) 0%, rgba(28, 32, 42, 0.88) 100%);
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 18, 28, 0.95) 0%,
+    rgba(20, 24, 38, 0.92) 50%,
+    rgba(12, 15, 25, 0.95) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 8px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(167, 139, 250, 0.1);
-  padding: 0.75rem;
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(167, 139, 250, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  padding: 1rem;
   overflow: hidden;
+  position: relative;
+}
+
+/* Subtle scanlines overlay for terminal feel */
+.nav-dock__scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.02) 2px,
+    rgba(0, 0, 0, 0.02) 4px
+  );
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.nav-dock__header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+  position: relative;
+  z-index: 2;
 }
 
 .nav-dock__label {
   font-family: 'Iceberg', sans-serif;
-  font-size: 0.7rem;
-  color: var(--accent-secondary);
+  font-size: 0.75rem;
+  color: rgba(167, 139, 250, 0.9);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.5rem;
-  padding-left: 0.5rem;
-  opacity: 0.8;
+  letter-spacing: 0.15em;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
 }
 
-/* Compact dock item styles */
+/* Compact dock menu styles */
 .nav-dock .nav-menu {
   margin: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.nav-dock .nav-menu__item-wrapper {
+  position: relative;
+  margin-bottom: 0.25rem;
+}
+
+/* Sliding selector bar in docked mode */
+.nav-dock .nav-menu__selector {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(167, 139, 250, 0.15) 0%,
+    rgba(167, 139, 250, 0.1) 50%,
+    rgba(124, 58, 237, 0.08) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 6px;
+  box-shadow:
+    0 0 15px rgba(167, 139, 250, 0.12),
+    inset 0 0 15px rgba(167, 139, 250, 0.05);
+  z-index: 0;
+}
+
+/* Left accent glow on selector */
+.nav-dock .nav-menu__selector::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(167, 139, 250, 0.9),
+    transparent
+  );
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
 }
 
 .nav-dock .nav-menu__item {
-  padding: 0.5rem 0.65rem;
-  font-size: 0.82rem;
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.03em;
   border-radius: 6px;
   background: transparent;
   border: none;
-  transition: background 0.2s ease, color 0.2s ease;
+  color: rgba(224, 231, 255, 0.8);
+  transition: color 0.2s ease;
 }
 
-.nav-dock .nav-menu__item:hover {
-  background: rgba(167, 139, 250, 0.12);
-}
-
-.nav-dock .nav-menu__item--active {
-  background: rgba(167, 139, 250, 0.18);
-  color: var(--accent-primary);
-}
-
+/* Circle indicator */
 .nav-dock .nav-menu__indicator {
-  width: 3px;
-  height: 3px;
-  margin-right: 0.5rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 0.65rem;
+  background: rgba(167, 139, 250, 0.3);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
-/* Responsive: hide dock on very small screens */
+/* Active state - filled circle */
+.nav-dock .nav-menu__item--active .nav-menu__indicator {
+  background: rgba(167, 139, 250, 0.9);
+  border-color: rgba(167, 139, 250, 1);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+}
+
+/* Selected/hover state */
+.nav-dock .nav-menu__item--selected {
+  color: var(--ink);
+}
+
+.nav-dock .nav-menu__item--selected .nav-menu__indicator {
+  background: rgba(167, 139, 250, 0.7);
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.5);
+}
+
+/* Responsive: adjust dock on smaller screens */
 @media (max-width: 768px) {
   .nav-dock {
     bottom: 80px; /* Above mobile nav bar */
     left: 1rem;
-    max-width: 200px;
+    max-width: 160px;
+    min-width: 140px;
   }
   
   .nav-dock__inner {
-    padding: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .nav-dock__label {
+    font-size: 0.7rem;
   }
   
   .nav-dock .nav-menu__item {
-    padding: 0.4rem 0.5rem;
-    font-size: 0.78rem;
+    padding: 0.45rem 0.65rem;
+    font-size: 0.8rem;
+  }
+  
+  .nav-dock .nav-menu__indicator {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+/* Reduced motion: disable scanlines */
+@media (prefers-reduced-motion: reduce) {
+  .nav-dock__scanlines {
+    display: none;
+  }
+  
+  .nav-dock .nav-menu__selector {
+    transition: none;
   }
 }
 
@@ -5487,3 +5611,65 @@ body.anime-load-error .top-nav-link {
 }
 
 
+/* ============================================
+   PAGE TITLE CARD - Quick transition for non-home pages
+   ============================================ */
+
+.page-title-card {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 18, 0.6);
+  pointer-events: none; /* Does NOT block interaction */
+}
+
+.page-title-card__panel {
+  padding: 2rem 4rem;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 18, 28, 0.95) 0%,
+    rgba(20, 24, 38, 0.92) 50%,
+    rgba(12, 15, 25, 0.95) 100%
+  );
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  border-radius: 8px;
+  box-shadow:
+    0 0 60px rgba(167, 139, 250, 0.25),
+    0 0 30px rgba(124, 58, 237, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.page-title-card__text {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: rgba(167, 139, 250, 0.95);
+  text-transform: uppercase;
+  text-shadow:
+    0 0 30px rgba(167, 139, 250, 0.5),
+    0 0 60px rgba(167, 139, 250, 0.3);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-title-card__panel {
+    padding: 1.5rem 2.5rem;
+  }
+  
+  .page-title-card__text {
+    letter-spacing: 0.15em;
+  }
+}
+
+/* Reduced motion: hide entirely */
+@media (prefers-reduced-motion: reduce) {
+  .page-title-card {
+    display: none;
+  }
+}

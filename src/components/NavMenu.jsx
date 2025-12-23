@@ -184,15 +184,15 @@ const NavMenu = ({
             role="none"
             className="nav-menu__item-wrapper"
           >
-            {/* Sliding selector highlight bar - only in overlay mode */}
-            {mode === 'overlay' && isSelected && !prefersReducedMotion && (
+            {/* Sliding selector highlight bar - in BOTH overlay and docked modes */}
+            {isSelected && !prefersReducedMotion && (
               <motion.div
                 className="nav-menu__selector"
-                layoutId="nav-selector"
+                layoutId={mode === 'overlay' ? 'nav-selector-overlay' : 'nav-selector-dock'}
                 transition={{
                   type: 'spring',
-                  stiffness: 500,
-                  damping: 35
+                  stiffness: mode === 'docked' ? 400 : 500,
+                  damping: mode === 'docked' ? 30 : 35
                 }}
               />
             )}
@@ -202,6 +202,7 @@ const NavMenu = ({
               type="button"
               className={`nav-menu__item ${isActive ? 'nav-menu__item--active' : ''} ${isSelected ? 'nav-menu__item--selected' : ''}`}
               onClick={() => handleSelect(index)}
+              onMouseEnter={() => mode === 'docked' && handleHover(index)}
               onKeyDown={(e) => handleItemKeyDown(e, index)}
               role="menuitem"
               aria-current={isActive ? 'location' : undefined}

@@ -7,6 +7,7 @@ import { Map, BookOpen } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useAnimeHover from '../hooks/useAnimeHover';
+import HomeHubHeader from '../components/home/HomeHubHeader';
 
 // Table of Contents sections - exported for use by navigation components
 export const HOME_SECTIONS = [
@@ -90,7 +91,7 @@ const Home = () => {
       <ReadingProgress />
 
       <div
-        className="page-container"
+        className="page-container home-page"
         id="home"
         role="main"
         aria-label="Main content"
@@ -101,92 +102,101 @@ const Home = () => {
       >
         <div id="main-content"></div>
 
-        {/* Page Header */}
-        <header className="page-header" data-animate="reveal">
-          <h1>Digital Project Logbook</h1>
-          <p className="page-subtitle">
-            Documenting the journey of creating an interactive dystopian film
-          </p>
-        </header>
+        {/* Page Shell - Uniform readable width container */}
+        <div className="page-shell">
+          {/* Page Header */}
+          <header className="page-header" data-animate="reveal">
+            <h1>Digital Project Logbook</h1>
+            <p className="page-subtitle">
+              Documenting the journey of creating an interactive dystopian film
+            </p>
+          </header>
 
-        {/* Lazy-loaded sections */}
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <OverviewSection />
-          </Suspense>
-        </ErrorBoundary>
+          {/* Home Hub Header - Game-style hub layer */}
+          <HomeHubHeader />
+        </div>
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <InspirationSection />
-          </Suspense>
-        </ErrorBoundary>
+        {/* Page Shell for logbook sections - same width as hub */}
+        <div className="page-shell">
+          {/* Lazy-loaded sections */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <OverviewSection />
+            </Suspense>
+          </ErrorBoundary>
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <MoodboardSection />
-          </Suspense>
-        </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <InspirationSection />
+            </Suspense>
+          </ErrorBoundary>
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <StoryboardSection />
-          </Suspense>
-        </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <MoodboardSection />
+            </Suspense>
+          </ErrorBoundary>
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <StoryDevelopmentSection />
-          </Suspense>
-        </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <StoryboardSection />
+            </Suspense>
+          </ErrorBoundary>
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <BranchingSection />
-          </Suspense>
-        </ErrorBoundary>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <StoryDevelopmentSection />
+            </Suspense>
+          </ErrorBoundary>
 
-        {/* Featured Links Section */}
-        <section className="content-section" aria-label="Featured pages" data-animate="reveal">
-          <FeatureGrid columns={2} gap="lg">
-            <FeatureCard
-              eyebrow="AI Experiments"
-              title="My Journey Through AI Video Generation"
-              body="I tested 5 different AI video generation models—Sora 2, Veo3.1, Wan2.5, Higgsfield, and Seedance. Most of them failed in ways I didn't expect. Here's what I learned from weeks of experimentation, burned credits, and frustrating failures."
-              icon={Map}
-              cta={{ label: 'Read My Journey', href: '/my-journey' }}
-              variant="highlight"
-              delay={0.1}
-              onMouseEnter={() => import('../pages/MyJourney')}
-            />
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <BranchingSection />
+            </Suspense>
+          </ErrorBoundary>
 
-            <FeatureCard
-              eyebrow="Academic Framework"
-              title="Theoretical Foundations"
-              body="Explore the academic frameworks and theoretical concepts that inform this project—from Practice as Research methodology to AI ethics, interactive horror, and authorship in AI-assisted creation."
-              icon={BookOpen}
-              cta={{ label: 'View Theories', href: '/theories' }}
-              variant="highlight"
-              delay={0.2}
-              onMouseEnter={() => import('../pages/Theories')}
-            />
-          </FeatureGrid>
-        </section>
+          {/* Featured Links Section */}
+          <section className="content-section" aria-label="Featured pages" data-animate="reveal">
+            <FeatureGrid columns={2} gap="lg">
+              <FeatureCard
+                eyebrow="AI Experiments"
+                title="My Journey Through AI Video Generation"
+                body="I tested 5 different AI video generation models—Sora 2, Veo3.1, Wan2.5, Higgsfield, and Seedance. Most of them failed in ways I didn't expect. Here's what I learned from weeks of experimentation, burned credits, and frustrating failures."
+                icon={Map}
+                cta={{ label: 'Read My Journey', href: '/my-journey' }}
+                variant="highlight"
+                delay={0.1}
+                onMouseEnter={() => import('../pages/MyJourney')}
+              />
 
-        <ErrorBoundary>
-          <Suspense fallback={<SectionLoader />}>
-            <ProductionSection />
-          </Suspense>
-        </ErrorBoundary>
+              <FeatureCard
+                eyebrow="Academic Framework"
+                title="Theoretical Foundations"
+                body="Explore the academic frameworks and theoretical concepts that inform this project—from Practice as Research methodology to AI ethics, interactive horror, and authorship in AI-assisted creation."
+                icon={BookOpen}
+                cta={{ label: 'View Theories', href: '/theories' }}
+                variant="highlight"
+                delay={0.2}
+                onMouseEnter={() => import('../pages/Theories')}
+              />
+            </FeatureGrid>
+          </section>
 
-        {/* Footer */}
-        <footer>
-          <p>
-            This logbook documents the ongoing development of an interactive dystopian film project
-            as of November 2025. It serves as both a creative diary and technical reference for
-            AI-assisted filmmaking.
-          </p>
-        </footer>
+          <ErrorBoundary>
+            <Suspense fallback={<SectionLoader />}>
+              <ProductionSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/* Footer */}
+          <footer>
+            <p>
+              This logbook documents the ongoing development of an interactive dystopian film project
+              as of November 2025. It serves as both a creative diary and technical reference for
+              AI-assisted filmmaking.
+            </p>
+          </footer>
+        </div>
       </div>
     </>
   );

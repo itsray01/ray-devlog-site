@@ -1,8 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
 import StatisticsDashboard from '../components/StatisticsDashboard';
 import { useNavigation } from '../context/NavigationContext';
+import JourneyFilters from '../components/journey/JourneyFilters';
+import JourneyLogCard from '../components/journey/JourneyLogCard';
+import ToolMatrix from '../components/journey/ToolMatrix';
+import CostCharts from '../components/journey/CostCharts';
+import journeyLogs from '../content/journeyLogs';
 
 // Table of Contents sections - exported for use by navigation components
 export const JOURNEY_SECTIONS = [
@@ -15,7 +20,10 @@ export const JOURNEY_SECTIONS = [
   { id: 'wan25', title: 'Wan 2.5' },
   { id: 'higgsfield', title: 'Higgsfield' },
   { id: 'seedance', title: 'Seedance' },
-  { id: 'reflections', title: 'Reflections' }
+  { id: 'reflections', title: 'Reflections' },
+  { id: 'experiment-log', title: 'Experiment Log' },
+  { id: 'tool-matrix', title: 'Tool Comparison Matrix' },
+  { id: 'cost-chart', title: 'Cost Chart' }
 ];
 
 // Alias for backward compatibility
@@ -27,6 +35,55 @@ const TOC_SECTIONS = JOURNEY_SECTIONS;
  */
 const MyJourney = () => {
   const { setSections } = useNavigation();
+
+  // Filter state
+  const [selectedTools, setSelectedTools] = useState([]);
+  const [selectedFailures, setSelectedFailures] = useState([]);
+  const [minScore, setMinScore] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Extract unique tools and failures from logs
+  const availableTools = useMemo(() => {
+    return [...new Set(journeyLogs.map(log => log.tool))];
+  }, []);
+
+  const availableFailures = useMemo(() => {
+    const failures = journeyLogs.flatMap(log => log.failures || []);
+    return [...new Set(failures)].sort();
+  }, []);
+
+  // Filter logs based on current filters
+  const filteredLogs = useMemo(() => {
+    return journeyLogs.filter(log => {
+      // Tool filter
+      if (selectedTools.length > 0 && !selectedTools.includes(log.tool)) {
+        return false;
+      }
+
+      // Failures filter
+      if (selectedFailures.length > 0) {
+        const hasSelectedFailure = selectedFailures.some(failure =>
+          (log.failures || []).includes(failure)
+        );
+        if (!hasSelectedFailure) return false;
+      }
+
+      // Score filter
+      if (log.resultScore < minScore) {
+        return false;
+      }
+
+      // Search filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const matchesGoal = log.goal.toLowerCase().includes(query);
+        const matchesFix = log.fix.toLowerCase().includes(query);
+        if (!matchesGoal && !matchesFix) return false;
+      }
+
+      return true;
+    });
+  }, [selectedTools, selectedFailures, minScore, searchQuery]);
 
   // Register sections with navigation context
   useEffect(() => {
@@ -345,6 +402,77 @@ const MyJourney = () => {
             new about prompt engineering and how these models interpret creative direction.
           </p>
         </article>
+
+        {/* Experiment Log Section */}
+        <section
+          id="experiment-log"
+          className="card journey-section"
+          style={{ marginTop: '3rem' }}
+          aria-labelledby="experiment-log-heading"
+        >
+          <h2 id="experiment-log-heading">Experiment Log</h2>
+          <p style={{ marginBottom: '1.5rem' }}>
+            A chronological record of every AI video generation experiment, including goals,
+            failures, fixes, and outcomes. Use filters to explore specific tools or failure patterns.
+          </p>
+
+          <JourneyFilters
+            selectedTools={selectedTools}
+            onToolChange={setSelectedTools}
+            selectedFailures={selectedFailures}
+            onFailureChange={setSelectedFailures}
+            minScore={minScore}
+            onMinScoreChange={setMinScore}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            availableTools={availableTools}
+            availableFailures={availableFailures}
+          />
+
+          <div className="journey-logs-grid">
+            {filteredLogs.length > 0 ? (
+              filteredLogs.map(log => (
+                <JourneyLogCard key={log.id} log={log} />
+              ))
+            ) : (
+              <p className="journey-logs-empty">
+                No experiments match your filters. Try adjusting the filters above.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Tool Comparison Matrix Section */}
+        <section
+          id="tool-matrix"
+          className="card journey-section"
+          style={{ marginTop: '3rem' }}
+          aria-labelledby="tool-matrix-heading"
+        >
+          <h2 id="tool-matrix-heading">Tool Comparison Matrix</h2>
+          <p style={{ marginBottom: '1.5rem' }}>
+            Side-by-side comparison of all tested AI video generation tools across key criteria.
+            Click each tool to expand detailed notes, pros, and cons based on real-world usage.
+          </p>
+
+          <ToolMatrix />
+        </section>
+
+        {/* Cost Chart Section */}
+        <section
+          id="cost-chart"
+          className="card journey-section"
+          style={{ marginTop: '3rem' }}
+          aria-labelledby="cost-chart-heading"
+        >
+          <h2 id="cost-chart-heading">Cost Chart</h2>
+          <p style={{ marginBottom: '1.5rem' }}>
+            Visualize the resource investment behind this research—credits spent, time invested,
+            and quality outcomes over time. This data reveals patterns in tool efficiency and learning curves.
+          </p>
+
+          <CostCharts logs={journeyLogs} />
+        </section>
 
         {/* Footer */}
         <footer>

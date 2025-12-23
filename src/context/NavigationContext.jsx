@@ -4,14 +4,17 @@ import useScrollSpy from '../hooks/useScrollSpy';
 
 const NavigationContext = createContext(null);
 
-// DEBUG: Force intro sequence to always play (set to false in production)
+// DEBUG: Force intro sequence to always play on HOME (set to false in production)
 const DEBUG_FORCE_INTRO = true;
 
 // Storage key for persisting docked state
 const STORAGE_KEY = 'devlog_nav_docked';
 
-// Pages that support the TOC overlay behavior
+// Pages that support the docked TOC sidebar behavior
 const OVERLAY_PAGES = ['/', '/my-journey', '/theories', '/assets', '/about', '/extras'];
+
+// Only the home page gets the full boot/menu intro overlay
+const HOME_PATH = '/';
 
 /**
  * NavigationProvider - Manages navigation state for TOC overlay/dock behavior
@@ -27,7 +30,8 @@ const OVERLAY_PAGES = ['/', '/my-journey', '/theories', '/assets', '/about', '/e
  * - activeSectionId: currently visible section
  * - scrollToSection: function to scroll to a section
  * - sections: current page's sections
- * - supportsOverlay: whether current page supports overlay mode
+ * - supportsOverlay: whether current page supports docked sidebar
+ * - supportsHomeIntro: whether current page is HOME and gets the full intro
  */
 export const NavigationProvider = ({ children }) => {
   const location = useLocation();
@@ -36,12 +40,21 @@ export const NavigationProvider = ({ children }) => {
   const hasHashOnLoad = useRef(
     typeof window !== 'undefined' && window.location.hash.length > 1
   );
+
+  // Only HOME page gets the full intro overlay
+  const isHomePage = location.pathname === HOME_PATH;
   
   // 4-state navigation flow: "preload" | "toc" | "transitioning" | "docked"
   const [introPhase, setIntroPhase] = useState(() => {
-    // DEBUG MODE: Always start with intro
+    // Non-home pages ALWAYS start docked (no intro overlay)
+    if (typeof window !== 'undefined' && window.location.pathname !== HOME_PATH) {
+      return 'docked';
+    }
+    
+    // HOME PAGE: Apply intro logic
+    // DEBUG MODE: Always start with intro on home
     if (DEBUG_FORCE_INTRO) {
-      console.log('[NavigationContext] DEBUG_FORCE_INTRO enabled - starting with preload');
+      console.log('[NavigationContext] DEBUG_FORCE_INTRO enabled - starting with preload (home)');
       return 'preload';
     }
     
@@ -71,11 +84,25 @@ export const NavigationProvider = ({ children }) => {
 
   const [sections, setSections] = useState([]);
 
-  // Check if current page supports overlay mode
+  // Check if current page supports docked sidebar mode
   const supportsOverlay = useMemo(() => 
     OVERLAY_PAGES.includes(location.pathname),
     [location.pathname]
   );
+
+  // Only HOME page supports the full intro overlay (boot sequence + TOC menu)
+  const supportsHomeIntro = useMemo(() => 
+    location.pathname === HOME_PATH,
+    [location.pathname]
+  );
+
+  // When navigating to a non-home page, force docked state immediately
+  useEffect(() => {
+    if (!isHomePage && introPhase !== 'docked') {
+      console.log('[NavigationContext] Non-home page detected, forcing docked state');
+      setIntroPhase('docked');
+    }
+  }, [isHomePage, introPhase]);
 
   // Get section IDs for scroll spy
   const sectionIds = useMemo(() => 
@@ -193,8 +220,9 @@ export const NavigationProvider = ({ children }) => {
     setActiveSectionId,
     sections,
     setSections,
-    supportsOverlay
-  }), [isDocked, setDocked, navState, introPhase, finishIntro, beginDockTransition, finishDock, pendingTargetId, activeSectionId, handleSelectSection, setActiveSectionId, sections, supportsOverlay]);
+    supportsOverlay,
+    supportsHomeIntro
+  }), [isDocked, setDocked, navState, introPhase, finishIntro, beginDockTransition, finishDock, pendingTargetId, activeSectionId, handleSelectSection, setActiveSectionId, sections, supportsOverlay, supportsHomeIntro]);
 
   return (
     <NavigationContext.Provider value={value}>

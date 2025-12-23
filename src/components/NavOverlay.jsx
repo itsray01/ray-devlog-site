@@ -61,8 +61,8 @@ const NavOverlay = () => {
   const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
   const [isTitleGlitching, setIsTitleGlitching] = useState(false);
   
-  // SFX hook
-  const sfx = useSfx();
+  // SFX hook - destructure to get stable references to memoized functions
+  const { playHover, playConfirm } = useSfx();
 
   // Check for reduced motion preference
   const prefersReducedMotion = useMemo(() => {
@@ -83,7 +83,7 @@ const NavOverlay = () => {
     console.log('[NavOverlay] Navigating to:', page.path);
     
     // Play confirm sound
-    sfx.playConfirm();
+    playConfirm();
     
     // Navigate to the page
     navigate(page.path);
@@ -92,7 +92,7 @@ const NavOverlay = () => {
     setTimeout(() => {
       finishDock();
     }, 100);
-  }, [introPhase, bootDone, navigate, finishDock, sfx]);
+  }, [introPhase, bootDone, navigate, finishDock, playConfirm]);
 
   // Lock body scroll when overlay is open (ONLY during toc or transitioning, NOT preload)
   useEffect(() => {
@@ -189,6 +189,12 @@ const NavOverlay = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [introPhase]);
 
+  // Convert pages to sections format for NavMenu - memoized for stable reference
+  // Must be called before conditional return to satisfy Rules of Hooks
+  const sections = useMemo(() => 
+    PAGES.map(p => ({ id: p.id, title: p.title })), 
+  []);
+
   // Only render during toc phase
   if (introPhase !== 'toc') {
     return null;
@@ -197,9 +203,6 @@ const NavOverlay = () => {
   // Get current page for highlighting
   const currentPath = location.pathname;
   const currentPageId = PAGES.find(p => p.path === currentPath)?.id || '';
-
-  // Convert pages to sections format for NavMenu
-  const sections = PAGES.map(p => ({ id: p.id, title: p.title }));
 
   // Animation variants
   const backdropVariants = {
@@ -354,8 +357,8 @@ const NavOverlay = () => {
                 sections={sections}
                 activeSectionId={currentPageId}
                 onSelect={handlePageClick}
-                onHover={sfx.playHover}
-                onConfirm={sfx.playConfirm}
+                onHover={playHover}
+                onConfirm={playConfirm}
                 mode="overlay"
                 disabled={!bootDone}
               />

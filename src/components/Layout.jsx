@@ -8,6 +8,7 @@ import IntroErrorBoundary from './IntroErrorBoundary';
 import MobileNav from './MobileNav';
 import TopNavBar from './TopNavBar';
 import PageLoadAnimation from './PageLoadAnimation';
+import PageTitleCard from './PageTitleCard';
 import { NavigationProvider, useNavigation } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
 
@@ -17,16 +18,16 @@ import useViewport from '../hooks/useViewport';
  */
 const LayoutContent = () => {
   const { isMobile, isTablet, isDesktop } = useViewport();
-  const { supportsOverlay, introPhase, finishIntro } = useNavigation();
+  const { supportsOverlay, supportsHomeIntro, introPhase, finishIntro } = useNavigation();
 
   // Log introPhase changes for debugging
   useEffect(() => {
     console.log('[Layout] introPhase changed to:', introPhase);
   }, [introPhase]);
 
-  // Fallback: If stuck in preload phase, force transition to toc
+  // Fallback: If stuck in preload phase on HOME, force transition to toc
   useEffect(() => {
-    if (supportsOverlay && introPhase === 'preload') {
+    if (supportsHomeIntro && introPhase === 'preload') {
       const fallbackTimer = setTimeout(() => {
         if (introPhase === 'preload') {
           console.warn('[Layout] Fallback: Still in preload after 400ms, forcing finishIntro()');
@@ -36,7 +37,7 @@ const LayoutContent = () => {
 
       return () => clearTimeout(fallbackTimer);
     }
-  }, [supportsOverlay, introPhase, finishIntro]);
+  }, [supportsHomeIntro, introPhase, finishIntro]);
 
   // Global safety: ensure content is visible on mount (fallback for animation failures)
   useEffect(() => {
@@ -70,11 +71,14 @@ const LayoutContent = () => {
       {/* Page load animation controller */}
       <PageLoadAnimation />
       
+      {/* Quick title card for non-home pages */}
+      <PageTitleCard />
+      
       {/* Top Navigation Bar - always visible on desktop */}
       {!isMobile && <TopNavBar />}
 
-      {/* Stage 1: Preload intro sequence - fullscreen black with geometric animation */}
-      {supportsOverlay && introPhase === 'preload' && (
+      {/* Stage 1: Preload intro sequence - HOME ONLY */}
+      {supportsHomeIntro && introPhase === 'preload' && (
         <IntroErrorBoundary 
           onError={(error) => {
             console.error('[Layout] IntroSequence crashed, forcing content visible:', error);
@@ -89,8 +93,8 @@ const LayoutContent = () => {
       {/* Traditional Sidebar - only shown on non-overlay pages */}
       {!isMobile && !supportsOverlay && <Sidebar />}
 
-      {/* Stage 2: TOC Overlay - shows after intro, before docking */}
-      {supportsOverlay && <NavOverlay />}
+      {/* Stage 2: TOC Overlay - HOME ONLY, shows after intro, before docking */}
+      {supportsHomeIntro && <NavOverlay />}
 
       {/* Stage 3: Nav Dock - always mounted on overlay pages for GSAP targeting */}
       {supportsOverlay && <NavDock />}
