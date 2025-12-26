@@ -1,132 +1,123 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Image, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Eye, Film, Image as ImageIcon, FileText, Music } from 'lucide-react';
 
 /**
- * AssetCard - Interactive card component for assets
- * Opens a modal with detailed information and images
+ * AssetCard - Premium grid card with uniform layout
+ * Features:
+ * - Thumbnail area (image or gradient placeholder)
+ * - Title clamped to 1 line
+ * - Description clamped to 2 lines
+ * - Tags row (1 line)
+ * - Footer actions pinned to bottom
  * 
- * @param {string} category - Asset category label (e.g., "Visual Development")
- * @param {string} title - Asset title
- * @param {string} description - Short description
- * @param {object} details - Detailed info { writeup: string, images: string[], status: string }
+ * @param {object} asset - Asset data object
+ * @param {function} onView - Callback when card is clicked
  * @param {number} delay - Animation delay
  */
-const AssetCard = ({ category, title, description, details, delay = 0 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  // Handle escape key to close modal
-  const handleKeyDown = (e) => {
-    if (e.key === 'Escape') closeModal();
+const AssetCard = ({ asset, onView, delay = 0 }) => {
+  const [imageError, setImageError] = useState(false);
+  
+  // Get icon based on type
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case 'video': return Film;
+      case 'image': return ImageIcon;
+      case 'audio': return Music;
+      case 'doc': return FileText;
+      default: return FileText;
+    }
   };
 
+  const TypeIcon = getTypeIcon(asset.type);
+  const hasPreview = asset.preview && !imageError;
+
   return (
-    <>
-      {/* Asset Card */}
-      <motion.div
-        className="card asset-card"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay }}
-        whileHover={{ 
-          scale: 1.02,
-          boxShadow: "0 0 30px rgba(138, 43, 226, 0.3)",
-          transition: { duration: 0.2 }
-        }}
-      >
-        <div className="asset-card-header">
-          <span className="asset-category">{category}</span>
-        </div>
-        <h3 className="asset-title">{title}</h3>
-        <p className="asset-description">{description}</p>
+    <motion.div
+      className="asset-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay }}
+      whileHover={{ 
+        y: -4,
+        transition: { duration: 0.2 }
+      }}
+      onClick={onView}
+    >
+      {/* Thumbnail Area */}
+      <div className="asset-card__thumbnail">
+        {hasPreview ? (
+          asset.type === 'video' ? (
+            <video
+              src={asset.preview}
+              className="asset-card__thumbnail-video"
+              muted
+              loop
+              playsInline
+              onMouseEnter={(e) => e.target.play()}
+              onMouseLeave={(e) => { e.target.pause(); e.target.currentTime = 0; }}
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <img
+              src={asset.preview}
+              alt={asset.title}
+              className="asset-card__thumbnail-image"
+              onError={() => setImageError(true)}
+            />
+          )
+        ) : (
+          <div className="asset-card__thumbnail-placeholder">
+            <TypeIcon size={48} strokeWidth={1.5} />
+          </div>
+        )}
         
+        {/* Type Badge */}
+        <div className="asset-card__type-badge">
+          <TypeIcon size={14} />
+          <span>{asset.type}</span>
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className="asset-card__body">
+        {/* Category */}
+        <span className="asset-card__category">{asset.category}</span>
+        
+        {/* Title - clamp 1 line */}
+        <h3 className="asset-card__title">{asset.title}</h3>
+        
+        {/* Description - clamp 2 lines */}
+        <p className="asset-card__description">{asset.description}</p>
+        
+        {/* Tags - 1 line */}
+        <div className="asset-card__tags">
+          {asset.tags.slice(0, 3).map((tag, index) => (
+            <span key={index} className="asset-card__tag">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer Actions - pinned to bottom */}
+      <div className="asset-card__actions">
         <motion.button
-          className="asset-view-button"
-          onClick={openModal}
+          className="asset-card__button asset-card__button--primary"
+          onClick={(e) => { e.stopPropagation(); onView(); }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <FileText size={18} />
+          <Eye size={16} />
           <span>View Details</span>
         </motion.button>
-      </motion.div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            className="asset-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
-            onKeyDown={handleKeyDown}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
-          >
-            <motion.div
-              className="asset-modal"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            >
-              {/* Close Button */}
-              <button
-                className="asset-modal-close"
-                onClick={closeModal}
-                aria-label="Close modal"
-              >
-                <X size={24} />
-              </button>
-
-              {/* Modal Header */}
-              <div className="asset-modal-header">
-                <span className="asset-category">{category}</span>
-                <h2 id="modal-title">{title}</h2>
-              </div>
-
-              {/* Modal Content */}
-              <div className="asset-modal-content">
-                {/* Status Badge */}
-                <div className={`asset-status-badge asset-status-${details.status}`}>
-                  {details.status === 'available' ? '✓ Available' : 
-                   details.status === 'in-progress' ? '⏳ In Progress' : 
-                   '📅 Coming Soon'}
-                </div>
-
-                {/* Write-up */}
-                <div className="asset-modal-writeup">
-                  <h3>About This Collection</h3>
-                  <p>{details.writeup}</p>
-                </div>
-
-                {/* Images Preview */}
-                {details.images && details.images.length > 0 && (
-                  <div className="asset-modal-images">
-                    <h3>Preview Gallery</h3>
-                    <div className="asset-image-grid">
-                      {details.images.map((img, index) => (
-                        <div key={index} className="asset-image-placeholder">
-                          <Image size={32} />
-                          <span>{img}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        
+        <span className="asset-card__tool">{asset.tool}</span>
+      </div>
+    </motion.div>
   );
 };
 
 export default AssetCard;
+
+

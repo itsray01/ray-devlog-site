@@ -331,3 +331,5 @@ Then the app will:
 ✅ **Complete flow** works: preload → toc → transitioning → docked  
 
 **To test:** Refresh the page and watch the intro play every time!
+
+

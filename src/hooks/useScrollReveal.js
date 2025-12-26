@@ -163,3 +163,5 @@ const useScrollReveal = (options = {}) => {
 };
 
 export default useScrollReveal;
+
+

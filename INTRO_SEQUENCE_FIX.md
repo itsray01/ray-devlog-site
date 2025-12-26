@@ -402,3 +402,5 @@ return () => {
 **User impact:** Site now always renders content, even if intro fails  
 
 **Ready to test!** 🚀
+
+

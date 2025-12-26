@@ -234,3 +234,5 @@ npm list animejs
 - Graceful degradation if anime.js fails
 
 **Ready to deploy!** 🚀
+
+

@@ -186,6 +186,35 @@ If your domain is elsewhere:
 - Check image paths in your code
 - Verify images are committed to git
 
+### JavaScript/CSS Assets Blocked by CORS (Site Shows Only Background)
+
+**Issue**: Site loads but only shows background image, no content appears. Console shows:
+```
+Access to script at 'https://itsray.cloudflareaccess.com/...' has been blocked by CORS policy
+Failed to load resource: net::ERR_FAILED
+```
+
+**Root Cause**: Cloudflare Access is protecting your site's assets, causing JavaScript and CSS files to be redirected to a login page, which then fails with CORS errors.
+
+**Solution**: Fix Cloudflare Access configuration in your Cloudflare dashboard:
+
+1. **Go to Cloudflare Dashboard**: https://dash.cloudflare.com
+2. **Navigate to Zero Trust** → **Access** → **Applications**
+3. **Find your application** (e.g., `raysdevlog.page`)
+4. **Edit the application** or **create/update a policy**:
+   - **Option A (Recommended)**: Remove Cloudflare Access entirely if you want a public site
+     - Delete the Access application for your domain
+   - **Option B**: Configure Access to allow public access to static assets
+     - Add a policy with:
+       - **Path**: `/assets/*`, `/*.js`, `/*.css`, `/img/*`, `/videos/*`
+       - **Action**: Allow (no authentication required)
+       - **Include**: Everyone
+     - Keep your main pages protected if needed, but static assets must be public
+
+**Important**: Static assets (JavaScript, CSS, images) MUST be publicly accessible for your site to work. Cloudflare Access should only protect specific pages/routes if you need authentication, not the entire site including assets.
+
+**Quick Test**: After fixing, hard refresh your browser (Ctrl+Shift+R or Cmd+Shift+R) and check the console - the CORS errors should be gone.
+
 ---
 
 ## 📱 Mobile Optimization

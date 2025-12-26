@@ -410,3 +410,5 @@ export default BackgroundWebGL;
  * vignetteRadius: 0.6         - Where vignette starts from center (0.4-0.8)
  * overlayOpacity: 0.75        - Base dark overlay (0.6-0.85)
  */
+
+
