@@ -232,6 +232,21 @@ const TransitionWebGL = forwardRef((props, ref) => {
     }
   }, []);
 
+  // Pause render loop when tab is hidden (extra safety beyond "only active while transitioning")
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        isActiveRef.current = false;
+        stopLoop();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [stopLoop]);
+
   // Play transition - exposed via ref
   const play = useCallback(({ direction = 1 } = {}) => {
     if (prefersReducedMotion || !materialRef.current) return;

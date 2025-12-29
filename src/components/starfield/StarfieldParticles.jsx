@@ -13,6 +13,7 @@ import { loadSlim } from '@tsparticles/slim';
  */
 const StarfieldParticles = ({ variant = 'stars' }) => {
   const [init, setInit] = useState(false);
+  const [perfProfile, setPerfProfile] = useState({ isMobile: false, isLowPower: false });
 
   // Initialize particles engine once (shared across both variants)
   useEffect(() => {
@@ -35,11 +36,32 @@ const StarfieldParticles = ({ variant = 'stars' }) => {
     });
   }, []);
 
+  // Lightweight perf profile (mobile/low-power) for particle caps
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const compute = () => {
+      const isMobile = window.innerWidth < 768;
+      const isLowPower =
+        isMobile ||
+        (typeof navigator !== 'undefined' &&
+          ((navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+            (navigator.deviceMemory && navigator.deviceMemory <= 4)));
+
+      setPerfProfile({ isMobile, isLowPower });
+    };
+
+    compute();
+    window.addEventListener('resize', compute, { passive: true });
+    return () => window.removeEventListener('resize', compute);
+  }, []);
+
   // Particle configuration - different for stars vs dust
   const options = useMemo(() => {
+    const { isMobile, isLowPower } = perfProfile;
     const baseConfig = {
       fullScreen: false,
-      fpsLimit: 60,
+      fpsLimit: isLowPower ? 40 : 60,
       detectRetina: true,
       background: {
         color: 'transparent',
@@ -55,7 +77,7 @@ const StarfieldParticles = ({ variant = 'stars' }) => {
         ...baseConfig,
         particles: {
           number: {
-            value: 200,
+            value: isLowPower ? 110 : 200,
             density: {
               enable: true,
               width: 1920,
@@ -115,7 +137,7 @@ const StarfieldParticles = ({ variant = 'stars' }) => {
       ...baseConfig,
       particles: {
         number: {
-          value: 50,
+          value: isLowPower ? 24 : 50,
           density: {
             enable: true,
             width: 1920,
@@ -155,15 +177,17 @@ const StarfieldParticles = ({ variant = 'stars' }) => {
       },
       interactivity: {
         events: {
-          onHover: {
-            enable: true,
-            mode: 'bubble',
-            parallax: {
-              enable: true,
-              force: 3,
-              smooth: 10,
-            },
-          },
+          onHover: isMobile
+            ? { enable: false }
+            : {
+                enable: true,
+                mode: 'bubble',
+                parallax: {
+                  enable: true,
+                  force: 3,
+                  smooth: 10,
+                },
+              },
           onClick: {
             enable: false,
           },
@@ -181,7 +205,7 @@ const StarfieldParticles = ({ variant = 'stars' }) => {
         },
       },
     };
-  }, [variant]);
+  }, [variant, perfProfile]);
 
   // Check for reduced motion preference
   const prefersReducedMotion = typeof window !== 'undefined'
