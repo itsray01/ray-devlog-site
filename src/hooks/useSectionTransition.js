@@ -84,12 +84,20 @@ const useSectionTransition = (activeSectionId, transitionRef, options = {}) => {
 
   // Track scroll position continuously
   useEffect(() => {
+    let rafId = null;
     const handleScroll = () => {
-      previousScrollYRef.current = window.scrollY;
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        previousScrollYRef.current = window.scrollY;
+        rafId = null;
+      });
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return {
@@ -116,5 +124,8 @@ export default useSectionTransition;
  *   </>
  * );
  */
+
+
+
 
 

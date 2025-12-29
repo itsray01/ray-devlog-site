@@ -14,13 +14,23 @@ const ReadingProgress = () => {
   });
 
   useEffect(() => {
+    let rafId = null;
     const handleScroll = () => {
-      // Show progress bar after scrolling 100px
-      setIsVisible(window.scrollY > 100);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        // Show progress bar after scrolling 100px
+        setIsVisible(window.scrollY > 100);
+        rafId = null;
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (

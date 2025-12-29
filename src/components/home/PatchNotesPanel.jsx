@@ -1,4 +1,4 @@
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigationActions } from '../../context/NavigationContext';
 import patchNotes from '../../content/patchNotes';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,7 +9,7 @@ const MAX_NOTES = 4;
  * Shows recent patch notes with optional jump-to links
  */
 const PatchNotesPanel = () => {
-  const { scrollToSection } = useNavigation();
+  const { scrollToSection } = useNavigationActions();
 
   const latestNotes = patchNotes.slice(0, MAX_NOTES);
 

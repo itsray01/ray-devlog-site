@@ -1,4 +1,4 @@
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigationActions } from '../../context/NavigationContext';
 import {
   Video,
   Wrench,
@@ -65,7 +65,7 @@ const HUD_TILES = [
  * Displays clickable HUD metrics
  */
 const DiagnosticsHUD = () => {
-  const { scrollToSection } = useNavigation();
+  const { scrollToSection } = useNavigationActions();
 
   const handleTileClick = (tile) => {
     if (tile.jumpTo) {

@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Home, Map, BookOpen, Info, Package, Sparkles } from 'lucide-react';
 import NavMenu from './NavMenu';
-import { useNavigation } from '../context/NavigationContext';
+import ThemeToggle from './ThemeToggle';
+import { useNavigationActions, useNavigationScroll, useNavigationState } from '../context/NavigationContext';
 
 const navLinks = [
   { path: '/', label: 'Home', icon: Home },
@@ -40,13 +41,9 @@ const SimpleMobileLink = ({ to, isActive, icon: Icon, label, onClick, className 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const {
-    sections,
-    activeSectionId,
-    scrollToSection,
-    supportsOverlay,
-    setDocked
-  } = useNavigation();
+  const { sections, supportsOverlay } = useNavigationState();
+  const { activeSectionId } = useNavigationScroll();
+  const { scrollToSection, setDocked } = useNavigationActions();
 
   // Close menu on route change
   useEffect(() => {
@@ -164,6 +161,11 @@ const MobileNav = () => {
                 >
                   <X size={24} />
                 </button>
+              </div>
+
+              {/* Theme Toggle */}
+              <div style={{ padding: '0 1rem 1rem' }}>
+                <ThemeToggle />
               </div>
 
               {/* Page Links */}

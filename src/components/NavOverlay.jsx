@@ -1,11 +1,12 @@
 import { useEffect, useCallback, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions, useNavigationState } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
 import useSfx from '../hooks/useSfx';
 import TerminalBoot from './TerminalBoot';
 import NavMenu from './NavMenu';
+import { tocStaggerIn } from '../utils/animeFx';
 
 // Define the pages to show in the navigation overlay
 const PAGES = [
@@ -41,11 +42,8 @@ const HUD_DATA = {
  * - Sliding selector bar
  */
 const NavOverlay = () => {
-  const {
-    introPhase,
-    finishDock,
-    supportsOverlay
-  } = useNavigation();
+  const { introPhase, supportsOverlay } = useNavigationState();
+  const { finishDock } = useNavigationActions();
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -53,7 +51,9 @@ const NavOverlay = () => {
   const { isMobile } = useViewport();
   const panelRef = useRef(null);
   const frameRef = useRef(null);
+  const menuRef = useRef(null);
   const hasNavigatedRef = useRef(false);
+  const hasAnimatedMenuRef = useRef(false);
   
   // State
   const [frameReady, setFrameReady] = useState(false);
@@ -116,6 +116,7 @@ const NavOverlay = () => {
   useEffect(() => {
     if (introPhase === 'toc') {
       hasNavigatedRef.current = false;
+      hasAnimatedMenuRef.current = false;
       setFrameReady(false);
       // If reduced motion, skip boot
       setBootDone(prefersReducedMotion);
@@ -135,6 +136,23 @@ const NavOverlay = () => {
   const handleBootComplete = useCallback(() => {
     setBootDone(true);
   }, []);
+
+  // Animate menu items with stagger when boot is done
+  useEffect(() => {
+    if (bootDone && introPhase === 'toc' && menuRef.current && !hasAnimatedMenuRef.current) {
+      hasAnimatedMenuRef.current = true;
+      
+      // Small delay to ensure menu is fully rendered
+      const timer = setTimeout(() => {
+        tocStaggerIn(menuRef.current, {
+          staggerDelay: 40,
+          duration: 600,
+        });
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [bootDone, introPhase]);
 
   // Parallax effect on mouse movement
   useEffect(() => {
@@ -353,15 +371,17 @@ const NavOverlay = () => {
                 bootDuration={4500}
               />
             ) : (
-              <NavMenu
-                sections={sections}
-                activeSectionId={currentPageId}
-                onSelect={handlePageClick}
-                onHover={playHover}
-                onConfirm={playConfirm}
-                mode="overlay"
-                disabled={!bootDone}
-              />
+              <div ref={menuRef}>
+                <NavMenu
+                  sections={sections}
+                  activeSectionId={currentPageId}
+                  onSelect={handlePageClick}
+                  onHover={playHover}
+                  onConfirm={playConfirm}
+                  mode="overlay"
+                  disabled={!bootDone}
+                />
+              </div>
             )}
           </div>
 

@@ -1,4 +1,4 @@
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigationActions, useNavigationScroll } from '../../context/NavigationContext';
 import { HOME_SECTIONS } from '../../pages/Home';
 import { ChevronRight } from 'lucide-react';
 
@@ -7,7 +7,8 @@ import { ChevronRight } from 'lucide-react';
  * Displays all major sections as clickable nodes
  */
 const ModuleMap = () => {
-  const { scrollToSection, activeSectionId } = useNavigation();
+  const { scrollToSection } = useNavigationActions();
+  const { activeSectionId } = useNavigationScroll();
 
   const handleModuleClick = (sectionId) => {
     scrollToSection(sectionId);

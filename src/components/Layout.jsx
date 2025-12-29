@@ -10,7 +10,7 @@ import MobileNav from './MobileNav';
 import TopNavBar from './TopNavBar';
 import PageLoadAnimation from './PageLoadAnimation';
 import PageTitleCard from './PageTitleCard';
-import { NavigationProvider, useNavigation } from '../context/NavigationContext';
+import { NavigationProvider, useNavigationActions, useNavigationState } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
 
 /**
@@ -20,7 +20,8 @@ import useViewport from '../hooks/useViewport';
 const LayoutContent = () => {
   const location = useLocation();
   const { isMobile, isTablet, isDesktop } = useViewport();
-  const { supportsOverlay, supportsHomeIntro, introPhase, finishIntro } = useNavigation();
+  const { supportsOverlay, supportsHomeIntro, introPhase } = useNavigationState();
+  const { finishIntro } = useNavigationActions();
 
   // Log introPhase changes for debugging (dev only)
   useEffect(() => {

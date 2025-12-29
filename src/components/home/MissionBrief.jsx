@@ -1,4 +1,4 @@
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigationActions } from '../../context/NavigationContext';
 import { Play, BookOpen, Film } from 'lucide-react';
 
 /**
@@ -6,7 +6,7 @@ import { Play, BookOpen, Film } from 'lucide-react';
  * Displays project overview and primary CTAs
  */
 const MissionBrief = () => {
-  const { scrollToSection } = useNavigation();
+  const { scrollToSection } = useNavigationActions();
 
   const handleEnterLogbook = () => {
     scrollToSection('overview');

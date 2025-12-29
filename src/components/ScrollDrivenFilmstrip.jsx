@@ -109,13 +109,25 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     checkMobile();
     checkReducedMotion();
 
-    window.addEventListener('resize', checkMobile);
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    motionQuery.addEventListener('change', checkReducedMotion);
+    window.addEventListener('resize', checkMobile, { passive: true });
+    const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (motionQuery) {
+      if (typeof motionQuery.addEventListener === 'function') {
+        motionQuery.addEventListener('change', checkReducedMotion);
+      } else if (typeof motionQuery.addListener === 'function') {
+        motionQuery.addListener(checkReducedMotion);
+      }
+    }
 
     return () => {
       window.removeEventListener('resize', checkMobile);
-      motionQuery.removeEventListener('change', checkReducedMotion);
+      if (motionQuery) {
+        if (typeof motionQuery.removeEventListener === 'function') {
+          motionQuery.removeEventListener('change', checkReducedMotion);
+        } else if (typeof motionQuery.removeListener === 'function') {
+          motionQuery.removeListener(checkReducedMotion);
+        }
+      }
     };
   }, []);
 
@@ -223,19 +235,13 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       });
     };
 
-    // Listen on BOTH window and document.body to handle different scroll container setups
-    // Some pages have body as the scroll container (overflow-y: auto on body)
-    // Others use the default window/document scrolling
+    // Listen on window (document/body listeners tend to be redundant and costly)
     window.addEventListener('scroll', handleScroll, { passive: true });
-    document.body.addEventListener('scroll', handleScroll, { passive: true });
-    document.addEventListener('scroll', handleScroll, { passive: true });
     
     handleScroll(); // Initial calculation
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.body.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
   }, [isMobile, isReducedMotion]);

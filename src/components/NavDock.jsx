@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import NavMenu from './NavMenu';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions, useNavigationScroll, useNavigationState } from '../context/NavigationContext';
 import useSfx from '../hooks/useSfx';
 
 /**
@@ -12,13 +12,9 @@ import useSfx from '../hooks/useSfx';
  */
 const NavDock = () => {
   const dockRef = useRef(null);
-  const { 
-    introPhase,
-    sections, 
-    activeSectionId, 
-    scrollToSection,
-    supportsOverlay 
-  } = useNavigation();
+  const { introPhase, sections, supportsOverlay } = useNavigationState();
+  const { activeSectionId } = useNavigationScroll();
+  const { scrollToSection } = useNavigationActions();
 
   // SFX hook for hover sounds
   const { playHover } = useSfx();

@@ -2,7 +2,10 @@ import { createContext, useContext, useState, useEffect, useMemo, useCallback, u
 import { useLocation } from 'react-router-dom';
 import useScrollSpy from '../hooks/useScrollSpy';
 
-const NavigationContext = createContext(null);
+// Split contexts so high-frequency updates (activeSectionId) don't rerender the entire tree.
+const NavigationUIStateContext = createContext(null);
+const NavigationScrollContext = createContext(null);
+const NavigationActionsContext = createContext(null);
 
 // DEBUG: Force intro sequence to always play on HOME
 // Only enabled in development (never in production builds)
@@ -83,6 +86,11 @@ export const NavigationProvider = ({ children }) => {
   
   // Pending target section to scroll to after docking completes
   const [pendingTargetId, setPendingTargetId] = useState(null);
+  const pendingTargetIdRef = useRef(pendingTargetId);
+
+  useEffect(() => {
+    pendingTargetIdRef.current = pendingTargetId;
+  }, [pendingTargetId]);
 
   // Legacy isDocked computed from introPhase for backward compatibility
   const isDocked = introPhase === 'docked';
@@ -177,13 +185,13 @@ export const NavigationProvider = ({ children }) => {
   }, []);
 
   // Handle section selection (scroll only - docking is handled separately now)
+  // Keep callback stable for consumers by reading pendingTargetId from a ref.
   const handleSelectSection = useCallback((id) => {
     scrollToSection(id);
-    // Clear pending target after scrolling
-    if (pendingTargetId === id) {
+    if (pendingTargetIdRef.current === id) {
       setPendingTargetId(null);
     }
-  }, [scrollToSection, pendingTargetId]);
+  }, [scrollToSection]);
 
   // Handle hash scrolling on initial load
   useEffect(() => {
@@ -222,43 +230,80 @@ export const NavigationProvider = ({ children }) => {
     }
   }, [supportsOverlay]);
 
-  const value = useMemo(() => ({
-    // Legacy API (kept for backward compatibility)
+  const uiStateValue = useMemo(() => ({
+    // Legacy API (read-only state)
     isDocked,
-    setDocked,
     navState, // Alias for introPhase
     // New 4-state flow
     introPhase,
+    pendingTargetId,
+    // Sections
+    sections,
+    supportsOverlay,
+    supportsHomeIntro
+  }), [isDocked, navState, introPhase, pendingTargetId, sections, supportsOverlay, supportsHomeIntro]);
+
+  const scrollValue = useMemo(() => ({
+    activeSectionId,
+  }), [activeSectionId]);
+
+  const actionsValue = useMemo(() => ({
+    // Legacy API (actions)
+    setDocked,
+    // New 4-state flow actions
     finishIntro,
     beginDockTransition,
     finishDock,
-    pendingTargetId,
-    // Sections and scroll
-    activeSectionId,
+    // Sections and scroll actions
     scrollToSection: handleSelectSection,
     setActiveSectionId,
-    sections,
     setSections,
-    supportsOverlay,
-    supportsHomeIntro
-  }), [isDocked, setDocked, navState, introPhase, finishIntro, beginDockTransition, finishDock, pendingTargetId, activeSectionId, handleSelectSection, setActiveSectionId, sections, supportsOverlay, supportsHomeIntro]);
+  }), [setDocked, finishIntro, beginDockTransition, finishDock, handleSelectSection, setActiveSectionId, setSections]);
 
   return (
-    <NavigationContext.Provider value={value}>
-      {children}
-    </NavigationContext.Provider>
+    <NavigationActionsContext.Provider value={actionsValue}>
+      <NavigationUIStateContext.Provider value={uiStateValue}>
+        <NavigationScrollContext.Provider value={scrollValue}>
+          {children}
+        </NavigationScrollContext.Provider>
+      </NavigationUIStateContext.Provider>
+    </NavigationActionsContext.Provider>
   );
+};
+
+export const useNavigationState = () => {
+  const context = useContext(NavigationUIStateContext);
+  if (!context) {
+    throw new Error('useNavigationState must be used within a NavigationProvider');
+  }
+  return context;
+};
+
+export const useNavigationScroll = () => {
+  const context = useContext(NavigationScrollContext);
+  if (!context) {
+    throw new Error('useNavigationScroll must be used within a NavigationProvider');
+  }
+  return context;
+};
+
+export const useNavigationActions = () => {
+  const context = useContext(NavigationActionsContext);
+  if (!context) {
+    throw new Error('useNavigationActions must be used within a NavigationProvider');
+  }
+  return context;
 };
 
 /**
  * Hook to access navigation context
  */
 export const useNavigation = () => {
-  const context = useContext(NavigationContext);
-  if (!context) {
-    throw new Error('useNavigation must be used within a NavigationProvider');
-  }
-  return context;
+  // Back-compat: returns the merged view (but will re-render on state changes).
+  const state = useNavigationState();
+  const scroll = useNavigationScroll();
+  const actions = useNavigationActions();
+  return useMemo(() => ({ ...state, ...scroll, ...actions }), [state, scroll, actions]);
 };
 
-export default NavigationContext;
+export default NavigationUIStateContext;

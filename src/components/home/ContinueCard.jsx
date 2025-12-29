@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigation } from '../../context/NavigationContext';
+import { useNavigationActions, useNavigationScroll, useNavigationState } from '../../context/NavigationContext';
 import { RotateCcw, ChevronRight } from 'lucide-react';
 
 const STORAGE_KEY = 'devlog_last_section';
@@ -10,7 +10,9 @@ const DEBOUNCE_DELAY = 600;
  * Stores and retrieves from localStorage with debouncing
  */
 const ContinueCard = () => {
-  const { scrollToSection, activeSectionId, sections } = useNavigation();
+  const { sections } = useNavigationState();
+  const { activeSectionId } = useNavigationScroll();
+  const { scrollToSection } = useNavigationActions();
   const [lastSection, setLastSection] = useState(null);
   const debounceTimerRef = useRef(null);
 

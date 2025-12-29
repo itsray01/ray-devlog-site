@@ -1,4 +1,5 @@
 import { Calendar, Target, Wrench, Star, DollarSign, Clock, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { memo } from 'react';
 
 /**
  * JourneyLogCard - Individual experiment log entry
@@ -135,4 +136,4 @@ const JourneyLogCard = ({ log }) => {
   );
 };
 
-export default JourneyLogCard;
+export default memo(JourneyLogCard);

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { sidebarVariants } from '../constants/animations';
 import useViewport from '../hooks/useViewport';
 import NavMenu from './NavMenu';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions, useNavigationScroll, useNavigationState } from '../context/NavigationContext';
 
 // Static data for theories sections (not part of overlay system)
 const theoriesSections = [
@@ -52,13 +52,9 @@ const SimpleNavLink = ({ to, isActive, children }) => {
 const Sidebar = () => {
   const location = useLocation();
   const { isMobile } = useViewport();
-  const {
-    isDocked,
-    sections,
-    activeSectionId,
-    scrollToSection,
-    supportsOverlay
-  } = useNavigation();
+  const { isDocked, sections, supportsOverlay } = useNavigationState();
+  const { activeSectionId } = useNavigationScroll();
+  const { scrollToSection } = useNavigationActions();
   const logoRef = useRef(null);
 
   // Don't render sidebar on mobile (Layout handles mobile navigation)
