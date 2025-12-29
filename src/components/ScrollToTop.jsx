@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
  * Also handles initial page load to prevent browser scroll restoration
  */
 const ScrollToTop = () => {
+  // Keep this component tiny; it runs on every route change.
   const { pathname } = useLocation();
 
   useEffect(() => {

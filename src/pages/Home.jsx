@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import ReadingProgress from '../components/ReadingProgress';
 import ErrorBoundary from '../components/ErrorBoundary';
 import FeatureCard from '../components/FeatureCard';
@@ -8,6 +8,8 @@ import { useNavigation } from '../context/NavigationContext';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useAnimeHover from '../hooks/useAnimeHover';
 import HomeHubHeader from '../components/home/HomeHubHeader';
+import StarfieldBackground from '../components/starfield/StarfieldBackground';
+import { ctaPulse, stopAnimation } from '../utils/animeFx';
 
 // Table of Contents sections - exported for use by navigation components
 export const HOME_SECTIONS = [
@@ -63,7 +65,12 @@ const SectionLoader = () => (
  * Home page - main devlog content
  */
 const Home = () => {
+  // Non-critical visuals are treated as progressive enhancement (see route-level ErrorBoundary in Layout).
   const { setSections } = useNavigation();
+  
+  // Refs for animations
+  const ctaRef = useRef(null);
+  const pulseAnimationRef = useRef(null);
   
   // Enable scroll-reveal animations
   const scrollRevealRef = useScrollReveal({
@@ -80,8 +87,41 @@ const Home = () => {
     return () => setSections([]);
   }, [setSections]);
 
+  // CTA pulse animation - runs once on mount, stops on first interaction
+  useEffect(() => {
+    if (!ctaRef.current) return;
+
+    // Start pulse animation
+    pulseAnimationRef.current = ctaPulse(ctaRef.current, {
+      duration: 2000,
+      intensity: 0.8,
+    });
+
+    // Stop animation on first interaction
+    const handleInteraction = () => {
+      if (pulseAnimationRef.current) {
+        stopAnimation(pulseAnimationRef.current);
+        pulseAnimationRef.current = null;
+      }
+    };
+
+    const button = ctaRef.current;
+    button.addEventListener('mouseenter', handleInteraction);
+    button.addEventListener('click', handleInteraction);
+
+    return () => {
+      if (pulseAnimationRef.current) {
+        stopAnimation(pulseAnimationRef.current);
+      }
+      button.removeEventListener('mouseenter', handleInteraction);
+      button.removeEventListener('click', handleInteraction);
+    };
+  }, []);
+
   return (
     <>
+      {/* Premium Starfield - fullscreen fixed, Home only */}
+      <StarfieldBackground />
 
       {/* Reading Progress Indicator */}
       <ReadingProgress />
@@ -100,16 +140,21 @@ const Home = () => {
 
         {/* Page Shell - Uniform readable width container */}
         <div className="page-shell">
-          {/* Page Header */}
-          <header className="page-header" data-animate="reveal">
-            <h1>Digital Project Logbook</h1>
-            <p className="page-subtitle">
-              Documenting the journey of creating an interactive dystopian film
-            </p>
-          </header>
+          {/* Hero Section */}
+          <div className="home-hero">
+            {/* Page Header */}
+            <header className="page-header" data-animate="reveal" style={{ position: 'relative', zIndex: 1 }}>
+              <h1>Digital Project Logbook</h1>
+              <p className="page-subtitle">
+                Documenting the journey of creating an interactive dystopian film
+              </p>
+            </header>
 
-          {/* Home Hub Header - Game-style hub layer */}
-          <HomeHubHeader />
+            {/* Home Hub Header - Game-style hub layer */}
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <HomeHubHeader />
+            </div>
+          </div>
         </div>
 
         {/* Page Shell for logbook sections - same width as hub */}
@@ -163,6 +208,7 @@ const Home = () => {
                 variant="highlight"
                 delay={0.1}
                 onMouseEnter={() => import('../pages/MyJourney')}
+                ref={ctaRef}
               />
 
               <FeatureCard

@@ -41,7 +41,7 @@ const IntroSequence = ({ onDone }) => {
       }, 5000); // 5 second fallback
 
       // Check for reduced motion preference
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const prefersReducedMotion = !!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
 
       if (prefersReducedMotion) {
         // Skip animation, show title briefly then exit

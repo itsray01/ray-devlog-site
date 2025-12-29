@@ -5,8 +5,8 @@ import useScrollSpy from '../hooks/useScrollSpy';
 const NavigationContext = createContext(null);
 
 // DEBUG: Force intro sequence to always play on HOME
-// Only enabled in development or if VITE_DEBUG_FORCE_INTRO env var is set
-const DEBUG_FORCE_INTRO = import.meta.env.DEV || import.meta.env.VITE_DEBUG_FORCE_INTRO === 'true';
+// Only enabled in development (never in production builds)
+const DEBUG_FORCE_INTRO = import.meta.env.DEV && import.meta.env.VITE_DEBUG_FORCE_INTRO === 'true';
 
 // Helper to check if we're in development mode
 const isDev = import.meta.env.DEV;

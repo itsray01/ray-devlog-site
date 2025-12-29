@@ -177,12 +177,25 @@ const TransitionWebGL = forwardRef((props, ref) => {
 
   // Check reduced motion
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
+
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(query.matches);
-    
-    const handleChange = (e) => setPrefersReducedMotion(e.matches);
-    query.addEventListener('change', handleChange);
-    return () => query.removeEventListener('change', handleChange);
+
+    const handleChange = (e) => setPrefersReducedMotion(!!e?.matches);
+
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', handleChange);
+      return () => query.removeEventListener('change', handleChange);
+    }
+
+    // Safari < 14
+    if (typeof query.addListener === 'function') {
+      query.addListener(handleChange);
+      return () => query.removeListener(handleChange);
+    }
+
+    return undefined;
   }, []);
 
   // Start animation loop
@@ -266,61 +279,80 @@ const TransitionWebGL = forwardRef((props, ref) => {
     if (!isWebGLAvailable || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    
-    // Create renderer
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: false,
-      powerPreference: 'low-power'
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    rendererRef.current = renderer;
 
-    // Create scene
-    const scene = new THREE.Scene();
-    sceneRef.current = scene;
+    let renderer;
+    let scene;
+    let camera;
+    let material;
+    let geometry;
 
-    // Create orthographic camera
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-    camera.position.z = 1;
-    cameraRef.current = camera;
+    try {
+      // Create renderer
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: false,
+        powerPreference: 'low-power',
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+      rendererRef.current = renderer;
 
-    // Create shader material
-    const material = new THREE.ShaderMaterial({
-      vertexShader,
-      fragmentShader,
-      uniforms: {
-        uProgress: { value: 0 },
-        uDirection: { value: 1 },
-        uTime: { value: 0 },
-        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-        uNoiseScale: { value: CONFIG.noiseScale },
-        uEdgeSoftness: { value: CONFIG.edgeSoftness },
-        uEdgeWidth: { value: CONFIG.edgeWidth },
-        uSeamColor: { value: new THREE.Vector3(...CONFIG.seamColor) },
-        uGlowColor: { value: new THREE.Vector3(...CONFIG.glowColor) },
-        uGlowIntensity: { value: CONFIG.glowIntensity },
-        uVeilColor: { value: new THREE.Vector3(...CONFIG.veilColor) },
-        uVeilOpacity: { value: CONFIG.veilOpacity },
-        uActive: { value: 0 }
-      },
-      transparent: true,
-      blending: THREE.NormalBlending,
-      depthTest: false,
-      depthWrite: false
-    });
-    materialRef.current = material;
+      // Create scene
+      scene = new THREE.Scene();
+      sceneRef.current = scene;
 
-    // Create fullscreen quad
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+      // Create orthographic camera
+      camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+      camera.position.z = 1;
+      cameraRef.current = camera;
 
-    // Initial render (transparent)
-    renderer.render(scene, camera);
+      // Create shader material
+      material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms: {
+          uProgress: { value: 0 },
+          uDirection: { value: 1 },
+          uTime: { value: 0 },
+          uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+          uNoiseScale: { value: CONFIG.noiseScale },
+          uEdgeSoftness: { value: CONFIG.edgeSoftness },
+          uEdgeWidth: { value: CONFIG.edgeWidth },
+          uSeamColor: { value: new THREE.Vector3(...CONFIG.seamColor) },
+          uGlowColor: { value: new THREE.Vector3(...CONFIG.glowColor) },
+          uGlowIntensity: { value: CONFIG.glowIntensity },
+          uVeilColor: { value: new THREE.Vector3(...CONFIG.veilColor) },
+          uVeilOpacity: { value: CONFIG.veilOpacity },
+          uActive: { value: 0 },
+        },
+        transparent: true,
+        blending: THREE.NormalBlending,
+        depthTest: false,
+        depthWrite: false,
+      });
+      materialRef.current = material;
+
+      // Create fullscreen quad
+      geometry = new THREE.PlaneGeometry(2, 2);
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      // Initial render (transparent)
+      renderer.render(scene, camera);
+    } catch (err) {
+      console.error('[TransitionWebGL] Failed to init WebGL overlay:', err);
+      setIsWebGLAvailable(false);
+      try {
+        geometry?.dispose?.();
+        material?.dispose?.();
+        renderer?.dispose?.();
+      } catch (e) {
+        // ignore cleanup
+      }
+      return undefined;
+    }
 
     // Handle resize
     const handleResize = () => {
@@ -396,5 +428,8 @@ export default TransitionWebGL;
  * 
  * <TransitionWebGL ref={transitionRef} />
  */
+
+
+
 
 

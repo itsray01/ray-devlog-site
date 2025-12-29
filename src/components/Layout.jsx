@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import NavOverlay from './NavOverlay';
 import NavDock from './NavDock';
 import IntroSequence from './IntroSequence';
 import IntroErrorBoundary from './IntroErrorBoundary';
+import RouteErrorBoundary from './RouteErrorBoundary';
 import MobileNav from './MobileNav';
 import TopNavBar from './TopNavBar';
 import PageLoadAnimation from './PageLoadAnimation';
@@ -17,6 +18,7 @@ import useViewport from '../hooks/useViewport';
  * Separated to access context after NavigationProvider is mounted
  */
 const LayoutContent = () => {
+  const location = useLocation();
   const { isMobile, isTablet, isDesktop } = useViewport();
   const { supportsOverlay, supportsHomeIntro, introPhase, finishIntro } = useNavigation();
 
@@ -33,7 +35,8 @@ const LayoutContent = () => {
     const revealTimer = setTimeout(() => {
       const mainContent = document.querySelector('.main-content');
       if (mainContent) {
-        const isHidden = window.getComputedStyle(mainContent).opacity === '0';
+        const computedStyle = window.getComputedStyle(mainContent);
+        const isHidden = computedStyle.opacity === '0';
         const isIntroPhase = introPhase === 'preload' || introPhase === 'toc';
         
         if (isHidden && !isIntroPhase) {
@@ -111,7 +114,9 @@ const LayoutContent = () => {
           margin: '0 auto',
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
         }}>
-          <Outlet />
+          <RouteErrorBoundary resetKey={location.pathname}>
+            <Outlet />
+          </RouteErrorBoundary>
         </main>
       </div>
 
