@@ -40,5 +40,9 @@ export default defineConfig(({ mode }) => {
       // preventing "Cannot read properties of undefined" errors
       dedupe: ['react', 'react-dom'],
     },
+    optimizeDeps: {
+      // Helps avoid Vite prebundle flakiness with ESM-heavy deps like tsParticles.
+      include: ['@tsparticles/react', '@tsparticles/engine', '@tsparticles/slim'],
+    },
   }
 })
