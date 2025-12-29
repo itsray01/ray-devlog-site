@@ -1,13 +1,21 @@
-import { useEffect, useState, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
-import StatisticsDashboard from '../components/StatisticsDashboard';
 import { useNavigation } from '../context/NavigationContext';
 import JourneyFilters from '../components/journey/JourneyFilters';
 import JourneyLogCard from '../components/journey/JourneyLogCard';
-import ToolMatrix from '../components/journey/ToolMatrix';
-import CostCharts from '../components/journey/CostCharts';
 import journeyLogs from '../content/journeyLogs';
+
+// Heavier sub-features are lazy-loaded so the route can render instantly-feeling.
+const StatisticsDashboard = lazy(() => import('../components/StatisticsDashboard'));
+const ToolMatrix = lazy(() => import('../components/journey/ToolMatrix'));
+const CostCharts = lazy(() => import('../components/journey/CostCharts'));
+
+const InlineLoader = ({ label }) => (
+  <div style={{ padding: '1.25rem 0', color: 'var(--muted)' }} role="status" aria-label={label}>
+    Loading…
+  </div>
+);
 
 // Table of Contents sections - exported for use by navigation components
 export const JOURNEY_SECTIONS = [
@@ -116,7 +124,9 @@ const MyJourney = () => {
 
         {/* Statistics Dashboard */}
         <div id="statistics">
-          <StatisticsDashboard />
+          <Suspense fallback={<InlineLoader label="Loading statistics" />}>
+            <StatisticsDashboard />
+          </Suspense>
         </div>
 
         {/* Introduction */}
@@ -452,7 +462,9 @@ const MyJourney = () => {
             Click each tool to expand detailed notes, pros, and cons based on real-world usage.
           </p>
 
-          <ToolMatrix />
+          <Suspense fallback={<InlineLoader label="Loading tool comparison matrix" />}>
+            <ToolMatrix />
+          </Suspense>
         </section>
 
         {/* Cost Chart Section */}
@@ -468,7 +480,9 @@ const MyJourney = () => {
             and quality outcomes over time. This data reveals patterns in tool efficiency and learning curves.
           </p>
 
-          <CostCharts logs={journeyLogs} />
+          <Suspense fallback={<InlineLoader label="Loading cost charts" />}>
+            <CostCharts logs={journeyLogs} />
+          </Suspense>
         </section>
 
         {/* Footer */}

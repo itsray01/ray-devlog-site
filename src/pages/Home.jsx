@@ -8,7 +8,6 @@ import { useNavigation } from '../context/NavigationContext';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useAnimeHover from '../hooks/useAnimeHover';
 import HomeHubHeader from '../components/home/HomeHubHeader';
-import StarfieldBackground from '../components/starfield/StarfieldBackground';
 import { ctaPulse, stopAnimation } from '../utils/animeFx';
 
 // Table of Contents sections - exported for use by navigation components
@@ -33,6 +32,7 @@ const StoryboardSection = lazy(() => import('../components/sections/StoryboardSe
 const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryDevelopmentSection'));
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
+const StarfieldBackground = lazy(() => import('../components/starfield/StarfieldBackground'));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -121,7 +121,9 @@ const Home = () => {
   return (
     <>
       {/* Premium Starfield - fullscreen fixed, Home only */}
-      <StarfieldBackground />
+      <Suspense fallback={null}>
+        <StarfieldBackground />
+      </Suspense>
 
       {/* Reading Progress Indicator */}
       <ReadingProgress />

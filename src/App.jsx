@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
@@ -47,21 +47,81 @@ const PageLoader = () => (
  * Uses lazy loading for better performance and code splitting
  */
 const App = () => {
+  // Preload common routes after first paint (keeps initial load lean, makes nav feel instant).
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const preload = () => {
+      // Most common next navigations
+      import('./pages/MyJourney');
+      import('./pages/Theories');
+      import('./pages/Assets');
+    };
+
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(preload, { timeout: 2000 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+
+    const t = window.setTimeout(preload, 1500);
+    return () => window.clearTimeout(t);
+  }, []);
+
   return (
     <Router>
       <ScrollToTop />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="my-journey" element={<MyJourney />} />
-            <Route path="theories" element={<Theories />} />
-            <Route path="assets" element={<Assets />} />
-            <Route path="about" element={<About />} />
-            <Route path="extras" element={<Extras />} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <Home />
+              </Suspense>
+            )}
+          />
+          <Route
+            path="my-journey"
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <MyJourney />
+              </Suspense>
+            )}
+          />
+          <Route
+            path="theories"
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <Theories />
+              </Suspense>
+            )}
+          />
+          <Route
+            path="assets"
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <Assets />
+              </Suspense>
+            )}
+          />
+          <Route
+            path="about"
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <About />
+              </Suspense>
+            )}
+          />
+          <Route
+            path="extras"
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <Extras />
+              </Suspense>
+            )}
+          />
+        </Route>
+      </Routes>
     </Router>
   );
 };

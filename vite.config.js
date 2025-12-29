@@ -29,6 +29,9 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir,
+      // Windows can aggressively lock files in the output dir (Explorer/AV/etc).
+      // For analyze builds we prefer a successful report over a clean directory.
+      emptyOutDir: !isAnalyze,
       reportCompressedSize: true,
     },
     resolve: {
