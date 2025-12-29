@@ -57,6 +57,7 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
           <video 
             controls 
             src={videoUrl}
+            preload="metadata"
             style={{
               width: '100%',
               height: '100%',

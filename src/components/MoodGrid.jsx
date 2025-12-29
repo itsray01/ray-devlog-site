@@ -68,6 +68,7 @@ const MoodGrid = () => {
             src={imagePath} 
             alt={`Mood reference ${index + 1}`}
             loading="lazy"
+            decoding="async"
           />
           <div className="mood-overlay">
             <span>Mood {index + 1}</span>

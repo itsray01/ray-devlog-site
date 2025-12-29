@@ -120,6 +120,7 @@ const AssetModal = ({ asset, isOpen, onClose }) => {
                       autoPlay
                       loop
                       playsInline
+                      preload="metadata"
                       onError={() => setImageError(true)}
                     />
                   ) : (
@@ -127,6 +128,8 @@ const AssetModal = ({ asset, isOpen, onClose }) => {
                       src={asset.preview}
                       alt={asset.title}
                       className="asset-modal__preview-image"
+                      loading="lazy"
+                      decoding="async"
                       onError={() => setImageError(true)}
                     />
                   )
@@ -252,5 +255,7 @@ const AssetModal = ({ asset, isOpen, onClose }) => {
 };
 
 export default AssetModal;
+
+
 
 

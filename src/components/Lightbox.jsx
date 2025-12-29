@@ -41,7 +41,12 @@ const Lightbox = ({ lightboxImage, onClose }) => {
         >
           <X size={20} strokeWidth={2} />
         </button>
-        <img src={lightboxImage.src} alt={lightboxImage.title} />
+        <img
+          src={lightboxImage.src}
+          alt={lightboxImage.title}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div className="lightbox-caption">
         <strong>{lightboxImage.title}</strong>

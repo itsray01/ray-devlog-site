@@ -54,6 +54,7 @@ const AssetCard = ({ asset, onView, delay = 0 }) => {
               muted
               loop
               playsInline
+              preload="none"
               onMouseEnter={(e) => e.target.play()}
               onMouseLeave={(e) => { e.target.pause(); e.target.currentTime = 0; }}
               onError={() => setImageError(true)}
@@ -63,6 +64,8 @@ const AssetCard = ({ asset, onView, delay = 0 }) => {
               src={asset.preview}
               alt={asset.title}
               className="asset-card__thumbnail-image"
+              loading="lazy"
+              decoding="async"
               onError={() => setImageError(true)}
             />
           )
@@ -119,5 +122,7 @@ const AssetCard = ({ asset, onView, delay = 0 }) => {
 };
 
 export default AssetCard;
+
+
 
 
