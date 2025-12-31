@@ -15,33 +15,37 @@ const OverviewSection = () => {
         <p>
           Every decision, experiment, and breakthrough is documented here—from initial concept
           sketches to current production progress. This serves as both a creative diary and
-          technical reference for the emerging medium of AI-assisted filmmaking.
+          technical reference for the emerging medium of AI-assisted filmmaking, following a
+          Practice as Research methodology where knowledge emerges through making.
         </p>
 
-        <h3>Narrative Framework</h3>
+        <h3>Theoretical Framework</h3>
         <p>
-          The narrative centers on Maya, a low-caste technician whose constrained position within
-          the system foregrounds the fragile nature of player agency. This design draws on
-          <strong> Janet Murray's (1997)</strong> discussion of digital agency and immersion in
-          interactive narratives.
+          <strong>Narrative Agency:</strong> The protagonist Maya, a low-caste technician, occupies
+          a constrained position within an AI-controlled system. This design draws on <strong>Janet
+          Murray's (1997)</strong> discussion of agency as "the satisfying power to take meaningful
+          action" in interactive narratives. Maya's limited power foregrounds the fragile nature of
+          player agency—each choice tests whether genuine autonomy exists or if all paths are
+          predetermined.
         </p>
         <p>
-          The branching structure reflects <strong>Espen Aarseth's (1997)</strong> framework of
-          ergodic texts, where players must actively traverse a system. Maya's limited power
-          mirrors the player's own constrained choices within the narrative maze.
-        </p>
-
-        <h3>The AI Antagonist</h3>
-        <p>
-          The AI antagonist manifests not as a cartoon villain, but as a calm, friendly facility
-          voice reminiscent of Portal's GLaDOS. This represents systemic and institutional power
-          rather than individual malice.
+          <strong>Ergodic Navigation:</strong> The branching structure reflects <strong>Espen Aarseth's
+          (1997)</strong> framework of ergodic texts, where readers must actively traverse a system
+          through "nontrivial effort." Players navigate both a physical datacenter maze and a
+          metaphorical choice-space, with wrong decisions looping back to checkpoints—embodying the
+          story's exploration of control and free will.
         </p>
         <p>
-          The design engages with <strong>Nick Bostrom's (2014)</strong> concerns about misaligned
-          optimization in advanced AI systems, where seemingly benign goals can produce harmful
-          outcomes. It also draws on <strong>Reeves and Nass's (1996)</strong> research on humans
-          treating computer voices as social actors.
+          <strong>AI Ethics & Control:</strong> The AI antagonist manifests not as a cartoon villain,
+          but as a calm, friendly facility voice (reminiscent of Portal's GLaDOS). This design engages
+          with <strong>Nick Bostrom's (2014)</strong> concerns about misaligned optimization in advanced
+          AI systems—seemingly benign goals producing harmful outcomes. It also draws on <strong>Reeves
+          and Nass's (1996)</strong> research on humans treating computer voices as social actors,
+          representing systemic power rather than individual malice.
+        </p>
+        <p className="note" style={{ fontSize: '0.9rem', marginTop: '1rem', color: 'var(--muted)' }}>
+          <em>See the <a href="/theories">Theories page</a> for full citations and detailed exploration of
+          these frameworks, including connections between theory and specific creative decisions.</em>
         </p>
       </div>
     </section>

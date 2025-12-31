@@ -32,7 +32,8 @@ const StoryboardSection = lazy(() => import('../components/sections/StoryboardSe
 const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryDevelopmentSection'));
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
-const StarfieldBackground = lazy(() => import('../components/starfield/StarfieldBackground'));
+// Lightweight CSS-only galaxy background (replaced tsParticles)
+const GalaxyBackground = lazy(() => import('../components/background/GalaxyBackground'));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -120,9 +121,9 @@ const Home = () => {
 
   return (
     <>
-      {/* Premium Starfield - fullscreen fixed, Home only */}
+      {/* Galaxy Background - lightweight CSS-only, Home only */}
       <Suspense fallback={null}>
-        <StarfieldBackground />
+        <GalaxyBackground />
       </Suspense>
 
       {/* Reading Progress Indicator */}

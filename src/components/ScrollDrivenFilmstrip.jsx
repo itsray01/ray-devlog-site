@@ -21,13 +21,18 @@ const cssLengthToPx = (value, { rootFontSizePx, viewportWidthPx, viewportHeightP
 };
 
 /**
- * ScrollDrivenFilmstrip - Vertical scroll drives horizontal movement (pinned)
+ * ScrollDrivenFilmstrip - JS-driven pinned horizontal scroller
  * 
- * Desktop: Pins container and translates frames horizontally based on scroll progress
+ * Desktop: Uses position: fixed pinning to truly "hold" the section.
+ * Vertical scroll drives horizontal translateX without visible vertical movement.
+ * Page does NOT continue down until horizontal completes (progress = 1.0).
+ * 
  * Mobile: Falls back to overflow-x scroll-snap
  * 
- * The section height is computed DYNAMICALLY so that the vertical scroll "budget"
- * exactly matches the horizontal scroll distance, allowing progress to reach 1.0.
+ * Pinning states:
+ * - Before section: position absolute, top 0
+ * - During scroll: position fixed, top 60px (pinned)
+ * - After complete: position absolute, top maxTranslate px
  * 
  * @param {string} title - Section title
  * @param {string} description - Description text to display above frames
@@ -35,73 +40,92 @@ const cssLengthToPx = (value, { rootFontSizePx, viewportWidthPx, viewportHeightP
  * @param {Function} renderItem - Function to render each item
  * @param {string} id - Section ID for anchoring
  */
+
+const TOP_OFFSET = 60; // TopNavBar height
+const RELEASE_BUFFER_RATIO = 0.15; // 15vh release buffer for smooth transition
+
 const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id }) => {
   const containerRef = useRef(null);
+  const pinnedRef = useRef(null);
   const scrollerRef = useRef(null);
-  const stickyRef = useRef(null);
-  const viewportRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [sectionHeight, setSectionHeight] = useState(null);
+  const lastDebugTime = useRef(0);
+  const metricsRef = useRef({
+    maxTranslate: 0,
+    pinnedHeight: 0,
+    scrollRange: 0,
+    startY: 0,
+    endY: 0
+  });
 
-  // Compute the required section height based on horizontal scroll distance
-  const computeHeight = useCallback(() => {
+  // Compute section height and metrics for pinning
+  const computeMetrics = useCallback(() => {
+    const container = containerRef.current;
+    const pinned = pinnedRef.current;
     const scroller = scrollerRef.current;
-    const sticky = stickyRef.current;
-    const viewport = viewportRef.current;
-    if (!scroller || !viewport || !sticky) return;
+    if (!container || !pinned || !scroller) return;
 
     // Skip dynamic height on mobile or reduced motion
     if (isMobile || isReducedMotion) {
       setSectionHeight(null);
-      scroller.style.removeProperty('--filmstrip-pad-left');
-      scroller.style.removeProperty('--filmstrip-pad-right');
+      // Reset pinned positioning
+      if (pinned) {
+        pinned.style.position = '';
+        pinned.style.top = '';
+        pinned.style.left = '';
+        pinned.style.width = '';
+      }
       return;
     }
 
-    // Calculate side padding to center first/last frames.
-    // Frames can have different widths, so compute left/right separately.
-    const frames = scroller.querySelectorAll('.scroll-driven-filmstrip__frame');
-    const firstFrame = frames?.[0];
-    const lastFrame = frames?.[frames.length - 1];
-    if (!firstFrame || !lastFrame) return;
+    // Measure horizontal overflow
+    // Use container width (section element) rather than pinned width,
+    // because pinned may expand with content when position changes
+    const containerWidth = container.clientWidth;
+    const scrollerWidth = scroller.scrollWidth;
+    const maxTranslate = scrollerWidth - containerWidth;
 
-    // Use the visible filmstrip viewport width (NOT the sticky wrapper)
-    const viewportWidth = viewport.clientWidth;
-    const firstFrameWidth = firstFrame.offsetWidth;
-    const lastFrameWidth = lastFrame.offsetWidth;
+    if (maxTranslate <= 0) {
+      // No horizontal overflow - disable pinned behavior
+      setSectionHeight(null);
+      metricsRef.current = { maxTranslate: 0, pinnedHeight: 0, scrollRange: 0, startY: 0, endY: 0 };
+      return;
+    }
 
-    const padLeft = Math.max(0, (viewportWidth - firstFrameWidth) / 2);
-    const padRight = Math.max(0, (viewportWidth - lastFrameWidth) / 2);
-    scroller.style.setProperty('--filmstrip-pad-left', `${padLeft}px`);
-    scroller.style.setProperty('--filmstrip-pad-right', `${padRight}px`);
-
-    // Force a reflow before measuring scrollWidth (padding affects scrollWidth)
-    scroller.getBoundingClientRect();
-
-    // Measure horizontal travel distance AFTER padding is applied (padding changes scrollWidth)
-    const maxScroll = scroller.scrollWidth - viewportWidth;
+    // Use actual pinned wrapper height instead of window.innerHeight
+    const pinnedHeight = pinned.getBoundingClientRect().height;
     
-    // Height math: keep pinned until last frame
-    // stickyRange = sectionHeight - stickyHeight - stickyTopPx
-    // We need: stickyRange == maxScroll  => sectionHeight = maxScroll + stickyHeight + stickyTopPx
-    const rootFontSizePx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-    const stickyTop = getComputedStyle(sticky).top;
-    const stickyTopPx = cssLengthToPx(stickyTop, {
-      rootFontSizePx,
-      viewportWidthPx: window.innerWidth,
-      viewportHeightPx: window.innerHeight,
-    });
-    const stickyHeightPx = sticky.getBoundingClientRect().height;
-
-    const newHeight = maxScroll + stickyHeightPx + stickyTopPx;
+    // Add a small release buffer (15vh) to prevent harsh snap at section end
+    const releaseBuffer = Math.round(window.innerHeight * RELEASE_BUFFER_RATIO);
     
-    setSectionHeight(newHeight > window.innerHeight ? newHeight : null);
+    // Section height = pinned content height + horizontal scroll budget + release buffer
+    const newHeight = pinnedHeight + maxTranslate + releaseBuffer;
+    
+    // Calculate scroll range (how much vertical scroll drives horizontal)
+    // scrollRange = sectionHeight - pinnedHeight = maxTranslate + releaseBuffer
+    const scrollRange = maxTranslate + releaseBuffer;
+
+    // Calculate scroll boundaries
+    const containerRect = container.getBoundingClientRect();
+    const startY = window.scrollY + containerRect.top - TOP_OFFSET;
+    const endY = startY + scrollRange;
+
+    // Store metrics for scroll handler
+    metricsRef.current = { maxTranslate, pinnedHeight, scrollRange, startY, endY };
+
+    setSectionHeight(newHeight);
   }, [isMobile, isReducedMotion]);
 
   // Check for mobile and reduced motion preferences
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => {
+      const width = window.innerWidth;
+      const mobile = width <= 768;
+      setIsMobile(mobile);
+    };
+    
     const checkReducedMotion = () => {
       setIsReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     };
@@ -131,35 +155,35 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     };
   }, []);
 
-  // Compute height on mount, resize, and when scroller size changes
+  // Compute metrics on mount, resize, and when content size changes
   useEffect(() => {
+    const container = containerRef.current;
+    const pinned = pinnedRef.current;
     const scroller = scrollerRef.current;
-    const viewport = viewportRef.current;
-    const sticky = stickyRef.current;
-    if (!scroller || !viewport || !sticky) return;
+    if (!container || !pinned || !scroller) return;
 
     // Initial computation
-    computeHeight();
+    computeMetrics();
 
     // Recompute on window resize
     const handleResize = () => {
-      computeHeight();
+      computeMetrics();
     };
     window.addEventListener('resize', handleResize);
 
-    // Use ResizeObserver to detect scroller size changes (e.g., images loading)
+    // Use ResizeObserver to detect size changes (e.g., images loading)
     let resizeObserver = null;
     if (typeof ResizeObserver !== 'undefined') {
       resizeObserver = new ResizeObserver(() => {
-        computeHeight();
+        computeMetrics();
       });
+      resizeObserver.observe(container);
+      resizeObserver.observe(pinned);
       resizeObserver.observe(scroller);
-      resizeObserver.observe(viewport);
-      resizeObserver.observe(sticky);
     }
 
     // Also recompute after a short delay to catch late image layout
-    const delayedCompute = setTimeout(computeHeight, 100);
+    const delayedCompute = setTimeout(computeMetrics, 100);
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -168,15 +192,15 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       }
       clearTimeout(delayedCompute);
     };
-  }, [computeHeight, items]);
+  }, [computeMetrics, items]);
 
-  // Handle image load events to recompute height
+  // Handle image load events to recompute metrics
   useEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
     const handleImageLoad = () => {
-      computeHeight();
+      computeMetrics();
     };
 
     // Listen for load events on images within the scroller
@@ -185,18 +209,17 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     return () => {
       scroller.removeEventListener('load', handleImageLoad, true);
     };
-  }, [computeHeight]);
+  }, [computeMetrics]);
 
-  // Main scroll-driven animation effect
+  // Main scroll-driven pinning and animation effect
   useEffect(() => {
     // Skip pinning on mobile or if reduced motion
     if (isMobile || isReducedMotion) return;
 
     const container = containerRef.current;
+    const pinned = pinnedRef.current;
     const scroller = scrollerRef.current;
-    const sticky = stickyRef.current;
-    const viewport = viewportRef.current;
-    if (!container || !scroller || !viewport || !sticky) return;
+    if (!container || !pinned || !scroller) return;
 
     let rafId = null;
 
@@ -204,74 +227,128 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       if (rafId) return;
 
       rafId = requestAnimationFrame(() => {
-        const containerRect = container.getBoundingClientRect();
+        const { maxTranslate, scrollRange, startY, endY } = metricsRef.current;
 
-        // Measure maxScroll AFTER padding is applied
-        const maxScroll = scroller.scrollWidth - viewport.clientWidth;
-        if (maxScroll <= 0) {
-          scroller.style.transform = 'translateX(0px)';
+        if (maxTranslate <= 0) {
+          // No horizontal overflow - reset positioning
+          pinned.style.position = '';
+          pinned.style.top = '';
+          pinned.style.left = '';
+          pinned.style.width = '';
+          scroller.style.transform = '';
           rafId = null;
           return;
         }
 
-        // Progress starts when container top reaches stickyTopPx (pinned start)
-        const rootFontSizePx = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-        const stickyTop = getComputedStyle(sticky).top;
-        const stickyTopPx = cssLengthToPx(stickyTop, {
-          rootFontSizePx,
-          viewportWidthPx: window.innerWidth,
-          viewportHeightPx: window.innerHeight,
-        });
+        const scrollY = window.scrollY;
+        const containerRect = container.getBoundingClientRect();
 
-        // raw = (stickyTopPx - containerTop) / maxScroll
-        const raw = (stickyTopPx - containerRect.top) / maxScroll;
-        const progress = clamp(raw, 0, 1);
+        // Calculate horizontal progress based on maxTranslate (not scrollRange)
+        // This ensures the horizontal scroll completes exactly when we've scrolled maxTranslate
+        // The release buffer provides extra scroll room AFTER horizontal is complete
+        const scrollProgress = scrollY - startY;
+        const translateX = clamp(scrollProgress, 0, maxTranslate);
 
-        // Translate scroller horizontally based on progress
-        const clampedTranslateX = -clamp(progress * maxScroll, 0, maxScroll);
-        scroller.style.transform = `translateX(${clampedTranslateX}px)`;
+        // Apply horizontal transform
+        scroller.style.transform = `translate3d(${-translateX}px, 0, 0)`;
+
+        // Determine pinning mode and apply positioning
+        let pinnedMode = '';
+        
+        if (scrollY < startY) {
+          // A) Before section enters
+          pinnedMode = 'before';
+          pinned.style.position = 'absolute';
+          pinned.style.top = '0px';
+          pinned.style.left = '';
+          pinned.style.width = '';
+        } else if (scrollY <= endY) {
+          // B) During pinned scroll (the magic happens here)
+          pinnedMode = 'pinned';
+          pinned.style.position = 'fixed';
+          pinned.style.top = `${TOP_OFFSET}px`;
+          pinned.style.left = `${containerRect.left}px`;
+          pinned.style.width = `${containerRect.width}px`;
+        } else {
+          // C) After section completes - position at the end of scroll range
+          pinnedMode = 'after';
+          pinned.style.position = 'absolute';
+          pinned.style.top = `${scrollRange}px`;
+          pinned.style.left = '';
+          pinned.style.width = '';
+        }
+
+        // Debug logging (throttled to ~1 second)
+        const now = Date.now();
+        if (now - lastDebugTime.current > 1000) {
+          console.log('[ScrollDrivenFilmstrip] Debug:', {
+            startY: Math.round(startY),
+            endY: Math.round(endY),
+            scrollRange: Math.round(scrollRange),
+            maxTranslate: Math.round(maxTranslate),
+            translateX: Math.round(translateX),
+            progress: (translateX / maxTranslate).toFixed(3),
+            pinnedMode,
+            scrollY: Math.round(scrollY)
+          });
+          lastDebugTime.current = now;
+        }
 
         rafId = null;
       });
     };
 
-    // Listen on window (document/body listeners tend to be redundant and costly)
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
     handleScroll(); // Initial calculation
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
+      
+      // Cleanup positioning on unmount
+      if (pinned) {
+        pinned.style.position = '';
+        pinned.style.top = '';
+        pinned.style.left = '';
+        pinned.style.width = '';
+      }
     };
   }, [isMobile, isReducedMotion]);
+
+  const mode = isMobile || isReducedMotion ? 'mobile' : 'desktop';
 
   return (
     <section
       id={id}
       className="scroll-driven-filmstrip"
       ref={containerRef}
-      style={sectionHeight ? { minHeight: `${sectionHeight}px` } : undefined}
+      style={sectionHeight ? { 
+        height: `${sectionHeight}px`,
+        position: 'relative'
+      } : undefined}
+      data-mode={mode}
     >
-      <div className="scroll-driven-filmstrip__sticky" ref={stickyRef}>
+      <div 
+        className="scroll-driven-filmstrip__pinned" 
+        ref={pinnedRef}
+        style={!(isMobile || isReducedMotion) ? { willChange: 'position, top, left, width' } : undefined}
+      >
         <div className="scroll-driven-filmstrip__headerArea">
           <h2 className="scroll-driven-filmstrip__title">{title}</h2>
           {description && <p className="scroll-driven-filmstrip__caption">{description}</p>}
         </div>
 
-        <div className="scroll-driven-filmstrip__viewport" ref={viewportRef}>
-          {/* Horizontal scroller with frames */}
-          <div
-            ref={scrollerRef}
-            className="scroll-driven-filmstrip__scroller"
-            style={isMobile || isReducedMotion ? {} : { willChange: 'transform' }}
-          >
-            {items.map((item) => (
-              <div key={item.id} className="scroll-driven-filmstrip__frame">
-                {renderItem(item)}
-              </div>
-            ))}
-          </div>
+        {/* Horizontal scroller with frames */}
+        <div
+          ref={scrollerRef}
+          className="scroll-driven-filmstrip__scroller"
+          style={!(isMobile || isReducedMotion) ? { willChange: 'transform' } : undefined}
+        >
+          {items.map((item) => (
+            <div key={item.id} className="scroll-driven-filmstrip__frame">
+              {renderItem(item)}
+            </div>
+          ))}
         </div>
       </div>
     </section>

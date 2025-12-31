@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Lightbox from '../Lightbox';
-import { handleImageError } from '../../utils/imageUtils';
+import VisualGridTile from '../visualgrid/VisualGridTile';
 import inspirationData from '../../../data/inspiration.json';
 
 /**
@@ -106,25 +106,19 @@ const InspirationSection = () => {
         <div className="card" data-animate="reveal-scale">
           <h3>Visual Reference Grid</h3>
           <div className="grid-2x3">
-            {visualReferenceData.map((item, idx) => (
-              <figure
-                className="grid-tile"
-                key={idx}
-                onClick={() => setLightboxImage({ src: item.image, title: item.title, year: item.year || item.designer })}
-                style={{ cursor: 'pointer' }}
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  onError={handleImageError}
-                />
-                <figcaption>
-                  <strong>{item.title}</strong>
-                  <br />
-                  <span className="muted" style={{ fontSize: '0.85rem' }}>{item.year || item.designer}</span>
-                </figcaption>
-              </figure>
+            {visualReferenceData.map((item) => (
+              <VisualGridTile
+                key={item.id}
+                id={item.id}
+                poster={item.image}
+                title={item.title}
+                subtitle={item.year || item.designer}
+                onClick={() => setLightboxImage({ 
+                  src: item.image, 
+                  title: item.title, 
+                  year: item.year || item.designer 
+                })}
+              />
             ))}
           </div>
         </div>

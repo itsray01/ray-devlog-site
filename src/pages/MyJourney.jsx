@@ -152,6 +152,8 @@ const MyJourney = () => {
           <p>
             This documentation follows a <strong>Practice as Research (PaR)</strong> methodology, where the
             act of creating with AI tools generates knowledge that couldn't be gained through theory alone.
+            As <strong>Robin Nelson (2013)</strong> argues, creative practice produces "know-how" that emerges
+            through doing, not just reading.
           </p>
           <p>
             Rather than just reading about AI video generation, I learned by:
@@ -159,12 +161,14 @@ const MyJourney = () => {
           <ul className="bullets">
             <li><strong>Iterative experimentation</strong> — Testing multiple models to understand their capabilities</li>
             <li><strong>Documenting failures</strong> — Recording what doesn't work is as valuable as successes</li>
-            <li><strong>Reflective practice</strong> — Each generation informed the next, building tacit knowledge</li>
+            <li><strong>Reflective practice</strong> — Each generation informed the next, building tacit knowledge
+            (<strong>Schön, 1983</strong>)</li>
             <li><strong>Systematic comparison</strong> — Side-by-side testing revealed patterns invisible in marketing</li>
           </ul>
           <p>
             The knowledge documented here emerged from hundreds of hours of hands-on practice—trial, error,
-            refinement, and discovery. This is research through making.
+            refinement, and discovery. This is research through making. (See the <a href="/about#methodology">About
+            page</a> for detailed PaR methodology and additional scholarly context.)
           </p>
         </article>
 

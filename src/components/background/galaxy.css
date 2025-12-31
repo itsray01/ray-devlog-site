@@ -1,0 +1,295 @@
+/**
+ * Galaxy Background Styles
+ * 
+ * Uses radial-gradient for ROUND stars (not box-shadow squares).
+ * Covers entire viewport with fixed positioning + overscan for parallax.
+ * 
+ * Structure:
+ * - .bgFx: Fixed container covering entire viewport
+ * - .nebula: Colorful gradient backdrop
+ * - .stars: Radial-gradient star layers (small, med, big)
+ * - .bgFx__vignette: Cinematic edge darkening
+ */
+
+/* ================================
+   Main Container - Full Viewport
+   ================================ */
+
+.bgFx {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  
+  /* Deep space base */
+  background: linear-gradient(180deg,
+    #010108 0%,
+    #030310 15%,
+    #050518 35%,
+    #070720 55%,
+    #090928 75%,
+    #050515 100%
+  );
+}
+
+/* ================================
+   Nebula Layer (Behind Stars)
+   ================================ */
+
+.nebula {
+  position: absolute;
+  /* Overscan for parallax - prevents edge gaps */
+  inset: -25%;
+  width: 150%;
+  height: 150%;
+  
+  /* Colorful nebula clouds */
+  background:
+    /* Purple nebula (left) */
+    radial-gradient(
+      ellipse 900px 700px at 15% 25%,
+      rgba(139, 92, 246, 0.5) 0%,
+      rgba(167, 139, 250, 0.25) 35%,
+      transparent 65%
+    ),
+    /* Blue-teal nebula (right) */
+    radial-gradient(
+      ellipse 800px 900px at 85% 50%,
+      rgba(56, 189, 248, 0.42) 0%,
+      rgba(96, 165, 250, 0.2) 40%,
+      transparent 70%
+    ),
+    /* Pink accent (top center) */
+    radial-gradient(
+      ellipse 700px 500px at 50% 12%,
+      rgba(232, 121, 249, 0.38) 0%,
+      rgba(192, 132, 252, 0.15) 45%,
+      transparent 70%
+    ),
+    /* Deep indigo glow (bottom) */
+    radial-gradient(
+      ellipse 1100px 700px at 45% 92%,
+      rgba(99, 102, 241, 0.35) 0%,
+      rgba(79, 70, 229, 0.12) 50%,
+      transparent 75%
+    ),
+    /* Teal accent (bottom-right) */
+    radial-gradient(
+      ellipse 600px 500px at 82% 78%,
+      rgba(45, 212, 191, 0.32) 0%,
+      transparent 60%
+    );
+  
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  
+  will-change: transform;
+  
+  /* Slow drift animation */
+  animation: nebulaDrift 100s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaDrift {
+  0% { transform: translate3d(-1.5%, -1%, 0) scale(1.01); }
+  100% { transform: translate3d(1.5%, 1%, 0) scale(1.01); }
+}
+
+/* ================================
+   Star Layers - Radial Gradient Circles
+   ================================ */
+
+.stars {
+  position: absolute;
+  /* Overscan for parallax - prevents edge gaps */
+  inset: -25%;
+  width: 150%;
+  height: 150%;
+  
+  background-repeat: repeat;
+  mix-blend-mode: screen;
+  
+  will-change: transform;
+}
+
+/* Small stars: many, faint */
+.stars--small {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.6) 1px,
+    transparent 1.5px
+  );
+  background-size: 100px 100px;
+  opacity: 0.85;
+  
+  animation: twinkleSmall 6s ease-in-out infinite;
+}
+
+/* Medium stars: fewer, brighter */
+.stars--med {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.75) 1.5px,
+    transparent 2px
+  );
+  background-size: 180px 180px;
+  opacity: 0.9;
+  
+  /* Offset pattern so stars don't align */
+  background-position: 50px 30px;
+  
+  animation: twinkleMed 4.5s ease-in-out infinite;
+}
+
+/* Big stars: few, brightest with slight glow */
+.stars--big {
+  background-image: 
+    /* Glow halo */
+    radial-gradient(
+      circle,
+      rgba(200, 220, 255, 0.25) 3px,
+      transparent 6px
+    ),
+    /* Bright core */
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.95) 2px,
+      transparent 3px
+    );
+  background-size: 350px 350px, 350px 350px;
+  opacity: 0.85;
+  
+  /* Offset pattern */
+  background-position: 100px 80px, 100px 80px;
+  
+  animation: twinkleBig 3.8s ease-in-out infinite;
+}
+
+/* ================================
+   Twinkle Animations (Opacity Only)
+   ================================ */
+
+@keyframes twinkleSmall {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes twinkleMed {
+  0%, 100% { opacity: 0.82; }
+  35% { opacity: 1; }
+  70% { opacity: 0.88; }
+}
+
+@keyframes twinkleBig {
+  0%, 100% { opacity: 0.8; }
+  25% { opacity: 1; }
+  55% { opacity: 0.85; }
+  80% { opacity: 0.98; }
+}
+
+/* ================================
+   Vignette Layer
+   ================================ */
+
+.bgFx__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 25%,
+    rgba(0, 0, 0, 0.18) 55%,
+    rgba(0, 0, 0, 0.45) 80%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+/* ================================
+   Scroll Performance Guards
+   ================================ */
+
+[data-scrolling="true"] .nebula,
+[data-scrolling="true"] .stars {
+  animation-play-state: paused !important;
+}
+
+/* ================================
+   Reduced Motion Support
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula,
+  .stars {
+    animation: none !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+  
+  .nebula { opacity: 0.4; }
+  .stars { opacity: 0.6; }
+}
+
+[data-reduced-motion="true"] .nebula,
+[data-reduced-motion="true"] .stars {
+  animation: none !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* ================================
+   Mobile Optimizations
+   ================================ */
+
+@media (max-width: 768px) {
+  .nebula {
+    opacity: 0.5;
+    animation: none;
+  }
+  
+  .stars--small {
+    background-size: 120px 120px;
+    animation-duration: 9s;
+  }
+  
+  .stars--med {
+    background-size: 200px 200px;
+    animation-duration: 7s;
+  }
+  
+  .stars--big {
+    background-size: 400px 400px;
+    animation-duration: 5.5s;
+  }
+}
+
+/* ================================
+   Touch Device (No Mouse Parallax)
+   ================================ */
+
+[data-touch-device="true"] .nebula,
+[data-touch-device="true"] .stars {
+  /* Transform handled by JS without mouse component */
+}
+
+/* ================================
+   Dark Theme
+   ================================ */
+
+[data-theme="dark"] .bgFx,
+.dark .bgFx {
+  background: linear-gradient(180deg,
+    #000004 0%,
+    #020208 15%,
+    #030310 35%,
+    #050518 55%,
+    #070720 75%,
+    #030310 100%
+  );
+}
+
+[data-theme="dark"] .nebula,
+.dark .nebula {
+  opacity: 0.8;
+}

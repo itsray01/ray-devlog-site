@@ -26,140 +26,76 @@ const StoryDevelopmentSection = () => {
         <h4>Three-Act Structure with Strategic Convergence</h4>
         <p>
           The story uses a three-act format (Initialization, Trials, Exit) with strategic
-          convergence points where multiple paths merge. This design decision, informed by
-          Janet Murray's work on interactive narrative structures, maintains player agency
-          while managing production complexity. Rather than creating entirely separate paths
-          for each choice, key decision points lead to shared checkpoints, allowing the
-          narrative to maintain coherence while still offering meaningful branching.
+          convergence points where multiple paths merge. Informed by Janet Murray's work on
+          interactive narrative structures, this maintains player agency while managing production
+          complexity—key decision points lead to shared checkpoints rather than entirely separate paths.
         </p>
 
         <h4>Loop-Based Mechanics as Thematic Device</h4>
         <p>
-          The looping mechanic—where wrong choices return players to earlier points—serves
-          both gameplay and thematic purposes. Mechanically, it reduces asset generation
-          requirements by reusing scenes. Thematically, it embodies the story's exploration
-          of false choices and the illusion of agency. This design connects to interactive
-          storytelling theory on the tension between player choice and authorial control,
-          a central theme in works like The Stanley Parable.
+          The looping mechanic serves dual purposes: mechanically reducing asset requirements through
+          scene reuse, and thematically embodying the story's exploration of false choices and illusory
+          agency. This connects to interactive storytelling theory on the tension between player choice
+          and authorial control (see <em>The Stanley Parable</em>).
         </p>
 
         <h4>Timed Decision Mechanics</h4>
         <p>
-          Implementing timed decisions was a deliberate choice to increase tension and prevent
-          players from overthinking choices. This connects to horror game design theory on
-          pacing and player psychology—forcing quick decisions increases emotional investment
-          and vulnerability. However, playtesting revealed that some players found this
-          stressful rather than engaging, leading to refinements that balanced urgency with
-          accessibility.
+          Timed decisions increase tension and emotional investment by preventing overthinking. Drawing
+          from horror game design theory, this forces quick decisions that heighten vulnerability—though
+          playtesting led to refinements balancing urgency with accessibility.
         </p>
       </div>
 
       <div className="card" data-animate="reveal">
         <h3>Thematic Exploration</h3>
         <p>
-          Through branching choices, the narrative explores several interconnected themes:
+          Through branching choices, the narrative explores interconnected themes:
         </p>
         <ul className="bullets">
-          <li><strong>Individual Agency vs. Systemic Control:</strong> Each choice tests
-          whether the protagonist (and by extension, the player) has genuine agency or is
-          merely following predetermined paths. The looping mechanic reinforces this ambiguity.</li>
+          <li><strong>Agency vs. Control:</strong> Do players have genuine autonomy or follow predetermined
+          paths? The looping mechanic reinforces this ambiguity.</li>
 
-          <li><strong>Technology as Liberation or Oppression:</strong> The AI system offers
-          guidance that could be helpful or manipulative. Choices explore whether technology
-          serves human needs or controls them—reflecting current debates on AI ethics and
-          surveillance.</li>
+          <li><strong>Technology as Tool or Tyrant:</strong> The AI's guidance could help or manipulate—
+          choices explore whether technology serves or controls humanity.</li>
 
-          <li><strong>The Price of Freedom:</strong> The "correct" path requires rejecting
-          the AI's offers of safety and comfort, suggesting that true freedom comes with
-          uncertainty and risk. This connects to existentialist themes in interactive
-          storytelling.</li>
+          <li><strong>The Price of Freedom:</strong> True freedom requires rejecting safety and comfort,
+          embracing uncertainty and risk.</li>
 
-          <li><strong>Human-AI Collaboration vs. Conflict:</strong> The narrative presents
-          multiple perspectives on human-AI relationships, from integration to resistance.
-          Different paths explore these philosophical positions without prescribing a single
-          "correct" answer.</li>
+          <li><strong>Collaboration vs. Conflict:</strong> Multiple perspectives on human-AI relationships
+          without prescribing a single "correct" answer.</li>
         </ul>
       </div>
 
       <div className="card" data-animate="reveal">
-        <h3>User Testing: Initial Findings</h3>
+        <h3>Design Iteration Through Playtesting</h3>
         <small className="meta">October-November 2025</small>
 
         <p>
-          Early playtests revealed several critical issues with narrative clarity and player engagement:
+          Early playtests revealed critical issues that shaped refinements:
         </p>
 
         <ul className="bullets">
           <li>
-            <strong>Loop Confusion:</strong> Players didn't recognize looping mechanics, thinking the
-            game had glitched. Required adding explicit visual and audio cues (RETRY text, cognitive
-            scrambler effects).
+            <strong>Loop Recognition:</strong> Players mistook loops for glitches. Solution: explicit
+            visual/audio cues (RETRY text, cognitive scrambler effects).
           </li>
           <li>
-            <strong>Arbitrary Choices:</strong> Some decision points felt arbitrary, reducing player
-            investment. Needed clearer connections to thematic exploration.
+            <strong>Choice Meaning:</strong> Arbitrary-feeling decisions reduced investment. Solution:
+            clearer consequences and moral implications in descriptions.
           </li>
           <li>
-            <strong>Pacing Issues:</strong> Horror pacing was inconsistent—some sections lost tension.
-            Environmental storytelling elements were added to maintain atmosphere between choice points.
-          </li>
-        </ul>
-      </div>
-
-      <div className="card" data-animate="reveal">
-        <h3>Iterative Refinements</h3>
-        <p>
-          Based on playtest feedback, I refined several narrative elements:
-        </p>
-
-        <ul className="bullets">
-          <li>
-            <strong>Spatial Memory:</strong> Added visual markers (chalk arrows, checkpoint labels) that
-            persist across loops, connecting to environmental storytelling from games like Portal and Control.
-          </li>
-          <li>
-            <strong>Choice Clarity:</strong> Refined descriptions to emphasize consequences and moral
-            implications, making decisions feel more meaningful.
-          </li>
-          <li>
-            <strong>Subtle Guidance:</strong> Introduced environmental hints that guide players toward
-            correct paths without making choices obvious.
-          </li>
-          <li>
-            <strong>Better Transitions:</strong> Improved transitions between outcomes to maintain
-            narrative flow and emotional continuity.
+            <strong>Pacing & Atmosphere:</strong> Inconsistent horror tension. Solution: environmental
+            storytelling elements and persistent visual markers (chalk arrows, checkpoint labels) that
+            maintain atmosphere between choice points.
           </li>
         </ul>
 
-        <h4>Key Takeaway</h4>
         <p>
-          The playtesting process revealed the fundamental challenge in interactive storytelling: the
-          gap between authorial intent and player experience. Players must understand both the mechanics
-          and the narrative implications of their choices—this requires clear communication, which is
-          often harder than it seems.
+          <strong>Key Insight:</strong> The gap between authorial intent and player experience requires
+          clear communication of both mechanics and narrative implications—harder than it seems, but
+          essential for interactive storytelling.
         </p>
-      </div>
-
-      <div className="card" data-animate="reveal">
-        <h3>Connection to Course Objectives</h3>
-        <p>
-          The story development process engaged with several key course objectives:
-        </p>
-        <ul className="bullets">
-          <li><strong>Interactive Storytelling Theory:</strong> Applied concepts from Murray,
-          Aarseth, and others on player agency, immersion, and narrative structure to practical
-          design decisions.</li>
-
-          <li><strong>User-Centered Design:</strong> Conducted iterative playtesting and
-          incorporated user feedback to improve narrative clarity and player engagement.</li>
-
-          <li><strong>Ethical Considerations:</strong> Explored AI ethics themes not just as
-          narrative content, but through interactive mechanics that force players to confront
-          these questions directly.</li>
-
-          <li><strong>Technical Integration:</strong> Balanced narrative design with technical
-          constraints, demonstrating the practical challenges of interactive media production.</li>
-        </ul>
       </div>
     </section>
   );

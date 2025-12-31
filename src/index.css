@@ -71,7 +71,8 @@ img, video, iframe {
 
 /* --- Page Background --- */
 html, body {
-  height: 100%;
+  /* Changed from height: 100% to min-height to allow ScrollDrivenFilmstrip scrolling */
+  min-height: 100%;
   margin: 0;
   color: var(--ink);
   background: url("/img/bg.png") center center / cover no-repeat fixed;
@@ -2226,7 +2227,7 @@ html {
   gap: 8px;
 }
 
-.grid-tile img {
+.grid-tile-media {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -2234,7 +2235,30 @@ html {
   border-radius: 12px;
   background: #1a1f29;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
-  /* Debug: Add visible border to see if images are there */
+  border: 2px solid rgba(167, 139, 250, 0.5);
+  min-height: 100px;
+}
+
+/* Video-specific styling for grid tiles */
+.grid-tile-video {
+  /* Smooth transitions for video loading */
+  transition: opacity 0.3s ease;
+}
+
+.grid-tile-video:not([poster]) {
+  /* Show loading state if poster not loaded */
+  background: linear-gradient(135deg, #1a1f29 0%, #0f1318 100%);
+}
+
+/* Preserve existing img styling for fallback */
+.grid-tile img:not(.grid-tile-media) {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #1a1f29;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   border: 2px solid rgba(167, 139, 250, 0.5);
   min-height: 100px;
 }
@@ -4858,9 +4882,13 @@ body.anime-load-error .top-nav-link {
 
 /* --- Scroll-Driven Filmstrip --- */
 .scroll-driven-filmstrip {
-  position: relative;
-  min-height: 300vh; /* Allows scrolling through frames */
-  padding: 6rem 0;
+  /* position: relative set via inline style */
+  min-height: 100vh;
+  padding: 0;
+  /* Prevent overscroll momentum from causing weird jumps */
+  overscroll-behavior: contain;
+  /* Anchor navigation offset for hash links */
+  scroll-margin-top: 80px;
 }
 
 /* Mobile: normal scroll */
@@ -4871,51 +4899,40 @@ body.anime-load-error .top-nav-link {
   }
 }
 
-/* Desktop: sticky viewport */
-.scroll-driven-filmstrip__sticky {
-  position: sticky;
-  top: 10vh;
-  height: 80vh;
+/* Desktop: JS-driven position: fixed pinning */
+.scroll-driven-filmstrip__pinned {
+  /* Position is controlled by JS (absolute | fixed) */
+  /* Top/left/width controlled by JS for pinning states */
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  gap: 2rem;
   overflow: hidden;
   margin: 0 auto;
+  
+  /* Solid background prevents seeing content underneath during pinning */
+  background: var(--bg);
+  z-index: 10;
 }
 
 .scroll-driven-filmstrip__headerArea {
   width: min(1100px, 92vw);
   text-align: center;
   flex: 0 0 auto;
+  z-index: 1;
 }
 
 @media (max-width: 767px) {
-  .scroll-driven-filmstrip__sticky {
-    position: static;
-    height: auto;
-    overflow: visible;
-  }
-}
-
-.scroll-driven-filmstrip__viewport {
-  width: 100%;
-  flex: 1 1 auto;
-  overflow: hidden;
-  /* Do NOT use justify-content: center here — it causes the scroller to overflow
-     equally on both sides, breaking translateX calculations. The dynamic padding
-     handles centering of the first/last frames. */
-}
-
-@media (max-width: 767px) {
-  .scroll-driven-filmstrip__viewport {
+  .scroll-driven-filmstrip__pinned {
+    position: static !important;
     height: auto;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-    padding: 0 2rem;
-    display: block;
+    padding: 2rem;
   }
 }
 
@@ -4959,23 +4976,28 @@ body.anime-load-error .top-nav-link {
 
 .scroll-driven-filmstrip__scroller {
   display: flex;
+  flex-wrap: nowrap;
   gap: 4rem;
-  height: 100%;
-  padding-left: var(--filmstrip-pad-left, 0px);
-  padding-right: var(--filmstrip-pad-right, 0px);
+  align-items: center;
+  flex: 0 0 auto;
+  max-width: 100%;
+  /* Use translate3d for GPU acceleration */
+  transform: translate3d(0, 0, 0);
+  /* Optimize rendering - prevent layout/paint from affecting parent */
+  contain: layout paint;
 }
 
 @media (max-width: 767px) {
   .scroll-driven-filmstrip__scroller {
-    padding: 0;
     gap: 2rem;
+    transform: none;
   }
 }
 
 .scroll-driven-filmstrip__frame {
-  flex-shrink: 0;
+  flex: 0 0 auto;
   width: clamp(520px, 85vw, 1100px);
-  height: 100%;
+  max-height: calc(100vh - 200px); /* Leave room for title/caption */
   scroll-snap-align: center;
 }
 
@@ -5034,18 +5056,15 @@ body.anime-load-error .top-nav-link {
 @media (prefers-reduced-motion: reduce) {
   .scroll-driven-filmstrip {
     min-height: auto;
+    height: auto !important;
   }
   
-  .scroll-driven-filmstrip__sticky {
+  .scroll-driven-filmstrip__pinned {
     position: static;
-    height: auto;
-    overflow: visible;
-  }
-
-  .scroll-driven-filmstrip__viewport {
     height: auto;
     overflow-x: auto;
     overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
   }
   

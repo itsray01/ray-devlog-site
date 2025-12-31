@@ -25,7 +25,8 @@
       "Bash(npx vite:*)",
       "Bash(del:*)",
       "Bash(cd:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

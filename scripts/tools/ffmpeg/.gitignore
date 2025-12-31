@@ -1,0 +1,9 @@
+# Ignore FFmpeg executables (too large for git, ~90-100MB)
+ffmpeg.exe
+ffprobe.exe
+ffplay.exe
+
+# Keep only the README
+!README.md
+!.gitignore
+
