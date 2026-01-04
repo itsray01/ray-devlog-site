@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + small buffer
-    // Small buffer for minimal gap between sections
-    const buffer = 150; // Small gap after Frame 6 before next section
+    // Section height = horizontal scroll distance + buffer
+    // Buffer to prevent layering between sections
+    const buffer = 300;
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
