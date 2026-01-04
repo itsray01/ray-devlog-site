@@ -52,7 +52,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
 
     // Section height = horizontal scroll distance + buffer
     // Buffer to prevent layering between sections
-    const buffer = 300;
+    const buffer = 350;
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
