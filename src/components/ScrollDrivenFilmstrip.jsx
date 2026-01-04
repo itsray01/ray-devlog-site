@@ -50,10 +50,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + small buffer
-    // This gives us just enough vertical scroll to complete the horizontal animation
-    // then smoothly transition to the next section
-    const transitionBuffer = 200; // Small buffer for smooth but quick transition
+    // Section height = horizontal scroll distance + viewport height
+    // This ensures horizontal scroll completes BEFORE the next section enters the viewport
+    // The filmstrip stays visible at Frame 6 while we have some buffer to transition
+    const transitionBuffer = window.innerHeight; // Full viewport buffer for smooth transition
     const newHeight = horizontalScrollDistance + transitionBuffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -137,9 +137,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Determine when to hide: when section bottom is close to viewport top
-          // This ensures we hide BEFORE the next section becomes visible
-          const hideThreshold = viewportHeight * 0.6; // Hide when section bottom is within 60% of viewport
+          // Determine when to hide: when section bottom is about to leave viewport
+          // This ensures filmstrip hides before Story Development scrolls up behind it
+          const hideThreshold = viewportHeight * 0.3; // Hide when section bottom is 30% from top
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
@@ -174,10 +174,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             scroller.style.transform = `translateX(-${translateX}px)`;
             
             // Smooth fade out as section approaches hide threshold
-            const fadeStartThreshold = viewportHeight * 0.8; // Start fading earlier
+            const fadeStartThreshold = viewportHeight * 0.6; // Start fading at 60% from top
             if (sectionRect.bottom < fadeStartThreshold) {
               const fadeProgress = (fadeStartThreshold - sectionRect.bottom) / (fadeStartThreshold - hideThreshold);
-              content.style.opacity = String(1 - Math.min(fadeProgress, 1));
+              content.style.opacity = String(Math.max(0, 1 - fadeProgress));
             } else {
               content.style.opacity = '1';
             }
