@@ -4899,30 +4899,10 @@ body.anime-load-error .top-nav-link {
   }
 }
 
-/* Desktop: JS-driven position: fixed pinning */
+/* Desktop: Sticky pinning */
 .scroll-driven-filmstrip__pinned {
-  /* Position is controlled by JS (absolute | fixed) */
-  /* Top/left/width controlled by JS for pinning states */
-  height: calc(100vh - 60px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  overflow: visible; /* CRITICAL: Allow horizontal scroll content to be visible */
-  margin: 0 auto;
-  
-  /* Transparent background to allow frames to be visible */
-  background: transparent;
-  z-index: 10;
-  
-  /* Don't block pointer events - let children handle them */
-  pointer-events: none;
-}
-
-/* Re-enable pointer events for children */
-.scroll-driven-filmstrip__pinned > * {
-  pointer-events: auto;
+  /* Simplified: no complex JS positioning needed */
+  width: 100%;
 }
 
 .scroll-driven-filmstrip__headerArea {
@@ -4987,15 +4967,8 @@ body.anime-load-error .top-nav-link {
   flex-wrap: nowrap;
   gap: 4rem;
   align-items: center;
-  flex: 0 0 auto;
-  max-width: 100%;
-  /* Use translate3d for GPU acceleration */
-  transform: translate3d(0, 0, 0);
-  /* Optimize rendering - prevent layout/paint from affecting parent */
-  contain: layout paint;
-  /* Ensure scroller content appears above main content */
-  position: relative;
-  z-index: 20;
+  /* All styling handled inline in component for desktop */
+  /* Scroller fills natural width on mobile */
 }
 
 @media (max-width: 767px) {
