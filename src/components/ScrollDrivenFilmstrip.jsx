@@ -48,10 +48,12 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = viewport height + horizontal scroll distance
+    // Section height = viewport height + horizontal scroll distance + buffer
     // This gives us enough vertical scroll space to drive the horizontal animation
+    // Buffer ensures the last frame is fully visible before transitioning
     const viewportHeight = window.innerHeight;
-    const newHeight = viewportHeight + horizontalScrollDistance;
+    const transitionBuffer = viewportHeight * 0.5; // Half viewport for smooth transition
+    const newHeight = viewportHeight + horizontalScrollDistance + transitionBuffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
 
