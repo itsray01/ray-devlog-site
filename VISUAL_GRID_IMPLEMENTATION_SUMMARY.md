@@ -362,3 +362,5 @@ npm run dev
 
 Enjoy your cinematic visual grid! 🎬✨
 
+
+

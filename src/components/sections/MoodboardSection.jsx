@@ -25,7 +25,7 @@ const MoodboardSection = () => {
             <img
               src={item.src}
               alt={item.title}
-              loading="lazy"
+              fetchpriority="high"
               onError={handleImageError}
             />
             <figcaption>{item.title}</figcaption>

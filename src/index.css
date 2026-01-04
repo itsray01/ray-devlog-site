@@ -92,7 +92,7 @@ body {
 #root {
   min-height: 100vh;
   width: 100%;
-  overflow-x: clip; /* Use clip instead of hidden to not break sticky positioning */
+  overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
 }
 
 /* --- App Container --- */
@@ -100,7 +100,7 @@ body {
   display: flex;
   min-height: 100vh;
   position: relative;
-  overflow-x: clip; /* Use clip instead of hidden to not break sticky positioning */
+  overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -546,7 +546,7 @@ body {
   box-sizing: border-box;
   margin-left: 260px; /* Offset for sidebar */
   max-width: 100%; /* Never exceed container width */
-  overflow-x: clip; /* Use clip instead of hidden to not break sticky positioning */
+  overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
 }
 
 main {
@@ -573,7 +573,7 @@ main > * {
   animation: fadeIn 0.4s ease-out;
   width: 100%;
   max-width: 100%;
-  overflow-x: clip; /* Use clip instead of hidden to not break sticky positioning */
+  overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
 }
 
 @keyframes fadeIn {
@@ -4915,6 +4915,14 @@ body.anime-load-error .top-nav-link {
   /* Transparent background to allow frames to be visible */
   background: transparent;
   z-index: 10;
+  
+  /* Don't block pointer events - let children handle them */
+  pointer-events: none;
+}
+
+/* Re-enable pointer events for children */
+.scroll-driven-filmstrip__pinned > * {
+  pointer-events: auto;
 }
 
 .scroll-driven-filmstrip__headerArea {

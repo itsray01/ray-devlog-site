@@ -148,3 +148,5 @@ All video requests return successfully from `/visual-grid/loops/*.webm`
 - Lightbox functionality preserved
 - Old `VideoGridTile.jsx` component can be removed if not used elsewhere
 
+
+

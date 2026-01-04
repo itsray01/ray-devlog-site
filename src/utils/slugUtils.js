@@ -30,3 +30,5 @@ export const getFilenameFromPath = (imagePath) => {
   return imagePath.split('/').pop().split('.')[0];
 };
 
+
+

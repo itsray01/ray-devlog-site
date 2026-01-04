@@ -287,3 +287,5 @@ npm run visualgrid:gen
 
 The script will print exact output paths for each file generated. 🎬✨
 
+
+

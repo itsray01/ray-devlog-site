@@ -93,3 +93,5 @@ This will overwrite all existing video loops.
 - `VISUAL_GRID_VIDEO_LOOPS.md` - Full documentation
 - `scripts/generateVisualGridLoops.bat` - Generation script
 
+
+

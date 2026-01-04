@@ -180,3 +180,5 @@ scripts\generateVisualGridLoops.bat --force
 - Generated videos are optimized for web (faststart flag for MP4)
 - Component automatically handles video cleanup on unmount
 
+
+

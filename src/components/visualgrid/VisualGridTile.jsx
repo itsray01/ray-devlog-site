@@ -170,3 +170,5 @@ const VisualGridTile = ({ id, poster, title, subtitle, onClick }) => {
 
 export default VisualGridTile;
 
+
+
