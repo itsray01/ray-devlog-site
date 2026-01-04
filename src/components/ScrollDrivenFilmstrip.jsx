@@ -80,8 +80,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     if (isMobile) return;
 
     const section = sectionRef.current;
+    const content = contentRef.current;
     const scroller = scrollerRef.current;
-    if (!section || !scroller) return;
+    if (!section || !content || !scroller) return;
 
     let ticking = false;
 
@@ -97,7 +98,12 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const scrollStart = 60;
           
           if (sectionTop <= scrollStart && sectionTop > -(sectionHeight - viewportHeight)) {
-            // We're in the scrolling zone
+            // We're in the scrolling zone - FIX THE POSITION
+            content.style.position = 'fixed';
+            content.style.top = '60px';
+            content.style.left = `${sectionRect.left}px`;
+            content.style.width = `${sectionRect.width}px`;
+            
             const scrollProgress = Math.max(0, scrollStart - sectionTop);
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
@@ -108,10 +114,16 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             
             scroller.style.transform = `translateX(-${translateX}px)`;
           } else if (sectionTop > scrollStart) {
-            // Before section
+            // Before section - use sticky positioning
+            content.style.position = 'sticky';
+            content.style.left = '';
+            content.style.width = '';
             scroller.style.transform = 'translateX(0)';
           } else {
-            // After section - keep at max
+            // After section - use sticky positioning at end
+            content.style.position = 'sticky';
+            content.style.left = '';
+            content.style.width = '';
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
             const maxTranslate = scrollerWidth - viewportWidth;
