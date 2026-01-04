@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + buffer
-    // Buffer must be large enough to prevent next section from entering viewport before scroll completes
-    const buffer = window.innerHeight * 0.8; // 80% of viewport to prevent layering
+    // Section height = horizontal scroll distance + small buffer
+    // Small buffer to minimize gap while completing horizontal scroll
+    const buffer = 150; // Minimal buffer
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
