@@ -892,6 +892,16 @@ main > * {
   background: var(--bg); /* Solid background to cover filmstrip */
 }
 
+/* Ensure sections after filmstrips cover them properly */
+#story-development,
+#narrative-design,
+#branching,
+#production {
+  position: relative;
+  z-index: 500 !important; /* Higher than fixed filmstrip */
+  background: var(--bg) !important;
+}
+
 .content-grid {
   margin: 2rem 0;
 }
