@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + buffer
-    // Buffer sized to prevent layering while keeping transition tight
-    const buffer = 500; // Balance between tight transition and no layering
+    // Section height = horizontal scroll distance + small buffer
+    // Hide is now based on viewport position, so buffer can be smaller
+    const buffer = 100; // Minimal buffer for tight transition
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -136,6 +136,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
+          // Hide when: horizontal scroll complete OR next section entering viewport
+          const sectionBottom = sectionRect.bottom;
+          const shouldHide = scrollProgress >= maxTranslate || sectionBottom < viewportHeight * 0.7;
+          
           // Determine state based on section position
           if (sectionTop > scrollStart) {
             // Before section - reset to start (Frame 1)
@@ -146,8 +150,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.opacity = '1';
             content.style.pointerEvents = '';
             scroller.style.transform = 'translateX(0)';
-          } else if (scrollProgress >= maxTranslate) {
-            // After horizontal scroll completes - IMMEDIATELY hide to prevent layering
+          } else if (shouldHide) {
+            // Hide to prevent layering with next section
             content.style.position = 'fixed';
             content.style.left = '-9999px';
             content.style.top = '0';
