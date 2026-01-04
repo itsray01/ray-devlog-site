@@ -99,7 +99,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           // When section top reaches 60px (nav height), start translating
           const scrollStart = 60;
           
-          // Check if any PREVIOUS filmstrip section is still active (position: fixed)
+          // Check if any PREVIOUS filmstrip section is still active (position: fixed AND visible)
           // If so, hide THIS section to prevent layering
           const allFilmstrips = document.querySelectorAll('.scroll-driven-filmstrip');
           let shouldHideDueToPreviousSection = false;
@@ -109,9 +109,13 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             if (filmstrip === section) break; // Only check sections BEFORE this one
             
             const prevContent = filmstrip.querySelector('.scroll-driven-filmstrip__pinned');
-            if (prevContent && getComputedStyle(prevContent).position === 'fixed') {
-              shouldHideDueToPreviousSection = true;
-              break;
+            if (prevContent) {
+              const prevStyles = getComputedStyle(prevContent);
+              // Check if previous section is fixed AND not off-screen (actually visible)
+              if (prevStyles.position === 'fixed' && prevStyles.left !== '-9999px') {
+                shouldHideDueToPreviousSection = true;
+                break;
+              }
             }
           }
           
