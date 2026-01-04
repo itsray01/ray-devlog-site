@@ -117,7 +117,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           
           // If a previous section is still active, hide this section completely
           if (shouldHideDueToPreviousSection) {
-            content.style.visibility = 'hidden';
+            content.style.display = 'none';
             ticking = false;
             return;
           }
@@ -125,11 +125,11 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           // Calculate if we're in the active scrolling zone
           if (sectionTop <= scrollStart && sectionTop > scrollStart - sectionHeight) {
             // We're in the scrolling zone - FIX THE POSITION
+            content.style.display = ''; // Restore display
             content.style.position = 'fixed';
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
             content.style.width = `${sectionRect.width}px`;
-            content.style.visibility = 'visible';
             // Use section ID to determine z-index (storyboard should be above moodboard)
             const zIndex = id === 'storyboard' ? '101' : '100';
             content.style.zIndex = zIndex;
@@ -149,20 +149,15 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             scroller.style.transform = `translateX(-${translateX}px)`;
           } else if (sectionTop > scrollStart) {
             // Before section - reset to start (Frame 1)
+            content.style.display = ''; // Restore display
             content.style.position = 'sticky';
             content.style.left = '';
             content.style.width = '';
             content.style.zIndex = '';
-            content.style.visibility = 'visible';
             scroller.style.transform = 'translateX(0)';
           } else {
-            // After section - hide it to prevent layering with next section
-            content.style.position = 'absolute';
-            content.style.top = '0';
-            content.style.left = '';
-            content.style.width = '';
-            content.style.zIndex = '';
-            content.style.visibility = 'hidden';
+            // After section - completely hide it to prevent layering with next section
+            content.style.display = 'none';
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
             const maxTranslate = scrollerWidth - viewportWidth;
