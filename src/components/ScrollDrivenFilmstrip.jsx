@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + buffer
-    // Buffer prevents Story Development from appearing while filmstrip is visible
-    const buffer = 700; // Prevents layering while keeping reasonable gap
+    // Section height = horizontal scroll distance + buffer for transition
+    // Filmstrip stays visible at Frame 6 while Story Development slides up
+    const buffer = window.innerHeight; // Full viewport for smooth slide-up transition
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -136,8 +136,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Hide when horizontal scroll is complete - simple and reliable
-          const shouldHide = scrollProgress >= maxTranslate;
+          // Keep filmstrip visible until Story Development fills the viewport
+          // Only hide when section bottom is near top of viewport (Story Development has scrolled up)
+          const sectionBottom = sectionRect.bottom;
+          const shouldHide = sectionBottom < 100; // Hide when section is almost off-screen
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
@@ -165,15 +167,21 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
             content.style.width = `${sectionRect.width}px`;
-            // Use section ID to determine z-index (storyboard should be above moodboard)
-            const zIndex = id === 'storyboard' ? '101' : '100';
-            content.style.zIndex = zIndex;
             content.style.pointerEvents = '';
             content.style.opacity = '1';
             
-            // Map scroll progress to horizontal translation
+            // Map scroll progress to horizontal translation (cap at maxTranslate)
             const translateX = Math.min(scrollProgress, maxTranslate);
             scroller.style.transform = `translateX(-${translateX}px)`;
+            
+            // After horizontal scroll completes, lower z-index so content slides OVER filmstrip
+            if (scrollProgress >= maxTranslate) {
+              content.style.zIndex = '1'; // Low z-index, content will slide over
+            } else {
+              // During horizontal scroll, keep filmstrip above other filmstrips
+              const zIndex = id === 'storyboard' ? '101' : '100';
+              content.style.zIndex = zIndex;
+            }
           }
 
           ticking = false;

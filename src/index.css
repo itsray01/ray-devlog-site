@@ -888,17 +888,8 @@ main > * {
 .content-section {
   margin: 2rem 0;
   position: relative;
-  z-index: 200; /* Above filmstrip (z-index 100-101) so it covers when scrolling */
+  z-index: 10; /* Above filmstrip after horizontal scroll completes */
   background: var(--bg); /* Solid background to cover filmstrip */
-}
-
-/* Sections after filmstrips */
-#story-development,
-#narrative-design,
-#branching,
-#production {
-  position: relative;
-  z-index: 200;
 }
 
 .content-grid {
