@@ -117,7 +117,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           
           // If a previous section is still active, hide this section completely
           if (shouldHideDueToPreviousSection) {
-            content.style.display = 'none';
+            content.style.position = 'fixed';
+            content.style.left = '-9999px'; // Move off-screen
+            content.style.top = '0';
             ticking = false;
             return;
           }
@@ -125,7 +127,6 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           // Calculate if we're in the active scrolling zone
           if (sectionTop <= scrollStart && sectionTop > scrollStart - sectionHeight) {
             // We're in the scrolling zone - FIX THE POSITION
-            content.style.display = ''; // Restore display
             content.style.position = 'fixed';
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
@@ -149,15 +150,18 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             scroller.style.transform = `translateX(-${translateX}px)`;
           } else if (sectionTop > scrollStart) {
             // Before section - reset to start (Frame 1)
-            content.style.display = ''; // Restore display
             content.style.position = 'sticky';
             content.style.left = '';
             content.style.width = '';
             content.style.zIndex = '';
             scroller.style.transform = 'translateX(0)';
           } else {
-            // After section - completely hide it to prevent layering with next section
-            content.style.display = 'none';
+            // After section - move off-screen to prevent layering with next section
+            content.style.position = 'fixed';
+            content.style.left = '-9999px';
+            content.style.top = '0';
+            content.style.width = '';
+            content.style.zIndex = '';
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
             const maxTranslate = scrollerWidth - viewportWidth;
