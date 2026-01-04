@@ -899,7 +899,11 @@ main > * {
 #production {
   position: relative;
   z-index: 500 !important; /* Higher than fixed filmstrip */
-  background: var(--bg) !important;
+  background: #0a0e27 !important; /* Solid dark background to cover filmstrip */
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .content-grid {
