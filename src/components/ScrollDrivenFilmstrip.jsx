@@ -50,9 +50,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + tiny buffer
-    // No fade - filmstrip hides immediately when horizontal scroll completes
-    const buffer = 50; // Tiny buffer just to complete the scroll
+    // Section height = horizontal scroll distance + viewport height
+    // This ensures Story Development doesn't enter viewport until horizontal scroll completes
+    // Then filmstrip hides immediately and Story Development appears at top
+    const buffer = window.innerHeight;
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
