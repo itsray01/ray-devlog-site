@@ -887,9 +887,6 @@ main > * {
 
 .content-section {
   margin: 2rem 0;
-  position: relative;
-  z-index: 10; /* Above filmstrip after horizontal scroll completes */
-  background: var(--bg); /* Solid background to cover filmstrip */
 }
 
 .content-grid {
