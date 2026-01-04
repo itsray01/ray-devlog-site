@@ -51,8 +51,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     }
 
     // Section height = horizontal scroll distance + buffer
-    // Buffer to prevent layering between sections
-    const buffer = 1050;
+    // Buffer = viewportHeight to guarantee no layering (Story Development at viewport bottom when scroll completes)
+    const buffer = window.innerHeight;
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -136,9 +136,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Hide when section is almost scrolled past (bottom near top of viewport)
-          const sectionBottom = sectionRect.bottom;
-          const shouldHide = sectionBottom < 100; // Hide when section bottom is near viewport top
+          // Hide when horizontal scroll is complete - Story Development will be at viewport bottom
+          const shouldHide = scrollProgress >= maxTranslate;
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
