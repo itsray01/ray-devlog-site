@@ -106,6 +106,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
             content.style.width = `${sectionRect.width}px`;
+            // Use section ID to determine z-index (storyboard should be above moodboard)
+            const zIndex = id === 'storyboard' ? '101' : '100';
+            content.style.zIndex = zIndex;
             
             // Calculate scroll progress
             // scrollProgress = how far we've scrolled into the section
@@ -125,12 +128,14 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.position = 'sticky';
             content.style.left = '';
             content.style.width = '';
+            content.style.zIndex = '';
             scroller.style.transform = 'translateX(0)';
           } else {
             // After section - lock at end (Frame 6)
             content.style.position = 'sticky';
             content.style.left = '';
             content.style.width = '';
+            content.style.zIndex = '';
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
             const maxTranslate = scrollerWidth - viewportWidth;
