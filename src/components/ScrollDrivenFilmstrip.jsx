@@ -132,9 +132,33 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             return;
           }
           
-          // Calculate if we're in the active scrolling zone
-          if (sectionTop <= scrollStart && sectionTop > scrollStart - sectionHeight) {
-            // We're in the scrolling zone - FIX THE POSITION
+          // Calculate scroll values first
+          const scrollProgress = Math.max(0, scrollStart - sectionTop);
+          const scrollerWidth = scroller.scrollWidth;
+          const containerWidth = sectionRect.width;
+          const maxTranslate = scrollerWidth - containerWidth;
+          
+          // Transition buffer: after horizontal scroll completes, allow some extra scroll before hiding
+          const transitionBuffer = viewportHeight * 0.3;
+          
+          // Determine state based on scroll progress
+          if (sectionTop > scrollStart) {
+            // Before section - reset to start (Frame 1)
+            content.style.position = 'sticky';
+            content.style.left = '';
+            content.style.width = '';
+            content.style.zIndex = '';
+            scroller.style.transform = 'translateX(0)';
+          } else if (scrollProgress > maxTranslate + transitionBuffer) {
+            // After section - horizontal scroll is complete + buffer, hide the section
+            content.style.position = 'fixed';
+            content.style.left = '-9999px';
+            content.style.top = '0';
+            content.style.width = '';
+            content.style.zIndex = '';
+            scroller.style.transform = `translateX(-${maxTranslate}px)`;
+          } else {
+            // In active scrolling zone - FIX THE POSITION
             content.style.position = 'fixed';
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
@@ -143,39 +167,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             const zIndex = id === 'storyboard' ? '101' : '100';
             content.style.zIndex = zIndex;
             
-            // Calculate scroll progress
-            // scrollProgress = how far we've scrolled into the section
-            const scrollProgress = Math.max(0, scrollStart - sectionTop);
-            const scrollerWidth = scroller.scrollWidth;
-            // Use the actual container width (accounting for left offset from sidebar)
-            const containerWidth = sectionRect.width;
-            const maxTranslate = scrollerWidth - containerWidth;
-            
             // Map scroll progress to horizontal translation
-            // The section has height = viewportHeight + maxTranslate
-            // So we need to scroll through maxTranslate distance to complete the horizontal scroll
             const translateX = Math.min(scrollProgress, maxTranslate);
-            
             scroller.style.transform = `translateX(-${translateX}px)`;
-          } else if (sectionTop > scrollStart) {
-            // Before section - reset to start (Frame 1)
-            content.style.position = 'sticky';
-            content.style.left = '';
-            content.style.width = '';
-            content.style.zIndex = '';
-            scroller.style.transform = 'translateX(0)';
-          } else {
-            // After section - move off-screen to prevent layering with next section
-            content.style.position = 'fixed';
-            content.style.left = '-9999px';
-            content.style.top = '0';
-            content.style.width = '';
-            content.style.zIndex = '';
-            const scrollerWidth = scroller.scrollWidth;
-            // Use the actual container width (accounting for left offset from sidebar)
-            const containerWidth = sectionRect.width;
-            const maxTranslate = scrollerWidth - containerWidth;
-            scroller.style.transform = `translateX(-${maxTranslate}px)`;
           }
 
           ticking = false;
