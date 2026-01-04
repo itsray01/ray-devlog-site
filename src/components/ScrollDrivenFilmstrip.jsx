@@ -48,9 +48,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance only
-    // (The content is fixed at top, so we only need enough height to scroll through)
-    const newHeight = horizontalScrollDistance;
+    // Section height = viewport height + horizontal scroll distance
+    // This gives us enough vertical scroll space to drive the horizontal animation
+    const viewportHeight = window.innerHeight;
+    const newHeight = viewportHeight + horizontalScrollDistance;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
 
@@ -98,30 +99,35 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           // When section top reaches 60px (nav height), start translating
           const scrollStart = 60;
           
-          if (sectionTop <= scrollStart && sectionTop > -(sectionHeight - viewportHeight)) {
+          // Calculate if we're in the active scrolling zone
+          if (sectionTop <= scrollStart && sectionTop > scrollStart - sectionHeight) {
             // We're in the scrolling zone - FIX THE POSITION
             content.style.position = 'fixed';
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
             content.style.width = `${sectionRect.width}px`;
             
+            // Calculate scroll progress
+            // scrollProgress = how far we've scrolled into the section
             const scrollProgress = Math.max(0, scrollStart - sectionTop);
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
             const maxTranslate = scrollerWidth - viewportWidth;
             
-            // Direct 1:1 mapping
+            // Map scroll progress to horizontal translation
+            // The section has height = viewportHeight + maxTranslate
+            // So we need to scroll through maxTranslate distance to complete the horizontal scroll
             const translateX = Math.min(scrollProgress, maxTranslate);
             
             scroller.style.transform = `translateX(-${translateX}px)`;
           } else if (sectionTop > scrollStart) {
-            // Before section - use sticky positioning
+            // Before section - reset to start (Frame 1)
             content.style.position = 'sticky';
             content.style.left = '';
             content.style.width = '';
             scroller.style.transform = 'translateX(0)';
           } else {
-            // After section - use sticky positioning at end
+            // After section - lock at end (Frame 6)
             content.style.position = 'sticky';
             content.style.left = '';
             content.style.width = '';
@@ -184,14 +190,16 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           height: 'calc(100vh - 60px)',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
           gap: '2rem',
+          paddingTop: '4rem',
+          paddingLeft: '2rem',
           overflow: 'visible',
           width: '100%'
         }}
       >
-        <div className="scroll-driven-filmstrip__headerArea">
+        <div className="scroll-driven-filmstrip__headerArea" style={{ width: '100%', textAlign: 'center' }}>
           <h2 className="scroll-driven-filmstrip__title">{title}</h2>
           {description && <p className="scroll-driven-filmstrip__caption">{description}</p>}
         </div>
@@ -203,7 +211,11 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             gap: '4rem',
             alignItems: 'center',
             willChange: 'transform',
-            transition: 'none'
+            transition: 'none',
+            justifyContent: 'flex-start',
+            width: 'auto',
+            marginLeft: 0,
+            marginRight: 0
           }}
         >
           {items.map((item) => (
