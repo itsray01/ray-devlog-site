@@ -96,6 +96,31 @@ const BranchingSection = () => {
               Interactive story paths with multiple decision points and alternative routes.
               Click on any node to explore the narrative structure.
             </p>
+            {/* Option 3: Click to expand hint */}
+            {!branchingExpanded && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                style={{
+                  marginTop: '0.75rem',
+                  marginBottom: 0,
+                  fontSize: '0.85rem',
+                  color: 'var(--accent)',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}
+              >
+                <motion.span
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  ↓
+                </motion.span>
+                Click to expand
+              </motion.p>
+            )}
           </div>
           <motion.span
             animate={{
@@ -130,6 +155,45 @@ const BranchingSection = () => {
             ▼
           </motion.span>
         </div>
+        
+        {/* Option 5: Partial content preview teaser */}
+        {!branchingExpanded && (
+          <div style={{
+            marginTop: '1rem',
+            padding: '1rem',
+            background: 'linear-gradient(180deg, rgba(138, 43, 226, 0.08) 0%, transparent 100%)',
+            borderRadius: '8px',
+            position: 'relative',
+            overflow: 'hidden',
+            pointerEvents: 'none'
+          }}>
+            {/* Faded preview content */}
+            <div style={{
+              opacity: 0.4,
+              filter: 'blur(1px)',
+              fontSize: '0.9rem',
+              color: 'var(--muted)'
+            }}>
+              <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+                <span>● Act I: Initialization</span>
+                <span>● Act II: Trials</span>
+                <span>● Act III: Exit</span>
+              </div>
+              <div style={{ marginTop: '0.5rem', height: '40px', background: 'linear-gradient(90deg, rgba(138, 43, 226, 0.2) 0%, rgba(183, 148, 246, 0.1) 50%, rgba(138, 43, 226, 0.2) 100%)', borderRadius: '4px' }} />
+            </div>
+            {/* Gradient fade overlay */}
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '60%',
+              background: 'linear-gradient(180deg, transparent 0%, var(--surface) 100%)',
+              pointerEvents: 'none'
+            }} />
+          </div>
+        )}
+        
         <AnimatePresence>
           {branchingExpanded && (
             <motion.div
