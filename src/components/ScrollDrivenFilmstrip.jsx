@@ -39,9 +39,11 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     if (!section || !scroller) return;
 
     // Calculate how much horizontal space we need to scroll through
-    const viewportWidth = window.innerWidth;
+    // Use actual section width (accounts for sidebar taking up space)
+    const container = sectionRef.current;
+    const containerWidth = container ? container.clientWidth : window.innerWidth;
     const scrollerWidth = scroller.scrollWidth;
-    const horizontalScrollDistance = scrollerWidth - viewportWidth;
+    const horizontalScrollDistance = scrollerWidth - containerWidth;
 
     if (horizontalScrollDistance <= 0) {
       setSectionHeight('auto');
@@ -145,8 +147,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             // scrollProgress = how far we've scrolled into the section
             const scrollProgress = Math.max(0, scrollStart - sectionTop);
             const scrollerWidth = scroller.scrollWidth;
-            const viewportWidth = window.innerWidth;
-            const maxTranslate = scrollerWidth - viewportWidth;
+            // Use the actual container width (accounting for left offset from sidebar)
+            const containerWidth = sectionRect.width;
+            const maxTranslate = scrollerWidth - containerWidth;
             
             // Map scroll progress to horizontal translation
             // The section has height = viewportHeight + maxTranslate
@@ -169,8 +172,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.width = '';
             content.style.zIndex = '';
             const scrollerWidth = scroller.scrollWidth;
-            const viewportWidth = window.innerWidth;
-            const maxTranslate = scrollerWidth - viewportWidth;
+            // Use the actual container width (accounting for left offset from sidebar)
+            const containerWidth = sectionRect.width;
+            const maxTranslate = scrollerWidth - containerWidth;
             scroller.style.transform = `translateX(-${maxTranslate}px)`;
           }
 
