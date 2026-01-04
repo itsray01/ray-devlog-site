@@ -136,9 +136,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Hide when: horizontal scroll complete OR next section entering viewport
+          // Hide when: horizontal scroll complete OR (almost complete AND section leaving viewport)
           const sectionBottom = sectionRect.bottom;
-          const shouldHide = scrollProgress >= maxTranslate || sectionBottom < viewportHeight * 0.7;
+          const scrollAlmostComplete = scrollProgress >= maxTranslate * 0.95; // 95% complete
+          const shouldHide = scrollProgress >= maxTranslate || (scrollAlmostComplete && sectionBottom < viewportHeight * 0.5);
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
