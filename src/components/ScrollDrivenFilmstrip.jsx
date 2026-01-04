@@ -48,8 +48,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = one viewport + horizontal scroll distance
-    const newHeight = window.innerHeight + horizontalScrollDistance;
+    // Section height = horizontal scroll distance only
+    // (The content is fixed at top, so we only need enough height to scroll through)
+    const newHeight = horizontalScrollDistance;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
 
