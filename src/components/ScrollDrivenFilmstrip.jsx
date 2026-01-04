@@ -51,8 +51,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
     }
 
     // Section height = horizontal scroll distance + buffer
-    // Buffer prevents overlay while keeping transition tight
-    const buffer = 400; // Larger buffer to prevent overlay
+    // Buffer must be large enough to prevent next section from entering viewport before scroll completes
+    const buffer = window.innerHeight * 0.8; // 80% of viewport to prevent layering
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -136,10 +136,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Hide when: horizontal scroll complete OR (almost complete AND section leaving viewport)
-          const sectionBottom = sectionRect.bottom;
-          const scrollAlmostComplete = scrollProgress >= maxTranslate * 0.95; // 95% complete
-          const shouldHide = scrollProgress >= maxTranslate || (scrollAlmostComplete && sectionBottom < viewportHeight * 0.5);
+          // Hide when horizontal scroll is complete - simple and reliable
+          const shouldHide = scrollProgress >= maxTranslate;
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
