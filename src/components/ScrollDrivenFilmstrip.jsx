@@ -106,6 +106,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.top = '60px';
             content.style.left = `${sectionRect.left}px`;
             content.style.width = `${sectionRect.width}px`;
+            content.style.visibility = 'visible';
             // Use section ID to determine z-index (storyboard should be above moodboard)
             const zIndex = id === 'storyboard' ? '101' : '100';
             content.style.zIndex = zIndex;
@@ -129,13 +130,16 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.left = '';
             content.style.width = '';
             content.style.zIndex = '';
+            content.style.visibility = 'visible';
             scroller.style.transform = 'translateX(0)';
           } else {
-            // After section - lock at end (Frame 6)
-            content.style.position = 'sticky';
+            // After section - hide it to prevent layering with next section
+            content.style.position = 'absolute';
+            content.style.top = '0';
             content.style.left = '';
             content.style.width = '';
             content.style.zIndex = '';
+            content.style.visibility = 'hidden';
             const scrollerWidth = scroller.scrollWidth;
             const viewportWidth = window.innerWidth;
             const maxTranslate = scrollerWidth - viewportWidth;
