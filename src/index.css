@@ -892,18 +892,13 @@ main > * {
   background: var(--bg); /* Solid background to cover filmstrip */
 }
 
-/* Ensure sections after filmstrips cover them properly */
+/* Sections after filmstrips */
 #story-development,
 #narrative-design,
 #branching,
 #production {
   position: relative;
-  z-index: 500 !important; /* Higher than fixed filmstrip */
-  background: #0a0e27 !important; /* Solid dark background to cover filmstrip */
-  margin-left: -2rem;
-  margin-right: -2rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  z-index: 200;
 }
 
 .content-grid {
