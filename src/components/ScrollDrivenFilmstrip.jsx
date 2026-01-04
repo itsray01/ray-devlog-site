@@ -52,9 +52,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
 
     // Section height = horizontal scroll distance + small buffer
     // This gives us just enough vertical scroll to complete the horizontal animation
-    // then immediately transition to the next section
-    const viewportHeight = window.innerHeight;
-    const transitionBuffer = 100; // Small fixed buffer (100px) for immediate transition
+    // then smoothly transition to the next section
+    const transitionBuffer = 200; // Small buffer for smooth but quick transition
     const newHeight = horizontalScrollDistance + transitionBuffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -139,7 +138,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const maxTranslate = scrollerWidth - containerWidth;
           
           // Transition buffer: after horizontal scroll completes, allow some extra scroll before hiding
-          const transitionBuffer = 100; // Small fixed buffer (100px) for immediate transition
+          const transitionBuffer = 50; // Hide quickly after horizontal scroll completes
           
           // Determine state based on scroll progress
           if (sectionTop > scrollStart) {
@@ -148,6 +147,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.left = '';
             content.style.width = '';
             content.style.zIndex = '';
+            content.style.opacity = '1';
             scroller.style.transform = 'translateX(0)';
           } else if (scrollProgress > maxTranslate + transitionBuffer) {
             // After section - horizontal scroll is complete + buffer, hide the section
@@ -156,6 +156,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.top = '0';
             content.style.width = '';
             content.style.zIndex = '';
+            content.style.opacity = '0';
             scroller.style.transform = `translateX(-${maxTranslate}px)`;
           } else {
             // In active scrolling zone - FIX THE POSITION
@@ -170,6 +171,15 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             // Map scroll progress to horizontal translation
             const translateX = Math.min(scrollProgress, maxTranslate);
             scroller.style.transform = `translateX(-${translateX}px)`;
+            
+            // Smooth fade out as we approach the end of horizontal scroll
+            const fadeStart = maxTranslate - 100; // Start fading 100px before end
+            if (scrollProgress > fadeStart) {
+              const fadeProgress = (scrollProgress - fadeStart) / (maxTranslate + transitionBuffer - fadeStart);
+              content.style.opacity = String(1 - Math.min(fadeProgress, 1));
+            } else {
+              content.style.opacity = '1';
+            }
           }
 
           ticking = false;
@@ -231,7 +241,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           paddingTop: '4rem',
           paddingLeft: '2rem',
           overflow: 'visible',
-          width: '100%'
+          width: '100%',
+          transition: 'opacity 0.3s ease-out'
         }}
       >
         <div className="scroll-driven-filmstrip__headerArea" style={{ width: '100%', textAlign: 'center' }}>
