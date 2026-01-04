@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + fade zone
-    // The fade zone allows the filmstrip to fade out while next section slides in
-    const fadeZone = window.innerHeight * 0.6; // 60% of viewport for fade zone
+    // Section height = horizontal scroll distance + minimal buffer
+    // Minimal buffer means the filmstrip hides almost immediately after horizontal scroll completes
+    const fadeZone = 150; // Just 150px buffer for a quick fade
     const newHeight = horizontalScrollDistance + fadeZone;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
@@ -138,7 +138,7 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           
           // After horizontal scroll completes, calculate fade based on remaining scroll distance
           const scrollAfterComplete = scrollProgress - maxTranslate;
-          const fadeDistance = viewportHeight * 0.4; // Fade over 40% of viewport (quicker fade)
+          const fadeDistance = 100; // Fast 100px fade after horizontal scroll completes
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
