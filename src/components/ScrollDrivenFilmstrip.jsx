@@ -137,9 +137,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Determine when to hide: when section bottom is about to leave viewport
-          // This ensures filmstrip hides before Story Development scrolls up behind it
-          const hideThreshold = viewportHeight * 0.3; // Hide when section bottom is 30% from top
+          // After horizontal scroll completes, calculate fade based on remaining scroll distance
+          const scrollAfterComplete = scrollProgress - maxTranslate;
+          const fadeDistance = viewportHeight * 0.5; // Fade over half viewport after scroll completes
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
@@ -149,15 +149,17 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.width = '';
             content.style.zIndex = '';
             content.style.opacity = '1';
+            content.style.pointerEvents = '';
             scroller.style.transform = 'translateX(0)';
-          } else if (sectionRect.bottom < hideThreshold) {
-            // After section - section bottom is near top of viewport, hide to reveal next section
+          } else if (scrollAfterComplete > fadeDistance) {
+            // After fade complete - fully hide the section
             content.style.position = 'fixed';
             content.style.left = '-9999px';
             content.style.top = '0';
             content.style.width = '';
             content.style.zIndex = '';
             content.style.opacity = '0';
+            content.style.pointerEvents = 'none';
             scroller.style.transform = `translateX(-${maxTranslate}px)`;
           } else {
             // In active scrolling zone - FIX THE POSITION
@@ -168,15 +170,15 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             // Use section ID to determine z-index (storyboard should be above moodboard)
             const zIndex = id === 'storyboard' ? '101' : '100';
             content.style.zIndex = zIndex;
+            content.style.pointerEvents = '';
             
             // Map scroll progress to horizontal translation
             const translateX = Math.min(scrollProgress, maxTranslate);
             scroller.style.transform = `translateX(-${translateX}px)`;
             
-            // Smooth fade out as section approaches hide threshold
-            const fadeStartThreshold = viewportHeight * 0.6; // Start fading at 60% from top
-            if (sectionRect.bottom < fadeStartThreshold) {
-              const fadeProgress = (fadeStartThreshold - sectionRect.bottom) / (fadeStartThreshold - hideThreshold);
+            // Fade out after horizontal scroll completes
+            if (scrollAfterComplete > 0) {
+              const fadeProgress = scrollAfterComplete / fadeDistance;
               content.style.opacity = String(Math.max(0, 1 - fadeProgress));
             } else {
               content.style.opacity = '1';
