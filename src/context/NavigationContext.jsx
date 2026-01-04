@@ -9,6 +9,7 @@ const NavigationActionsContext = createContext(null);
 
 // DEBUG: Force intro sequence to always play on HOME
 // Only enabled in development (never in production builds)
+// Set VITE_DEBUG_FORCE_INTRO=true in .env to enable
 const DEBUG_FORCE_INTRO = import.meta.env.DEV && import.meta.env.VITE_DEBUG_FORCE_INTRO === 'true';
 
 // Helper to check if we're in development mode

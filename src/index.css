@@ -4909,11 +4909,11 @@ body.anime-load-error .top-nav-link {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  overflow: hidden;
+  overflow: visible; /* CRITICAL: Allow horizontal scroll content to be visible */
   margin: 0 auto;
   
-  /* Solid background prevents seeing content underneath during pinning */
-  background: var(--bg);
+  /* Transparent background to allow frames to be visible */
+  background: transparent;
   z-index: 10;
 }
 
@@ -4948,11 +4948,11 @@ body.anime-load-error .top-nav-link {
 }
 
 .scroll-driven-filmstrip__caption {
-  margin: 0;
+  margin: 0 auto;
   max-width: 900px;
   text-align: center;
 
-  /* “glass” look consistent with site */
+  /* "glass" look consistent with site */
   background: rgba(26, 31, 62, 0.55);
   border: 1px solid rgba(167, 139, 250, 0.25);
   backdrop-filter: blur(16px) saturate(160%);
@@ -4985,6 +4985,9 @@ body.anime-load-error .top-nav-link {
   transform: translate3d(0, 0, 0);
   /* Optimize rendering - prevent layout/paint from affecting parent */
   contain: layout paint;
+  /* Ensure scroller content appears above main content */
+  position: relative;
+  z-index: 20;
 }
 
 @media (max-width: 767px) {
