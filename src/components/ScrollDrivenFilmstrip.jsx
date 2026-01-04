@@ -50,10 +50,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + minimal buffer
-    // Minimal buffer means the filmstrip hides almost immediately after horizontal scroll completes
-    const fadeZone = 150; // Just 150px buffer for a quick fade
-    const newHeight = horizontalScrollDistance + fadeZone;
+    // Section height = horizontal scroll distance + tiny buffer
+    // No fade - filmstrip hides immediately when horizontal scroll completes
+    const buffer = 50; // Tiny buffer just to complete the scroll
+    const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
 
@@ -136,10 +136,6 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // After horizontal scroll completes, calculate fade based on remaining scroll distance
-          const scrollAfterComplete = scrollProgress - maxTranslate;
-          const fadeDistance = 100; // Fast 100px fade after horizontal scroll completes
-          
           // Determine state based on section position
           if (sectionTop > scrollStart) {
             // Before section - reset to start (Frame 1)
@@ -150,8 +146,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.opacity = '1';
             content.style.pointerEvents = '';
             scroller.style.transform = 'translateX(0)';
-          } else if (scrollAfterComplete > fadeDistance) {
-            // After fade complete - fully hide the section
+          } else if (scrollProgress >= maxTranslate) {
+            // After horizontal scroll completes - IMMEDIATELY hide to prevent layering
             content.style.position = 'fixed';
             content.style.left = '-9999px';
             content.style.top = '0';
@@ -170,18 +166,11 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             const zIndex = id === 'storyboard' ? '101' : '100';
             content.style.zIndex = zIndex;
             content.style.pointerEvents = '';
+            content.style.opacity = '1';
             
             // Map scroll progress to horizontal translation
             const translateX = Math.min(scrollProgress, maxTranslate);
             scroller.style.transform = `translateX(-${translateX}px)`;
-            
-            // Fade out after horizontal scroll completes
-            if (scrollAfterComplete > 0) {
-              const fadeProgress = scrollAfterComplete / fadeDistance;
-              content.style.opacity = String(Math.max(0, 1 - fadeProgress));
-            } else {
-              content.style.opacity = '1';
-            }
           }
 
           ticking = false;
