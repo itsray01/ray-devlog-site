@@ -137,10 +137,11 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Transition buffer: after horizontal scroll completes, allow some extra scroll before hiding
-          const transitionBuffer = 50; // Hide quickly after horizontal scroll completes
+          // Determine when to hide: when section bottom is close to viewport top
+          // This ensures we hide BEFORE the next section becomes visible
+          const hideThreshold = viewportHeight * 0.6; // Hide when section bottom is within 60% of viewport
           
-          // Determine state based on scroll progress
+          // Determine state based on section position
           if (sectionTop > scrollStart) {
             // Before section - reset to start (Frame 1)
             content.style.position = 'sticky';
@@ -149,8 +150,8 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             content.style.zIndex = '';
             content.style.opacity = '1';
             scroller.style.transform = 'translateX(0)';
-          } else if (scrollProgress > maxTranslate + transitionBuffer) {
-            // After section - horizontal scroll is complete + buffer, hide the section
+          } else if (sectionRect.bottom < hideThreshold) {
+            // After section - section bottom is near top of viewport, hide to reveal next section
             content.style.position = 'fixed';
             content.style.left = '-9999px';
             content.style.top = '0';
@@ -172,10 +173,10 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
             const translateX = Math.min(scrollProgress, maxTranslate);
             scroller.style.transform = `translateX(-${translateX}px)`;
             
-            // Smooth fade out as we approach the end of horizontal scroll
-            const fadeStart = maxTranslate - 100; // Start fading 100px before end
-            if (scrollProgress > fadeStart) {
-              const fadeProgress = (scrollProgress - fadeStart) / (maxTranslate + transitionBuffer - fadeStart);
+            // Smooth fade out as section approaches hide threshold
+            const fadeStartThreshold = viewportHeight * 0.8; // Start fading earlier
+            if (sectionRect.bottom < fadeStartThreshold) {
+              const fadeProgress = (fadeStartThreshold - sectionRect.bottom) / (fadeStartThreshold - hideThreshold);
               content.style.opacity = String(1 - Math.min(fadeProgress, 1));
             } else {
               content.style.opacity = '1';
