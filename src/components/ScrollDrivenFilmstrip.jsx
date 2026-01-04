@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + small buffer
-    // Small buffer for tight transition between sections
-    const buffer = 200; // Much smaller gap
+    // Section height = horizontal scroll distance + buffer
+    // Buffer sized to prevent layering while keeping transition tight
+    const buffer = 500; // Balance between tight transition and no layering
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
