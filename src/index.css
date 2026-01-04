@@ -2580,7 +2580,7 @@ html {
 
 /* Table styles for Inspiration section */
 .table-wrap {
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 .nice-table {
