@@ -136,9 +136,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
           const containerWidth = sectionRect.width;
           const maxTranslate = scrollerWidth - containerWidth;
           
-          // Hide when section bottom approaches viewport bottom (Story Development about to appear)
+          // Hide when section is almost scrolled past (bottom near top of viewport)
           const sectionBottom = sectionRect.bottom;
-          const shouldHide = sectionBottom < viewportHeight + 50; // Hide when section is about to end
+          const shouldHide = sectionBottom < 100; // Hide when section bottom is near viewport top
           
           // Determine state based on section position
           if (sectionTop > scrollStart) {
