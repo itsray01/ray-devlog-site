@@ -50,9 +50,9 @@ const ScrollDrivenFilmstrip = ({ title, description, items = [], renderItem, id 
       return;
     }
 
-    // Section height = horizontal scroll distance + small buffer
-    // Hide is now based on viewport position, so buffer can be smaller
-    const buffer = 100; // Minimal buffer for tight transition
+    // Section height = horizontal scroll distance + buffer
+    // Buffer prevents overlay while keeping transition tight
+    const buffer = 400; // Larger buffer to prevent overlay
     const newHeight = horizontalScrollDistance + buffer;
     setSectionHeight(`${newHeight}px`);
   }, [isMobile]);
