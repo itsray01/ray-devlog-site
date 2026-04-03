@@ -72,49 +72,43 @@
   {
     "date": "December 2025 – January 2026",
     "title": "Christmas Break",
-    "task": "[Locked - Future content]",
-    "challenge": "[Locked - Future content]",
-    "reflection": "[Locked - Future content]",
-    "locked": true
+    "task": "Brief pause from active development. Reviewed prototype feedback and planned the intensive video generation phase ahead. Continued background research on AI video generation workflows and prompt engineering techniques.",
+    "challenge": "Maintaining creative momentum across the break while mentally preparing for the most technically demanding phase of production. The prototype feedback highlighted areas needing significant improvement.",
+    "reflection": "The break provided valuable distance to reflect on the project holistically. Stepping back revealed that the challenges faced during prototype development—navigating AI tools that offered possibilities while withholding full control—mirrored the artefact's own themes about constrained agency. This connection between process and product would become central to the essay's Practice as Research framing."
   },
   {
     "date": "Week of 19th January 2026",
     "title": "Development Resumption",
-    "task": "[Locked - Future content]",
-    "challenge": "[Locked - Future content]",
-    "reflection": "[Locked - Future content]",
-    "locked": true
+    "task": "Resume development with focus on AI video generation workflow. Test multiple models (Veo3, Kling, NanoBanana) and establish a comparative workflow for selecting best outputs. Begin post-production enhancement to address quality issues in generated clips.",
+    "challenge": "No single AI model could consistently produce every scene at cinematic quality. Each tool interpreted prompts differently, creating the need for repeated cycles of generation, comparison, selection, and refinement. Even when clips captured the right atmosphere, they often appeared soft, blurry, or inconsistent.",
+    "reflection": "The development process revealed that constructing AI-generated work depends heavily on human selection, intervention, and compromise. The workflow became curatorial as well as technical—evaluating which outputs best supported tone, pacing, and visual logic. Rather than replacing creative decision-making, the tools redistributed it across new stages of evaluation and control. This insight reinforced one of the project's central methodological findings."
   },
   {
     "date": "February 2026",
     "title": "Analysis & Essay Drafting",
-    "task": "[Locked - Future content]",
-    "challenge": "[Locked - Future content]",
-    "reflection": "[Locked - Future content]",
-    "locked": true
+    "task": "Begin drafting the academic essay using Practice as Research (PaR) methodology. Connect the artefact's development to theoretical frameworks from Murray (agency), Aarseth (cybertext), Schön (reflective practice), and others. Document how the making process generated research insights.",
+    "challenge": "Translating tacit creative knowledge into explicit academic writing proved difficult. Articulating how the making process itself generated research insights—not just the finished artefact—required careful theoretical framing. Balancing creative reflection with analytical rigour was an ongoing tension.",
+    "reflection": "Nelson's onto-epistemological model proved useful for bringing practical knowledge into dialogue with critical and propositional knowledge. Schön's concept of reflection-in-action captured how knowledge emerged through cycles of testing, comparison, and revision rather than following a fixed plan. The essay became a way of making the tacit processes of development more explicit and academically legible."
   },
   {
     "date": "March 2026",
     "title": "Portfolio Completion",
-    "task": "[Locked - Future content]",
-    "challenge": "[Locked - Future content]",
-    "reflection": "[Locked - Future content]",
-    "locked": true
+    "task": "Finalise the Twine interface styling using ChatGPT-assisted HTML/CSS generation. Integrate all video assets and ensure the interactive experience matches the cinematic quality of the generated scenes. Build the devlog portfolio website to document the project journey.",
+    "challenge": "Twine's default interface looked too plain and risked weakening the artefact's immersion. The interface needed to reflect the same dark, futuristic, cyberpunk aesthetic as the generated scenes. Presenting choices as simple text links would undermine the cinematic quality achieved in the video assets.",
+    "reflection": "Drawing on Conor McKeown's tutorials on working with video in Twine and designing custom buttons, the interface became another layer of meaning. Even the viewer's act of choosing was framed within a controlled and stylised system, making the mode of interaction support the artefact's mood. ChatGPT functioned as a practical design aid, helping generate HTML/CSS that felt cohesive with the project's visual identity."
   },
   {
     "date": "Week of 30th March 2026",
     "title": "Final Revisions",
-    "task": "[Locked - Future content]",
-    "challenge": "[Locked - Future content]",
-    "reflection": "[Locked - Future content]",
-    "locked": true
+    "task": "Polish key scenes including the furnace revelation. Refine prompting to embed sound design elements (mechanical rumbling, industrial drones, faint crowd murmurs, Maya's fearful breathing) directly into video generation. Test viewer experience across all branching paths.",
+    "challenge": "Prompting became closer to directing than generating—needing to communicate narrative context, emotional stakes, and sensory texture simultaneously. The furnace scene required staging a revelation where Maya hides, witnesses something horrifying, and slowly realises the violence of the system around her.",
+    "reflection": "The furnace scene demonstrated how prompting could function not just as technical input but as a way of shaping narrative meaning and affective rhythm. Leaving out conventional music while emphasising drones, rumbling, and breathing created a stark, mechanical, and disturbing atmosphere. The aim was not only to show a frightening event, but to construct a moment where the viewer experiences dread through both visual scale and sensory tension."
   },
   {
     "date": "10th April 2026",
     "title": "Final Submission",
-    "task": "[Locked - Future content]",
-    "challenge": "[Locked - Future content]",
-    "reflection": "[Locked - Future content]",
-    "locked": true
+    "task": "Submit the completed artefact (Echoes of Control) and accompanying academic essay. Prepare final documentation connecting creative practice to research outcomes. Ensure both components demonstrate the project's central argument about constrained agency.",
+    "challenge": "Synthesising months of iterative development into a coherent submission. Ensuring both the artefact and essay demonstrate how constrained agency became central to theme, interface, and emotional experience—and how the production process itself embodied this tension.",
+    "reflection": "The project showed how creative practice can function as meaningful research into AI futures and the unstable conditions of control. Both Maya's story and the viewer's limited interactivity explore what it feels like to navigate powerful systems that exceed individual control. The production process echoed these themes: working with generative tools involved navigating systems that offered possibilities while withholding full mastery. Echoes of Control demonstrates that fears about technological power are not only conceptual questions, but affective and experiential ones."
   }
 ]
