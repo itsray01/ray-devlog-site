@@ -37,9 +37,9 @@
   {
     "date": "Week of 27th October 2025",
     "title": "Asset Generation & Integration",
-    "task": "Generate draft video and audio assets using Veo3, NanoBanana, Kling (visuals), and ElevenLabs/Suno (sound). Integrate assets into the Twine prototype for visual testing.",
-    "challenge": "Maintaining visual consistency across different AI tools proved extremely difficult. Each tool interpreted prompts differently, creating jarring visual shifts. Characters and environments varied significantly between generations, breaking immersion. Additionally, AI-generated video often contained artifacts and temporal inconsistencies requiring multiple regeneration attempts.",
-    "reflection": "This phase highlighted both the potential and limitations of current AI video generation. The experience revealed the importance of prompt engineering as a new creative skill, requiring both technical precision and artistic vision. The challenge of consistency connects to course discussions on AI ethics and the role of human oversight in AI-assisted production. Establishing a hybrid workflow combining AI generation with traditional post-production became essential."
+    "task": "Generate draft video assets by testing multiple AI models through Higgsfield: Sora 2, Grok Imagine, Veo 3.1, WAN, Seedance, and others. At this stage, Kling 3.0 Omni had not yet been released—Veo 3.1 and Sora 2 were considered the best available. Integrate early assets into the Twine prototype for visual testing.",
+    "challenge": "Maintaining visual consistency across different AI tools proved extremely difficult. Each model interpreted prompts differently, creating jarring visual shifts. Characters and environments varied significantly between generations, breaking immersion. The landscape of available tools was rapidly evolving, with new models being released during development.",
+    "reflection": "This testing phase highlighted both the potential and limitations of AI video generation in late 2025. The experience revealed prompt engineering as a new creative skill requiring both technical precision and artistic vision. Importantly, this comparative evaluation would prove valuable when Kling 3.0 Omni launched—having tested many alternatives made the quality leap immediately apparent. The challenge of consistency connects to course discussions on AI ethics and human oversight in AI-assisted production."
   },
   {
     "date": "Week of 3rd November 2025",
@@ -79,9 +79,9 @@
   {
     "date": "Week of 19th January 2026",
     "title": "Development Resumption",
-    "task": "Resume development with focus on AI video generation workflow. Test multiple models (Veo3, Kling, NanoBanana) and establish a comparative workflow for selecting best outputs. Begin post-production enhancement to address quality issues in generated clips.",
-    "challenge": "No single AI model could consistently produce every scene at cinematic quality. Each tool interpreted prompts differently, creating the need for repeated cycles of generation, comparison, selection, and refinement. Even when clips captured the right atmosphere, they often appeared soft, blurry, or inconsistent.",
-    "reflection": "The development process revealed that constructing AI-generated work depends heavily on human selection, intervention, and compromise. The workflow became curatorial as well as technical—evaluating which outputs best supported tone, pacing, and visual logic. Rather than replacing creative decision-making, the tools redistributed it across new stages of evaluation and control. This insight reinforced one of the project's central methodological findings."
+    "task": "Resume development with focus on AI video generation. Transition to Kling 3.0 Omni as the primary generation tool—a model that didn't exist when the project started. Generate 200+ additional clips using Kling's integrated sound capabilities and 'elements' feature with Gemini-generated images.",
+    "challenge": "When this project began, Kling 3.0 Omni hadn't been released yet. Veo 3.1 and Sora 2 were considered the best available models. Through extensive testing on Higgsfield (Sora 2, Grok Imagine, Veo 3.1, WAN, Seedance, and others), it became clear that Kling 3.0 Omni now surpassed them all in quality and consistency.",
+    "reflection": "The rapid evolution of AI video generation tools meant the project's technical landscape shifted significantly during development. What started as a multi-model comparison workflow became focused on a single superior tool. Kling 3.0 Omni's integrated sound eliminated the need for separate audio generation, and its 'elements' feature allowed Gemini-generated images to be used as consistent visual anchors across scenes. This consolidation simplified the workflow while improving output quality."
   },
   {
     "date": "February 2026",
@@ -93,16 +93,16 @@
   {
     "date": "March 2026",
     "title": "Portfolio Completion",
-    "task": "Finalise the Twine interface styling using ChatGPT-assisted HTML/CSS generation. Integrate all video assets and ensure the interactive experience matches the cinematic quality of the generated scenes. Build the devlog portfolio website to document the project journey.",
-    "challenge": "Twine's default interface looked too plain and risked weakening the artefact's immersion. The interface needed to reflect the same dark, futuristic, cyberpunk aesthetic as the generated scenes. Presenting choices as simple text links would undermine the cinematic quality achieved in the video assets.",
-    "reflection": "Drawing on Conor McKeown's tutorials on working with video in Twine and designing custom buttons, the interface became another layer of meaning. Even the viewer's act of choosing was framed within a controlled and stylised system, making the mode of interaction support the artefact's mood. ChatGPT functioned as a practical design aid, helping generate HTML/CSS that felt cohesive with the project's visual identity."
+    "task": "Finalise the Twine interface using JSON-based prompting for passages, CSS, and HTML. Create a mobile prototype using Anything.com's MAX plan (secured 50% discount after reaching out to the founder). Build the devlog portfolio website to document the project journey.",
+    "challenge": "Twine's default interface looked too plain and risked weakening the artefact's immersion. The interface needed to reflect the same dark, futuristic, cyberpunk aesthetic as the Kling 3.0 Omni-generated scenes. Additionally, ensuring the experience worked on mobile required a dedicated prototyping approach.",
+    "reflection": "Using JSON to structure Twine prompts for passages, CSS, and HTML provided a systematic approach to interface development. The Anything.com MAX plan ($100 with founder discount) enabled rapid mobile prototyping, ensuring the artefact could be experienced across devices. Drawing on Conor McKeown's tutorials, the interface became another layer of meaning—the viewer's act of choosing was framed within a controlled and stylised system."
   },
   {
     "date": "Week of 30th March 2026",
     "title": "Final Revisions",
-    "task": "Polish key scenes including the furnace revelation. Refine prompting to embed sound design elements (mechanical rumbling, industrial drones, faint crowd murmurs, Maya's fearful breathing) directly into video generation. Test viewer experience across all branching paths.",
+    "task": "Polish key scenes including the furnace revelation using Kling 3.0 Omni's integrated sound generation. Leverage the 'elements' feature with Gemini-generated images to maintain visual consistency. Test viewer experience across all branching paths on both desktop and mobile.",
     "challenge": "Prompting became closer to directing than generating—needing to communicate narrative context, emotional stakes, and sensory texture simultaneously. The furnace scene required staging a revelation where Maya hides, witnesses something horrifying, and slowly realises the violence of the system around her.",
-    "reflection": "The furnace scene demonstrated how prompting could function not just as technical input but as a way of shaping narrative meaning and affective rhythm. Leaving out conventional music while emphasising drones, rumbling, and breathing created a stark, mechanical, and disturbing atmosphere. The aim was not only to show a frightening event, but to construct a moment where the viewer experiences dread through both visual scale and sensory tension."
+    "reflection": "Kling 3.0 Omni's integrated sound meant audio could be generated alongside video rather than layered separately, creating more cohesive atmospheric moments. The furnace scene demonstrated how prompting could shape narrative meaning and affective rhythm—leaving out conventional music while generating industrial drones and mechanical rumbling created a stark, disturbing atmosphere. The 'elements' feature ensured Maya's appearance remained consistent across the revelation sequence."
   },
   {
     "date": "10th April 2026",
