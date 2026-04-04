@@ -4,12 +4,11 @@ import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 
 // Lazy load pages for better performance
-const Home = lazy(() => import('./pages/Home'));
-const MyJourney = lazy(() => import('./pages/MyJourney'));
-const Theories = lazy(() => import('./pages/Theories'));
-const Assets = lazy(() => import('./pages/Assets'));
-const About = lazy(() => import('./pages/About'));
-const Journal = lazy(() => import('./pages/Journal'));
+const Home = lazy(() => import('./pages/Home.jsx'));
+const Process = lazy(() => import('./pages/Process.jsx'));
+const Research = lazy(() => import('./pages/Research.jsx'));
+const Archive = lazy(() => import('./pages/Archive.jsx'));
+const Timeline = lazy(() => import('./pages/Timeline.jsx'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -52,10 +51,9 @@ const App = () => {
     if (typeof window === 'undefined') return;
 
     const preload = () => {
-      // Most common next navigations
-      import('./pages/MyJourney');
-      import('./pages/Theories');
-      import('./pages/Assets');
+      import('./pages/Process.jsx');
+      import('./pages/Research.jsx');
+      import('./pages/Archive.jsx');
     };
 
     if (typeof window.requestIdleCallback === 'function') {
@@ -81,46 +79,44 @@ const App = () => {
             )}
           />
           <Route
-            path="my-journey"
+            path="process"
             element={(
               <Suspense fallback={<PageLoader />}>
-                <MyJourney />
+                <Process />
               </Suspense>
             )}
           />
           <Route
-            path="theories"
+            path="research"
             element={(
               <Suspense fallback={<PageLoader />}>
-                <Theories />
+                <Research />
               </Suspense>
             )}
           />
           <Route
-            path="assets"
+            path="archive"
             element={(
               <Suspense fallback={<PageLoader />}>
-                <Assets />
+                <Archive />
               </Suspense>
             )}
           />
           <Route
-            path="about"
+            path="timeline"
             element={(
               <Suspense fallback={<PageLoader />}>
-                <About />
+                <Timeline />
               </Suspense>
             )}
           />
-          <Route
-            path="journal"
-            element={(
-              <Suspense fallback={<PageLoader />}>
-                <Journal />
-              </Suspense>
-            )}
-          />
-          <Route path="extras" element={<Navigate to="/journal" replace />} />
+          {/* Redirects from old routes */}
+          <Route path="my-journey" element={<Navigate to="/process" replace />} />
+          <Route path="theories" element={<Navigate to="/research" replace />} />
+          <Route path="assets" element={<Navigate to="/archive" replace />} />
+          <Route path="about" element={<Navigate to="/timeline" replace />} />
+          <Route path="journal" element={<Navigate to="/process" replace />} />
+          <Route path="extras" element={<Navigate to="/process" replace />} />
         </Route>
       </Routes>
     </Router>
