@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Map, BookOpen, Info, Package, Sparkles } from 'lucide-react';
+import { Menu, X, Home, Map, BookOpen, Info, Package, ScrollText } from 'lucide-react';
 import NavMenu from './NavMenu';
 import ThemeToggle from './ThemeToggle';
 import { useNavigationActions, useNavigationScroll, useNavigationState } from '../context/NavigationContext';
@@ -12,7 +12,7 @@ const navLinks = [
   { path: '/theories', label: 'Theories', icon: BookOpen },
   { path: '/about', label: 'About', icon: Info },
   { path: '/assets', label: 'Assets', icon: Package },
-  { path: '/extras', label: 'Extras', icon: Sparkles }
+  { path: '/journal', label: 'Journal', icon: ScrollText }
 ];
 
 /**

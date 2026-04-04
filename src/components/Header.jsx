@@ -41,10 +41,10 @@ const Header = () => {
           About
         </Link>
         <Link 
-          to="/extras" 
-          className={isActive('/extras') ? 'active' : ''}
+          to="/journal" 
+          className={isActive('/journal') ? 'active' : ''}
         >
-          Extras
+          Journal
         </Link>
       </nav>
     </header>

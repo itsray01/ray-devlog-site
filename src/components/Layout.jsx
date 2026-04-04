@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import NavOverlay from './NavOverlay';
@@ -12,6 +12,9 @@ import PageLoadAnimation from './PageLoadAnimation';
 import PageTitleCard from './PageTitleCard';
 import { NavigationProvider, useNavigationActions, useNavigationState } from '../context/NavigationContext';
 import useViewport from '../hooks/useViewport';
+
+// Lightweight CSS-only galaxy background
+const GalaxyBackground = lazy(() => import('./background/GalaxyBackground'));
 
 /**
  * LayoutContent - Inner component that uses navigation context
@@ -62,6 +65,11 @@ const LayoutContent = () => {
 
   return (
     <div className="app-container">
+      {/* Galaxy Background - CSS-only stars with parallax */}
+      <Suspense fallback={null}>
+        <GalaxyBackground />
+      </Suspense>
+      
       {/* Page load animation controller */}
       <PageLoadAnimation />
       

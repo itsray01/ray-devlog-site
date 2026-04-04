@@ -1,0 +1,529 @@
+/**
+ * HOME PAGE - Premium Game Title Screen Aesthetic
+ *
+ * Cinematic HUD design with:
+ * - Wider desktop layout (1400px max)
+ * - Unified surface styling (no weird borders)
+ * - Film grain + scanlines overlays
+ * - Drifting nebula gradient background
+ * - Subtle mouse parallax on nebula
+ * - Micro-polished animations
+ */
+
+/* ============================================
+   DESIGN TOKENS - Home Only
+   ============================================ */
+
+.homeShell {
+  /* Layout */
+  --home-max-width: 1400px;
+  --home-gutter: clamp(16px, 4vw, 48px);
+  --home-gap: clamp(24px, 3vw, 40px);
+
+  /* Surface - Unified glass aesthetic */
+  --home-surface-bg: rgba(18, 22, 45, 0.55);
+  --home-surface-border: rgba(167, 139, 250, 0.12);
+  --home-surface-border-hover: rgba(167, 139, 250, 0.28);
+  --home-radius: 16px;
+  --home-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 4px rgba(0, 0, 0, 0.3);
+  --home-shadow-hover:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(167, 139, 250, 0.12);
+
+  /* Typography */
+  --home-title-size: clamp(2.5rem, 5vw, 4rem);
+  --home-subtitle-size: clamp(1.125rem, 2vw, 1.5rem);
+  --home-section-title-size: clamp(1.75rem, 3vw, 2.25rem);
+
+  /* Spacing */
+  --home-section-spacing: clamp(4rem, 8vw, 8rem);
+  --home-content-spacing: clamp(2rem, 4vw, 3rem);
+}
+
+/* ============================================
+   CINEMATIC BACKGROUND LAYERS
+   ============================================ */
+
+.homeShell {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  isolation: isolate;
+  /* overflow-x removed to allow filmstrip horizontal scrolling */
+}
+
+/* Layer 1: Nebula gradient with drift animation */
+.homeShell::before {
+  content: '';
+  position: fixed;
+  inset: -25%;
+  width: 150%;
+  height: 150%;
+  z-index: -3;
+  pointer-events: none;
+
+  /* Mouse parallax offset via CSS variables (set by JS) */
+  --parallax-x: 0px;
+  --parallax-y: 0px;
+
+  background:
+    /* Purple nebula (top-left) */
+    radial-gradient(
+      ellipse 1000px 800px at 20% 15%,
+      rgba(139, 92, 246, 0.45) 0%,
+      rgba(167, 139, 250, 0.22) 35%,
+      transparent 65%
+    ),
+    /* Blue-cyan nebula (right) */
+    radial-gradient(
+      ellipse 900px 1000px at 80% 40%,
+      rgba(56, 189, 248, 0.38) 0%,
+      rgba(96, 165, 250, 0.18) 40%,
+      transparent 70%
+    ),
+    /* Pink accent (center-top) */
+    radial-gradient(
+      ellipse 800px 600px at 50% 10%,
+      rgba(232, 121, 249, 0.32) 0%,
+      rgba(192, 132, 252, 0.12) 45%,
+      transparent 70%
+    ),
+    /* Deep indigo (bottom) */
+    radial-gradient(
+      ellipse 1200px 800px at 40% 95%,
+      rgba(99, 102, 241, 0.3) 0%,
+      rgba(79, 70, 229, 0.1) 50%,
+      transparent 75%
+    ),
+    /* Teal accent (bottom-right) */
+    radial-gradient(
+      ellipse 700px 600px at 85% 80%,
+      rgba(45, 212, 191, 0.28) 0%,
+      transparent 60%
+    );
+
+  /* Nebula disabled - removed translucent bouncing effect */
+  display: none;
+}
+
+@keyframes nebulaDrift {
+  0% {
+    transform: translate3d(
+      calc(-2% + var(--parallax-x, 0px)),
+      calc(-1.5% + var(--parallax-y, 0px)),
+      0
+    ) scale(1.02);
+  }
+  100% {
+    transform: translate3d(
+      calc(2% + var(--parallax-x, 0px)),
+      calc(1.5% + var(--parallax-y, 0px)),
+      0
+    ) scale(1.02);
+  }
+}
+
+/* Layer 2: Film grain + scanlines overlay - DISABLED */
+.homeShell::after {
+  display: none;
+}
+
+@keyframes grainFlow {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 5%); }
+  30% { transform: translate(5%, -10%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(10%, 5%); }
+  60% { transform: translate(5%, -15%); }
+  70% { transform: translate(-10%, 10%); }
+  80% { transform: translate(15%, 0%); }
+  90% { transform: translate(0%, 10%); }
+}
+
+/* ============================================
+   CONTAINER & LAYOUT
+   ============================================ */
+
+.homeContainer {
+  position: relative;
+  width: min(100% - (var(--home-gutter) * 2), var(--home-max-width));
+  margin-inline: auto;
+  z-index: 1;
+}
+
+/* Hero section - extra spacing */
+.homeHero {
+  padding: clamp(4rem, 10vh, 8rem) 0 clamp(3rem, 6vh, 5rem) 0;
+  text-align: center;
+}
+
+.homeHero h1 {
+  font-family: 'Iceberg', sans-serif;
+  font-size: var(--home-title-size);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.05;
+
+  /* Cinematic glow */
+  text-shadow:
+    0 0 30px rgba(167, 139, 250, 0.5),
+    0 0 60px rgba(167, 139, 250, 0.25),
+    0 4px 12px rgba(0, 0, 0, 0.6);
+
+  /* Subtle entrance animation */
+  animation: titleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+}
+
+@keyframes titleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.homeSubtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: var(--home-subtitle-size);
+  font-weight: 400;
+  color: rgba(224, 231, 255, 0.85);
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.5;
+
+  animation: titleReveal 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: 0.15s;
+}
+
+/* ============================================
+   UNIFIED SURFACE SYSTEM - No Weird Borders
+   ============================================ */
+
+.homeSurface {
+  background: var(--home-surface-bg);
+  backdrop-filter: blur(20px) saturate(130%);
+  border: 1px solid var(--home-surface-border);
+  border-radius: var(--home-radius);
+  box-shadow: var(--home-shadow);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover state - subtle lift */
+.homeSurface:hover {
+  border-color: var(--home-surface-border-hover);
+  box-shadow: var(--home-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Inner glow on hover */
+.homeSurface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.08) 0%,
+    transparent 50%,
+    rgba(124, 58, 237, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.homeSurface:hover::before {
+  opacity: 1;
+}
+
+/* Section spacing */
+.homeSection {
+  margin-bottom: var(--home-section-spacing);
+}
+
+.homeSection:last-child {
+  margin-bottom: 0;
+}
+
+/* Section title styling */
+.homeSectionTitle {
+  font-family: 'Iceberg', sans-serif;
+  font-size: var(--home-section-title-size);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  margin: 0 0 var(--home-content-spacing) 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+
+  /* Subtle glow */
+  text-shadow:
+    0 0 15px rgba(167, 139, 250, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Divider element */
+.homeDivider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(167, 139, 250, 0.3) 50%,
+    transparent 100%
+  );
+  margin: var(--home-content-spacing) 0;
+  border: none;
+}
+
+/* ============================================
+   MICRO-POLISH: Button Sheen Animation
+   ============================================ */
+
+.ctaButtonSheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.ctaButtonSheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  animation: sheen 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes sheen {
+  0%, 100% {
+    left: -100%;
+  }
+  50% {
+    left: 200%;
+  }
+}
+
+/* Apply sheen to primary CTAs */
+.homeSurface button[class*="primary"],
+.homeSurface a[class*="primary"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.homeSurface button[class*="primary"]::after,
+.homeSurface a[class*="primary"]::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  animation: sheen 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ============================================
+   SECTION ENTRANCE ANIMATIONS
+   ============================================ */
+
+.sectionFadeIn {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: sectionEnter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes sectionEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger delays for multiple sections */
+.sectionFadeIn:nth-child(1) { animation-delay: 0.1s; }
+.sectionFadeIn:nth-child(2) { animation-delay: 0.2s; }
+.sectionFadeIn:nth-child(3) { animation-delay: 0.3s; }
+.sectionFadeIn:nth-child(4) { animation-delay: 0.4s; }
+.sectionFadeIn:nth-child(5) { animation-delay: 0.5s; }
+
+/* ============================================
+   OVERRIDE EXISTING BORDERS - Home Only
+   ============================================ */
+
+/* Remove borders from cards and sections inside homeShell */
+.homeShell :global(.card),
+.homeShell :global(.feature-card),
+.homeShell :global(.content-section) > *,
+.homeShell :global(.home-hub__panel) {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Apply unified surface styling to cards/panels in homeShell */
+.homeShell :global(.card),
+.homeShell :global(.feature-card),
+.homeShell :global(.home-hub__panel) {
+  background: var(--home-surface-bg);
+  backdrop-filter: blur(20px) saturate(130%);
+  border: 1px solid var(--home-surface-border) !important;
+  border-radius: var(--home-radius);
+  box-shadow: var(--home-shadow);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover state for cards/panels */
+.homeShell :global(.card):hover,
+.homeShell :global(.feature-card):hover,
+.homeShell :global(.home-hub__panel):hover {
+  border-color: var(--home-surface-border-hover) !important;
+  box-shadow: var(--home-shadow-hover) !important;
+  transform: translateY(-2px);
+}
+
+/* Inner glow on hover for cards/panels */
+.homeShell :global(.card)::before,
+.homeShell :global(.feature-card)::before,
+.homeShell :global(.home-hub__panel)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.08) 0%,
+    transparent 50%,
+    rgba(124, 58, 237, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.homeShell :global(.card):hover::before,
+.homeShell :global(.feature-card):hover::before,
+.homeShell :global(.home-hub__panel):hover::before {
+  opacity: 1;
+}
+
+/* Ensure sections don't have extra borders */
+.homeShell section {
+  border: none;
+  outline: none;
+}
+
+/* ============================================
+   MOUSE PARALLAX - Nebula Layer Only
+   ============================================ */
+
+/* Applied via JS - see useMouseParallax hook below */
+.homeShell[data-parallax-active="true"]::before {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .homeShell {
+    --home-max-width: 1100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .homeShell {
+    --home-max-width: 100%;
+    --home-gutter: 20px;
+    --home-gap: 20px;
+    --home-section-spacing: 3rem;
+  }
+
+  .homeHero {
+    padding: 3rem 0 2rem 0;
+  }
+
+  /* Disable parallax on mobile */
+  .homeShell::before {
+    animation: none;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  /* Reduce grain on mobile for performance */
+  .homeShell::after {
+    opacity: 0.2;
+    animation: none;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .homeShell::before,
+  .homeShell::after,
+  .homeHero h1,
+  .homeSubtitle,
+  .sectionFadeIn {
+    animation: none !important;
+  }
+
+  .homeSurface:hover {
+    transform: none;
+  }
+
+  .ctaButtonSheen::after,
+  .homeSurface button[class*="primary"]::after,
+  .homeSurface a[class*="primary"]::after {
+    animation: none;
+  }
+}
+
+/* ============================================
+   FOCUS STATES - Accessibility
+   ============================================ */
+
+.homeSurface:focus-within {
+  border-color: var(--accent-primary);
+  box-shadow:
+    var(--home-shadow-hover),
+    0 0 0 3px rgba(167, 139, 250, 0.3);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}

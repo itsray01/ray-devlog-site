@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Lightbox from '../Lightbox';
-import VisualGridTile from '../visualgrid/VisualGridTile';
+import { handleImageError } from '../../utils/imageUtils';
 import inspirationData from '../../../data/inspiration.json';
 
 /**
@@ -19,7 +19,7 @@ const InspirationSection = () => {
     <>
       <section id="inspiration" className="content-section">
         {/* Header Card */}
-        <div className="card" data-animate="reveal">
+        <div className="card">
           <h2>Inspiration</h2>
           <p className="muted">
             Reference works that shape the mood, interface language, and ethics of the maze-horror AI escape.
@@ -28,7 +28,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Interactive Films & Series */}
-        <div className="card" data-animate="reveal">
+        <div className="card">
           <h3>Interactive Films & Series</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -53,7 +53,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Games & System Narratives */}
-        <div className="card" data-animate="reveal">
+        <div className="card">
           <h3>Games & System Narratives</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -78,7 +78,7 @@ const InspirationSection = () => {
         </div>
 
         {/* Visual Grammar & Design Influence */}
-        <div className="card" data-animate="reveal">
+        <div className="card">
           <h3>Visual Grammar & Design Influence</h3>
           <div className="table-wrap">
             <table className="nice-table">
@@ -103,28 +103,34 @@ const InspirationSection = () => {
         </div>
 
         {/* Visual Grid */}
-        <div className="card" data-animate="reveal-scale">
+        <div className="card">
           <h3>Visual Reference Grid</h3>
           <div className="grid-2x3">
-            {visualReferenceData.map((item) => (
-              <VisualGridTile
-                key={item.id}
-                id={item.id}
-                poster={item.image}
-                title={item.title}
-                subtitle={item.year || item.designer}
-                onClick={() => setLightboxImage({ 
-                  src: item.image, 
-                  title: item.title, 
-                  year: item.year || item.designer 
-                })}
-              />
+            {visualReferenceData.map((item, idx) => (
+              <figure
+                className="grid-tile"
+                key={idx}
+                onClick={() => setLightboxImage({ src: item.image, title: item.title, year: item.year || item.designer })}
+                style={{ cursor: 'pointer' }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  onError={handleImageError}
+                />
+                <figcaption>
+                  <strong>{item.title}</strong>
+                  <br />
+                  <span className="muted" style={{ fontSize: '0.85rem' }}>{item.year || item.designer}</span>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
 
         {/* Thematic Core */}
-        <div className="card" data-animate="reveal">
+        <div className="card">
           <h3>Thematic Core</h3>
           <p className="muted">
             All references converge on exploring:

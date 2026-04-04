@@ -19,6 +19,21 @@ const MissionBrief = () => {
         <span className="mission-brief__build">BUILD v0.7</span>
       </div>
 
+      {/* Status chips row */}
+      <div className="mission-brief__status-row">
+        <div className="mission-brief__status-chip">
+          <span className="mission-brief__status-dot"></span>
+          <span>BUILD v0.7</span>
+        </div>
+        <div className="mission-brief__status-chip mission-brief__status-chip--ok">
+          <span className="mission-brief__status-dot"></span>
+          <span>ACTIVE</span>
+        </div>
+        <div className="mission-brief__status-chip">
+          <span>LAST UPDATED: JAN 2026</span>
+        </div>
+      </div>
+
       <div className="mission-brief__content">
         <div className="mission-brief__field">
           <span className="mission-brief__key">PROJECT:</span>
@@ -60,12 +75,12 @@ const MissionBrief = () => {
         </a>
 
         <a
-          href="/extras"
+          href="/journal"
           className="mission-brief__btn mission-brief__btn--secondary"
-          aria-label="Play prototype"
+          aria-label="Open journal"
         >
           <Play size={18} />
-          <span>EXTRAS</span>
+          <span>JOURNAL</span>
         </a>
       </div>
     </div>

@@ -42,7 +42,7 @@ const TopNavBar = () => {
     { path: '/theories', label: 'Theories' },
     { path: '/assets', label: 'Assets' },
     { path: '/about', label: 'About' },
-    { path: '/extras', label: 'Extras' }
+    { path: '/journal', label: 'Journal' }
   ];
 
   // Check if a link is active

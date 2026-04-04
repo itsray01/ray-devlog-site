@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 /**
  * PlaceholderCard - Reusable card component for "Coming Soon" content
- * Used in Assets and Extras pages
+ * Used in Assets and Journal teaser sections
  * 
  * @param {string} title - Card heading
  * @param {string} description - Card description text

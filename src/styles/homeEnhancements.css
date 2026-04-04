@@ -1,0 +1,511 @@
+/**
+ * HOME PAGE ENHANCEMENTS
+ *
+ * Cinematic HUD in deep space aesthetic
+ * - Unified glass card styling (no double borders)
+ * - Premium scrollbar styling
+ * - Improved hierarchy and spacing
+ * - Lightweight animations (transform/opacity only)
+ */
+
+/* ============================================
+   UNIFIED GLASS CARD SYSTEM
+   Fix: Remove border stacking, create consistent style
+   ============================================ */
+
+/*
+  Core principle: ONE border, ONE shadow, ONE backdrop-filter
+  No stacking of border + outline + multiple shadows
+*/
+
+/* Base card style - used across all Home sections */
+.home-page .card,
+.home-page .feature-card,
+.home-page .home-hub__panel {
+  /* Reset any conflicting borders */
+  border: none !important;
+  outline: none;
+
+  /* Single hairline gradient border via pseudo-element */
+  position: relative;
+  background: rgba(26, 31, 62, 0.65);
+  backdrop-filter: blur(16px) saturate(120%);
+  border-radius: 12px;
+
+  /* Single soft shadow (not stacked) */
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(167, 139, 250, 0.08);
+
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gradient border via ::before pseudo-element */
+.home-page .card::before,
+.home-page .feature-card::before,
+.home-page .home-hub__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.35) 0%,
+    rgba(124, 58, 237, 0.2) 50%,
+    rgba(167, 139, 250, 0.15) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover state - subtle glow, NO translateY to avoid layout shift */
+.home-page .card:hover,
+.home-page .feature-card:hover,
+.home-page .home-hub__panel:hover {
+  background: rgba(41, 47, 82, 0.75);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(167, 139, 250, 0.15),
+    inset 0 1px 0 rgba(167, 139, 250, 0.12);
+}
+
+.home-page .card:hover::before,
+.home-page .feature-card:hover::before,
+.home-page .home-hub__panel:hover::before {
+  opacity: 1;
+}
+
+/* Keep focus ring for accessibility (keyboard navigation) */
+.home-page .card:focus-visible,
+.home-page .feature-card:focus-visible,
+.home-page .home-hub__panel:focus-visible,
+.home-page .feature-card__cta:focus-visible,
+.home-page .mission-brief__btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 3px;
+}
+
+/* Diagnostics tiles and buttons - don't need gradient border, just clean hairline */
+.home-page .diagnostics-hud__tile,
+.home-page .continue-card__btn,
+.home-page .mission-brief__btn,
+.home-page .patch-note {
+  border: none !important;
+  background: rgba(26, 31, 62, 0.5);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(167, 139, 250, 0.18);
+
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-page .diagnostics-hud__tile:hover,
+.home-page .continue-card__btn:hover,
+.home-page .mission-brief__btn:hover,
+.home-page .patch-note:hover {
+  background: rgba(41, 47, 82, 0.7);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(167, 139, 250, 0.2),
+    inset 0 0 0 1px rgba(167, 139, 250, 0.35);
+}
+
+/* Primary buttons - solid background with glow */
+.home-page .mission-brief__btn--primary {
+  background: linear-gradient(135deg,
+    var(--accent-primary) 0%,
+    var(--accent-secondary) 100%
+  );
+  box-shadow:
+    0 4px 16px rgba(167, 139, 250, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.home-page .mission-brief__btn--primary:hover {
+  background: linear-gradient(135deg,
+    var(--accent-secondary) 0%,
+    #6d28d9 100%
+  );
+  box-shadow:
+    0 6px 24px rgba(167, 139, 250, 0.5),
+    0 0 20px rgba(167, 139, 250, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   HOME HERO SECTION - Stronger Hierarchy
+   ============================================ */
+
+.home-hero {
+  margin-bottom: 4rem;
+  padding: 3rem 0 2rem 0;
+}
+
+.home-page .page-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.home-page .page-header h1 {
+  font-family: 'Iceberg', sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  text-shadow:
+    0 0 20px rgba(167, 139, 250, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.5);
+  line-height: 1.1;
+}
+
+.home-page .page-subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 400;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================================
+   STATUS CHIPS ROW (Mission Brief Enhancement)
+   ============================================ */
+
+.mission-brief__status-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.mission-brief__status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 20px;
+  background: rgba(167, 139, 250, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.3);
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+
+.mission-brief__status-chip--ok {
+  background: rgba(16, 185, 129, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.35);
+  color: var(--ok);
+}
+
+.mission-brief__status-chip--warn {
+  background: rgba(251, 191, 36, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.35);
+  color: var(--warn);
+}
+
+.mission-brief__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.85); }
+}
+
+/* ============================================
+   FEATURED EXPERIMENT CARD
+   ============================================ */
+
+.featured-experiment {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(26, 31, 62, 0.65);
+  backdrop-filter: blur(16px) saturate(120%);
+  border-radius: 12px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(167, 139, 250, 0.08);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featured-experiment::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(167, 139, 250, 0.35) 0%,
+    rgba(124, 58, 237, 0.2) 50%,
+    rgba(167, 139, 250, 0.15) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.featured-experiment:hover {
+  background: rgba(41, 47, 82, 0.75);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(167, 139, 250, 0.15),
+    inset 0 1px 0 rgba(167, 139, 250, 0.12);
+}
+
+.featured-experiment:hover::before {
+  opacity: 1;
+}
+
+.featured-experiment__thumbnail {
+  position: relative;
+  width: 280px;
+  height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.featured-experiment__thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featured-experiment:hover .featured-experiment__thumbnail img {
+  transform: scale(1.05);
+}
+
+.featured-experiment__thumbnail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+}
+
+.featured-experiment__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 1;
+}
+
+.featured-experiment__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Iceberg', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+
+.featured-experiment__eyebrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.featured-experiment__title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.featured-experiment__description {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.featured-experiment__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.featured-experiment__cta:hover {
+  color: var(--accent-secondary);
+  gap: 0.75rem;
+}
+
+.featured-experiment__cta svg {
+  transition: transform 0.2s ease;
+}
+
+.featured-experiment__cta:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .featured-experiment {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .featured-experiment__thumbnail {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================================
+   PREMIUM SCROLLBAR STYLING
+   Cross-browser (WebKit + Firefox)
+   ============================================ */
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 14, 39, 0.5);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.3);
+  border-radius: 5px;
+  border: 2px solid rgba(10, 14, 39, 0.5);
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.5);
+  border-color: rgba(10, 14, 39, 0.7);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(167, 139, 250, 0.7);
+}
+
+/* Horizontal scrollbar */
+::-webkit-scrollbar-corner {
+  background: rgba(10, 14, 39, 0.5);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(167, 139, 250, 0.3) rgba(10, 14, 39, 0.5);
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .card,
+  .home-page .feature-card,
+  .home-page .home-hub__panel,
+  .featured-experiment,
+  .mission-brief__btn--primary {
+    transition: none;
+  }
+
+  .mission-brief__btn--primary:hover,
+  .featured-experiment:hover .featured-experiment__thumbnail img {
+    transform: none;
+  }
+
+  .mission-brief__status-dot {
+    animation: none;
+  }
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .home-hero {
+    margin-bottom: 2.5rem;
+    padding: 2rem 0 1.5rem 0;
+  }
+
+  .home-page .page-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .mission-brief__status-row {
+    gap: 0.5rem;
+  }
+
+  .mission-brief__status-chip {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-experiment {
+    padding: 1.25rem;
+  }
+
+  .featured-experiment__title {
+    font-size: 1.25rem;
+  }
+
+  .featured-experiment__description {
+    font-size: 0.9rem;
+  }
+}

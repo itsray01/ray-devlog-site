@@ -14,7 +14,7 @@ const StoryboardSection = () => {
     <>
       <ScrollDrivenFilmstrip
         title="STORYBOARD"
-        description="Shot planning frames for key beats in the maze. Rough compositions that define blocking and emotional pacing."
+        description="Key moments from the film as stills—quick guides for layout and mood before final shots."
         items={storyboardData}
         id="storyboard"
         renderItem={(item) => (

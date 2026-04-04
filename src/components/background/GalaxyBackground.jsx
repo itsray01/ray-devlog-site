@@ -1,5 +1,4 @@
 import { useRef, useEffect, Component } from 'react';
-import { useLocation } from 'react-router-dom';
 import './galaxy.css';
 
 /**
@@ -41,7 +40,6 @@ class GalaxyErrorBoundary extends Component {
  * 4. Big stars (few, brightest)
  */
 const GalaxyBackground = () => {
-  const location = useLocation();
   const containerRef = useRef(null);
   const starsSmallRef = useRef(null);
   const starsMedRef = useRef(null);
@@ -154,11 +152,6 @@ const GalaxyBackground = () => {
       document.documentElement.removeEventListener('pointerleave', onPointerLeave);
     };
   }, []);
-
-  // Only render on Home page
-  if (location.pathname !== '/') {
-    return null;
-  }
 
   return (
     <GalaxyErrorBoundary>

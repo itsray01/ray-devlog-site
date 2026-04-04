@@ -16,7 +16,7 @@ const PAGE_TITLES = {
   '/theories': 'THEORIES',
   '/assets': 'ASSETS',
   '/about': 'ABOUT',
-  '/extras': 'EXTRAS'
+  '/journal': 'JOURNAL'
 };
 
 const DISPLAY_DURATION = 650; // ms visible
@@ -89,6 +89,8 @@ const PageTitleCard = () => {
 };
 
 export default PageTitleCard;
+
+
 
 
 

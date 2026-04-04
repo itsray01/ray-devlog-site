@@ -15,7 +15,7 @@ const PAGES = [
   { id: 'theories', title: 'Theories', path: '/theories' },
   { id: 'assets', title: 'Assets', path: '/assets' },
   { id: 'about', title: 'About', path: '/about' },
-  { id: 'extras', title: 'Extras', path: '/extras' }
+  { id: 'journal', title: 'Journal', path: '/journal' }
 ];
 
 // HUD Metadata

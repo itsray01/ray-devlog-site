@@ -1,9 +1,8 @@
 [
-  { "id": "1", "title": "Frame 1: Awakening", "src": "/img/storyboard-1.png" },
-  { "id": "2", "title": "Frame 2: Corridor Exploration", "src": "/img/storyboard-2.png" },
-  { "id": "3", "title": "Frame 3: Choice Point - Junction", "src": "/img/storyboard-3.png" },
-  { "id": "4", "title": "Frame 4: Wrong Choice - Cognitive Scrambler", "src": "/img/storyboard-4.png" },
-  { "id": "5", "title": "Frame 5: Correct Path - Discovery", "src": "/img/storyboard-5.png" },
-  { "id": "6", "title": "Frame 6: Final Escape", "src": "/img/storyboard-6.png" }
+  { "id": "1", "title": "Frame 1: Outside the facility — establishing the space", "src": "/img/storyboard-1.png" },
+  { "id": "2", "title": "Frame 2: Opening the wrong door — the burn corridor", "src": "/img/storyboard-2.png" },
+  { "id": "3", "title": "Frame 3: Something hits the door — panic in the hall", "src": "/img/storyboard-3.png" },
+  { "id": "4", "title": "Frame 4: Turning away — walking toward the D corridor", "src": "/img/storyboard-4.png" },
+  { "id": "5", "title": "Frame 5: The door slams — jump scare beat", "src": "/img/storyboard-5.png" },
+  { "id": "6", "title": "Frame 6: The chamber opens — reveal and stakes", "src": "/img/storyboard-6.png" }
 ]
-

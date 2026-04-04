@@ -3,6 +3,7 @@
 
 /* --- Component Styles --- */
 @import './styles/homeHub.css';
+@import './styles/homeEnhancements.css';
 @import './styles/journeyPage.css';
 
 /* --- Color Palette & Global Variables --- */
@@ -75,12 +76,13 @@ html, body {
   min-height: 100%;
   margin: 0;
   color: var(--ink);
-  background: url("/img/bg.png") center center / cover no-repeat fixed;
+  /* Transparent to let GalaxyBackground stars show through */
+  background: transparent;
   font-family: 'Rajdhani', system-ui, sans-serif;
   /* Viewport-based scaling: scales from 14px (small screens) to 18px (large screens) based on viewport width */
   font-size: clamp(14px, 1.2vw + 0.5rem, 18px);
   line-height: 1.6;
-  background-color: var(--bg);
+  /* Removed background-color to show galaxy stars */
   text-align: left; /* Default to left alignment */
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
@@ -93,6 +95,8 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
+  /* Allow star background to show through */
+  background: transparent;
 }
 
 /* --- App Container --- */
@@ -102,6 +106,8 @@ body {
   position: relative;
   overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Allow star background to show through */
+  background: transparent;
 }
 
 /* --- Glassmorphism utility classes --- */
@@ -547,6 +553,8 @@ body {
   margin-left: 260px; /* Offset for sidebar */
   max-width: 100%; /* Never exceed container width */
   overflow-x: visible; /* Allow scroll-driven filmstrip frames to extend beyond bounds */
+  /* Allow star background to show through */
+  background: transparent;
 }
 
 main {
@@ -560,6 +568,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Allow star background to show through */
+  background: transparent;
 }
 
 /* Ensure all direct children of main are properly constrained */
@@ -887,6 +897,8 @@ main > * {
 
 .content-section {
   margin: 2rem 0;
+  /* Allow star background to show through */
+  background: transparent;
 }
 
 .content-grid {
@@ -4883,12 +4895,14 @@ body.anime-load-error .top-nav-link {
 /* --- Scroll-Driven Filmstrip --- */
 .scroll-driven-filmstrip {
   position: relative;
-  min-height: 100vh;
+  min-height: 15px;
   padding: 0;
   /* Prevent overscroll momentum from causing weird jumps */
   overscroll-behavior: contain;
   /* Anchor navigation offset for hash links */
   scroll-margin-top: 80px;
+  /* Allow star background to show through */
+  background: transparent;
 }
 
 /* Mobile: normal scroll */
@@ -4901,15 +4915,40 @@ body.anime-load-error .top-nav-link {
 
 /* Desktop: Sticky pinning */
 .scroll-driven-filmstrip__pinned {
-  /* Simplified: no complex JS positioning needed */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .scroll-driven-filmstrip__headerArea {
   width: min(1100px, 92vw);
+  max-width: 100%;
+  margin: 0 auto 2.5rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
   text-align: center;
   flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Slideshow aligns to same column as title + description */
+.scroll-driven-filmstrip__slideshow {
+  width: 100%;
+  max-width: min(1100px, 92vw);
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  position: relative;
   z-index: 1;
+  overflow: hidden;
+}
+
+.scroll-driven-filmstrip__slideInner {
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (max-width: 767px) {
@@ -4930,7 +4969,7 @@ body.anime-load-error .top-nav-link {
   font-weight: 900;
   letter-spacing: 0.02em;
   color: var(--ink);
-  margin: 0;
+  margin: 0 0 1rem;
   text-transform: uppercase;
   text-align: center;
 }
@@ -4945,11 +4984,9 @@ body.anime-load-error .top-nav-link {
   border: 1px solid rgba(167, 139, 250, 0.25);
   backdrop-filter: blur(16px) saturate(160%);
   border-radius: 12px;
-  padding: 10px 14px;
+  padding: 12px 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-}
 
-.scroll-driven-filmstrip__caption {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 1.125rem;
   line-height: 1.8;
@@ -4969,6 +5006,10 @@ body.anime-load-error .top-nav-link {
   align-items: center;
   /* All styling handled inline in component for desktop */
   /* Scroller fills natural width on mobile */
+}
+
+.scroll-driven-filmstrip__scroller--no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 767px) {

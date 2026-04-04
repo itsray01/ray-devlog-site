@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -9,7 +9,7 @@ const MyJourney = lazy(() => import('./pages/MyJourney'));
 const Theories = lazy(() => import('./pages/Theories'));
 const Assets = lazy(() => import('./pages/Assets'));
 const About = lazy(() => import('./pages/About'));
-const Extras = lazy(() => import('./pages/Extras'));
+const Journal = lazy(() => import('./pages/Journal'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -113,13 +113,14 @@ const App = () => {
             )}
           />
           <Route
-            path="extras"
+            path="journal"
             element={(
               <Suspense fallback={<PageLoader />}>
-                <Extras />
+                <Journal />
               </Suspense>
             )}
           />
+          <Route path="extras" element={<Navigate to="/journal" replace />} />
         </Route>
       </Routes>
     </Router>

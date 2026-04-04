@@ -40,56 +40,8 @@
    ================================ */
 
 .nebula {
-  position: absolute;
-  /* Overscan for parallax - prevents edge gaps */
-  inset: -25%;
-  width: 150%;
-  height: 150%;
-  
-  /* Colorful nebula clouds */
-  background:
-    /* Purple nebula (left) */
-    radial-gradient(
-      ellipse 900px 700px at 15% 25%,
-      rgba(139, 92, 246, 0.5) 0%,
-      rgba(167, 139, 250, 0.25) 35%,
-      transparent 65%
-    ),
-    /* Blue-teal nebula (right) */
-    radial-gradient(
-      ellipse 800px 900px at 85% 50%,
-      rgba(56, 189, 248, 0.42) 0%,
-      rgba(96, 165, 250, 0.2) 40%,
-      transparent 70%
-    ),
-    /* Pink accent (top center) */
-    radial-gradient(
-      ellipse 700px 500px at 50% 12%,
-      rgba(232, 121, 249, 0.38) 0%,
-      rgba(192, 132, 252, 0.15) 45%,
-      transparent 70%
-    ),
-    /* Deep indigo glow (bottom) */
-    radial-gradient(
-      ellipse 1100px 700px at 45% 92%,
-      rgba(99, 102, 241, 0.35) 0%,
-      rgba(79, 70, 229, 0.12) 50%,
-      transparent 75%
-    ),
-    /* Teal accent (bottom-right) */
-    radial-gradient(
-      ellipse 600px 500px at 82% 78%,
-      rgba(45, 212, 191, 0.32) 0%,
-      transparent 60%
-    );
-  
-  mix-blend-mode: screen;
-  opacity: 0.7;
-  
-  will-change: transform;
-  
-  /* Slow drift animation */
-  animation: nebulaDrift 100s ease-in-out infinite alternate;
+  /* Nebula disabled - removed translucent drifting effect */
+  display: none;
 }
 
 @keyframes nebulaDrift {

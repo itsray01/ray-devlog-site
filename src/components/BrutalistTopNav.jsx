@@ -10,7 +10,7 @@ const BrutalistTopNav = () => {
     { path: '/journey', label: 'MY JOURNEY' },
     { path: '/theories', label: 'THEORIES' },
     { path: '/assets', label: 'ASSETS' },
-    { path: '/extras', label: 'EXTRAS' },
+    { path: '/journal', label: 'JOURNAL' },
     { path: '/about', label: 'ABOUT' },
   ];
 

@@ -18,7 +18,7 @@ const theoriesSections = [
 const otherPages = [
   { path: '/about', title: 'About' },
   { path: '/assets', title: 'Assets' },
-  { path: '/extras', title: 'Extras' }
+  { path: '/journal', title: 'Journal' }
 ];
 
 /**

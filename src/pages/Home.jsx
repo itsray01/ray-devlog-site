@@ -7,8 +7,11 @@ import { Map, BookOpen } from 'lucide-react';
 import { useNavigation } from '../context/NavigationContext';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useAnimeHover from '../hooks/useAnimeHover';
+import useMouseParallax from '../hooks/useMouseParallax';
 import HomeHubHeader from '../components/home/HomeHubHeader';
+import FeaturedExperiment from '../components/home/FeaturedExperiment';
 import { ctaPulse, stopAnimation } from '../utils/animeFx';
+import styles from '../styles/Home.module.css';
 
 // Table of Contents sections - exported for use by navigation components
 export const HOME_SECTIONS = [
@@ -32,8 +35,6 @@ const StoryboardSection = lazy(() => import('../components/sections/StoryboardSe
 const StoryDevelopmentSection = lazy(() => import('../components/sections/StoryDevelopmentSection'));
 const BranchingSection = lazy(() => import('../components/sections/BranchingSection'));
 const ProductionSection = lazy(() => import('../components/sections/ProductionSection'));
-// Lightweight CSS-only galaxy background (replaced tsParticles)
-const GalaxyBackground = lazy(() => import('../components/background/GalaxyBackground'));
 
 // Loading fallback component
 const SectionLoader = () => (
@@ -63,24 +64,27 @@ const SectionLoader = () => (
 );
 
 /**
- * Home page - main devlog content
+ * Home page - Premium game title screen aesthetic
  */
 const Home = () => {
   // Non-critical visuals are treated as progressive enhancement (see route-level ErrorBoundary in Layout).
   const { setSections } = useNavigation();
-  
+
   // Refs for animations
   const ctaRef = useRef(null);
   const pulseAnimationRef = useRef(null);
-  
+
   // Enable scroll-reveal animations
   const scrollRevealRef = useScrollReveal({
     threshold: 0.1,
     rootMargin: '0px 0px -80px 0px',
   });
-  
+
   // Enable hover micro-interactions
   const hoverRef = useAnimeHover();
+
+  // Enable mouse parallax for nebula layer (Home-only, low intensity)
+  const parallaxRef = useMouseParallax({ intensity: 0.015, enabled: true });
 
   // Register sections with navigation context
   useEffect(() => {
@@ -121,86 +125,96 @@ const Home = () => {
 
   return (
     <>
-      {/* Galaxy Background - lightweight CSS-only, Home only */}
-      <Suspense fallback={null}>
-        <GalaxyBackground />
-      </Suspense>
-
       {/* Reading Progress Indicator */}
       <ReadingProgress />
 
       <div
-        className="page-container home-page"
+        className={`page-container home-page ${styles.homeShell}`}
         id="home"
         role="main"
         aria-label="Main content"
         ref={(el) => {
           scrollRevealRef(el);
           hoverRef(el);
+          parallaxRef(el);
         }}
       >
         <div id="main-content"></div>
 
-        {/* Page Shell - Uniform readable width container */}
-        <div className="page-shell">
+        {/* Premium Home Container - Wider, cinematic */}
+        <div className={styles.homeContainer}>
           {/* Hero Section */}
-          <div className="home-hero">
+          <div className={styles.homeHero}>
             {/* Page Header */}
-            <header className="page-header" data-animate="reveal" style={{ position: 'relative', zIndex: 1 }}>
+            <header data-animate="reveal">
               <h1>Digital Project Logbook</h1>
-              <p className="page-subtitle">
+              <p className={styles.homeSubtitle}>
                 Documenting the journey of creating an interactive dystopian film
               </p>
             </header>
 
             {/* Home Hub Header - Game-style hub layer */}
-            <div style={{ position: 'relative', zIndex: 1 }}>
+            <div className={styles.homeSection}>
               <HomeHubHeader />
             </div>
           </div>
-        </div>
 
-        {/* Page Shell for logbook sections - same width as hub */}
-        <div className="page-shell">
-          {/* Lazy-loaded sections */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <OverviewSection />
-            </Suspense>
-          </ErrorBoundary>
+          {/* Featured Experiment Card */}
+          <div className={styles.homeSection}>
+            <FeaturedExperiment />
+          </div>
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <InspirationSection />
-            </Suspense>
-          </ErrorBoundary>
+          {/* Lazy-loaded sections with fade-in animation */}
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <OverviewSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <MoodboardSection />
-            </Suspense>
-          </ErrorBoundary>
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <InspirationSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <StoryboardSection />
-            </Suspense>
-          </ErrorBoundary>
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <MoodboardSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <StoryDevelopmentSection />
-            </Suspense>
-          </ErrorBoundary>
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <StoryboardSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <BranchingSection />
-            </Suspense>
-          </ErrorBoundary>
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <StoryDevelopmentSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
+
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <BranchingSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
 
           {/* Featured Links Section */}
-          <section className="content-section" aria-label="Featured pages" data-animate="reveal">
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
             <FeatureGrid columns={2} gap="lg">
               <FeatureCard
                 eyebrow="AI Experiments"
@@ -225,17 +239,19 @@ const Home = () => {
                 onMouseEnter={() => import('../pages/Theories')}
               />
             </FeatureGrid>
-          </section>
+          </div>
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionLoader />}>
-              <ProductionSection />
-            </Suspense>
-          </ErrorBoundary>
+          <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
+            <ErrorBoundary>
+              <Suspense fallback={<SectionLoader />}>
+                <ProductionSection />
+              </Suspense>
+            </ErrorBoundary>
+          </div>
 
           {/* Footer */}
-          <footer>
-            <p>
+          <footer className={styles.homeSection}>
+            <p style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '0.9rem' }}>
               This logbook documents the ongoing development of an interactive dystopian film project
               as of November 2025. It serves as both a creative diary and technical reference for
               AI-assisted filmmaking.
