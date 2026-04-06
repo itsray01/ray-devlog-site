@@ -58,7 +58,7 @@ const HUD_TILES = [
     jumpTo: null,
     status: 'ok'
   }
-];i
+];
 
 /**
  * DiagnosticsHUD - System status tiles
