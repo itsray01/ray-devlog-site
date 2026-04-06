@@ -7,7 +7,7 @@ import { timelineVariants, itemVariants } from '../constants/animations';
  * Shows date badges that expand to reveal full entry details on scroll or hover
  * Only 3 entries visible at a time (center entry + 1 above + 1 below)
  */
-const Timeline = ({ entries = [] }) => {
+const AssetLine = ({ entries = [] }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [visibleEntries, setVisibleEntries] = useState(new Set());
@@ -136,4 +136,4 @@ const Timeline = ({ entries = [] }) => {
   );
 };
 
-export default Timeline;
+export default AssetLine;

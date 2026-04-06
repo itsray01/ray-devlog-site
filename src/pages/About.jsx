@@ -1,14 +1,14 @@
 import { memo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition } from '../constants/animations';
-import Timeline from '../components/Timeline';
+import Evolution from '../components/Evolution';
 import ReadingProgress from '../components/ReadingProgress';
 import timelineData from '../../data/timeline.json';
 import { useNavigationActions } from '../context/NavigationContext';
 
 // Table of Contents sections
 export const ABOUT_SECTIONS = [
-  { id: 'timeline', title: 'Project Timeline' },
+  { id: 'timeline', title: 'Project Evolution' },
   { id: 'vision', title: 'The Vision' },
   { id: 'process', title: 'The Process' },
   { id: 'methodology', title: 'Research Methodology' }
@@ -57,7 +57,7 @@ const About = () => {
           <p className="page-subtitle">The story behind the logbook</p>
         </motion.header>
 
-      {/* Project Timeline Section */}
+      {/* Project Evolution Section */}
       <motion.section
         id="timeline"
         className="content-section"
@@ -67,11 +67,11 @@ const About = () => {
         aria-labelledby="timeline-heading"
       >
         <div className="card">
-          <h2 id="timeline-heading">Project Timeline</h2>
+          <h2 id="timeline-heading">Project Evolution</h2>
           <p className="page-subtitle" style={{ marginBottom: '1.5rem' }}>
             Key milestones and development phases
           </p>
-          <Timeline entries={timelineData} />
+          <Evolution entries={timelineData} />
         </div>
       </motion.section>
 

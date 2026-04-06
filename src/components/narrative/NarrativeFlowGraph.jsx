@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -108,6 +108,10 @@ function buildGraph(data, direction = 'TB') {
  */
 const NarrativeFlowGraph = ({ direction = 'TB' }) => {
   const isLR = direction === 'LR';
+  const [locked, setLocked] = useState(true);
+  const [fading, setFading] = useState(false);
+  const [showZoomHint, setShowZoomHint] = useState(false);
+  const [hintFading, setHintFading] = useState(false);
 
   const { nodes: initNodes, edges: initEdges } = useMemo(
     () => buildGraph(narrativeData, direction),
@@ -127,36 +131,141 @@ const NarrativeFlowGraph = ({ direction = 'TB' }) => {
     }, 50);
   }, [isLR]);
 
+  const handleUnlock = () => {
+    setFading(true);
+    setTimeout(() => {
+      setLocked(false);
+      setTimeout(() => {
+        setShowZoomHint(true);
+        setTimeout(() => {
+          setHintFading(true);
+          setTimeout(() => setShowZoomHint(false), 600);
+        }, 3000);
+      }, 5000);
+    }, 400);
+  };
+
   const zoomMin = isLR ? 0.55 : 0.2;
 
   return (
-    <div className={`narrative-flow-wrapper${isLR ? ' narrative-flow-wrapper--lr' : ''}`}>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onInit={onInit}
-        nodeTypes={nodeTypes}
-        fitView
-        minZoom={zoomMin}
-        maxZoom={2.5}
-        nodesDraggable={false}
-        nodesConnectable={false}
-        attributionPosition="bottom-left"
-        proOptions={{ hideAttribution: true }}
-      >
-        <Background color="#1a1f3e" gap={20} size={1} variant="dots" />
-        <Controls
-          showInteractive={false}
-          className="narrative-controls"
-        />
-        <MiniMap
-          nodeColor={(n) => CATEGORY_COLORS[n.data?.category] || '#a78bfa'}
-          maskColor="rgba(10,14,39,0.85)"
-          style={{ backgroundColor: '#0d1117', border: '1px solid rgba(167,139,250,0.2)' }}
-        />
-      </ReactFlow>
+    <div style={{ position: 'relative' }}>
+      <div className={`narrative-flow-wrapper${isLR ? ' narrative-flow-wrapper--lr' : ''}`}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onInit={onInit}
+          nodeTypes={nodeTypes}
+          fitView
+          minZoom={zoomMin}
+          maxZoom={2.5}
+          nodesDraggable={false}
+          panOnDrag={!locked}
+          zoomOnScroll={!locked}
+          zoomOnPinch={!locked}
+          nodesConnectable={false}
+          attributionPosition="bottom-left"
+          proOptions={{ hideAttribution: true }}
+        >
+          <Background color="#1a1f3e" gap={20} size={1} variant="dots" />
+          <Controls
+            showInteractive={false}
+            className="narrative-controls"
+          />
+          <MiniMap
+            nodeColor={(n) => CATEGORY_COLORS[n.data?.category] || '#a78bfa'}
+            maskColor="rgba(10,14,39,0.85)"
+            style={{ backgroundColor: '#0d1117', border: '1px solid rgba(167,139,250,0.2)' }}
+          />
+        </ReactFlow>
+      </div>
+
+      {locked && (
+        <div
+          onClick={handleUnlock}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.75rem',
+            backdropFilter: 'blur(6px)',
+            WebkitBackdropFilter: 'blur(6px)',
+            background: 'rgba(10, 14, 39, 0.45)',
+            cursor: 'pointer',
+            borderRadius: '8px',
+            opacity: fading ? 0 : 1,
+            transition: 'opacity 0.4s ease',
+            zIndex: 10,
+          }}
+        >
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,0.9)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 9l7-7 7 7" />
+            <path d="M5 15l7 7 7-7" />
+            <circle cx="12" cy="12" r="1.5" fill="rgba(167,139,250,0.9)" stroke="none" />
+          </svg>
+          <span style={{
+            color: 'rgba(167,139,250,0.95)',
+            fontSize: '0.85rem',
+            fontFamily: 'Rajdhani, sans-serif',
+            fontWeight: 600,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+          }}>
+            Click to explore
+          </span>
+          <span style={{
+            color: 'rgba(148,163,184,0.6)',
+            fontSize: '0.72rem',
+            fontFamily: 'Rajdhani, sans-serif',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+          }}>
+            Drag · Scroll to zoom
+          </span>
+        </div>
+      )}
+
+      {showZoomHint && (
+        <div style={{
+          position: 'absolute',
+          bottom: '3rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          background: 'rgba(10, 14, 39, 0.85)',
+          border: '1px solid rgba(167,139,250,0.3)',
+          borderRadius: '999px',
+          padding: '0.5rem 1.1rem',
+          pointerEvents: 'none',
+          opacity: hintFading ? 0 : 1,
+          transition: 'opacity 0.6s ease',
+          zIndex: 9,
+        }}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(167,139,250,0.9)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            <line x1="11" y1="8" x2="11" y2="14" />
+            <line x1="8" y1="11" x2="14" y2="11" />
+          </svg>
+          <span style={{
+            color: 'rgba(167,139,250,0.9)',
+            fontSize: '0.75rem',
+            fontFamily: 'Rajdhani, sans-serif',
+            fontWeight: 600,
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+          }}>
+            Scroll to zoom in
+          </span>
+        </div>
+      )}
     </div>
   );
 };

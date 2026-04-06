@@ -150,17 +150,10 @@ const Sidebar = () => {
             </div>
 
             <SimpleNavLink
-              to="/archive"
-              isActive={location.pathname === '/archive'}
-            >
-              Archive
-            </SimpleNavLink>
-
-            <SimpleNavLink
               to="/timeline"
               isActive={location.pathname === '/timeline'}
             >
-              Timeline
+              Evolution
             </SimpleNavLink>
           </div>
         </nav>

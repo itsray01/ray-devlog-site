@@ -11,8 +11,7 @@ const navLinks = [
   { path: '/process', label: 'Process', icon: Route },
   { path: '/diary', label: 'Diary', icon: PenLine },
   { path: '/research', label: 'Research', icon: BookOpen },
-  { path: '/archive', label: 'Archive', icon: Archive },
-  { path: '/timeline', label: 'Timeline', icon: Clock }
+  { path: '/timeline', label: 'Evolution', icon: Clock }
 ];
 
 /**

@@ -40,8 +40,7 @@ const TopNavBar = () => {
     { path: '/process', label: 'Process' },
     { path: '/diary', label: 'Diary' },
     { path: '/research', label: 'Research' },
-    { path: '/archive', label: 'Archive' },
-    { path: '/timeline', label: 'Timeline' }
+    { path: '/timeline', label: 'Evolution' }
   ];
 
   // Check if a link is active

@@ -7,7 +7,6 @@ import ScrollToTop from './components/ScrollToTop';
 const Home = lazy(() => import('./pages/Home.jsx'));
 const Process = lazy(() => import('./pages/Process.jsx'));
 const Research = lazy(() => import('./pages/Research.jsx'));
-const Archive = lazy(() => import('./pages/Archive.jsx'));
 const Timeline = lazy(() => import('./pages/Timeline.jsx'));
 const Diary = lazy(() => import('./pages/Diary.jsx'));
 
@@ -54,7 +53,6 @@ const App = () => {
     const preload = () => {
       import('./pages/Process.jsx');
       import('./pages/Research.jsx');
-      import('./pages/Archive.jsx');
       import('./pages/Diary.jsx');
     };
 
@@ -97,14 +95,6 @@ const App = () => {
             )}
           />
           <Route
-            path="archive"
-            element={(
-              <Suspense fallback={<PageLoader />}>
-                <Archive />
-              </Suspense>
-            )}
-          />
-          <Route
             path="timeline"
             element={(
               <Suspense fallback={<PageLoader />}>
@@ -123,7 +113,7 @@ const App = () => {
           {/* Redirects from old routes */}
           <Route path="my-journey" element={<Navigate to="/process" replace />} />
           <Route path="theories" element={<Navigate to="/research" replace />} />
-          <Route path="assets" element={<Navigate to="/archive" replace />} />
+          <Route path="assets" element={<Navigate to="/process" replace />} />
           <Route path="about" element={<Navigate to="/timeline" replace />} />
           <Route path="journal" element={<Navigate to="/diary" replace />} />
           <Route path="extras" element={<Navigate to="/process" replace />} />

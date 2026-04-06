@@ -8,7 +8,7 @@ import { useNavigationActions } from '../context/NavigationContext';
 export { DIARY_NAV_SECTIONS as DIARY_SECTIONS };
 
 /**
- * Development diary — module requirement: 5–8 entries (here: 7), first entry = project + aims + academic context.
+ * Development diary — module requirement: 5–8 entries (here: 6), first entry = project + aims + academic context.
  */
 const Diary = () => {
   const { setSections } = useNavigationActions();
@@ -43,11 +43,10 @@ const Diary = () => {
         >
           <h1>Development diary</h1>
           <p className="page-subtitle">
-            Seven entries documenting Echoes of Control as it was built — including an opening entry with project aims
-            and academic context, followed by dated notes on tools, supervision, and iteration. Twine and GitHub hosting
-            are combined in one entry to avoid repeating the same workflow story. Written in a slightly more direct voice
-            than the essay; total length stays within the module limit (not significantly above 3,000 words). For dated
-            milestones without repeated prose, see Timeline; for theory in depth, see Research.
+            Six entries documenting the development of Echoes of Control — from project aims and academic
+            context through video generation, scene iteration, Twine interface work, supervision, and
+            reflections on the process. Written in a more direct voice than the essay. For milestones
+            see Evolution; for theory in depth, see Research.
           </p>
         </motion.header>
 

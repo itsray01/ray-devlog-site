@@ -59,7 +59,7 @@ const OverviewSection = () => {
         </p>
         <p>
           The <a href="/process">Process page</a> contains the full experiment log and tool
-          reflections. The <a href="/timeline">Timeline</a> maps the pivots. The{' '}
+          reflections. The <a href="/timeline">Evolution</a> maps the pivots. The{' '}
           <a href="/research">Research page</a> connects every major decision to academic
           frameworks. Together they make the case that this project is research through making —
           not just a film, but a documented investigation into what AI video production currently

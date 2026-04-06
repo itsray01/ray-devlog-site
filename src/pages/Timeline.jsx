@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition } from '../constants/animations';
-import TimelineComponent from '../components/Timeline';
+import Evolution from '../components/Evolution';
 import NarrativeFlowGraph from '../components/narrative/NarrativeFlowGraph';
 import ReadingProgress from '../components/ReadingProgress';
 import timelineData from '../../data/timeline.json';
@@ -44,7 +44,7 @@ const Timeline = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>Timeline</h1>
+          <h1>Evolution</h1>
           <p className="page-subtitle">Project evolution from early concept to final submission</p>
           <p>
             Each milestone here represents a decision made in response to evidence — a tool that underperformed,
@@ -63,11 +63,8 @@ const Timeline = () => {
           aria-labelledby="narrative-map-heading"
         >
           <div className="card">
-            <h2 id="narrative-map-heading">Narrative Map</h2>
-            <p className="page-subtitle" style={{ marginBottom: '1rem' }}>
-              Interactive branching structure of the Twine prototype — parsed directly from the exported HTML
-            </p>
-            <NarrativeFlowGraph />
+            <h2 id="narrative-map-heading">Twine Interactive Branch</h2>
+            <NarrativeFlowGraph direction="LR" />
             <div className="nf-legend">
               <span className="nf-legend__item">
                 <span className="nf-legend__dot" style={{ color: '#00e5ff', background: '#00e5ff' }} />
@@ -102,7 +99,7 @@ const Timeline = () => {
             <p className="page-subtitle" style={{ marginBottom: '1.5rem' }}>
               Key milestones, workflow shifts, and development phases
             </p>
-            <TimelineComponent entries={timelineData} />
+            <Evolution entries={timelineData} />
           </div>
         </motion.section>
 

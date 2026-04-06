@@ -15,7 +15,7 @@ const PAGE_TITLES = {
   '/process': 'PROCESS',
   '/research': 'RESEARCH',
   '/archive': 'ARCHIVE',
-  '/timeline': 'TIMELINE'
+  '/timeline': 'EVOLUTION'
 };
 
 const DISPLAY_DURATION = 650; // ms visible

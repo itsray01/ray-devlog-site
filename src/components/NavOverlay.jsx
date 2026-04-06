@@ -13,8 +13,7 @@ const PAGES = [
   { id: 'process', title: 'Process', path: '/process' },
   { id: 'diary', title: 'Diary', path: '/diary' },
   { id: 'research', title: 'Research', path: '/research' },
-  { id: 'archive', title: 'Archive', path: '/archive' },
-  { id: 'timeline', title: 'Timeline', path: '/timeline' }
+  { id: 'timeline', title: 'Evolution', path: '/timeline' }
 ];
 
 // HUD Metadata

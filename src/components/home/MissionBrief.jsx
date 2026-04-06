@@ -74,10 +74,10 @@ const MissionBrief = () => {
         <a
           href="/timeline"
           className="mission-brief__btn mission-brief__btn--secondary"
-          aria-label="View timeline"
+          aria-label="View evolution"
         >
           <Play size={18} />
-          <span>TIMELINE</span>
+          <span>EVOLUTION</span>
         </a>
 
         <Link
