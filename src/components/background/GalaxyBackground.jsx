@@ -141,6 +141,17 @@ const GalaxyBackground = () => {
       document.documentElement.addEventListener('pointerleave', onPointerLeave);
     }
 
+    // Pause RAF when tab is hidden, resume when visible
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else {
+        if (!rafId) rafId = requestAnimationFrame(animate);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     // Start animation loop
     rafId = requestAnimationFrame(animate);
 
@@ -150,6 +161,7 @@ const GalaxyBackground = () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pointermove', onPointerMove);
       document.documentElement.removeEventListener('pointerleave', onPointerLeave);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, []);
 

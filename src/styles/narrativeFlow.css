@@ -1,0 +1,328 @@
+/* ====== Narrative Flow Graph — Cyberpunk DAG ====== */
+
+.narrative-flow-wrapper {
+  width: 100%;
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  background: #0a0a1a;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .narrative-flow-wrapper {
+    height: 720px;
+  }
+}
+
+/* ---- React Flow overrides ---- */
+.narrative-flow-wrapper .react-flow__renderer {
+  background: #0a0a1a;
+}
+
+.narrative-flow-wrapper .react-flow__edge-textbg {
+  rx: 4;
+  ry: 4;
+}
+
+.narrative-flow-wrapper .react-flow__edge-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+}
+
+/* Animated edge stroke – data‑flow pulse */
+.narrative-flow-wrapper .react-flow__edge.animated path {
+  stroke-dasharray: 8 4;
+  animation: nf-dash-flow 1.2s linear infinite;
+}
+
+@keyframes nf-dash-flow {
+  to { stroke-dashoffset: -24; }
+}
+
+/* ---- Controls ---- */
+.narrative-controls {
+  background: rgba(16, 18, 30, 0.9) !important;
+  border: 1px solid rgba(167, 139, 250, 0.25) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.15) !important;
+}
+
+.narrative-controls button {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15) !important;
+  color: #a78bfa !important;
+  fill: #a78bfa !important;
+}
+
+.narrative-controls button:hover {
+  background: rgba(167, 139, 250, 0.12) !important;
+}
+
+.narrative-controls button svg {
+  fill: #a78bfa !important;
+}
+
+/* ---- Handles ---- */
+.cyber-handle {
+  width: 8px !important;
+  height: 8px !important;
+  background: #0a0a1a !important;
+  border: 2px solid #a78bfa !important;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cyber-node:hover .cyber-handle {
+  opacity: 1;
+}
+
+/* ---- Custom Cyber Node ---- */
+.cyber-node {
+  min-width: 220px;
+  max-width: 260px;
+  padding: 14px 18px 12px;
+  background: rgba(16, 18, 30, 0.92);
+  border: 1.5px solid;
+  border-radius: 10px;
+  font-family: 'Rajdhani', sans-serif;
+  cursor: default;
+  transition: box-shadow 0.25s, transform 0.2s;
+  backdrop-filter: blur(6px);
+}
+
+/* LR mode: wider nodes, bigger text */
+.cyber-node--lr {
+  min-width: 280px;
+  max-width: 320px;
+  padding: 16px 22px 14px;
+}
+
+.cyber-node:hover {
+  transform: translateY(-2px);
+}
+
+.cyber-node--selected {
+  z-index: 10;
+}
+
+/* Header row: tag + PID */
+.cyber-node__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.cyber-node__tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  line-height: 1.6;
+}
+
+.cyber-node__pid {
+  font-size: 0.6rem;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cyber-node__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #e0e7ff;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.cyber-node__subtitle {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* LR font bumps */
+.cyber-node--lr .cyber-node__tag    { font-size: 0.75rem; }
+.cyber-node--lr .cyber-node__pid    { font-size: 0.7rem; }
+.cyber-node--lr .cyber-node__title  { font-size: 1.1rem; }
+.cyber-node--lr .cyber-node__subtitle { font-size: 0.85rem; }
+
+/* ---- Category-specific scanline accent ---- */
+.cyber-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 10px 10px 0 0;
+  opacity: 0.7;
+}
+
+.cyber-node--start::before  { background: #00e5ff; }
+.cyber-node--branch::before { background: #bf5af2; }
+.cyber-node--ending::before { background: #ff453a; }
+.cyber-node--path::before   { background: #a78bfa; }
+
+/* Subtle inner scanline animation */
+.cyber-node::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(167, 139, 250, 0.02) 3px,
+    rgba(167, 139, 250, 0.02) 4px
+  );
+}
+
+/* ---- MiniMap overrides ---- */
+.narrative-flow-wrapper .react-flow__minimap {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* ---- Legend ---- */
+.nf-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: rgba(16, 18, 30, 0.6);
+  border: 1px solid rgba(167, 139, 250, 0.12);
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.nf-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nf-legend__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* ====== Fullscreen Overlay ====== */
+.nf-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  display: flex;
+  flex-direction: column;
+  background: #060818;
+}
+
+/* Top bar: title + legend + close */
+.nf-fullscreen__bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  background: rgba(10, 14, 39, 0.95);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.18);
+  flex-shrink: 0;
+}
+
+.nf-fullscreen__title {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 1.1rem;
+  color: #e0e7ff;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.nf-fullscreen__legend {
+  margin-top: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  flex: 1;
+}
+
+.nf-fullscreen__close {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 8px;
+  color: #e0e7ff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.nf-fullscreen__close:hover {
+  background: rgba(167, 139, 250, 0.22);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
+}
+
+/* Graph area fills remaining space */
+.nf-fullscreen__graph {
+  flex: 1;
+  min-height: 0;
+}
+
+.nf-fullscreen__graph .narrative-flow-wrapper {
+  height: 100%;
+  border-radius: 0;
+  border: none;
+}
+
+/* Bottom hint */
+.nf-fullscreen__hint {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 6px 0;
+  margin: 0;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  color: #8fa3c9;
+  background: rgba(10, 14, 39, 0.95);
+  border-top: 1px solid rgba(167, 139, 250, 0.1);
+}
+
+.nf-fullscreen__hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 4px;
+  background: rgba(167, 139, 250, 0.08);
+  font-family: inherit;
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+/* Hide legend on small screens in the bar (too cramped) */
+@media (max-width: 640px) {
+  .nf-fullscreen__legend {
+    display: none;
+  }
+  .nf-fullscreen__title {
+    flex: 1;
+  }
+}

@@ -41,8 +41,7 @@ export default defineConfig(({ mode }) => {
       dedupe: ['react', 'react-dom'],
     },
     optimizeDeps: {
-      // Helps avoid Vite prebundle flakiness with ESM-heavy deps like tsParticles.
-      include: ['@tsparticles/react', '@tsparticles/engine', '@tsparticles/slim'],
+      include: ['react', 'react-dom', 'reactflow', 'dagre'],
     },
   }
 })

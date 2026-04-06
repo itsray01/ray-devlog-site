@@ -6,19 +6,12 @@ import useViewport from '../hooks/useViewport';
 import NavMenu from './NavMenu';
 import { useNavigationActions, useNavigationScroll, useNavigationState } from '../context/NavigationContext';
 
-// Static data for theories sections (not part of overlay system)
-const theoriesSections = [
+const researchSections = [
   { id: 'research-framework', title: 'Research Framework' },
   { id: 'ai-ethics', title: 'AI & Ethics' },
   { id: 'interactive-media', title: 'Interactive Media Theory' },
   { id: 'influences', title: 'Influences' },
   { id: 'course-connection', title: 'Course Connection' }
-];
-
-const otherPages = [
-  { path: '/about', title: 'About' },
-  { path: '/assets', title: 'Assets' },
-  { path: '/journal', title: 'Journal' }
 ];
 
 /**
@@ -62,23 +55,24 @@ const Sidebar = () => {
 
   // Memoize page checks
   const isHomePage = useMemo(() => location.pathname === '/', [location.pathname]);
-  const isJourneyPage = useMemo(() => location.pathname === '/my-journey', [location.pathname]);
-  const isTheoriesPage = useMemo(() => location.pathname === '/theories', [location.pathname]);
+  const isProcessPage = useMemo(() => location.pathname === '/process', [location.pathname]);
+  const isDiaryPage = useMemo(() => location.pathname === '/diary', [location.pathname]);
+  const isResearchPage = useMemo(() => location.pathname === '/research', [location.pathname]);
 
   // Show docked section nav when on overlay pages and docked
   const showDockedNav = isDocked && supportsOverlay && sections.length > 0;
 
   // Handler for theories sections (not part of overlay system)
-  const handleTheoriesSectionClick = useCallback((sectionId) => {
-    if (!isTheoriesPage) {
-      window.location.href = `/theories#${sectionId}`;
+  const handleResearchSectionClick = useCallback((sectionId) => {
+    if (!isResearchPage) {
+      window.location.href = `/research#${sectionId}`;
     } else {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
-  }, [isTheoriesPage]);
+  }, [isResearchPage]);
 
   return (
     <motion.aside
@@ -103,7 +97,7 @@ const Sidebar = () => {
         {showDockedNav && (
           <div className="sidebar-docked-nav">
             <div className="sidebar-docked-label">
-              {isHomePage ? 'Home' : isJourneyPage ? 'My Journey' : 'Sections'}
+              {isHomePage ? 'Home' : isProcessPage ? 'Process' : isDiaryPage ? 'Diary' : 'Sections'}
             </div>
             <NavMenu
               sections={sections}
@@ -117,30 +111,30 @@ const Sidebar = () => {
         {/* Main Navigation */}
         <nav className="sidebar-nav">
           <div className="nav-section">
-            {/* Home Link */}
             <SimpleNavLink to="/" isActive={isHomePage}>
               Home
             </SimpleNavLink>
 
-            {/* My Journey Link */}
-            <SimpleNavLink to="/my-journey" isActive={isJourneyPage}>
-              My Journey
+            <SimpleNavLink to="/process" isActive={isProcessPage}>
+              Process
             </SimpleNavLink>
 
-            {/* Theories with hover dropdown */}
+            <SimpleNavLink to="/diary" isActive={isDiaryPage}>
+              Diary
+            </SimpleNavLink>
+
             <div className="nav-item-container">
-              <SimpleNavLink to="/theories" isActive={isTheoriesPage}>
-                Theories
+              <SimpleNavLink to="/research" isActive={isResearchPage}>
+                Research
               </SimpleNavLink>
 
-              {/* Hover dropdown */}
               <div className="nav-dropdown">
                 <div className="dropdown-content">
-                  {theoriesSections.map((section, index) => (
+                  {researchSections.map((section, index) => (
                     <motion.button
                       key={section.id}
                       className="dropdown-item"
-                      onClick={() => handleTheoriesSectionClick(section.id)}
+                      onClick={() => handleResearchSectionClick(section.id)}
                       whileHover={{ x: 5, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       initial={{ opacity: 0, x: -10 }}
@@ -155,16 +149,19 @@ const Sidebar = () => {
               </div>
             </div>
 
-            {/* Other Pages */}
-            {otherPages.map((page) => (
-              <SimpleNavLink
-                key={page.path}
-                to={page.path}
-                isActive={location.pathname === page.path}
-              >
-                {page.title}
-              </SimpleNavLink>
-            ))}
+            <SimpleNavLink
+              to="/archive"
+              isActive={location.pathname === '/archive'}
+            >
+              Archive
+            </SimpleNavLink>
+
+            <SimpleNavLink
+              to="/timeline"
+              isActive={location.pathname === '/timeline'}
+            >
+              Timeline
+            </SimpleNavLink>
           </div>
         </nav>
 

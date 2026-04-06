@@ -82,6 +82,56 @@
   opacity: 1;
 }
 
+/* Hub panels: animated HUD corner brackets (::before = gradient border) */
+.home-page .home-hub__panel {
+  --hub-corner-len: 18px;
+  --hub-corner-th: 2px;
+}
+
+.home-page .home-hub__panel::after {
+  content: '';
+  position: absolute;
+  inset: 11px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  background:
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 0 0 / var(--hub-corner-len) var(--hub-corner-th) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 0 0 / var(--hub-corner-th) var(--hub-corner-len) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 100% 0 / var(--hub-corner-len) var(--hub-corner-th) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 100% 0 / var(--hub-corner-th) var(--hub-corner-len) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 0 100% / var(--hub-corner-len) var(--hub-corner-th) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 0 100% / var(--hub-corner-th) var(--hub-corner-len) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 100% 100% / var(--hub-corner-len) var(--hub-corner-th) no-repeat,
+    linear-gradient(var(--accent-primary), var(--accent-primary)) 100% 100% / var(--hub-corner-th) var(--hub-corner-len) no-repeat;
+  animation: hubHudCorners 3.2s ease-in-out infinite;
+}
+
+.home-page .home-hub__panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes hubHudCorners {
+  0%, 100% {
+    opacity: 0.38;
+    filter: drop-shadow(0 0 2px rgba(167, 139, 250, 0.25));
+  }
+  50% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.55));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .home-hub__panel::after {
+    animation: none;
+    opacity: 0.65;
+    filter: none;
+  }
+}
+
 /* Keep focus ring for accessibility (keyboard navigation) */
 .home-page .card:focus-visible,
 .home-page .feature-card:focus-visible,
@@ -94,7 +144,7 @@
 
 /* Diagnostics tiles and buttons - don't need gradient border, just clean hairline */
 .home-page .diagnostics-hud__tile,
-.home-page .continue-card__btn,
+.home-page .diary-preview__cta,
 .home-page .mission-brief__btn,
 .home-page .patch-note {
   border: none !important;
@@ -107,7 +157,7 @@
 }
 
 .home-page .diagnostics-hud__tile:hover,
-.home-page .continue-card__btn:hover,
+.home-page .diary-preview__cta:hover,
 .home-page .mission-brief__btn:hover,
 .home-page .patch-note:hover {
   background: rgba(41, 47, 82, 0.7);
@@ -140,6 +190,23 @@
     0 0 20px rgba(167, 139, 250, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
+}
+
+/* Diary CTA — same primary treatment as Enter Logbook, stronger outer glow (beside Timeline) */
+.home-page .mission-brief__btn--primary.mission-brief__btn--diary {
+  box-shadow:
+    0 4px 20px rgba(167, 139, 250, 0.55),
+    0 0 32px rgba(139, 92, 246, 0.45),
+    0 0 48px rgba(124, 58, 237, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.home-page .mission-brief__btn--primary.mission-brief__btn--diary:hover {
+  box-shadow:
+    0 6px 28px rgba(167, 139, 250, 0.65),
+    0 0 40px rgba(167, 139, 250, 0.55),
+    0 0 56px rgba(124, 58, 237, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 /* ============================================

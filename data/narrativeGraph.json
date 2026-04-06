@@ -1,0 +1,82 @@
+{
+  "storyTitle": "Echoes of Control",
+  "startNode": "IntroScreen",
+  "passages": [
+    {
+      "pid": "1",
+      "name": "IntroScreen",
+      "category": "start",
+      "subtitle": "Maya's story begins at Helio-9.",
+      "links": [{ "label": "Click to Begin", "target": "OutsideSetup" }]
+    },
+    {
+      "pid": "2",
+      "name": "OutsideSetup",
+      "category": "path",
+      "subtitle": "Far above the city, Helio-9 glows like a machine at the center of everything.",
+      "links": [{ "label": "Press to continue", "target": "WrongDoorSound" }]
+    },
+    {
+      "pid": "3",
+      "name": "OpenWrongDoor",
+      "category": "path",
+      "subtitle": "Through smoke and furnace glow, rigid figures force human-like shapes forward.",
+      "links": [{ "label": "Press to continue", "target": "DoorSlamsShut" }]
+    },
+    {
+      "pid": "4",
+      "name": "WrongDoorSound",
+      "category": "branch",
+      "subtitle": "Violent banging and muffled screams erupt from behind a sealed door.",
+      "links": [
+        { "label": "OPEN THE DOOR", "target": "OpenWrongDoor" },
+        { "label": "KEEP MOVING", "target": "WalkAwayToD" }
+      ]
+    },
+    {
+      "pid": "5",
+      "name": "WalkAwayToD",
+      "category": "path",
+      "subtitle": "Maya tears herself away, her pulse hammering as the screams fall behind.",
+      "links": [{ "label": "Press to continue", "target": "DoorSlamsShut" }]
+    },
+    {
+      "pid": "6",
+      "name": "EndingChoice",
+      "category": "branch",
+      "subtitle": "Stay silent and disappear, or run before the system closes in.",
+      "links": [
+        { "label": "STAY STILL", "target": "Ending_QuietCaught" },
+        { "label": "RUN", "target": "Ending_SecurityBreach" }
+      ]
+    },
+    {
+      "pid": "7",
+      "name": "DoorSlamsShut",
+      "category": "path",
+      "subtitle": "White smoke swallows the chamber. The heavy door slams shut behind her.",
+      "links": [{ "label": "Press to continue", "target": "ChamberReveal" }]
+    },
+    {
+      "pid": "8",
+      "name": "ChamberReveal",
+      "category": "path",
+      "subtitle": "A furnace burns at its core — whatever powers Helio-9, it was never just data.",
+      "links": [{ "label": "Press to continue", "target": "EndingChoice" }]
+    },
+    {
+      "pid": "9",
+      "name": "Ending_SecurityBreach",
+      "category": "ending",
+      "subtitle": "Maya runs… The chamber answers faster.",
+      "links": [{ "label": "Restart", "target": "IntroScreen" }]
+    },
+    {
+      "pid": "10",
+      "name": "Ending_QuietCaught",
+      "category": "ending",
+      "subtitle": "A red light fixes in place. She's been found.",
+      "links": [{ "label": "Restart", "target": "IntroScreen" }]
+    }
+  ]
+}

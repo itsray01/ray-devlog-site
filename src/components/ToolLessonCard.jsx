@@ -8,7 +8,15 @@ import { motion } from 'framer-motion';
  * @param {"mp4" | "embed"} videoType - Type of video (mp4 for direct video, embed for iframe)
  * @param {number} delay - Animation delay for framer-motion
  */
-const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 0 }) => {
+const ToolLessonCard = ({
+  title,
+  children,
+  videoUrl,
+  videoType = "mp4",
+  delay = 0,
+  presetNote,
+  promptText
+}) => {
   // Ensure we always render the video container
   return (
     <motion.article 
@@ -114,10 +122,56 @@ const ToolLessonCard = ({ title, children, videoUrl, videoType = "mp4", delay = 
         marginBottom: '1rem',
         lineHeight: '1.6'
       }}>
-        <strong>Note:</strong> All generations shown above were done using the General preset (no modifications), 
-        with the addition of a starting frame/reference face where possible. Note that Sora 2 and Veo3.1 do not 
-        allow photorealistic faces and have strict content policies regarding human subjects.
+        <strong>Note:</strong>{' '}
+        {presetNote || (
+          <>
+            For this comparison, every model uses the same generated reference image and the same base prompt.
+            A Start Frame or End Frame is mandatory, and Elements are also mandatory to lock character identity
+            and scene continuity across outputs.
+          </>
+        )}
       </p>
+
+      {promptText && (
+        <div
+          style={{
+            marginTop: '-0.25rem',
+            marginBottom: '1rem',
+            border: '1px solid var(--glass-border)',
+            background: 'var(--panel)',
+            borderRadius: '8px',
+            padding: '0.85rem'
+          }}
+          aria-label="Prompt used for cross-model comparison"
+        >
+          <p
+            style={{
+              margin: 0,
+              marginBottom: '0.5rem',
+              fontSize: '0.76rem',
+              letterSpacing: '0.07em',
+              textTransform: 'uppercase',
+              color: 'var(--accent-primary)',
+              fontWeight: 700
+            }}
+          >
+            Shared test prompt
+          </p>
+          <pre
+            style={{
+              margin: 0,
+              fontFamily: 'JetBrains Mono, Fira Code, monospace',
+              fontSize: '0.78rem',
+              lineHeight: 1.55,
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word',
+              color: 'var(--ink)'
+            }}
+          >
+            {promptText}
+          </pre>
+        </div>
+      )}
 
       {/* Heading */}
       <h3>{title}</h3>

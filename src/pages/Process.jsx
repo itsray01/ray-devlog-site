@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions } from '../context/NavigationContext';
 import JourneyFilters from '../components/journey/JourneyFilters';
 import JourneyLogCard from '../components/journey/JourneyLogCard';
 import journeyLogs from '../content/journeyLogs';
@@ -9,6 +10,8 @@ import journeyLogs from '../content/journeyLogs';
 const StatisticsDashboard = lazy(() => import('../components/StatisticsDashboard'));
 const ToolMatrix = lazy(() => import('../components/journey/ToolMatrix'));
 const CostCharts = lazy(() => import('../components/journey/CostCharts'));
+
+const CROSS_MODEL_TEST_PROMPT = `Cinematic dystopian horror scene in a vast AI-controlled data centre at night. Maya, a young woman from the slums in worn industrial work clothes, stands in a dim corridor with steel walls, exposed cables, vents, blinking control panels, and a damp reflective floor. A sudden unnatural scream comes from behind a large sealed metal door at the end of the corridor. Maya freezes, breathing hard, then slowly approaches with visible fear, her hand trembling as she reaches toward the control panel. The scream stops, leaving only deep industrial drones, distant machinery, and a low mechanical rumble. Flickering red emergency lights mix with cold blue monitor glow. Camera begins in a medium rear shot, slowly pushes in as Maya approaches, then cuts to a close-up of her frightened face and a low-angle shot of the sealed door vibrating slightly. Realistic human motion, subtle facial fear, restrained acting, sharp detail, oppressive atmosphere, photoreal, high contrast, no gore, no monster shown, horror through implication, 5 to 8 seconds, 16:9.`;
 
 const InlineLoader = ({ label }) => (
   <div style={{ padding: '1.25rem 0', color: 'var(--muted)' }} role="status" aria-label={label}>
@@ -21,20 +24,20 @@ export const PROCESS_SECTIONS = [
   { id: 'introduction', title: 'Introduction' },
   { id: 'practice-as-research', title: 'Practice as Research' },
   { id: 'tool-graveyard', title: 'Tools Tested' },
-  { id: 'sora2', title: 'Sora 2' },
+  { id: 'higgsfield-dop', title: 'Higgsfield DoP' },
   { id: 'veo31', title: 'Veo 3.1' },
-  { id: 'wan25', title: 'Wan 2.5' },
-  { id: 'higgsfield', title: 'Higgsfield' },
-  { id: 'seedance', title: 'Seedance' },
+  { id: 'kling26', title: 'Kling 2.6' },
+  { id: 'seedance20', title: 'Seedance 2.0' },
+  { id: 'kling30', title: 'Kling 3.0 Omni' },
   { id: 'reflections', title: 'Reflections' },
   { id: 'experiment-log', title: 'Experiment Log' },
   { id: 'tool-matrix', title: 'Tool Comparison Matrix' },
   { id: 'cost-chart', title: 'Cost Chart' },
-  { id: 'dev-notes', title: 'Development Notes' }
+  { id: 'development-diary', title: 'Development diary' }
 ];
 
 const Process = () => {
-  const { setSections } = useNavigation();
+  const { setSections } = useNavigationActions();
 
   const [selectedTools, setSelectedTools] = useState([]);
   const [selectedFailures, setSelectedFailures] = useState([]);
@@ -162,196 +165,160 @@ const Process = () => {
           </p>
           <ul className="bullets">
             <li>
-              <strong>Higgsfield</strong> — Provided access to Wan2.5, Veo3.1, Seedance, Kling,
-              and several other models, plus Higgsfield's own proprietary model
+              <strong>Model set used in this project:</strong> Kling 3.0 Omni, Higgsfield DoP, Veo 3.1,
+              Kling 2.6, and Seedance 2.0
             </li>
             <li>
-              <strong>Official Sora website</strong> — Accessed via VPN (US-only availability)
+              <strong>Controlled testing setup:</strong> same generated reference image, same base prompt,
+              and mandatory Start Frame or End Frame + Elements across all model tests
             </li>
           </ul>
           <p>
-            Each tool taught me something different, and most of them taught me what <em>doesn't</em> work.
-            In the end, I used both <strong>Veo3.1</strong> and <strong>Sora 2</strong> as they are, in my
-            opinion, the best models currently available.
+            Each model taught me something different, and most of the progress came from strict comparability.
+            By keeping prompt and image constraints identical, I could measure meaningful differences in
+            character stability, motion quality, and regeneration cost instead of guessing.
           </p>
         </article>
 
         <section style={{ marginTop: '2rem' }} aria-label="AI tool reviews">
-          <div id="sora2">
+          <div id="higgsfield-dop">
             <ToolLessonCard
-              title="Sora 2: Inconsistent Generation and Evolving Content Policies"
-              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/sora2-example.mp4"
+              title="Higgsfield DoP: Structured Camera Control"
+              videoUrl="https://github.com/itsray01/digitalproject/releases/download/Artefact_Edit/HiggsfieldDoP.mp4"
               videoType="mp4"
               delay={0.5}
+              promptText={CROSS_MODEL_TEST_PROMPT}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 1 (Early October 2025)
+              <strong>Testing Period:</strong> October–November 2025
             </p>
 
             <p>
-              <strong>Summary:</strong> Sora 2 delivered impressive cinematic quality, but inconsistent face
-              generation and evolving content policies created significant challenges for character-driven scenes.
+              <strong>Summary:</strong> Higgsfield DoP was useful when I needed controlled camera behavior and
+              cleaner motion direction from a consistent setup.
             </p>
 
             <p>
-              <strong>Access Method:</strong> I accessed Sora 2 through the official website using a VPN
-              (US only). The marketing showed incredible cinematic quality, and the technical output lived
-              up to the hype—when it worked.
+              <strong>Result with same prompt/image:</strong> It followed movement intent reliably, but character
+              micro-consistency across many branches was mixed compared with the strongest outputs later on.
             </p>
 
             <p>
-              <strong>The Problem:</strong> Sora 2's face generation proved inconsistent in ways I didn't
-              expect. Character continuity was a constant challenge, making it difficult to maintain visual
-              consistency across dialogue-heavy scenes.
-            </p>
-
-            <p>
-              <strong>Where it shines:</strong> Spacious establishing shots, abstract or surreal montages,
-              object-centric animations, nature plates, and any non-human subject matter. These can look gorgeous.
-            </p>
-
-            <p>
-              <strong>Key Lesson:</strong> Even the best models have significant limitations. Sora 2's
-              inconsistency and evolving policies taught me to build a flexible, multi-tool hybrid workflow
-              rather than relying on a single platform.
+              <strong>Key Lesson:</strong> Strong camera grammar helps, but character continuity still depends on
+              rigid image anchoring and repeatable prompt structure.
             </p>
             </ToolLessonCard>
           </div>
 
           <div id="veo31">
             <ToolLessonCard
-              title="Veo3.1: Reliable Character Generation with Technical Limitations"
-              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/veo31-example.mp4"
+              title="Veo 3.1: Stable Character Baseline"
+              videoUrl="https://github.com/itsray01/digitalproject/releases/download/Artefact_Edit/Veo3.1.mp4"
               videoType="mp4"
               delay={0.6}
+              promptText={CROSS_MODEL_TEST_PROMPT}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 4-5 (Early-Mid November 2025)
+              <strong>Testing Period:</strong> November 2025
             </p>
 
             <p>
-              <strong>Summary:</strong> Veo3.1 became one of my primary tools alongside Sora 2, delivering
-              reliable character-focused scenes with better consistency than most alternatives.
+              <strong>Summary:</strong> Veo 3.1 became an early reliability benchmark for character scenes under
+              the same controlled prompt and image conditions.
             </p>
 
             <p>
-              <strong>Why It Worked:</strong> Unlike Sora 2, Veo3.1's character rendering stayed mostly
-              consistent across multiple generations. This made it invaluable for dialogue scenes and
-              character-focused shots where maintaining visual continuity was critical.
+              <strong>Result with same prompt/image:</strong> It delivered consistent faces and readable action
+              beats, with occasional texture softness that needed post fixes.
             </p>
 
             <p>
-              <strong>Strengths:</strong> Faces stayed mostly consistent, motion felt natural, detailed
-              lighting directions rendered accurately, no hard bans on human subjects.
-            </p>
-
-            <p>
-              <strong>Limitations:</strong> Lower overall visual fidelity compared to Sora 2's best outputs.
-              Some stylistic limitations and occasional texture artifacts that required post-processing fixes.
-            </p>
-
-            <p>
-              <strong>What I Learned:</strong> Systematic prompt refinement became essential. I developed a
-              template system for describing lighting, mood, and character positioning that produced more
-              consistent results across multiple shots.
+              <strong>Key Lesson:</strong> Consistency under repeated constraints matters more than single-shot wow factor.
             </p>
             </ToolLessonCard>
           </div>
 
-          <div id="wan25">
+          <div id="kling26">
             <ToolLessonCard
-              title="Wan2.5: Speed Over Quality"
-              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/wan25-example.mp4"
+              title="Kling 2.6: Transitional Upgrade"
+              videoUrl="https://github.com/itsray01/digitalproject/releases/download/Artefact_Edit/Kling2.6.mp4"
               videoType="mp4"
               delay={0.7}
+              promptText={CROSS_MODEL_TEST_PROMPT}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 2 (Mid October 2025)
+              <strong>Testing Period:</strong> Late 2025
             </p>
 
             <p>
-              <strong>Summary:</strong> Wan2.5 offered fast generation times but struggled with maintaining
-              visual coherence and detail quality needed for cinematic footage.
+              <strong>Summary:</strong> Kling 2.6 improved coherence over earlier tests and acted as a bridge
+              before moving fully to Kling 3.0 Omni.
             </p>
 
             <p>
-              <strong>Challenges:</strong> While Wan2.5 generated videos quickly, the output often lacked the
-              cinematic polish required for the project. Motion was sometimes jittery, and fine details would
-              blur or morph unexpectedly. The model seemed optimized for speed rather than quality.
+              <strong>Result with same prompt/image:</strong> Better temporal continuity than many alternatives,
+              but still some drift over longer sequences and branch-heavy reruns.
             </p>
 
             <p>
-              <strong>Use Case:</strong> Best suited for quick concept tests and rough previsualization rather
-              than final footage. I used Wan2.5 primarily for testing framing and composition ideas before
-              committing credits to higher-quality models.
-            </p>
-
-            <p>
-              <strong>Key Lesson:</strong> Fast generation isn't always better. Sometimes you need to wait
-              longer for quality that actually works for your project. Speed doesn't compensate for unusable
-              output.
+              <strong>Key Lesson:</strong> Incremental model upgrades can meaningfully reduce reroll cost even before final consolidation.
             </p>
             </ToolLessonCard>
           </div>
 
-          <div id="higgsfield">
+          <div id="seedance20">
             <ToolLessonCard
-              title="Higgsfield: Platform Access with Mixed Results"
-              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/higgsfield-example.mp4"
+              title="Seedance 2.0: Style Strength, Control Trade-offs"
+              videoUrl="https://github.com/itsray01/digitalproject/releases/download/Artefact_Edit/Seedance2.5.mp4"
               videoType="mp4"
               delay={0.8}
+              promptText={CROSS_MODEL_TEST_PROMPT}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 3 (Late October 2025)
+              <strong>Testing Period:</strong> October–November 2025
             </p>
 
             <p>
-              <strong>Summary:</strong> Higgsfield served as a valuable platform for accessing multiple models, but its own proprietary model delivered inconsistent results for narrative content.
+              <strong>Summary:</strong> Seedance 2.0 produced compelling visual style but was less dependable for
+              strict narrative continuity.
             </p>
 
             <p>
-              <strong>Platform Benefits:</strong> The real value of Higgsfield was its unified interface for accessing Wan2.5, Veo3.1, Seedance, and Kling. This made it easy to compare outputs from different models side-by-side.
+              <strong>Result with same prompt/image:</strong> It generated expressive frames, but prompt fidelity
+              varied and sometimes over-stylized moments that needed grounded realism.
             </p>
 
             <p>
-              <strong>Model Performance:</strong> Higgsfield's own model showed promise for certain abstract or artistic shots, but struggled with consistent character rendering and maintaining scene continuity—both critical for my dystopian narrative.
-            </p>
-
-            <p>
-              <strong>Key Lesson:</strong> A good platform with multiple model options is invaluable for experimentation, even if the platform's proprietary model doesn't meet your needs.
+              <strong>Key Lesson:</strong> Distinct style is valuable, but controllability decides whether clips survive final edit.
             </p>
             </ToolLessonCard>
           </div>
 
-          <div id="seedance">
+          <div id="kling30">
             <ToolLessonCard
-              title="Seedance: Creative Style, Limited Control"
-              videoUrl="https://raw.githubusercontent.com/itsray01/ray-devlog-site/main/public/videos/seedance-example.mp4"
+              title="Kling 3.0 Omni: Final Model (Best Result)"
+              videoUrl="https://github.com/itsray01/digitalproject/releases/download/Artefact_Edit/Kling3.0._Omni.mp4"
               videoType="mp4"
               delay={0.9}
+              promptText={CROSS_MODEL_TEST_PROMPT}
             >
             <p style={{fontStyle: 'italic', color: '#888', marginBottom: '10px'}}>
-              <strong>Testing Period:</strong> Week 3 (Late October 2025)
+              <strong>Testing Period:</strong> January–March 2026
             </p>
 
             <p>
-              <strong>Summary:</strong> Seedance excelled at generating stylized, artistic content but lacked the precise control needed for consistent narrative cinematography.
+              <strong>Summary:</strong> Kling 3.0 Omni gave the strongest overall output and is kept last here as
+              the final benchmark after all prior comparisons.
             </p>
 
             <p>
-              <strong>Strengths:</strong> The model produced visually interesting results with unique stylistic flair. Great for mood pieces, experimental sequences, or artistic transitions.
+              <strong>Result with same prompt/image:</strong> Most reliable identity lock, motion coherence, and
+              usable-clip rate across branching sequences.
             </p>
 
             <p>
-              <strong>Limitations:</strong> Struggled with photorealism and consistency across shots. The artistic interpretation often overrode prompt specificity, making it difficult to achieve the grounded, realistic dystopian aesthetic I needed.
-            </p>
-
-            <p>
-              <strong>Potential Use:</strong> Could work well for dream sequences, memory fragments, or abstract interludes where stylization enhances rather than detracts from the narrative.
-            </p>
-
-            <p>
-              <strong>Key Lesson:</strong> Know when artistic interpretation helps vs. when you need literal prompt adherence. Not every tool fits every use case.
+              <strong>Key Lesson:</strong> Using identical constraints across models made the quality gap visible,
+              so choosing Kling 3.0 Omni became an evidence-based decision.
             </p>
             </ToolLessonCard>
           </div>
@@ -372,21 +339,21 @@ const Process = () => {
 
           <h3>What Actually Worked</h3>
           <ul className="bullets">
-            <li><strong>Hybrid Workflow:</strong> Combining Veo3.1 for character shots and Sora 2 for
-            establishing shots gave me the best results</li>
-            <li><strong>Rapid Prototyping:</strong> Using Wan2.5 for quick concept testing saved both time
-            and credits before committing to final generation</li>
-            <li><strong>Platform Flexibility:</strong> Higgsfield's multi-model access enabled side-by-side
-            comparisons without switching platforms</li>
+            <li><strong>Evidence-led Consolidation:</strong> Kling 3.0 Omni became the final baseline after
+            controlled prompt comparisons against other models</li>
+            <li><strong>Constraint Discipline:</strong> Mandatory Start/End Frame plus Elements made outputs
+            comparable and reduced identity drift</li>
+            <li><strong>Cross-model Testing:</strong> Running the same prompt across tools made quality differences
+            measurable instead of anecdotal</li>
             <li><strong>Knowing Limitations:</strong> Understanding what each tool can't do prevented wasted
             effort and unrealistic expectations</li>
           </ul>
 
           <h3>Current Status & Next Steps</h3>
           <p>
-            The hybrid workflow combining Veo3.1 and Sora 2 formed the early foundation of the production 
-            pipeline, before Kling 3.0 Omni became the dominant tool. Each generation taught something
-            new about prompt engineering and how these models interpret creative direction.
+            Higgsfield DoP, Veo 3.1, Kling 2.6, and Seedance 2.0 formed the comparison baseline,
+            before Kling 3.0 Omni became the dominant production model. Each generation taught something
+            new about prompt engineering and how these systems interpret creative direction under constraints.
           </p>
           <p>
             The key takeaway is clear: practical iteration was the method, not just a production necessity.
@@ -467,109 +434,40 @@ const Process = () => {
           </Suspense>
         </section>
 
-        {/* Development Notes — merged from Journal */}
+        {/* Development diary — full entries live on /diary */}
         <section
-          id="dev-notes"
+          id="development-diary"
           className="card journey-section"
           style={{ marginTop: '3rem' }}
-          aria-labelledby="dev-notes-heading"
+          aria-labelledby="development-diary-heading"
         >
-          <h2 id="dev-notes-heading">Development Notes</h2>
+          <h2 id="development-diary-heading">Development diary</h2>
           <p style={{ marginBottom: '1.5rem' }}>
-            Process reflections and detailed notes from key development phases — originally
-            captured as journal entries during production.
+            The module requires an online diary (5–8 entries, opening entry with project aims and academic context,
+            total length not significantly above 3,000 words). The full diary is kept on a dedicated page so it stays
+            in one place and does not duplicate this Process page.
           </p>
-
-          <article className="dev-note-entry">
-            <h3>Testing the AI video pipeline</h3>
-            <p>
-              Production meant treating generation as a pipeline, not a single button: reference stills, prompt drafts, platform credits, failed passes, and re-generation when characters or lighting drifted.
-            </p>
-            <p>
-              Early runs exposed how fast each model was, how often faces broke, and where sound was missing or mismatched. That testing shaped which tools became "primary" and which stayed for experiments or B-roll only.
-            </p>
-            <p>
-              The pipeline lesson is simple: the model is not the director — you are. The tools are inconsistent collaborators; the workflow is where consistency is manufactured.
-            </p>
-          </article>
-
-          <article className="dev-note-entry">
-            <h3>Comparing Sora, Veo, Kling, Seedance, and WAN</h3>
-            <p>
-              Side-by-side comparisons across models (including access via Higgsfield where applicable) mattered because marketing copy rarely matches your exact scene and prompt.
-            </p>
-            <p>
-              Sora and Veo delivered strong moments but with different failure modes; WAN and Seedance were useful for speed or style tests; Kling 3.0 Omni later became the backbone for many finals once quality and integrated sound were clear wins.
-            </p>
-            <p>
-              The criteria we cared about: character consistency, horror readability, iteration cost, and whether a clip could survive an edit in Twine without breaking immersion.
-            </p>
-          </article>
-
-          <article className="dev-note-entry">
-            <h3>Prompting the furnace reveal scene</h3>
-            <p>
-              The furnace scene needed staging: hiding, witness, slow realisation, and sound that felt industrial rather than musical. Prompting moved from "describe a room" to directing beats — who is in frame, what they hear, what the viewer should feel before the cut.
-            </p>
-            <p>
-              Integrated sound in Kling reduced the gap between picture and atmosphere; prompts specified drones, rumble, and absence of score where a traditional horror cue might go.
-            </p>
-            <p>
-              Iteration was normal: first passes that were too clean, then pushes toward grit, shadow, and longer holds.
-            </p>
-          </article>
-
-          <article className="dev-note-entry">
-            <h3>Building the Twine interface with ChatGPT + McKeown tutorials</h3>
-            <p>
-              Twine handled structure and branching; the default skin did not match the dystopian look we wanted. ChatGPT helped draft passages and iterate on SugarCube markup, while CSS pulled the UI toward a controlled, terminal-adjacent feel.
-            </p>
-            <p>
-              Dr Conor McKeown's tutorials were the practical bridge: hosting video on GitHub and embedding stable URLs in Twine so the prototype could load real clips instead of placeholders.
-            </p>
-            <p>
-              JSON-style structuring for passages, CSS, and HTML later made the interface easier to reason about and tweak without losing the narrative graph.
-            </p>
-          </article>
-
-          <article className="dev-note-entry">
-            <h3>Hosting videos with GitHub and publishing via GitHub Pages</h3>
-            <p>
-              Large video files do not belong inside the Twine HTML export. Releases on GitHub (or similar) with direct links to MP4 files kept the story file small and the media cacheable.
-            </p>
-            <p>
-              This devlog site is deployed separately; the Twine artefact and the portfolio site are related but not the same deployment. The common thread is GitHub for assets and versioned links you can trust in a video element.
-            </p>
-            <p>
-              If a link breaks, the passage still loads — so stable hosting is part of the narrative infrastructure, not an afterthought.
-            </p>
-          </article>
-
-          <article className="dev-note-entry">
-            <h3>Prototyping a mobile version on anything.com</h3>
-            <p>
-              Desktop Twine is not how most people first touch a link. A mobile prototype on Anything.com (MAX plan) let us test tap targets, load behaviour, and whether the horror pacing survived on a small screen.
-            </p>
-            <p>
-              The experiment was worth the cost for confidence: branching video on mobile is fragile across browsers, and a dedicated prototype surfaced issues before submission.
-            </p>
-            <p>
-              That pass sits alongside the main artefact as process evidence, not a replacement for the primary Twine build.
-            </p>
-          </article>
-
-          <article className="dev-note-entry">
-            <h3>What the process taught me about control, inconsistency, and compromise</h3>
-            <p>
-              Control: you can storyboard, prompt, and branch — but generative tools do not guarantee obedience. Every "choice" in the interface is also a negotiation with models that drift.
-            </p>
-            <p>
-              Inconsistency: the same prompt can produce brilliance or garbage. The project's look is partly a record of fighting that variance with anchors, references, and re-rolls.
-            </p>
-            <p>
-              Compromise: time, credits, and assessment deadlines mean the final piece is not "the best possible universe" but the best honest version of this pipeline at this moment.
-            </p>
-          </article>
+          <p style={{ marginBottom: '1.25rem' }}>
+            <Link to="/diary" style={{ fontWeight: 600, color: 'var(--accent, #a855f7)' }}>
+              Open the development diary
+            </Link>
+            {' '}
+            — seven dated entries covering the pipeline, model comparison, furnace scene, Twine plus GitHub media hosting
+            (one combined entry), mobile prototyping, and closing reflections (including supervisory feedback where relevant).
+          </p>
+          <figure style={{ marginTop: '1.5rem' }}>
+            <img
+              src="/img/mobile-prototype-protocol-of-control.png"
+              alt="Two phone mockups showing the mobile prototype: main menu with New Game and Continue, and intro screen with a wireframe face scan and Click to Begin."
+              loading="lazy"
+              decoding="async"
+              width={902}
+              height={898}
+            />
+            <figcaption style={{ marginTop: '0.5rem', color: 'var(--muted)', fontSize: '0.9rem' }}>
+              Mobile UI built on Anything.com — discussed in the diary entry on mobile prototyping.
+            </figcaption>
+          </figure>
         </section>
 
         <footer>

@@ -1,18 +1,18 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Map, BookOpen, Info, Package, ScrollText } from 'lucide-react';
+import { Menu, X, Home, Route, BookOpen, Archive, Clock, PenLine } from 'lucide-react';
 import NavMenu from './NavMenu';
 import ThemeToggle from './ThemeToggle';
 import { useNavigationActions, useNavigationScroll, useNavigationState } from '../context/NavigationContext';
 
 const navLinks = [
   { path: '/', label: 'Home', icon: Home },
-  { path: '/my-journey', label: 'My Journey', icon: Map },
-  { path: '/theories', label: 'Theories', icon: BookOpen },
-  { path: '/about', label: 'About', icon: Info },
-  { path: '/assets', label: 'Assets', icon: Package },
-  { path: '/journal', label: 'Journal', icon: ScrollText }
+  { path: '/process', label: 'Process', icon: Route },
+  { path: '/diary', label: 'Diary', icon: PenLine },
+  { path: '/research', label: 'Research', icon: BookOpen },
+  { path: '/archive', label: 'Archive', icon: Archive },
+  { path: '/timeline', label: 'Timeline', icon: Clock }
 ];
 
 /**

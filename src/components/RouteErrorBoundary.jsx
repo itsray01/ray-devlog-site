@@ -80,8 +80,8 @@ class RouteErrorBoundary extends Component {
           <Link className="btn btn-secondary" to="/">
             Go Home
           </Link>
-          <Link className="btn btn-secondary" to="/my-journey">
-            My Journey
+          <Link className="btn btn-secondary" to="/process">
+            Process
           </Link>
         </div>
       </div>

@@ -8,22 +8,20 @@ import TerminalBoot from './TerminalBoot';
 import NavMenu from './NavMenu';
 import { tocStaggerIn } from '../utils/animeFx';
 
-// Define the pages to show in the navigation overlay
 const PAGES = [
   { id: 'home', title: 'Home', path: '/' },
-  { id: 'my-journey', title: 'My Journey', path: '/my-journey' },
-  { id: 'theories', title: 'Theories', path: '/theories' },
-  { id: 'assets', title: 'Assets', path: '/assets' },
-  { id: 'about', title: 'About', path: '/about' },
-  { id: 'journal', title: 'Journal', path: '/journal' }
+  { id: 'process', title: 'Process', path: '/process' },
+  { id: 'diary', title: 'Diary', path: '/diary' },
+  { id: 'research', title: 'Research', path: '/research' },
+  { id: 'archive', title: 'Archive', path: '/archive' },
+  { id: 'timeline', title: 'Timeline', path: '/timeline' }
 ];
 
 // HUD Metadata
 const HUD_DATA = {
-  build: 'v0.7',
-  buildLabel: 'Prototype',
-  engine: 'Twine',
-  checksum: '4F2A-91B0'
+  build: 'v1.0',
+  buildLabel: 'Final Release',
+  engine: 'Kling 3.0 + Twine'
 };
 
 /**
@@ -154,23 +152,32 @@ const NavOverlay = () => {
     }
   }, [bootDone, introPhase]);
 
-  // Parallax effect on mouse movement
+  // Parallax effect on mouse movement — RAF-throttled to avoid per-event state updates
   useEffect(() => {
     if (prefersReducedMotion || isMobile || introPhase !== 'toc') return;
+
+    let rafId = null;
+    let pendingX = 0;
+    let pendingY = 0;
 
     const handleMouseMove = (e) => {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-      
-      // Calculate offset from center (max ±8px)
-      const offsetX = ((e.clientX - centerX) / centerX) * 8;
-      const offsetY = ((e.clientY - centerY) / centerY) * 5;
-      
-      setParallaxOffset({ x: offsetX, y: offsetY });
+      pendingX = ((e.clientX - centerX) / centerX) * 8;
+      pendingY = ((e.clientY - centerY) / centerY) * 5;
+
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        setParallaxOffset({ x: pendingX, y: pendingY });
+        rafId = null;
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [prefersReducedMotion, isMobile, introPhase]);
 
   // Title micro-glitch effect (every 6-10 seconds)
@@ -330,37 +337,39 @@ const NavOverlay = () => {
             />
           </svg>
 
-          {/* HUD Metadata (top-right) */}
-          <div className="terminal-hud" aria-label="System status">
-            <div className="terminal-hud__row">
-              <span className="terminal-hud__label">BUILD:</span>
-              <span className="terminal-hud__value">{HUD_DATA.build} ({HUD_DATA.buildLabel})</span>
+          <div className="nav-overlay__terminal-header">
+            <div className="terminal-hud" aria-label="System status">
+              <div className="terminal-hud__row">
+                <span className="terminal-hud__label">BUILD:</span>
+                <span className="terminal-hud__value">{HUD_DATA.build} ({HUD_DATA.buildLabel})</span>
+              </div>
+              <div className="terminal-hud__row terminal-hud__row--dual">
+                <span className="terminal-hud__dual-group">
+                  <span className="terminal-hud__label">ENGINE:</span>
+                  <span className="terminal-hud__value">{HUD_DATA.engine}</span>
+                </span>
+                <span className="terminal-hud__dual-sep" aria-hidden="true">
+                  |
+                </span>
+                <span className="terminal-hud__dual-group">
+                  <span className="terminal-hud__label">STATUS:</span>
+                  <span className="terminal-hud__value terminal-hud__status">
+                    <span className="terminal-hud__status-dot" aria-hidden="true" />
+                    ONLINE
+                  </span>
+                </span>
+              </div>
             </div>
-            <div className="terminal-hud__row">
-              <span className="terminal-hud__label">ENGINE:</span>
-              <span className="terminal-hud__value">{HUD_DATA.engine}</span>
-            </div>
-            <div className="terminal-hud__row">
-              <span className="terminal-hud__label">STATUS:</span>
-              <span className="terminal-hud__value terminal-hud__status">
-                <span className="terminal-hud__status-dot" aria-hidden="true" />
-                ONLINE
-              </span>
-            </div>
-            <div className="terminal-hud__row terminal-hud__row--subtle">
-              <span className="terminal-hud__label">CHK:</span>
-              <span className="terminal-hud__value">{HUD_DATA.checksum}</span>
-            </div>
-          </div>
 
-          {/* Header with glitch effect */}
-          <div className="nav-overlay__header">
-            <h2 
-              className="nav-overlay__title nav-overlay__title--terminal"
-              style={titleGlitchStyle}
-            >
-              LOGBOOK MODULES
-            </h2>
+            {/* Header with glitch effect */}
+            <div className="nav-overlay__header">
+              <h2 
+                className="nav-overlay__title nav-overlay__title--terminal"
+                style={titleGlitchStyle}
+              >
+                ECHOES OF CONTROL
+              </h2>
+            </div>
           </div>
 
           {/* Boot Sequence OR Menu */}

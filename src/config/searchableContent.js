@@ -47,16 +47,9 @@ export const SEARCHABLE_CONTENT = [
   },
   {
     sectionId: 'references',
-    title: 'References',
-    content: 'Janet Murray Aarseth Ryan Bostrom Russell theoretical foundations course objectives',
+    title: 'Research',
+    content: 'Janet Murray Aarseth Ryan Bostrom Russell theoretical foundations course objectives Practice as Research',
     tags: ['references', 'theory', 'research']
-  },
-  {
-    sectionId: 'journal',
-    title: 'Journal',
-    content:
-      'Echoes of Control devlog backfill Twine McKeown GitHub video hosting Sora Veo Kling WAN Seedance furnace prompts mobile anything.com Protocol rename',
-    tags: ['journal', 'process', 'tools', 'reflection', 'Twine', 'prompts']
   }
 ];
 

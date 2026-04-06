@@ -5,7 +5,7 @@
  */
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationState } from '../context/NavigationContext';
 import { pageLoadTimeline, prefersReducedMotion } from '../utils/animeConfig';
 
 // Note: pageLoadTimeline is imported from animeConfig which handles anime.js imports correctly
@@ -16,7 +16,7 @@ import { pageLoadTimeline, prefersReducedMotion } from '../utils/animeConfig';
  */
 const usePageLoadAnimation = () => {
   const location = useLocation();
-  const { introPhase } = useNavigation();
+  const { introPhase } = useNavigationState();
   const hasAnimated = useRef(false);
   const SESSION_KEY = 'devlog_page_load_animated';
 

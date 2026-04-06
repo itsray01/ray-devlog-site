@@ -15,7 +15,7 @@ const TheoriesHud = () => {
       <div className="theories__hud-info">
         <div className="theories__hud-item">
           <span className="theories__hud-label">BUILD:</span>
-          <span className="theories__hud-value">v0.7</span>
+          <span className="theories__hud-value">v1.0</span>
         </div>
         <div className="theories__hud-item">
           <span className="theories__hud-label">ENGINE:</span>

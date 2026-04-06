@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationState } from '../context/NavigationContext';
 
 /**
  * SimpleLink - Link without magnetic effect
@@ -32,17 +32,16 @@ const SimpleLink = ({ to, className, isActive, children }) => {
  */
 const TopNavBar = () => {
   const location = useLocation();
-  const { introPhase } = useNavigation();
+  const { introPhase } = useNavigationState();
   const logoRef = useRef(null);
 
-  // Navigation links
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/my-journey', label: 'My Journey' },
-    { path: '/theories', label: 'Theories' },
-    { path: '/assets', label: 'Assets' },
-    { path: '/about', label: 'About' },
-    { path: '/journal', label: 'Journal' }
+    { path: '/process', label: 'Process' },
+    { path: '/diary', label: 'Diary' },
+    { path: '/research', label: 'Research' },
+    { path: '/archive', label: 'Archive' },
+    { path: '/timeline', label: 'Timeline' }
   ];
 
   // Check if a link is active

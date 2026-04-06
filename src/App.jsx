@@ -9,6 +9,7 @@ const Process = lazy(() => import('./pages/Process.jsx'));
 const Research = lazy(() => import('./pages/Research.jsx'));
 const Archive = lazy(() => import('./pages/Archive.jsx'));
 const Timeline = lazy(() => import('./pages/Timeline.jsx'));
+const Diary = lazy(() => import('./pages/Diary.jsx'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -54,6 +55,7 @@ const App = () => {
       import('./pages/Process.jsx');
       import('./pages/Research.jsx');
       import('./pages/Archive.jsx');
+      import('./pages/Diary.jsx');
     };
 
     if (typeof window.requestIdleCallback === 'function') {
@@ -110,12 +112,20 @@ const App = () => {
               </Suspense>
             )}
           />
+          <Route
+            path="diary"
+            element={(
+              <Suspense fallback={<PageLoader />}>
+                <Diary />
+              </Suspense>
+            )}
+          />
           {/* Redirects from old routes */}
           <Route path="my-journey" element={<Navigate to="/process" replace />} />
           <Route path="theories" element={<Navigate to="/research" replace />} />
           <Route path="assets" element={<Navigate to="/archive" replace />} />
           <Route path="about" element={<Navigate to="/timeline" replace />} />
-          <Route path="journal" element={<Navigate to="/process" replace />} />
+          <Route path="journal" element={<Navigate to="/diary" replace />} />
           <Route path="extras" element={<Navigate to="/process" replace />} />
         </Route>
       </Routes>

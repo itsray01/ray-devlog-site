@@ -8,8 +8,7 @@ import { TheoryClipGrid, TheoriesHud, SfxProvider } from '../components/theories
 import { getConnectionsByLibraryId } from '../data/theoryConnections';
 import '../styles/theories.css';
 
-// Table of Contents sections - grouped by category
-export const THEORIES_SECTIONS = [
+export const RESEARCH_SECTIONS = [
   { id: 'connections', title: 'Theory-to-Clip Connections' },
   { id: 'research-framework', title: 'Research Framework' },
   { id: 'ai-ethics', title: 'AI & Ethics' },
@@ -18,9 +17,6 @@ export const THEORIES_SECTIONS = [
   { id: 'course-connection', title: 'Course Connection' }
 ];
 
-/**
- * LibraryReferencedBy - Shows chips of connections that reference this library entry
- */
 const LibraryReferencedBy = ({ libraryId }) => {
   const connections = getConnectionsByLibraryId(libraryId);
   
@@ -31,7 +27,6 @@ const LibraryReferencedBy = ({ libraryId }) => {
     const element = document.getElementById(connectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Add highlight effect
       element.style.boxShadow = '0 0 0 2px var(--accent)';
       setTimeout(() => {
         element.style.boxShadow = '';
@@ -57,9 +52,6 @@ const LibraryReferencedBy = ({ libraryId }) => {
   );
 };
 
-/**
- * AuthorCard - Library entry with stable anchor ID and Referenced By chips
- */
 const AuthorCard = ({ libraryId, author, year, citation, quote, children }) => (
   <div className="author-card" id={libraryId}>
     <Book className="author-icon" />
@@ -72,24 +64,16 @@ const AuthorCard = ({ libraryId, author, year, citation, quote, children }) => (
   </div>
 );
 
-/**
- * Theories - Dedicated page for theoretical frameworks and academic foundations
- * Comprehensive documentation of theories, citations, and their application to the project
- * 
- * UPGRADED: Now includes explicit Theory-to-Clip Connections section
- */
-const Theories = () => {
+const Research = () => {
   const { setSections } = useNavigationActions();
 
-  // Register sections with navigation context
   useEffect(() => {
-    setSections(THEORIES_SECTIONS);
+    setSections(RESEARCH_SECTIONS);
     return () => setSections([]);
   }, [setSections]);
 
   return (
     <SfxProvider>
-      {/* Reading Progress Indicator */}
       <ReadingProgress />
 
       <motion.div
@@ -99,29 +83,26 @@ const Theories = () => {
         variants={pageVariants}
         transition={pageTransition}
         className="theories__page-container page-container"
-        id="theories"
+        id="research"
         role="main"
-        aria-label="Theories page content"
+        aria-label="Research page content"
       >
         <div id="main-content"></div>
 
-        {/* HUD Strip */}
         <TheoriesHud />
 
-        {/* Page Header */}
         <motion.header
           className="page-header"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>Theoretical Foundations</h1>
+          <h1>Research</h1>
           <p className="page-subtitle">
-            Academic frameworks and research methodologies informing this project
+            Applied theory, influences, and methodology that shaped creative and technical decisions
           </p>
         </motion.header>
 
-        {/* Introduction Card */}
         <motion.article
           className="card"
           initial={{ opacity: 0, y: 20 }}
@@ -130,14 +111,13 @@ const Theories = () => {
         >
           <h2>Overview</h2>
           <p>
-            This project integrates multiple theoretical frameworks—from Practice as Research to AI ethics 
-            and interactive horror—demonstrating how academic theory informs creative practice. 
+            This project integrates multiple theoretical frameworks — from Practice as Research to AI ethics 
+            and interactive horror — demonstrating how academic theory informs creative practice. 
             The <strong>Theory-to-Clip Connections</strong> section below makes these links explicit, 
             showing exactly how each theory shaped specific creative decisions.
           </p>
         </motion.article>
 
-        {/* Theory-to-Clip Connections Section - Premium Card Grid + Drawer */}
         <motion.section
           id="connections"
           initial={{ opacity: 0, y: 20 }}
@@ -148,7 +128,6 @@ const Theories = () => {
           <TheoryClipGrid />
         </motion.section>
 
-        {/* Research Framework Section (Library) */}
         <motion.article
           className="card theory-card gradient-research"
           initial={{ opacity: 0, y: 20 }}
@@ -168,7 +147,7 @@ const Theories = () => {
               year="2013"
               citation="Practice as Research in the Arts"
               quote={`"Know-how" through practice (p. 37) — Creative work generates unique knowledge. 
-                My AI video testing documented in "My Journey" exemplifies this: each failure 
+                The AI video testing documented on the Process page exemplifies this: each failure 
                 revealed technical limitations and workflow insights unavailable through theory alone.`}
             />
 
@@ -192,7 +171,6 @@ const Theories = () => {
           </div>
         </motion.article>
 
-        {/* AI & Ethics Section (Library) */}
         <motion.article
           className="card theory-card gradient-ai"
           initial={{ opacity: 0, y: 20 }}
@@ -255,7 +233,6 @@ const Theories = () => {
           </div>
         </motion.article>
 
-        {/* Interactive Media Theory Section (Library) */}
         <motion.article
           className="card theory-card gradient-interactive"
           initial={{ opacity: 0, y: 20 }}
@@ -332,7 +309,6 @@ const Theories = () => {
           </div>
         </motion.article>
 
-        {/* Influences Section */}
         <motion.article
           className="card theory-card gradient-influences"
           initial={{ opacity: 0, y: 20 }}
@@ -360,7 +336,6 @@ const Theories = () => {
           </div>
         </motion.article>
 
-        {/* Course Connection Section */}
         <motion.article
           className="card theory-card gradient-course"
           initial={{ opacity: 0, y: 20 }}
@@ -398,7 +373,6 @@ const Theories = () => {
           </div>
         </motion.article>
 
-        {/* Footer */}
         <motion.footer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -413,4 +387,4 @@ const Theories = () => {
   );
 };
 
-export default Theories;
+export default Research;

@@ -5,7 +5,7 @@ import TimelineComponent from '../components/Timeline';
 import NarrativeFlowGraph from '../components/narrative/NarrativeFlowGraph';
 import ReadingProgress from '../components/ReadingProgress';
 import timelineData from '../../data/timeline.json';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions } from '../context/NavigationContext';
 
 export const TIMELINE_SECTIONS = [
   { id: 'narrative-map', title: 'Narrative Map' },
@@ -14,7 +14,7 @@ export const TIMELINE_SECTIONS = [
 ];
 
 const Timeline = () => {
-  const { setSections } = useNavigation();
+  const { setSections } = useNavigationActions();
 
   useEffect(() => {
     setSections(TIMELINE_SECTIONS);
@@ -171,6 +171,19 @@ const Timeline = () => {
                   branching video experience could survive on a small screen. This surfaced issues with tap 
                   targets, load behaviour, and horror pacing that wouldn't have been caught on desktop alone.
                 </p>
+                <figure className="card-note-figure">
+                  <img
+                    src="/img/mobile-prototype-protocol-of-control.png"
+                    alt="Two phone mockups showing the Protocol of Control mobile prototype: main menu with New Game and Continue, and intro screen with a wireframe face scan and Click to Begin."
+                    loading="lazy"
+                    decoding="async"
+                    width={902}
+                    height={898}
+                  />
+                  <figcaption>
+                    Anything.com mobile build — menu flow and intro framing for the interactive prototype.
+                  </figcaption>
+                </figure>
               </article>
             </div>
           </div>

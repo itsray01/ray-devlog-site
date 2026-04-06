@@ -1,10 +1,11 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import ReadingProgress from '../components/ReadingProgress';
 import ErrorBoundary from '../components/ErrorBoundary';
 import FeatureCard from '../components/FeatureCard';
 import FeatureGrid from '../components/FeatureGrid';
-import { Map, BookOpen } from 'lucide-react';
-import { useNavigation } from '../context/NavigationContext';
+import { Route, BookOpen } from 'lucide-react';
+import { useNavigationActions } from '../context/NavigationContext';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useAnimeHover from '../hooks/useAnimeHover';
 import useMouseParallax from '../hooks/useMouseParallax';
@@ -68,7 +69,7 @@ const SectionLoader = () => (
  */
 const Home = () => {
   // Non-critical visuals are treated as progressive enhancement (see route-level ErrorBoundary in Layout).
-  const { setSections } = useNavigation();
+  const { setSections } = useNavigationActions();
 
   // Refs for animations
   const ctaRef = useRef(null);
@@ -85,6 +86,13 @@ const Home = () => {
 
   // Enable mouse parallax for nebula layer (Home-only, low intensity)
   const parallaxRef = useMouseParallax({ intensity: 0.015, enabled: true });
+
+  // Stable combined ref to avoid observer churn on re-renders
+  const combinedRef = useCallback((el) => {
+    scrollRevealRef(el);
+    hoverRef(el);
+    parallaxRef(el);
+  }, [scrollRevealRef, hoverRef, parallaxRef]);
 
   // Register sections with navigation context
   useEffect(() => {
@@ -133,11 +141,7 @@ const Home = () => {
         id="home"
         role="main"
         aria-label="Main content"
-        ref={(el) => {
-          scrollRevealRef(el);
-          hoverRef(el);
-          parallaxRef(el);
-        }}
+        ref={combinedRef}
       >
         <div id="main-content"></div>
 
@@ -145,11 +149,15 @@ const Home = () => {
         <div className={styles.homeContainer}>
           {/* Hero Section */}
           <div className={styles.homeHero}>
-            {/* Page Header */}
             <header data-animate="reveal">
-              <h1>Digital Project Logbook</h1>
+              <h1>Echoes of Control</h1>
               <p className={styles.homeSubtitle}>
-                Documenting the journey of creating an interactive dystopian film
+                Devlog, Research Archive, and Process Site for an Interactive Dystopian Film
+              </p>
+              <p className={styles.homeIntro}>
+                This site documents the creation of an AI-generated interactive horror film exploring
+                themes of machine control, human agency, and moral choice. Built with Kling 3.0 Omni,
+                Twine, and a multi-model video generation pipeline.
               </p>
             </header>
 
@@ -217,26 +225,26 @@ const Home = () => {
           <div className={`${styles.homeSection} ${styles.sectionFadeIn}`}>
             <FeatureGrid columns={2} gap="lg">
               <FeatureCard
-                eyebrow="AI Experiments"
-                title="My Journey Through AI Video Generation"
-                body="I tested 5 different AI video generation models—Sora 2, Veo3.1, Wan2.5, Higgsfield, and Seedance. Most of them failed in ways I didn't expect. Here's what I learned from weeks of experimentation, burned credits, and frustrating failures."
-                icon={Map}
-                cta={{ label: 'Read My Journey', href: '/my-journey' }}
+                eyebrow="The Full Making Story"
+                title="Process: From Concept to Final Output"
+                body="I tested 5 different AI video generation models, built a Twine interface with ChatGPT, hosted videos on GitHub, and prototyped on mobile. Here's the full story — tools, failures, and hard-won lessons."
+                icon={Route}
+                cta={{ label: 'View Process', href: '/process' }}
                 variant="highlight"
                 delay={0.1}
-                onMouseEnter={() => import('../pages/MyJourney')}
+                onMouseEnter={() => import('../pages/Process')}
                 ref={ctaRef}
               />
 
               <FeatureCard
-                eyebrow="Academic Framework"
-                title="Theoretical Foundations"
-                body="Explore the academic frameworks and theoretical concepts that inform this project—from Practice as Research methodology to AI ethics, interactive horror, and authorship in AI-assisted creation."
+                eyebrow="Applied Theory & Influences"
+                title="Research: What Shaped the Build"
+                body="From Practice as Research methodology to AI ethics, interactive horror, and authorship in AI-assisted creation — the academic frameworks that directly informed creative and technical decisions."
                 icon={BookOpen}
-                cta={{ label: 'View Theories', href: '/theories' }}
+                cta={{ label: 'View Research', href: '/research' }}
                 variant="highlight"
                 delay={0.2}
-                onMouseEnter={() => import('../pages/Theories')}
+                onMouseEnter={() => import('../pages/Research')}
               />
             </FeatureGrid>
           </div>
@@ -249,12 +257,13 @@ const Home = () => {
             </ErrorBoundary>
           </div>
 
-          {/* Footer */}
           <footer className={styles.homeSection}>
             <p style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '0.9rem' }}>
-              This logbook documents the ongoing development of an interactive dystopian film project
-              as of November 2025. It serves as both a creative diary and technical reference for
-              AI-assisted filmmaking.
+              Echoes of Control — devlog and process site for an interactive dystopian film.
+              {' '}
+              <Link to="/diary" style={{ color: 'var(--accent, #a855f7)' }}>
+                Development diary
+              </Link>
             </p>
           </footer>
         </div>

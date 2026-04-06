@@ -17,17 +17,17 @@ const StatisticsDashboard = () => {
     {
       id: 1,
       title: 'Total Clips Generated',
-      value: '247',
+      value: '377',
       subtitle: 'AI-generated videos',
       icon: Video,
       trend: null,
-      chartData: [180, 190, 195, 210, 220, 230, 247],
+      chartData: [180, 198, 221, 256, 298, 336, 377],
       chartType: 'line'
     },
     {
       id: 2,
-      title: 'Project Investment',
-      value: '$500',
+      title: 'Amount Spent',
+      value: '$XXX+',
       subtitle: 'AI platforms + infrastructure',
       icon: DollarSign,
       trend: null,
@@ -51,15 +51,16 @@ const StatisticsDashboard = () => {
     {
       id: 4,
       title: 'AI Models Used',
+      value: '5',
       subtitle: 'Platforms tested',
       icon: Brain,
       trend: null,
       chartData: [
-        { label: 'Veo 3.1', value: 150, color: '#8b5cf6' },
-        { label: 'Sora 2', value: 97, color: '#06b6d4' },
+        { label: 'Kling', value: 150, color: '#ec4899' },
+        { label: 'Veo 3.1', value: 107, color: '#8b5cf6' },
+        { label: 'Sora 2', value: 50, color: '#06b6d4' },
         { label: 'Seedance', value: 40, color: '#f59e0b' },
-        { label: 'Kling', value: 30, color: '#ec4899' },
-        { label: 'Wan2.5', value: 10, color: '#ef4444' }
+        { label: 'Wan2.5', value: 30, color: '#ef4444' }
       ],
       chartType: 'donut'
     }

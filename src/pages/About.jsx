@@ -4,7 +4,7 @@ import { pageVariants, pageTransition } from '../constants/animations';
 import Timeline from '../components/Timeline';
 import ReadingProgress from '../components/ReadingProgress';
 import timelineData from '../../data/timeline.json';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions } from '../context/NavigationContext';
 
 // Table of Contents sections
 export const ABOUT_SECTIONS = [
@@ -19,7 +19,7 @@ export const ABOUT_SECTIONS = [
  * Optimized with React.memo and static animation variants
  */
 const About = () => {
-  const { setSections } = useNavigation();
+  const { setSections } = useNavigationActions();
 
   // Register sections with navigation context
   useEffect(() => {

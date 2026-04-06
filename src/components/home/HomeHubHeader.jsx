@@ -1,7 +1,6 @@
 import MissionBrief from './MissionBrief';
 import ContinueCard from './ContinueCard';
 import DiagnosticsHUD from './DiagnosticsHUD';
-import PatchNotesPanel from './PatchNotesPanel';
 import ModuleMap from './ModuleMap';
 
 /**
@@ -19,9 +18,6 @@ const HomeHubHeader = () => {
         <ContinueCard />
         <DiagnosticsHUD />
       </div>
-
-      {/* Patch Notes - Recent updates */}
-      <PatchNotesPanel />
 
       {/* Module Map - Level select */}
       <ModuleMap />

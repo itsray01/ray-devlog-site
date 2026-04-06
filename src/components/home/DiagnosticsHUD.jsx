@@ -1,31 +1,15 @@
 import { useNavigationActions } from '../../context/NavigationContext';
 import {
+  GitBranch,
   Video,
   Wrench,
-  GitBranch,
+  DollarSign,
   Clock,
-  AlertTriangle,
   Layers
 } from 'lucide-react';
 
 // HUD tile configuration
 const HUD_TILES = [
-  {
-    id: 'clips',
-    icon: Video,
-    label: 'Clips Generated',
-    value: '127',
-    jumpTo: 'production',
-    status: 'ok'
-  },
-  {
-    id: 'tools',
-    icon: Wrench,
-    label: 'Tools Tested',
-    value: '5',
-    jumpTo: 'my-journey',
-    status: 'ok'
-  },
   {
     id: 'branches',
     icon: GitBranch,
@@ -35,20 +19,28 @@ const HUD_TILES = [
     status: 'ok'
   },
   {
+    id: 'clips',
+    icon: Video,
+    label: 'Clips Generated',
+    value: '377',
+    jumpTo: 'production',
+    status: 'ok'
+  },
+  {
+    id: 'tools',
+    icon: Wrench,
+    label: 'Tools Tested',
+    value: '5',
+    jumpTo: 'process',
+    status: 'ok'
+  },
+  {
     id: 'runtime',
     icon: Clock,
     label: 'Target Runtime',
     value: '12m',
-    jumpTo: 'overview',
-    status: 'ok'
-  },
-  {
-    id: 'issues',
-    icon: AlertTriangle,
-    label: 'Known Issues',
-    value: '3',
     jumpTo: null,
-    status: 'warn'
+    status: 'ok'
   },
   {
     id: 'sections',
@@ -57,8 +49,16 @@ const HUD_TILES = [
     value: '7',
     jumpTo: null,
     status: 'ok'
+  },
+  {
+    id: 'spent',
+    icon: DollarSign,
+    label: 'Spent',
+    value: '$XXX+',
+    jumpTo: null,
+    status: 'ok'
   }
-];
+];i
 
 /**
  * DiagnosticsHUD - System status tiles
@@ -70,7 +70,7 @@ const DiagnosticsHUD = () => {
   const handleTileClick = (tile) => {
     if (tile.jumpTo) {
       // Check if it's a route or section
-      if (tile.jumpTo.startsWith('/') || tile.jumpTo.includes('journey')) {
+      if (tile.jumpTo.startsWith('/') || tile.jumpTo === 'process') {
         window.location.href = `/${tile.jumpTo.replace('/', '')}`;
       } else {
         scrollToSection(tile.jumpTo);

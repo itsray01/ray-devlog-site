@@ -1,10 +1,11 @@
 /* --- Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Rajdhani:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Iceberg&family=Plus+Jakarta+Sans:wght@400;500;600&family=Rajdhani:wght@400;500;600&display=swap');
 
 /* --- Component Styles --- */
 @import './styles/homeHub.css';
 @import './styles/homeEnhancements.css';
 @import './styles/journeyPage.css';
+@import './styles/narrativeFlow.css';
 
 /* --- Color Palette & Global Variables --- */
 :root {
@@ -21,7 +22,7 @@
   --ok: #10b981;
   --warn: #fbbf24;
   --err: #ef4444;
-  --glow: 0 0 18px rgba(167, 139, 250, .5);
+  --glow: 0 0 14px rgba(167, 139, 250, .4);
 
   /* Purple/Blue accents - glowy cyberpunk aesthetic */
   --accent-primary: #a78bfa;
@@ -46,6 +47,20 @@
 /* Universal box-sizing */
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+/* Display headings — Iceberg (major titles only; body stays Rajdhani) */
+main h1,
+main h2,
+.nf-fullscreen__title,
+.page-title-card__text {
+  font-family: 'Iceberg', 'Rajdhani', system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+main h2 {
+  letter-spacing: 0.03em;
 }
 
 /* Global focus-visible styles */
@@ -80,8 +95,9 @@ html, body {
   background: transparent;
   font-family: 'Rajdhani', system-ui, sans-serif;
   /* Viewport-based scaling: scales from 14px (small screens) to 18px (large screens) based on viewport width */
-  font-size: clamp(14px, 1.2vw + 0.5rem, 18px);
-  line-height: 1.6;
+  font-size: clamp(15px, 1.2vw + 0.5rem, 18px);
+  line-height: 1.7;
+  scroll-padding-top: 80px;
   /* Removed background-color to show galaxy stars */
   text-align: left; /* Default to left alignment */
   overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -113,7 +129,7 @@ body {
 /* --- Glassmorphism utility classes --- */
 .glass {
   background: var(--panel-glass);
-  backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(167, 139, 250, 0.05);
 }
@@ -149,7 +165,7 @@ body {
   right: 0;
   height: 60px;
   background: rgba(10, 12, 16, 0.85);
-  backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
   border-bottom: 1px solid var(--glass-border);
   z-index: 1000;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
@@ -246,7 +262,7 @@ body {
 .sidebar {
   width: 260px;
   background: var(--panel-glass);
-  backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(180%);
   border-right: 1px solid var(--glass-border);
   padding: 2rem 1.5rem;
   position: fixed;
@@ -280,24 +296,22 @@ body {
   display: block;
   text-decoration: none;
   position: relative;
-  animation: breathe 3s ease-in-out infinite;
+  will-change: opacity;
+  animation: breathe 6s ease-in-out infinite;
 }
 
 @keyframes breathe {
   0% {
     color: var(--accent-primary);
     text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
-    transform: scale(1);
   }
   50% {
     color: var(--accent-secondary);
     text-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
-    transform: scale(1.02);
   }
   100% {
     color: var(--accent-primary);
     text-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
-    transform: scale(1);
   }
 }
 
@@ -306,26 +320,29 @@ body {
   position: absolute;
   bottom: -8px;
   left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  transform: translateX(-50%) scaleX(0.4);
+  transform-origin: center;
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), var(--accent-primary), transparent);
   box-shadow: 0 0 10px rgba(167, 139, 250, 0.6);
-  animation: lineBreath 3s ease-in-out infinite;
+  will-change: transform, opacity;
+  animation: lineBreath 6s ease-in-out infinite;
 }
 
 @keyframes lineBreath {
   0% {
-    width: 40%;
+    transform: translateX(-50%) scaleX(0.4);
     opacity: 0.6;
     box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
   }
   50% {
-    width: 100%;
+    transform: translateX(-50%) scaleX(1);
     opacity: 1;
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
   }
   100% {
-    width: 40%;
+    transform: translateX(-50%) scaleX(0.4);
     opacity: 0.6;
     box-shadow: 0 0 10px rgba(167, 139, 250, 0.4);
   }
@@ -457,7 +474,7 @@ body {
 
 .dropdown-content {
   background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border-radius: 8px;
   padding: 1rem;
   width: 200px;
@@ -942,6 +959,94 @@ main > * {
 
 .card p:last-child {
   margin-bottom: 0;
+}
+
+/* Card hierarchy tiers */
+.card--flagship {
+  padding: 2.5rem;
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: var(--card-shadow), 0 0 24px rgba(167, 139, 250, 0.12);
+}
+
+.card--supporting {
+  padding: 1.5rem;
+  border-color: rgba(167, 139, 250, 0.12);
+  box-shadow: none;
+  opacity: 0.92;
+}
+
+/* Development notes entries (merged journal) */
+.dev-note-entry {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.12);
+}
+
+.dev-note-entry:last-child {
+  border-bottom: none;
+}
+
+.dev-note-entry h3 {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 1.15rem;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.dev-note-entry p {
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.dev-note-entry p:last-child {
+  margin-bottom: 0;
+}
+
+.dev-note-entry figure {
+  margin: 1rem 0 0;
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.dev-note-entry figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.dev-note-entry figcaption {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.card.note figure.card-note-figure {
+  margin: 1rem 0 0;
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.card.note figure.card-note-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card.note figure.card-note-figure figcaption {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .card h2 {
@@ -1769,6 +1874,7 @@ footer {
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 /* Floating animation */
@@ -1792,7 +1898,7 @@ html {
 }
 
 .pulse-glow {
-  animation: pulseGlow 2s ease-in-out infinite;
+  animation: pulseGlow 4s ease-in-out infinite;
 }
 
 /* Shimmer effect */
@@ -1887,7 +1993,7 @@ html {
 /* Statistics Card */
 .statistics-card {
   background: var(--panel-glass);
-  backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 1.75rem;
@@ -2874,7 +2980,7 @@ html {
   position: relative;
   top: 0;
   background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(25, 25, 35, 0.9) 100%);
-  backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
   border: 1px solid rgba(167, 139, 250, 0.2);
   border-radius: 12px;
   padding: 0;
@@ -3439,7 +3545,24 @@ html {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(167, 139, 250, 0.15);
-  margin-top: 2.5rem; /* Space for HUD/SFX toggle above */
+  margin-top: 0;
+  width: 100%;
+}
+
+/* Terminal TOC: HUD + title stacked and centred */
+.nav-overlay__terminal-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-overlay__panel--terminal .nav-overlay__header {
+  margin-top: 0.65rem;
 }
 
 .nav-overlay__title {
@@ -3654,8 +3777,8 @@ html {
   );
   border: 1px solid rgba(167, 139, 250, 0.3);
   border-radius: 8px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.5),
     0 0 40px rgba(167, 139, 250, 0.15),
@@ -3861,8 +3984,8 @@ html {
   right: 0;
   height: 64px;
   background: var(--panel-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
@@ -4080,7 +4203,7 @@ body.anime-load-error .top-nav-link {
 }
 
 .grid-shimmer {
-  animation: grid-shimmer 4s linear infinite;
+  animation: grid-shimmer 8s linear infinite;
   pointer-events: none;
 }
 
@@ -5251,31 +5374,47 @@ body.anime-load-error .top-nav-link {
 
 /* --- HUD Metadata Block --- */
 .terminal-hud {
-  position: absolute;
-  top: 1.75rem;
-  right: 2.5rem;
+  position: relative;
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.75rem 3rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
   font-family: 'Rajdhani', monospace;
   font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   z-index: 10;
-  max-width: 80%;
-  justify-content: flex-end;
+  text-align: center;
 }
 
 .terminal-hud__row {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
+  justify-content: center;
 }
 
-.terminal-hud__row--subtle {
-  opacity: 0.5;
+.terminal-hud__row--dual {
+  gap: 0.65rem 1.25rem;
+  max-width: 100%;
+}
+
+.terminal-hud__dual-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.terminal-hud__dual-sep {
+  color: rgba(167, 139, 250, 0.35);
+  font-weight: 300;
+  user-select: none;
 }
 
 .terminal-hud__label {
@@ -5365,7 +5504,7 @@ body.anime-load-error .top-nav-link {
     0 0 40px rgba(167, 139, 250, 0.2);
   transition: all 0.05s ease;
   position: relative;
-  margin: 0;
+  margin: 0 0 0.3rem;
 }
 
 /* Glitch effect layers (applied via inline style during glitch) */
@@ -5569,10 +5708,17 @@ body.anime-load-error .top-nav-link {
 
 @media (max-width: 768px) {
   .terminal-hud {
-    top: 0.75rem;
-    right: 0.75rem;
     font-size: 0.7rem;
-    gap: 0.25rem 1rem;
+    gap: 0.25rem;
+  }
+
+  .terminal-hud__row--dual {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .terminal-hud__dual-sep {
+    display: none;
   }
   
   .nav-overlay__title--terminal {
@@ -5992,18 +6138,19 @@ body.anime-load-error .top-nav-link {
   top: 1.5rem;
   right: 1.5rem;
   z-index: 10;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 14, 39, 0.8);
-  border: 1px solid var(--accent-primary);
+  background: rgba(10, 14, 39, 0.9);
+  border: 2px solid var(--accent-primary);
   border-radius: 50%;
-  color: var(--ink);
+  color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(8px);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.25);
 }
 
 .asset-modal__close:hover {
@@ -6340,5 +6487,44 @@ body.anime-load-error .top-nav-link {
 
   .asset-modal__close:hover {
     transform: none;
+  }
+}
+
+/* Mobile: reduce glow for better text contrast */
+@media (max-width: 768px) {
+  :root {
+    --glow: 0 0 8px rgba(167, 139, 250, .25);
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ============================================
+   GLOBAL PERFORMANCE: disable infinite animations
+   for users who prefer reduced motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-logo,
+  .sidebar-logo::after,
+  .pulse-glow,
+  .shimmer,
+  .grid-shimmer,
+  .terminal-scanlines::after,
+  [class*="spin"],
+  [class*="breathe"],
+  [class*="pulse"] {
+    animation: none !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

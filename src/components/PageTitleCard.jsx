@@ -12,11 +12,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // Map pathname to display title
 const PAGE_TITLES = {
-  '/my-journey': 'MY JOURNEY',
-  '/theories': 'THEORIES',
-  '/assets': 'ASSETS',
-  '/about': 'ABOUT',
-  '/journal': 'JOURNAL'
+  '/process': 'PROCESS',
+  '/research': 'RESEARCH',
+  '/archive': 'ARCHIVE',
+  '/timeline': 'TIMELINE'
 };
 
 const DISPLAY_DURATION = 650; // ms visible

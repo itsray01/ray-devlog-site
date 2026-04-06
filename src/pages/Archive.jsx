@@ -6,35 +6,23 @@ import AssetModal from '../components/AssetModal';
 import { useNavigationActions } from '../context/NavigationContext';
 import { ASSETS_DATA, ASSETS_SECTIONS } from '../config/assetsContent';
 
-/**
- * Assets page - Premium grid layout with cinematic modal previews
- * Features:
- * - Wider content column (1600-1800px)
- * - Uniform card layout with aligned buttons
- * - Full-screen modal for detailed previews
- * - Premium game UI aesthetic
- */
-const Assets = () => {
+const Archive = () => {
   const { setSections } = useNavigationActions();
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Register sections with navigation context
   useEffect(() => {
     setSections(ASSETS_SECTIONS);
     return () => setSections([]);
   }, [setSections]);
 
-  // Handle asset card click
   const handleViewAsset = (asset) => {
     setSelectedAsset(asset);
     setIsModalOpen(true);
   };
 
-  // Handle modal close
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Small delay before clearing selected asset to allow exit animation
     setTimeout(() => setSelectedAsset(null), 300);
   };
 
@@ -47,24 +35,31 @@ const Assets = () => {
         variants={pageVariants}
         transition={pageTransition}
         className="page-container page--assets"
-        id="assets"
+        id="archive"
         role="main"
         aria-label="Main content"
       >
         <div id="main-content"></div>
         
-        {/* Page Header */}
         <motion.header
           className="page-header"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>Assets</h1>
-          <p className="page-subtitle">Project assets, media, and production resources</p>
+          <h1>Archive</h1>
+          <p className="page-subtitle">Evidence, assets, and supporting materials</p>
+          <p>
+            This archive collects the primary outputs and supporting evidence for the decisions
+            documented across the devlog. Each item here corresponds to a stage in the process —
+            moodboards that set the visual brief, storyboards that preceded generation, video clips
+            that proved or disproved a workflow assumption, and interface screenshots that show
+            how the Twine artefact evolved. Read alongside the <a href="/process">Process</a> and{' '}
+            <a href="/timeline">Timeline</a> pages, these materials make the argument concrete:
+            this is what the iteration actually produced.
+          </p>
         </motion.header>
 
-        {/* Asset Sections */}
         {Object.values(ASSETS_DATA).map((section, sectionIndex) => (
           <motion.section
             key={section.id}
@@ -75,13 +70,11 @@ const Assets = () => {
             transition={{ delay: 0.3 + sectionIndex * 0.1 }}
             aria-label={section.title}
           >
-            {/* Section Header */}
             <div className="asset-section__header">
               <h2 className="asset-section__title">{section.title}</h2>
               <p className="asset-section__subtitle">{section.description}</p>
             </div>
 
-            {/* Asset Grid */}
             <div className="asset-grid">
               {section.items.map((item, itemIndex) => (
                 <AssetCard
@@ -96,7 +89,6 @@ const Assets = () => {
         ))}
       </motion.div>
 
-      {/* Asset Modal */}
       <AssetModal
         asset={selectedAsset}
         isOpen={isModalOpen}
@@ -106,4 +98,4 @@ const Assets = () => {
   );
 };
 
-export default memo(Assets);
+export default memo(Archive);

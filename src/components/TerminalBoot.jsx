@@ -15,9 +15,9 @@ import { motion, AnimatePresence } from 'framer-motion';
  */
 
 const BOOT_LINES = [
-  { text: 'SYSTEM: HELIO-9', delay: 300 },
-  { text: 'Authenticating...', delay: 700 },
-  { text: 'Loading logbook modules...', delay: 1200 },
+  { text: 'ECHOES OF CONTROL // DEVLOG v1.0', delay: 300 },
+  { text: 'Initializing narrative engine...', delay: 700 },
+  { text: 'Loading archives & research modules...', delay: 1200 },
   { text: 'Access granted.', delay: 800, isSuccess: true }
 ];
 

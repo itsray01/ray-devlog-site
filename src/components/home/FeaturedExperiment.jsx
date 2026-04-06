@@ -37,7 +37,7 @@ const FeaturedExperiment = () => {
         </p>
 
         {/* CTA */}
-        <Link to="/my-journey#visual-grid" className="featured-experiment__cta">
+        <Link to="/process#visual-grid" className="featured-experiment__cta">
           <span>Explore Visual Grid</span>
           <ArrowRight size={16} />
         </Link>

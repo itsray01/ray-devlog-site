@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
 import ToolLessonCard from '../components/ToolLessonCard';
 import ReadingProgress from '../components/ReadingProgress';
-import { useNavigation } from '../context/NavigationContext';
+import { useNavigationActions } from '../context/NavigationContext';
 import JourneyFilters from '../components/journey/JourneyFilters';
 import JourneyLogCard from '../components/journey/JourneyLogCard';
 import journeyLogs from '../content/journeyLogs';
@@ -42,7 +42,7 @@ const TOC_SECTIONS = JOURNEY_SECTIONS;
  * Comprehensive documentation of tools, failures, and lessons learned
  */
 const MyJourney = () => {
-  const { setSections } = useNavigation();
+  const { setSections } = useNavigationActions();
 
   // Filter state
   const [selectedTools, setSelectedTools] = useState([]);

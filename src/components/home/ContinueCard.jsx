@@ -1,120 +1,50 @@
-import { useState, useEffect, useRef } from 'react';
-import { useNavigationActions, useNavigationScroll, useNavigationState } from '../../context/NavigationContext';
-import { RotateCcw, ChevronRight } from 'lucide-react';
-
-const STORAGE_KEY = 'devlog_last_section';
-const DEBOUNCE_DELAY = 600;
+import { Link } from 'react-router-dom';
+import { PenLine, ArrowRight } from 'lucide-react';
+import { DIARY_ENTRIES } from '../../config/journalContent';
 
 /**
- * ContinueCard - Save-file style card showing last visited section
- * Stores and retrieves from localStorage with debouncing
+ * DiaryPreviewCard — replaces the old ContinueCard / save-file panel.
+ * Shows a compact preview of the development diary entries with a CTA to /diary.
  */
-const ContinueCard = () => {
-  const { sections } = useNavigationState();
-  const { activeSectionId } = useNavigationScroll();
-  const { scrollToSection } = useNavigationActions();
-  const [lastSection, setLastSection] = useState(null);
-  const debounceTimerRef = useRef(null);
-
-  // Load last section from localStorage on mount
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setLastSection(parsed);
-      }
-    } catch (err) {
-      console.warn('Failed to load last section from localStorage:', err);
-    }
-  }, []);
-
-  // Update localStorage when active section changes (debounced)
-  useEffect(() => {
-    if (!activeSectionId || sections.length === 0) return;
-
-    // Clear existing timer
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-    }
-
-    // Set new timer
-    debounceTimerRef.current = setTimeout(() => {
-      const section = sections.find(s => s.id === activeSectionId);
-      if (section) {
-        const data = {
-          id: section.id,
-          label: section.title,
-          ts: Date.now()
-        };
-
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          setLastSection(data);
-        } catch (err) {
-          console.warn('Failed to save last section to localStorage:', err);
-        }
-      }
-    }, DEBOUNCE_DELAY);
-
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, [activeSectionId, sections]);
-
-  const handleContinue = () => {
-    const targetId = lastSection?.id || 'overview';
-    scrollToSection(targetId);
-  };
-
-  // Calculate relative time
-  const getRelativeTime = (timestamp) => {
-    if (!timestamp) return '';
-
-    const now = Date.now();
-    const diff = now - timestamp;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    if (days === 0) return 'Today';
-    if (days === 1) return 'Yesterday';
-    return `${days} days ago`;
-  };
-
-  const displayLabel = lastSection?.label || 'Start Logbook';
-  const relativeTime = lastSection?.ts ? getRelativeTime(lastSection.ts) : '';
+const DiaryPreviewCard = () => {
+  const entryCount = DIARY_ENTRIES.length;
+  const preview = DIARY_ENTRIES.slice(0, 3);
 
   return (
-    <div className="home-hub__panel continue-card">
-      <div className="continue-card__header">
-        <RotateCcw size={16} />
-        <span className="continue-card__label">SAVE FILE</span>
+    <div className="home-hub__panel diary-preview">
+      <div className="diary-preview__header">
+        <PenLine size={16} aria-hidden />
+        <span className="diary-preview__label">DEVELOPMENT DIARY</span>
+        <span className="diary-preview__count">{entryCount} entries</span>
       </div>
 
-      <div className="continue-card__content">
-        <div className="continue-card__section">
-          <span className="continue-card__key">CONTINUE:</span>
-          <span className="continue-card__value">{displayLabel}</span>
-        </div>
+      <div className="diary-preview__entries">
+        {preview.map((entry, i) => (
+          <div key={entry.id} className="diary-preview__entry">
+            <span className="diary-preview__number">{String(i + 1).padStart(2, '0')}</span>
+            <div className="diary-preview__text">
+              <span className="diary-preview__title">{entry.title}</span>
+              <span className="diary-preview__date">{entry.date}</span>
+            </div>
+            {entry.kind === 'opening' && (
+              <span className="diary-preview__badge">OPENING</span>
+            )}
+          </div>
+        ))}
 
-        {relativeTime && (
-          <div className="continue-card__meta">
-            Last visited: {relativeTime}
+        {entryCount > 3 && (
+          <div className="diary-preview__more">
+            + {entryCount - 3} more {entryCount - 3 === 1 ? 'entry' : 'entries'}
           </div>
         )}
       </div>
 
-      <button
-        onClick={handleContinue}
-        className="continue-card__btn"
-        aria-label={`Continue to ${displayLabel}`}
-      >
-        <span>RESUME</span>
-        <ChevronRight size={16} />
-      </button>
+      <Link to="/diary" className="diary-preview__cta">
+        <span>View My Entries</span>
+        <ArrowRight size={16} />
+      </Link>
     </div>
   );
 };
 
-export default ContinueCard;
+export default DiaryPreviewCard;

@@ -4,111 +4,111 @@
     "title": "Project Proposal Submission",
     "task": "Submit project proposal outlining the concept, research question, and intended outcomes for the interactive film.",
     "challenge": "Defining a research question that balanced creative ambition with academic rigor, ensuring the project would contribute meaningfully to discussions on AI ethics and interactive storytelling.",
-    "reflection": "This milestone established the foundation for the entire project. The decision to explore AI control and human agency through an interactive horror format connected directly to course objectives on narrative design and digital media ethics. The proposal process forced early consideration of scope, which proved invaluable for managing the project's complexity."
+    "reflection": "Foundation set: interactive horror as the form, AI and agency as the thematic spine. Full aims and academic framing are in the development diary (opening entry) and proposal document."
   },
   {
     "date": "Week of 13th October 2025",
     "title": "Narrative Research & Outline",
     "task": "Begin drafting the narrative outline in Twine. Research horror conventions and AI anxieties for integration into the story. Experiment with ChatGPT for branching dialogue and scene scripting.",
     "challenge": "Balancing horror genre conventions with original thematic exploration. Initial drafts felt too derivative of reference works like Black Mirror. Additionally, creating meaningful choices that felt consequential rather than arbitrary required multiple iterations.",
-    "reflection": "The research phase revealed the importance of understanding genre conventions before subverting them. Using ChatGPT for dialogue generation was experimental but highlighted the need for human editorial oversight—connecting to course discussions on AI-assisted creative workflows. The Twine outline became a crucial low-fidelity prototype, allowing narrative structure testing before expensive asset generation."
+    "reflection": "Genre research preceded subversion; ChatGPT drafts needed heavy editorial oversight. Twine outline stayed low-fidelity until asset costs justified locking structure — detailed reflection in the diary (pipeline entry)."
   },
   {
     "date": "Week of 13th October 2025",
     "title": "Moodboard Creation",
     "task": "Create moodboards to establish visual tone and atmosphere for the interactive film. Gather reference images and establish color palette, lighting, and aesthetic direction.",
     "challenge": "Translating abstract thematic concepts (AI control, human agency) into concrete visual language. Initial moodboards were too broad, lacking the specificity needed for AI prompt engineering.",
-    "reflection": "The moodboard process revealed a key learning: AI-assisted production requires more explicit visual specifications than traditional filmmaking. What would normally be communicated through cinematographer collaboration now needed to be codified in prompts. This connects to course objectives on adapting traditional production workflows to emerging technologies."
+    "reflection": "Prompting required more explicit visual specification than traditional cinematography collaboration — a workflow shift, not only an aesthetic one."
   },
   {
     "date": "Week of 13th October 2025",
     "title": "Storyboard Development",
     "task": "Develop storyboards for key scenes and branching paths. Plan visual composition, camera angles, and transitions between interactive choices.",
     "challenge": "Creating storyboards that account for multiple narrative paths while maintaining visual coherence. Traditional linear storyboarding didn't adequately represent the branching structure, requiring a hybrid approach combining storyboards with flow diagrams.",
-    "reflection": "Storyboarding for interactive media requires thinking in systems rather than sequences. This challenge connected to course discussions on non-linear narrative structures and the unique demands of interactive storytelling. The process informed later decisions about visual consistency across branching paths."
+    "reflection": "Storyboarding became systems thinking (paths + diagrams) rather than a single linear strip — informed later consistency across branches."
   },
   {
     "date": "Week of 20th October 2025",
     "title": "Narrative Structure & Twine Prototyping",
     "task": "Drafted the complete narrative outline in Twine, creating a three-act branching structure (Initialization, Trials, Exit) where wrong choices trigger cognitive scrambler effects and loop back to checkpoints. Implemented timed decisions to create tension.",
     "challenge": "Early playtests revealed confusion when players looped back, losing track of progression. Integrating AI-generated video into Twine initially posed technical challenges.",
-    "reflection": "Added visual markers (chalk arrows, checkpoint labels) that persist across loops, providing spatial memory cues inspired by environmental storytelling in Control and Portal. Following Dr. Conor McKeown's YouTube tutorial, I learned to host videos on GitHub and embed them using raw links in Twine div elements, a critical workflow for prototyping interactive video narratives. The Twine prototype phase proved crucial for testing narrative flow before committing to expensive AI-generated assets, demonstrating the value of low-fidelity prototyping in interactive media development."
+    "reflection": "Spatial markers (inspired by Control/Portal environmental cues) and GitHub-hosted video embeds (McKeown workflow) addressed loop legibility and media size. Full narrative is in the diary entry on Twine, McKeown, and hosting."
   },
   {
     "date": "Week of 27th October 2025",
     "title": "Asset Generation & Integration",
     "task": "Generate draft video assets by testing multiple AI models through Higgsfield: Sora 2, Grok Imagine, Veo 3.1, WAN, Seedance, and others. At this stage, Kling 3.0 Omni had not yet been released—Veo 3.1 and Sora 2 were considered the best available. Integrate early assets into the Twine prototype for visual testing.",
     "challenge": "Maintaining visual consistency across different AI tools proved extremely difficult. Each model interpreted prompts differently, creating jarring visual shifts. Characters and environments varied significantly between generations, breaking immersion. The landscape of available tools was rapidly evolving, with new models being released during development.",
-    "reflection": "This testing phase highlighted both the potential and limitations of AI video generation in late 2025. The experience revealed prompt engineering as a new creative skill requiring both technical precision and artistic vision. Importantly, this comparative evaluation would prove valuable when Kling 3.0 Omni launched—having tested many alternatives made the quality leap immediately apparent. The challenge of consistency connects to course discussions on AI ethics and human oversight in AI-assisted production."
+    "reflection": "Multi-model testing was prerequisite to later tool choice; prompt engineering emerged as a core craft skill. See diary (comparing models) and Process tool matrix for criteria and outcomes."
   },
   {
     "date": "Week of 3rd November 2025",
     "title": "Internal Playtesting",
     "task": "Conduct internal playtests to check functionality, immersion, and horror pacing. Gather feedback on user experience, narrative clarity, and tension levels.",
     "challenge": "Players found the looping mechanic confusing initially—many didn't realize they were in a loop and thought the game had glitched. Some choice points felt arbitrary, reducing player investment. Additionally, horror pacing was inconsistent, with some sections losing tension due to unclear consequences.",
-    "reflection": "Playtesting revealed the fundamental challenge in interactive storytelling: the gap between authorial intent and player experience. This connects directly to course objectives on audience engagement and user experience design. The feedback process highlighted the importance of clear communication in interactive narratives, where players must understand both mechanics and narrative implications. This iterative refinement process demonstrates the value of user testing in interactive media development."
+    "reflection": "Loops read as bugs until orientation improved (markers, checkpoints). Agency required readable systems — connects to course readings on player understanding; diary closing entry summarises feedback response."
   },
   {
     "date": "Week of 10th November 2025",
     "title": "Prototype Refinement",
     "task": "Revise prototype based on feedback. Improve consistency between visuals and audio tone, and refine transitions between choice outcomes.",
     "challenge": "Addressing playtest feedback required balancing multiple concerns: maintaining narrative integrity while improving clarity, preserving horror atmosphere while ensuring accessibility, and fixing technical issues without losing creative vision.",
-    "reflection": "The refinement phase demonstrated the iterative nature of interactive media development. Each change required considering its impact on multiple aspects of the experience—narrative, technical, and emotional. This process connects to course discussions on iterative design and the importance of user feedback in creative production. The challenge of balancing competing priorities reflects real-world development constraints."
+    "reflection": "Interactive refinement is iterative trade-offs (clarity vs tension); Twine structure then dictated which shots needed weight when Kling production ramped up."
   },
   {
     "date": "Week of 17th November 2025",
     "title": "Final Prototype Preparation",
     "task": "Finalise prototype build for submission. Ensure all branches are functional and placeholder assets are replaced with near-final visuals and sound.",
     "challenge": "Managing asset pipeline complexity—ensuring all video, audio, and interactive elements worked together seamlessly. Quality control across multiple branching paths was time-consuming, and some placeholder assets required last-minute regeneration due to quality issues.",
-    "reflection": "This phase highlighted the importance of project management in creative work. The complexity of interactive media production requires careful tracking of assets, paths, and dependencies. The experience connects to course objectives on professional production practices and the challenges of managing non-linear content creation."
+    "reflection": "Non-linear production scales fast: shared scenes touched every branch. Early Sora/Veo placeholders failed when juxtaposed with later Kling footage — argument for systematic anchoring (essay workflow section)."
   },
   {
     "date": "20th November 2025",
     "title": "Design Prototype Submission",
     "task": "Submit the final design prototype before the Christmas break. Prepare supporting documentation and design rationale.",
     "challenge": "Documenting design decisions and connecting them to theoretical frameworks required synthesizing months of practical work into coherent academic writing. Balancing creative reflection with analytical rigor was challenging.",
-    "reflection": "The submission process reinforced the importance of documentation throughout development, not just at the end. The challenge of articulating design rationale connects to course objectives on reflective practice and professional communication. This milestone provided an opportunity to step back and see the project's evolution holistically."
+    "reflection": "Documentation continuous, not last-minute; prototype submission forced a holistic view of evolution."
   },
   {
     "date": "December 2025 – January 2026",
     "title": "Christmas Break",
     "task": "Brief pause from active development. Reviewed prototype feedback and planned the intensive video generation phase ahead. Continued background research on AI video generation workflows and prompt engineering techniques.",
     "challenge": "Maintaining creative momentum across the break while mentally preparing for the most technically demanding phase of production. The prototype feedback highlighted areas needing significant improvement.",
-    "reflection": "The break provided valuable distance to reflect on the project holistically. Stepping back revealed that the challenges faced during prototype development—navigating AI tools that offered possibilities while withholding full control—mirrored the artefact's own themes about constrained agency. This connection between process and product would become central to the essay's Practice as Research framing."
+    "reflection": "Distance clarified process/product parallels (constrained tools / constrained agency) — developed in the essay’s PaR framing rather than repeated here."
   },
   {
     "date": "Week of 19th January 2026",
     "title": "Development Resumption",
     "task": "Resume development with focus on AI video generation. Transition to Kling 3.0 Omni as the primary generation tool—a model that didn't exist when the project started. Generate 200+ additional clips using Kling's integrated sound capabilities and 'elements' feature with Gemini-generated images.",
     "challenge": "When this project began, Kling 3.0 Omni hadn't been released yet. Veo 3.1 and Sora 2 were considered the best available models. Through extensive testing on Higgsfield (Sora 2, Grok Imagine, Veo 3.1, WAN, Seedance, and others), it became clear that Kling 3.0 Omni now surpassed them all in quality and consistency.",
-    "reflection": "The rapid evolution of AI video generation tools meant the project's technical landscape shifted significantly during development. What started as a multi-model comparison workflow became focused on a single superior tool. Kling 3.0 Omni's integrated sound eliminated the need for separate audio generation, and its 'elements' feature allowed Gemini-generated images to be used as consistent visual anchors across scenes. This consolidation simplified the workflow while improving output quality."
+    "reflection": "Landscape shifted mid-project; prior comparisons made the Kling decision defensible. Integrated sound and elements/Gemini anchors simplified pipeline — diary (comparing models) covers the rationale in depth."
   },
   {
     "date": "February 2026",
     "title": "Analysis & Essay Drafting",
     "task": "Begin drafting the academic essay using Practice as Research (PaR) methodology. Connect the artefact's development to theoretical frameworks from Murray (agency), Aarseth (cybertext), Schön (reflective practice), and others. Document how the making process generated research insights.",
     "challenge": "Translating tacit creative knowledge into explicit academic writing proved difficult. Articulating how the making process itself generated research insights—not just the finished artefact—required careful theoretical framing. Balancing creative reflection with analytical rigour was an ongoing tension.",
-    "reflection": "Nelson's onto-epistemological model proved useful for bringing practical knowledge into dialogue with critical and propositional knowledge. Schön's concept of reflection-in-action captured how knowledge emerged through cycles of testing, comparison, and revision rather than following a fixed plan. The essay became a way of making the tacit processes of development more explicit and academically legible."
+    "reflection": "Schön, Nelson, and related frameworks are worked through in the essay and Research page — not duplicated at length in timeline prose."
   },
   {
     "date": "March 2026",
     "title": "Portfolio Completion",
     "task": "Finalise the Twine interface using JSON-based prompting for passages, CSS, and HTML. Create a mobile prototype using Anything.com's MAX plan (secured 50% discount after reaching out to the founder). Build the devlog portfolio website to document the project journey.",
     "challenge": "Twine's default interface looked too plain and risked weakening the artefact's immersion. The interface needed to reflect the same dark, futuristic, cyberpunk aesthetic as the Kling 3.0 Omni-generated scenes. Additionally, ensuring the experience worked on mobile required a dedicated prototyping approach.",
-    "reflection": "Using JSON to structure Twine prompts for passages, CSS, and HTML provided a systematic approach to interface development. The Anything.com MAX plan ($100 with founder discount) enabled rapid mobile prototyping, ensuring the artefact could be experienced across devices. Drawing on Conor McKeown's tutorials, the interface became another layer of meaning—the viewer's act of choosing was framed within a controlled and stylised system."
+    "reflection": "JSON/CSS/HTML structure and McKeown-style framing are in the diary (Twine + hosting entry); mobile prototype and founder discount are in the diary (mobile entry)."
   },
   {
     "date": "Week of 30th March 2026",
     "title": "Final Revisions",
     "task": "Polish key scenes including the furnace revelation using Kling 3.0 Omni's integrated sound generation. Leverage the 'elements' feature with Gemini-generated images to maintain visual consistency. Test viewer experience across all branching paths on both desktop and mobile.",
     "challenge": "Prompting became closer to directing than generating—needing to communicate narrative context, emotional stakes, and sensory texture simultaneously. The furnace scene required staging a revelation where Maya hides, witnesses something horrifying, and slowly realises the violence of the system around her.",
-    "reflection": "Kling 3.0 Omni's integrated sound meant audio could be generated alongside video rather than layered separately, creating more cohesive atmospheric moments. The furnace scene demonstrated how prompting could shape narrative meaning and affective rhythm—leaving out conventional music while generating industrial drones and mechanical rumbling created a stark, disturbing atmosphere. The 'elements' feature ensured Maya's appearance remained consistent across the revelation sequence."
+    "reflection": "Furnace polish used integrated sound and elements for consistency — scene-level reflection is in the diary (furnace entry) to avoid repeating beat-by-beat detail here."
   },
   {
     "date": "10th April 2026",
     "title": "Final Submission",
     "task": "Submit the completed artefact (Echoes of Control) and accompanying academic essay. Prepare final documentation connecting creative practice to research outcomes. Ensure both components demonstrate the project's central argument about constrained agency.",
     "challenge": "Synthesising months of iterative development into a coherent submission. Ensuring both the artefact and essay demonstrate how constrained agency became central to theme, interface, and emotional experience—and how the production process itself embodied this tension.",
-    "reflection": "The project showed how creative practice can function as meaningful research into AI futures and the unstable conditions of control. Both Maya's story and the viewer's limited interactivity explore what it feels like to navigate powerful systems that exceed individual control. The production process echoed these themes: working with generative tools involved navigating systems that offered possibilities while withholding full mastery. Echoes of Control demonstrates that fears about technological power are not only conceptual questions, but affective and experiential ones."
+    "reflection": "Artefact + essay + this site together document practice and argument; the development diary captures week-by-week process within the module word limit."
   }
 ]

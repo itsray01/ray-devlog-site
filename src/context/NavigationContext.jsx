@@ -19,7 +19,7 @@ const isDev = import.meta.env.DEV;
 const STORAGE_KEY = 'devlog_nav_docked';
 
 // Pages that support the docked TOC sidebar behavior
-const OVERLAY_PAGES = ['/', '/my-journey', '/theories', '/assets', '/about', '/journal'];
+const OVERLAY_PAGES = ['/', '/process', '/research', '/archive', '/timeline', '/diary'];
 
 // Only the home page gets the full boot/menu intro overlay
 const HOME_PATH = '/';

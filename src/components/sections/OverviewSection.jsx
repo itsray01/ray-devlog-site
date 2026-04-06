@@ -44,8 +44,26 @@ const OverviewSection = () => {
           representing systemic power rather than individual malice.
         </p>
         <p className="note" style={{ fontSize: '0.9rem', marginTop: '1rem', color: 'var(--muted)' }}>
-          <em>See the <a href="/theories">Theories page</a> for full citations and detailed exploration of
+          <em>See the <a href="/research">Research page</a> for full citations and detailed exploration of
           these frameworks, including connections between theory and specific creative decisions.</em>
+        </p>
+
+        <h3 style={{ marginTop: '1.5rem' }}>What This Devlog Demonstrates</h3>
+        <p>
+          The site you are reading is itself the argument. Each section — moodboard, storyboard,
+          experiment log, tool comparisons, timeline pivots — documents a decision made in response
+          to practical evidence rather than a predetermined plan. The central claim is this:
+          quality in AI-assisted filmmaking is not a product of choosing the right tool; it is a
+          product of building a workflow that can absorb failure, change methods when evidence
+          demands it, and stay coherent across many iterations.
+        </p>
+        <p>
+          The <a href="/process">Process page</a> contains the full experiment log and tool
+          reflections. The <a href="/timeline">Timeline</a> maps the pivots. The{' '}
+          <a href="/research">Research page</a> connects every major decision to academic
+          frameworks. Together they make the case that this project is research through making —
+          not just a film, but a documented investigation into what AI video production currently
+          is and is not capable of.
         </p>
       </div>
     </section>

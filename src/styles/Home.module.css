@@ -193,16 +193,31 @@
 }
 
 .homeSubtitle {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Rajdhani', system-ui, sans-serif;
   font-size: var(--home-subtitle-size);
-  font-weight: 400;
+  font-weight: 500;
   color: rgba(224, 231, 255, 0.85);
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  line-height: 1.5;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
 
   animation: titleReveal 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
   animation-delay: 0.15s;
+}
+
+.homeIntro {
+  font-family: 'Plus Jakarta Sans', 'Rajdhani', system-ui, sans-serif;
+  max-width: 760px;
+  margin: 1rem auto 0;
+  color: color-mix(in srgb, var(--muted) 78%, #dbe4ff 22%);
+  line-height: 1.72;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  letter-spacing: 0.006em;
+  text-wrap: pretty;
+  animation: titleReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation-delay: 0.25s;
 }
 
 /* ============================================
