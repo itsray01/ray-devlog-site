@@ -1,23 +1,14 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight, Play } from 'lucide-react';
 import { useSfx } from './SfxController';
 
 /**
- * TheoryClipCard - Compact card for theory-to-clip connection
+ * TheoryClipCard — theory-to-clip connection card
  *
- * Shows: theory title, strength, summary, quote, pipeline model + clip, footer actions.
- * Full CER/So What breakdown + provenance note lives in the drawer.
+ * Card click opens the full CER/So What drawer.
+ * Play and "View connection" buttons removed — passage section replaces them.
  */
-const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => {
+const TheoryClipCard = ({ connection, onOpenDrawer, index = 0 }) => {
   const { playTick } = useSfx();
-
-  const getProviderClass = (provider) => {
-    const p = provider.toLowerCase();
-    if (p.includes('kling')) return 'clip-card__provider--kling';
-    if (p.includes('sora')) return 'clip-card__provider--sora';
-    if (p.includes('veo')) return 'clip-card__provider--veo';
-    return '';
-  };
 
   const getStrengthClass = (strength) => {
     const s = strength.toLowerCase();
@@ -26,25 +17,9 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
     return 'clip-card__strength--low';
   };
 
-  const scrollToLibrary = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const element = document.getElementById(connection.libraryRef.id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      element.classList.add('library__highlight');
-      setTimeout(() => element.classList.remove('library__highlight'), 2000);
-    }
-  };
-
   const handleCardClick = () => {
     playTick();
     onOpenDrawer(connection);
-  };
-
-  const handleOpenClip = (e) => {
-    e.stopPropagation();
-    onOpenClip(connection);
   };
 
   return (
@@ -65,7 +40,7 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
       {/* Scanline overlay */}
       <div className="clip-card__scanlines" aria-hidden="true" />
 
-      {/* Header: Title + Strength */}
+      {/* Header: Theory title + strength */}
       <header className="clip-card__header">
         <h3 className="clip-card__title">{connection.theoryTitle}</h3>
         <div className={`clip-card__strength ${getStrengthClass(connection.strength)}`}>
@@ -85,45 +60,36 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
         </cite>
       </blockquote>
 
-      {/* Clip Row — pipeline model + clip title + play */}
+      {/* Clip Row — pipeline badge + scene title (single line) */}
       <div className="clip-card__clip-row">
-        <div className="clip-card__pipeline-block">
-          <span className="clip-card__pipeline-label">Pipeline</span>
-          <span className={`clip-card__provider ${getProviderClass(connection.clip.provider)}`}>
-            {connection.clip.provider}
-          </span>
-        </div>
+        <span className="clip-card__provider clip-card__provider--kling">
+          {connection.clip.provider}
+        </span>
         <span className="clip-card__clip-title">{connection.clip.title}</span>
-        <button
-          className="clip-card__play-btn"
-          onClick={handleOpenClip}
-          aria-label={`Play clip: ${connection.clip.title}`}
-        >
-          <Play size={14} />
-        </button>
       </div>
 
-      {/* Footer Actions */}
-      <footer className="clip-card__footer">
-        <a
-          href={`#${connection.libraryRef.id}`}
-          className="clip-card__library-link"
-          onClick={scrollToLibrary}
-        >
-          <ExternalLink size={12} />
-          View in Library
-        </a>
-        <button
-          className="clip-card__view-btn"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCardClick();
-          }}
-        >
-          View connection
-          <ArrowRight size={14} />
-        </button>
-      </footer>
+      {/* Story Passage Section */}
+      {connection.clip.passage && (
+        <div className="clip-card__passage">
+          <div className="clip-card__passage-header">
+            <span className="clip-card__passage-label">Twine passage</span>
+            <code className="clip-card__passage-name">{connection.clip.passage.name}</code>
+          </div>
+          <p className="clip-card__passage-text">{connection.clip.passage.subtitle}</p>
+          {connection.clip.passage.choices && (
+            <div className="clip-card__passage-choices">
+              {connection.clip.passage.choices.map((c) => (
+                <span key={c.label} className="clip-card__passage-choice">
+                  {c.label}
+                  <span className="clip-card__passage-arrow" aria-hidden="true"> →</span>
+                  <span className="clip-card__passage-target">{c.target}</span>
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
     </motion.article>
   );
 };

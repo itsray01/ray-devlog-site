@@ -983,6 +983,8 @@
    ============================================ */
 .clip-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(145deg, rgba(18, 18, 28, 0.95), rgba(25, 25, 38, 0.9));
   border: 1px solid rgba(100, 100, 130, 0.2);
   border-radius: 12px;
@@ -1111,7 +1113,7 @@
 
 /* Summary */
 .clip-card__summary {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: rgba(160, 160, 180, 0.9);
   line-height: 1.55;
   margin: 0 0 1rem 0;
@@ -1135,7 +1137,7 @@
 }
 
 .clip-card__quote-text {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-style: italic;
   color: rgba(190, 190, 205, 0.95);
   line-height: 1.55;
@@ -1150,53 +1152,36 @@
   display: inline-block;
   font-size: 0.7rem;
   font-style: normal;
-  color: rgba(138, 43, 226, 0.9);
-  background: rgba(138, 43, 226, 0.1);
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
 
-/* Clip Row */
+/* Clip Row — single-line: badge + scene title */
 .clip-card__clip-row {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.85rem;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem;
   background: rgba(25, 25, 40, 0.7);
   border: 1px solid rgba(80, 80, 100, 0.2);
   border-radius: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   position: relative;
   z-index: 1;
 }
 
-/* Pipeline block: stacked "Pipeline" label above the model badge */
-.clip-card__pipeline-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  flex-shrink: 0;
-}
-
-.clip-card__pipeline-label {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(120, 120, 145, 0.8);
-  line-height: 1;
-}
-
 .clip-card__provider {
-  padding: 0.25rem 0.6rem;
+  padding: 0.22rem 0.6rem;
   border-radius: 4px;
   font-size: 0.62rem;
   font-family: 'Rajdhani', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   flex-shrink: 0;
+  line-height: 1.4;
 }
 
 .clip-card__provider--sora {
@@ -1213,14 +1198,13 @@
 
 .clip-card__provider--kling {
   background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.5);
+  border: 1px solid rgba(245, 158, 11, 0.55);
   color: #fbbf24;
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.15);
-  letter-spacing: 0.06em;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.12);
 }
 
 .clip-card__clip-title {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   color: rgba(200, 200, 215, 0.95);
   flex: 1;
   white-space: nowrap;
@@ -1228,69 +1212,88 @@
   text-overflow: ellipsis;
 }
 
-.clip-card__play-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(167, 139, 250, 0.2));
-  border: 1px solid rgba(138, 43, 226, 0.5);
-  border-radius: 50%;
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.clip-card__play-btn:hover {
-  background: linear-gradient(135deg, rgba(138, 43, 226, 0.5), rgba(167, 139, 250, 0.3));
-  border-color: var(--accent);
-  transform: scale(1.08);
-}
-
-/* Footer */
-.clip-card__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ============================================
+   STORY PASSAGE SECTION
+   ============================================ */
+.clip-card__passage {
+  background: rgba(8, 8, 16, 0.55);
+  border: 1px solid rgba(80, 80, 110, 0.25);
+  border-left: 2px solid rgba(245, 158, 11, 0.4);
+  border-radius: 0 8px 8px 0;
+  padding: 0.8rem 0.95rem;
   position: relative;
   z-index: 1;
 }
 
-.clip-card__library-link {
+.clip-card__passage-header {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.7rem;
-  color: rgba(120, 120, 140, 0.9);
-  text-decoration: none;
-  transition: color 0.2s ease;
+  gap: 0.5rem;
+  margin-bottom: 0.55rem;
 }
 
-.clip-card__library-link:hover {
-  color: var(--accent);
+.clip-card__passage-label {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(100, 100, 120, 0.85);
+  line-height: 1;
 }
 
-.clip-card__view-btn {
+.clip-card__passage-name {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.72rem;
+  color: rgba(245, 158, 11, 0.85);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  line-height: 1.4;
+}
+
+.clip-card__passage-text {
+  font-size: 0.9rem;
+  color: rgba(175, 175, 195, 0.9);
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Branch choices — red, referencing the pulsing red buttons in the Twine */
+.clip-card__passage-choices {
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  background: transparent;
-  border: 1px solid rgba(138, 43, 226, 0.4);
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--accent);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
 }
 
-.clip-card__view-btn:hover {
-  background: rgba(138, 43, 226, 0.15);
-  border-color: var(--accent);
+.clip-card__passage-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.65rem;
+  border-radius: 4px;
+  background: rgba(239, 68, 68, 0.07);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  white-space: nowrap;
 }
+
+.clip-card__passage-arrow {
+  color: rgba(239, 68, 68, 0.55);
+}
+
+.clip-card__passage-target {
+  color: rgba(252, 165, 165, 0.6);
+  font-weight: 400;
+}
+
 
 /* ============================================
    DRAWER - RIGHT PANEL

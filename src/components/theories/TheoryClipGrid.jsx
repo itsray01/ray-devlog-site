@@ -65,7 +65,6 @@ const TheoryClipGrid = () => {
             key={connection.id}
             connection={connection}
             onOpenDrawer={handleOpenDrawer}
-            onOpenClip={handleOpenClip}
             index={index}
           />
         ))}
