@@ -58,13 +58,13 @@ const NavMenu = ({
     onSelect?.(section.id);
   }, [sections, onSelect, onConfirm, disabled]);
 
-  // Handle hover - disabled in overlay mode to prevent conflict with keyboard nav
+  // Handle hover - updates selector position and fires SFX in both modes
   const handleHover = useCallback((index) => {
-    if (disabled || mode === 'overlay') return;
+    if (disabled) return;
     
     setSelectedIndex(index);
     onHover?.();
-  }, [onHover, disabled, mode]);
+  }, [onHover, disabled]);
 
   // Handle keyboard navigation (only on the button level to avoid double-firing)
   const handleItemKeyDown = useCallback((e, index) => {
@@ -202,7 +202,7 @@ const NavMenu = ({
               type="button"
               className={`nav-menu__item ${isActive ? 'nav-menu__item--active' : ''} ${isSelected ? 'nav-menu__item--selected' : ''}`}
               onClick={() => handleSelect(index)}
-              onMouseEnter={() => mode === 'docked' && handleHover(index)}
+              onMouseEnter={() => handleHover(index)}
               onKeyDown={(e) => handleItemKeyDown(e, index)}
               role="menuitem"
               aria-current={isActive ? 'location' : undefined}

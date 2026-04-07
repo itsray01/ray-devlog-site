@@ -5664,7 +5664,9 @@ body.anime-load-error .top-nav-link {
   position: relative;
   z-index: 1;
   background: transparent;
-  border-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .nav-menu--overlay .nav-menu__item--selected {
@@ -5682,11 +5684,15 @@ body.anime-load-error .top-nav-link {
   text-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
 }
 
-/* Disable default hover background since selector handles it */
+/* Neon purple border glow on hover */
 .nav-menu--overlay .nav-menu__item:hover {
   background: transparent;
   transform: none;
-  box-shadow: none;
+  border-color: rgba(167, 139, 250, 0.6);
+  box-shadow:
+    0 0 10px rgba(138, 43, 226, 0.25),
+    0 0 20px rgba(138, 43, 226, 0.1),
+    inset 0 0 8px rgba(138, 43, 226, 0.06);
 }
 
 /* --- Nav Overlay Content Area --- */
