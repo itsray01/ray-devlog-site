@@ -4,7 +4,7 @@ import { Brain, Scale, Gamepad2, Film, GraduationCap, Bot, Feather, Book, ArrowU
 import ReadingProgress from '../components/ReadingProgress';
 import { pageVariants, pageTransition } from '../constants/animations';
 import { useNavigationActions } from '../context/NavigationContext';
-import { TheoryClipGrid, SfxProvider } from '../components/theories';
+import { TheoryClipGrid } from '../components/theories';
 import { getConnectionsByLibraryId } from '../data/theoryConnections';
 import '../styles/theories.css';
 
@@ -73,7 +73,7 @@ const Research = () => {
   }, [setSections]);
 
   return (
-    <SfxProvider>
+    <>
       <ReadingProgress />
 
       <motion.div
@@ -381,7 +381,7 @@ const Research = () => {
           </p>
         </motion.footer>
       </motion.div>
-    </SfxProvider>
+    </>
   );
 };
 

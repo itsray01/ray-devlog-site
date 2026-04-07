@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
+import { SfxProvider } from './components/theories';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home.jsx'));
@@ -66,6 +67,7 @@ const App = () => {
   }, []);
 
   return (
+    <SfxProvider>
     <Router>
       <ScrollToTop />
       <Routes>
@@ -120,6 +122,7 @@ const App = () => {
         </Route>
       </Routes>
     </Router>
+    </SfxProvider>
   );
 };
 
