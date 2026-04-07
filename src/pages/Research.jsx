@@ -4,7 +4,7 @@ import { Brain, Scale, Gamepad2, Film, GraduationCap, Bot, Feather, Book, ArrowU
 import ReadingProgress from '../components/ReadingProgress';
 import { pageVariants, pageTransition } from '../constants/animations';
 import { useNavigationActions } from '../context/NavigationContext';
-import { TheoryClipGrid, TheoriesHud, SfxProvider } from '../components/theories';
+import { TheoryClipGrid, SfxProvider } from '../components/theories';
 import { getConnectionsByLibraryId } from '../data/theoryConnections';
 import '../styles/theories.css';
 
@@ -88,8 +88,6 @@ const Research = () => {
         aria-label="Research page content"
       >
         <div id="main-content"></div>
-
-        <TheoriesHud />
 
         <motion.header
           className="page-header"

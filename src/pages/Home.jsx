@@ -12,6 +12,7 @@ import useMouseParallax from '../hooks/useMouseParallax';
 import HomeHubHeader from '../components/home/HomeHubHeader';
 import FeaturedExperiment from '../components/home/FeaturedExperiment';
 import { ctaPulse, stopAnimation } from '../utils/animeFx';
+import { TheoriesHud, SfxProvider } from '../components/theories';
 import styles from '../styles/Home.module.css';
 
 // Table of Contents sections - exported for use by navigation components
@@ -147,6 +148,11 @@ const Home = () => {
 
         {/* Premium Home Container - Wider, cinematic */}
         <div className={styles.homeContainer}>
+          {/* Terminal HUD strip */}
+          <SfxProvider>
+            <TheoriesHud />
+          </SfxProvider>
+
           {/* Hero Section */}
           <div className={styles.homeHero}>
             <header data-animate="reveal">
