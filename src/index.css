@@ -6,6 +6,7 @@
 @import './styles/homeEnhancements.css';
 @import './styles/journeyPage.css';
 @import './styles/narrativeFlow.css';
+@import './styles/diary.css';
 
 /* --- Color Palette & Global Variables --- */
 :root {

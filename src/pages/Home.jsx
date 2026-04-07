@@ -152,7 +152,10 @@ const Home = () => {
             <header data-animate="reveal">
               <h1>Echoes of Control</h1>
               <p className={styles.homeSubtitle}>
-                Devlog, Research Archive, and Process Site for an Interactive Dystopian Film
+                Site for my Development Log of an AI-created Interactive Film
+              </p>
+              <p className={styles.homeSubtitleMeta}>
+                Diary · Research · Process · Evolution
               </p>
               <p className={styles.homeIntro}>
                 This site documents the creation of an AI-generated interactive horror film exploring

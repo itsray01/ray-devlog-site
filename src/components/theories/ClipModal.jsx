@@ -4,14 +4,10 @@ import { X, ExternalLink } from 'lucide-react';
 import { useSfx } from './SfxController';
 
 /**
- * ClipModal - Modal/drawer for viewing clips with annotations
- * 
- * Features:
- * - Video player with controls
- * - Annotations panel
- * - Linked theory quote
- * - Signal lock effect on open
- * - Jump to Library source
+ * ClipModal - Full-screen video playback modal
+ *
+ * Focused on the clip itself + its linked theory quote.
+ * Full Claim/Evidence/Reasoning/So What breakdown lives in the drawer.
  */
 const ClipModal = ({ connection, isOpen, onClose }) => {
   const { playConfirm, playDown } = useSfx();
@@ -19,7 +15,6 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
   const modalRef = useRef(null);
   const hasPlayedOpenSound = useRef(false);
 
-  // Play sound on open
   useEffect(() => {
     if (isOpen && !hasPlayedOpenSound.current) {
       playConfirm();
@@ -29,43 +24,42 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
     }
   }, [isOpen, playConfirm]);
 
-  // Handle escape key and focus trap
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      }
+      if (e.key === 'Escape') handleClose();
     };
 
     document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
 
-    // Focus the modal
-    if (modalRef.current) {
-      modalRef.current.focus();
-    }
+    if (modalRef.current) modalRef.current.focus();
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
     playDown();
-    // Pause video when closing
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
+    if (videoRef.current) videoRef.current.pause();
     onClose();
   }, [onClose, playDown]);
+
+  const getProviderClass = (provider) => {
+    const p = provider.toLowerCase();
+    if (p.includes('kling')) return 'modal__provider-tag--kling';
+    if (p.includes('sora')) return 'modal__provider-tag--sora';
+    if (p.includes('veo')) return 'modal__provider-tag--veo';
+    return '';
+  };
 
   const scrollToLibrary = (e) => {
     e.preventDefault();
     handleClose();
-    // Wait for modal to close
     setTimeout(() => {
       const element = document.getElementById(connection.libraryRef.id);
       if (element) {
@@ -74,14 +68,6 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
         setTimeout(() => element.classList.remove('library__highlight'), 2000);
       }
     }, 300);
-  };
-
-  const getProviderClass = (provider) => {
-    const p = provider.toLowerCase();
-    if (p.includes('sora')) return 'modal__provider-tag--sora';
-    if (p.includes('veo')) return 'modal__provider-tag--veo';
-    if (p.includes('kling')) return 'modal__provider-tag--kling';
-    return '';
   };
 
   if (!connection) return null;
@@ -102,7 +88,7 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
         >
           <motion.div
             ref={modalRef}
-            className="modal__container"
+            className="modal__container modal__container--playback"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -132,62 +118,48 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
               </button>
             </header>
 
-            {/* Content */}
-            <div className="modal__content">
-              {/* Video section */}
-              <div className="modal__video-section">
-                <div className="modal__video-wrapper">
-                  <video
-                    ref={videoRef}
-                    className="modal__video"
-                    controls
-                    playsInline
-                    poster={connection.clip.poster}
-                    preload="metadata"
-                  >
-                    <source src={connection.clip.srcMp4} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
+            {/* Video */}
+            <div className="modal__video-section">
+              <div className="modal__video-wrapper">
+                <video
+                  ref={videoRef}
+                  className="modal__video"
+                  controls
+                  playsInline
+                  poster={connection.clip.poster}
+                  preload="metadata"
+                >
+                  <source src={connection.clip.srcMp4} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
+            </div>
 
-              {/* Annotations panel */}
-              <aside className="modal__annotations-panel">
-                <h3 className="modal__panel-title">Annotations</h3>
-                <ul className="modal__annotations-list">
-                  {connection.explanation.reasoning.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
+            {/* Linked theory — lightweight context strip */}
+            <div className="modal__theory-strip">
+              <blockquote className="modal__theory-quote">
+                "{connection.libraryRef.quote}"
+              </blockquote>
+              <p className="modal__theory-citation">
+                — {connection.libraryRef.author} ({connection.libraryRef.year}),{' '}
+                {connection.libraryRef.shortTitle}
+              </p>
 
-                {/* Linked theory block */}
-                <h3 className="modal__panel-title">Linked Theory</h3>
-                <div className="modal__linked-theory">
-                  <blockquote className="modal__theory-quote">
-                    "{connection.libraryRef.quote}"
-                  </blockquote>
-                  <p className="modal__theory-citation">
-                    — {connection.libraryRef.author} ({connection.libraryRef.year}), {connection.libraryRef.shortTitle}
-                  </p>
-                </div>
-
-                {/* Action buttons */}
-                <div className="modal__footer">
-                  <button
-                    className="modal__action-btn modal__action-btn--primary"
-                    onClick={scrollToLibrary}
-                  >
-                    <ExternalLink size={14} />
-                    Jump to Library
-                  </button>
-                  <button
-                    className="modal__action-btn modal__action-btn--secondary"
-                    onClick={handleClose}
-                  >
-                    Close
-                  </button>
-                </div>
-              </aside>
+              <div className="modal__footer">
+                <button
+                  className="modal__action-btn modal__action-btn--primary"
+                  onClick={scrollToLibrary}
+                >
+                  <ExternalLink size={14} />
+                  Jump to Library
+                </button>
+                <button
+                  className="modal__action-btn modal__action-btn--secondary"
+                  onClick={handleClose}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </motion.div>
         </motion.div>
@@ -197,4 +169,3 @@ const ClipModal = ({ connection, isOpen, onClose }) => {
 };
 
 export default ClipModal;
-

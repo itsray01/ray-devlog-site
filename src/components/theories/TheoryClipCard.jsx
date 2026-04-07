@@ -4,17 +4,18 @@ import { useSfx } from './SfxController';
 
 /**
  * TheoryClipCard - Compact card for theory-to-clip connection
- * 
- * Shows essential info; full breakdown in drawer
+ *
+ * Shows: theory title, strength, summary, quote, pipeline model + clip, footer actions.
+ * Full CER/So What breakdown + provenance note lives in the drawer.
  */
 const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => {
   const { playTick } = useSfx();
 
   const getProviderClass = (provider) => {
     const p = provider.toLowerCase();
+    if (p.includes('kling')) return 'clip-card__provider--kling';
     if (p.includes('sora')) return 'clip-card__provider--sora';
     if (p.includes('veo')) return 'clip-card__provider--veo';
-    if (p.includes('kling')) return 'clip-card__provider--kling';
     return '';
   };
 
@@ -52,7 +53,7 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
       id={connection.id}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
+      viewport={{ once: true, margin: '-30px' }}
       transition={{ delay: index * 0.08, duration: 0.35 }}
       onClick={handleCardClick}
       onMouseEnter={playTick}
@@ -63,7 +64,7 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
     >
       {/* Scanline overlay */}
       <div className="clip-card__scanlines" aria-hidden="true" />
-      
+
       {/* Header: Title + Strength */}
       <header className="clip-card__header">
         <h3 className="clip-card__title">{connection.theoryTitle}</h3>
@@ -84,11 +85,14 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
         </cite>
       </blockquote>
 
-      {/* Clip Row */}
+      {/* Clip Row — pipeline model + clip title + play */}
       <div className="clip-card__clip-row">
-        <span className={`clip-card__provider ${getProviderClass(connection.clip.provider)}`}>
-          {connection.clip.provider}
-        </span>
+        <div className="clip-card__pipeline-block">
+          <span className="clip-card__pipeline-label">Pipeline</span>
+          <span className={`clip-card__provider ${getProviderClass(connection.clip.provider)}`}>
+            {connection.clip.provider}
+          </span>
+        </div>
         <span className="clip-card__clip-title">{connection.clip.title}</span>
         <button
           className="clip-card__play-btn"
@@ -125,4 +129,3 @@ const TheoryClipCard = ({ connection, onOpenDrawer, onOpenClip, index = 0 }) => 
 };
 
 export default TheoryClipCard;
-

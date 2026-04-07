@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Play } from 'lucide-react';
+import { X, ExternalLink, Play, Cpu } from 'lucide-react';
 import { useSfx } from './SfxController';
 
 /**
@@ -200,6 +200,30 @@ const TheoryClipDrawer = ({ connection, isOpen, onClose, onOpenClip }) => {
                   {connection.libraryRef.author}, {connection.libraryRef.year}
                 </div>
               </section>
+
+              {/* Provenance Block */}
+              {connection.clip.mappingNote && (
+                <section className="drawer__provenance">
+                  <div className="drawer__provenance-header">
+                    <Cpu size={13} aria-hidden="true" />
+                    <span className="drawer__provenance-title">Provenance</span>
+                  </div>
+                  <dl className="drawer__provenance-grid">
+                    <div className="drawer__provenance-row">
+                      <dt>Pipeline</dt>
+                      <dd>{connection.clip.provider}</dd>
+                    </div>
+                    <div className="drawer__provenance-row">
+                      <dt>Clip</dt>
+                      <dd>{connection.clip.title}</dd>
+                    </div>
+                    <div className="drawer__provenance-row drawer__provenance-row--note">
+                      <dt>Why this clip</dt>
+                      <dd>{connection.clip.mappingNote}</dd>
+                    </div>
+                  </dl>
+                </section>
+              )}
 
               {/* Connection Stepper */}
               <section className="drawer__stepper-section">

@@ -1,0 +1,173 @@
+/* ============================================
+   DIARY PAGE — Entry card aesthetic
+   ============================================ */
+
+/* Top accent gradient bar */
+.journal-post__card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(167, 139, 250, 0.18);
+}
+
+.journal-post__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 55%, transparent 100%);
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.journal-post__card:hover::before {
+  opacity: 1;
+}
+
+/* Large watermark entry number in the background */
+.journal-post__card::after {
+  content: attr(data-entry-num);
+  position: absolute;
+  top: -0.5rem;
+  right: 1.75rem;
+  font-family: 'Iceberg', sans-serif;
+  font-size: 8rem;
+  line-height: 1;
+  color: rgba(167, 139, 250, 0.055);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
+  z-index: 0;
+  transition: color 0.3s ease;
+}
+
+.journal-post__card:hover::after {
+  color: rgba(167, 139, 250, 0.085);
+}
+
+/* Ensure card content sits above watermark */
+.journal-post__card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Header row: entry number + date ---- */
+
+.journal-post__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.12);
+}
+
+/* Left cluster: "01  of 7" */
+.journal-post__entry-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  line-height: 1;
+}
+
+.journal-post__entry-num {
+  font-family: 'Iceberg', sans-serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.journal-post__entry-of {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 0.35rem;
+}
+
+/* Right cluster: date + optional badge */
+.journal-post__meta-right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.journal-post__date {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.journal-post__date::before {
+  content: '◆';
+  font-size: 0.45rem;
+  color: var(--accent);
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+/* "Opening" pill badge */
+.journal-post__badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  white-space: nowrap;
+}
+
+/* ---- Paragraph text ---- */
+
+.journal-post__para {
+  line-height: 1.9;
+  margin-bottom: 1.25rem;
+  color: var(--ink);
+}
+
+.journal-post__para:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+  .journal-post__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .journal-post__meta-right {
+    justify-content: flex-start;
+  }
+
+  .journal-post__entry-num {
+    font-size: 2rem;
+  }
+
+  .journal-post__card::after {
+    font-size: 5.5rem;
+    right: 1rem;
+  }
+}
